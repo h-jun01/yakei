@@ -1,12 +1,8 @@
 {
   "expo": {
-    "name": "hello-world",
-    "slug": "hello-world",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "name": "yakei",
+    "slug": "yakei",
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,11 +14,12 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyC5wwVKjbFxiFX0eDHofKY2S0Tw4M-uPhc"
+      }
     }
   }
 }
