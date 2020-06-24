@@ -1,43 +1,224 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import MapView from "react-native-maps";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+// import "./firebase";
 
-const App = () => {
-  return (
-    <View style={styles.lap}>
-      <MapView
-        style={{ flex: 3, zIndex: 1 }}
-        initialRegion={{
-          latitude: 35.681236,
-          longitude: 139.767125,
-          latitudeDelta: 0.02, //小さくなるほどズーム
-          longitudeDelta: 0.02,
-        }}
-      >
-        <MapView.Marker
-          coordinate={{
-            latitude: 35.681236,
-            longitude: 139.767125,
-          }}
-          title={"東京駅"}
-          description={"駅"}
-          // onPress={() => alert("click")}
-        />
-      </MapView>
-    </View>
-  );
-};
+import {
+  Container,
+  Content,
+  Header,
+  Form,
+  Input,
+  Button,
+  Item,
+  Label,
+} from "native-base";
+
+import * as firebase from "firebase";
+import "firebase/firestore";
+
+const firebaseConfig = {};
+// Initialize Firebase
+
+const firebaseApp = !firebase.apps.length
+  ? firebase.initializeApp(firebaseConfig)
+  : firebase.app();
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      name: "",
+      password: "",
+    };
+  }
+
+  componentDidMount() {
+    // Firestoreの「messages」コレクションを参照
+    this.ref = firebase.firestore().collection("users");
+  }
+
+  signUpUser = (email, password) => {
+    try {
+      if (this.state.password.length < 6) {
+        alert("6文字以上で入力");
+        return;
+      }
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((d) => {
+          this.ref
+            .add({
+              Name: this.state.name, //ユーザーネーム
+              uid: d.user.uid, //userID
+              createTime: firebase.firestore.FieldValue.serverTimestamp(), //作成日時
+              updateTime: firebase.firestore.FieldValue.serverTimestamp(), //更新日時
+            })
+            .then(() => {
+              console.log("書き込み成功");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+    } catch (errro) {
+      console.log(error.toString());
+    }
+  };
+
+  loginUser = (email, password) => {
+    try {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(function (user) {
+          console.log(user);
+          console.log("ログイン成功");
+        });
+    } catch (errro) {
+      console.log(error.toString());
+    }
+  };
+  render() {
+    return (
+      <Container style={styles.lap}>
+        <Form>
+          <Item floatingLabel>
+            <Label>Email</Label>
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              onChangeText={(email) => this.setState({ email })}
+            />
+          </Item>
+
+          <Item floatingLabel>
+            <Label>Username</Label>
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              onChangeText={(name) => this.setState({ name })}
+            />
+          </Item>
+
+          <Item floatingLabel>
+            <Label>Password</Label>
+            <Input
+              secureTextEntry={true}
+              autoCorrect={false}
+              autoCapitalize="none"
+              onChangeText={(password) => this.setState({ password })}
+            />
+          </Item>
+
+          <Button
+            style={{ margin: 10 }}
+            full
+            rounded
+            success
+            onPress={() =>
+              this.loginUser(this.state.email, this.state.password)
+            }
+          >
+            <Text style={{ color: "#fff" }}>Login</Text>
+          </Button>
+
+          <Button
+            style={{ margin: 10 }}
+            full
+            rounded
+            primary
+            onPress={() =>
+              this.signUpUser(this.state.email, this.state.password)
+            }
+          >
+            <Text style={{ color: "#fff" }}>Sign Up</Text>
+          </Button>
+        </Form>
+      </Container>
+    );
+  }
+}
+
+// const App = () => {
+//   const [userData, setUserData] = useState({
+//     email: "",
+//     password: "",
+//   });
+
+//   const signUpUser = (email, password) => {
+//     try {
+//       if (userData.password.length < 6) {
+//         alert("6文字以上で入力");
+//         return;
+//       }
+//       firebase.auth().createUserWithEmailAndPassword(email, password);
+//     } catch (errro) {
+//       console.log(error.toString());
+//     }
+//   };
+
+//   const loginUser = (email, password) => {};
+
+//   return (
+//     // <SafeAreaView>
+//     <Container style={styles.lap}>
+//       <Form>
+//         <Item floatingLabel>
+//           <Label>Email</Label>
+//           <Input
+//             autoCorrect={false}
+//             autoCapitalize="none"
+//             onChangeText={(email) =>
+//               setUserData((prevState) => ({ ...prevState, emai: email }))
+//             }
+//           />
+//         </Item>
+
+//         <Item floatingLabel>
+//           <Label>Password</Label>
+//           <Input
+//             secureTextEntry={true}
+//             autoCorrect={false}
+//             autoCapitalize="none"
+//             onChangeText={(password) =>
+//               setUserData((prevState) => ({ ...prevState, password: password }))
+//             }
+//           />
+//         </Item>
+
+//         <Button
+//           style={{ margin: 10 }}
+//           full
+//           rounded
+//           success
+//           onPress={loginUser(userData.email, userData.password)}
+//         >
+//           <Text style={{ color: "#fff" }}>Login</Text>
+//         </Button>
+
+//         <Button
+//           style={{ margin: 10 }}
+//           full
+//           rounded
+//           primary
+//           onPress={signUpUser(userData.email, userData.password)}
+//         >
+//           <Text style={{ color: "#fff" }}>Sign Up</Text>
+//         </Button>
+//       </Form>
+//     </Container>
+//     // </SafeAreaView>
+//   );
+// };
 
 const styles = StyleSheet.create({
   lap: {
-    backgroundColor: "rgba(0,0,0,0.6)",
-    flex: 99,
-    zIndex: 2,
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    top: 0,
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    padding: 10,
   },
 });
 
