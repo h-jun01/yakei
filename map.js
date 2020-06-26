@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
+
+import { Pin } from "./make_pin";
 
 // const STATUS_BAR_HEIGHT = Platform.OS == "ios" ? 20 : statusbar.currentHeight;
 
@@ -12,13 +15,13 @@ export default class Map extends React.Component {
 
     this.state = {
       region: {
-        latitude: null,
-        longitude: null,
+        latitude: 35.6340873,
+        longitude: 139.525187,
         latitudeDelta: 0.2,
         longitudeDelta: 0.2,
       },
-      //   35.63408731
-      //   39.525187
+      //   35.6340873
+      //   139.525187
       message: "位置情報取得中",
       locationResult: null,
     };
@@ -59,7 +62,9 @@ export default class Map extends React.Component {
             showsUserLocation
             initialRegion={this.state.region}
             followsUserLocation={true}
-          />
+          >
+            <Pin x={"35.6340873"} y={"139.525187"} />
+          </MapView>
           <Text>{this.state.region.latitude}</Text>
         </View>
       );
