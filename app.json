@@ -21,6 +21,13 @@
       "config": {
         "googleMapsApiKey": ""
       }
+    },
+    "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": ""
+        }
+      }
     }
   }
 }

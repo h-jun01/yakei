@@ -5,7 +5,7 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 
-import { Pin } from "./make_pin";
+import { Pin } from "./map/MakePin";
 
 // const STATUS_BAR_HEIGHT = Platform.OS == "ios" ? 20 : statusbar.currentHeight;
 
@@ -63,7 +63,9 @@ export default class Map extends React.Component {
             initialRegion={this.state.region}
             followsUserLocation={true}
           >
-            <Pin x={"35.6340873"} y={"139.525187"} />
+            <Pin x={35.6340873} y={139.525187} />
+            <Pin x={35.5340774} y={139.525187} />
+            <Pin x={35.4340775} y={139.525187} />
           </MapView>
           <Text>{this.state.region.latitude}</Text>
         </View>
