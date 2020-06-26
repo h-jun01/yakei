@@ -1,28 +1,54 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Image,
+  FlatList,
+  Dimensions,
+} from "react-native";
+// import MapView from "react-native-maps";
+
+const App = () => {
+  return (
+    <SafeAreaView style={styles.lap}>
+      <View style={styles.bottomNav}>
+        <Text>テスト</Text>
+        <Text>テスト</Text>
+        <Text style={styles.bottomNavCenter}>テスト</Text>
+        <Text>テスト</Text>
+        <Text>テスト</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
-  center: {
-    alignItems: 'center'
-  }
-})
+  lap: {
+    backgroundColor: "#000",
+    flex: 1,
+  },
+  bottomNav: {
+    position: "absolute",
+    bottom: 0,
+    zIndex: 2,
+    height: 80,
+    width: "100%",
+    backgroundColor: "#fff",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  bottomNavCenter: {
+    height: 120,
+    lineHeight: 60,
+    borderWidth: 30,
+    borderRadius: 45,
+    overflow: "hidden",
+    borderColor: "#fff",
+    backgroundColor: "#fff",
+  },
+});
 
-const Greeting = (props) => {
-  return (
-    <View style={styles.center}>
-      <Text>Hello {props.name}!</Text>
-    </View>
-  );
-}
-
-const LotsOfGreetings = () => {
-  return (
-    <View style={[styles.center, {top: 50}]}>
-      <Greeting name='Rexxar' />
-      <Greeting name='Jaina' />
-      <Greeting name='Valeera' />
-    </View>
-  );
-}
-
-export default LotsOfGreetings;
+export default App;
