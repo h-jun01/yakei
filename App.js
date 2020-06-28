@@ -4,6 +4,7 @@ import {
   Text,
   View,
   SafeAreaView,
+  Button,
   Image,
   FlatList,
   Dimensions,
@@ -16,13 +17,17 @@ const App = () => {
       <View style={styles.bottomNav}>
         <Text>テスト</Text>
         <Text>テスト</Text>
-        <Text style={styles.bottomNavCenter}>テスト</Text>
+        <View style={styles.buttonWrap}>
+          <Button title="+"></Button>
+        </View>
         <Text>テスト</Text>
         <Text>テスト</Text>
       </View>
     </SafeAreaView>
   );
 };
+
+{/* <Text style={styles.bottomNavCenter}>テスト</Text> */}
 
 const styles = StyleSheet.create({
   lap: {
@@ -49,6 +54,18 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
     backgroundColor: "#fff",
   },
+  buttonWrap: {
+    height: 120,
+    lineHeight: 60,
+    borderWidth: 30,
+    borderRadius: 45,
+    overflow: "hidden",
+    borderColor: "#fff",
+    backgroundColor: "#fff",
+  }
+  // buttonPlus: {
+  //   height: 500,
+  // }
 });
 
 export default App;
