@@ -8,18 +8,22 @@ import {
   Image,
   FlatList,
   Dimensions,
+  TouchableHighlight,
 } from "react-native";
 // import MapView from "react-native-maps";
 
 const App = () => {
   return (
     <SafeAreaView style={styles.lap}>
+      <View style={styles.bottomNavCenterWrap}>
+        <View style={styles.bottomNavCenter}></View>
+      </View>
       <View style={styles.bottomNav}>
         <Text>テスト</Text>
         <Text>テスト</Text>
-        <View style={styles.buttonWrap}>
-          <Button title="+"></Button>
-        </View>
+        <TouchableHighlight style={styles.buttonWrap}>
+          <Text style={styles.buttonPlus}>+</Text>
+        </TouchableHighlight>
         <Text>テスト</Text>
         <Text>テスト</Text>
       </View>
@@ -34,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     flex: 1,
   },
-  bottomNav: {
+  bottomNavCenterWrap: {
     position: "absolute",
     bottom: 0,
     zIndex: 2,
@@ -46,26 +50,44 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   bottomNavCenter: {
-    height: 120,
-    lineHeight: 60,
+    bottom: 7,
+    zIndex: 2,
+    height: 122,
+    width: 122,
     borderWidth: 30,
-    borderRadius: 45,
-    overflow: "hidden",
+    borderRadius: 100,
     borderColor: "#fff",
     backgroundColor: "#fff",
   },
-  buttonWrap: {
-    height: 120,
-    lineHeight: 60,
-    borderWidth: 30,
-    borderRadius: 45,
-    overflow: "hidden",
-    borderColor: "#fff",
+  bottomNav: {
+    position: "absolute",
+    bottom: 0,
+    zIndex: 2,
+    height: 80,
+    width: "100%",
     backgroundColor: "#fff",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  buttonWrap: {
+    bottom: 16,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginBottom: 20,
+    width: 46,
+    height: 46,
+    borderWidth: 3,
+    borderRadius: 23,
+    borderColor: "#000",
+    backgroundColor: "#fff",
+  },
+  buttonPlus: {
+    bottom: 3,
+    color: "#000",
+    fontSize: 36,
   }
-  // buttonPlus: {
-  //   height: 500,
-  // }
 });
 
 export default App;
