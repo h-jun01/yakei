@@ -9,63 +9,19 @@ import {
   FlatList,
   Dimensions,
   TouchableHighlight,
+  LayoutAnimation,
 } from "react-native";
 
 const App = () => {
-  const normalButtonText = {
-    bottom: 4,
-    color: "#000",
-
-    fontSize: 38,
-  };
-  const pressButtonText = {
-    bottom: 4,
-    color: "#fff",
-    fontSize: 38,
-  };
-  const pactiveButtonText = {
-    transform: [{ rotate: "45deg" }],
-    bottom: 2,
-    left: 4,
-    color: "#fff",
-    fontSize: 38,
-  };
-  const normalButtonWrap = {
-    borderColor: "#000",
-    backgroundColor: "#fff",
-  };
-  const activeButtonWrap = {
-    borderColor: "#000",
-    backgroundColor: "#000",
-  };
-  const [buttonStyles, setButtonStyles] = useState({
-    buttonStyle: normalButtonText,
-  });
-  const [buttonWrapStyles, setButtonWrapStyles] = useState({
-    buttonWrapStyle: normalButtonWrap,
-  });
-  const [buttonState, setButtonState] = useState("normal");
+  const stateArray = ["normal", "press", "active", "pressActive"];
+  const [index, setIndex] = useState(0);
+  const [buttonState, setButtonState] = useState(stateArray[0]);
 
   const changeStyle = () => {
-    switch (buttonState) {
-      case "normal":
-        setButtonStyles({ buttonStyle: pressButtonText });
-        setButtonState("press");
-        break;
-      case "press":
-        setButtonStyles({ buttonStyle: pactiveButtonText });
-        setButtonWrapStyles({ buttonWrapStyle: activeButtonWrap });
-        setButtonState("active");
-        break;
-      case "active":
-        setButtonState("pressActive");
-        break;
-      default:
-        // case 'pressActive'
-        setButtonStyles({ buttonStyle: normalButtonText });
-        setButtonWrapStyles({ buttonWrapStyle: normalButtonWrap });
-        setButtonState("normal");
-    }
+    // LayoutAnimation.spring();
+    const newIndex = (index + 1) % 4;
+    setIndex(newIndex);
+    setButtonState(stateArray[newIndex]);
   };
 
   return (
@@ -78,12 +34,27 @@ const App = () => {
         <Text>テスト</Text>
         <Text>テスト</Text>
         <TouchableHighlight
-          style={[styles.buttonWrap, buttonWrapStyles.buttonWrapStyle]}
+          style={[
+            styles.buttonWrap,
+            buttonState === "normal"
+              ? styles.normalButtonWrap
+              : styles.activeButtonWrap,
+          ]}
           // onPress={changeStyle}
           onPressIn={changeStyle}
           onPressOut={changeStyle}
         >
-          <Text style={buttonStyles.buttonStyle}>+</Text>
+          <Text
+            style={[
+              buttonState === "normal" ? styles.normalButtonText : null,
+              buttonState === "press" ? styles.pressButtonText : null,
+              buttonState === "active" || buttonState === "pressActive"
+                ? styles.activeButtonText
+                : null,
+            ]}
+          >
+            +
+          </Text>
         </TouchableHighlight>
         <Text>テスト</Text>
         <Text>テスト</Text>
@@ -146,6 +117,31 @@ const styles = StyleSheet.create({
     height: 46,
     borderWidth: 3,
     borderRadius: 23,
+  },
+  normalButtonWrap: {
+    borderColor: "#000",
+    backgroundColor: "#fff",
+  },
+  activeButtonWrap: {
+    borderColor: "#000",
+    backgroundColor: "#000",
+  },
+  normalButtonText: {
+    bottom: 4,
+    color: "#000",
+    fontSize: 38,
+  },
+  pressButtonText: {
+    bottom: 4,
+    color: "#fff",
+    fontSize: 38,
+  },
+  activeButtonText: {
+    transform: [{ rotate: "45deg" }],
+    bottom: 2,
+    left: 4,
+    color: "#fff",
+    fontSize: 38,
   },
 });
 
