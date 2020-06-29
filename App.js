@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,9 +10,14 @@ import {
   Dimensions,
   TouchableHighlight,
 } from "react-native";
-// import MapView from "react-native-maps";
 
 const App = () => {
+  const [isActive, setIsActive] = useState(false);
+
+  const changeStyle = () => {
+    setIsActive(!isActive);
+  }
+
   return (
     <SafeAreaView style={styles.lap}>
       <View style={styles.bottomNavCenterWrap}>
@@ -21,8 +26,13 @@ const App = () => {
       <View style={styles.bottomNav}>
         <Text>テスト</Text>
         <Text>テスト</Text>
-        <TouchableHighlight style={styles.buttonWrap}>
-          <Text style={styles.buttonPlus}>+</Text>
+        <TouchableHighlight
+          style={styles.buttonWrap}
+          underlayColor="rgba(0,0,0,1)"
+          onPressIn={changeStyle}
+          onPressOut={changeStyle}
+        >
+          <Text style={isActive ? styles.buttonPlusWhite : styles.buttonPlusBlack}>+</Text>
         </TouchableHighlight>
         <Text>テスト</Text>
         <Text>テスト</Text>
@@ -30,8 +40,6 @@ const App = () => {
     </SafeAreaView>
   );
 };
-
-{/* <Text style={styles.bottomNavCenter}>テスト</Text> */}
 
 const styles = StyleSheet.create({
   lap: {
@@ -83,9 +91,14 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     backgroundColor: "#fff",
   },
-  buttonPlus: {
+  buttonPlusBlack: {
     bottom: 3,
     color: "#000",
+    fontSize: 36,
+  },
+  buttonPlusWhite: {
+    bottom: 3,
+    color: "#fff",
     fontSize: 36,
   }
 });
