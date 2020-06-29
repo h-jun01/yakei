@@ -12,27 +12,78 @@ import {
 } from "react-native";
 
 const App = () => {
-  const [isActive, setIsActive] = useState(false);
+  const normalButtonText = {
+    bottom: 4,
+    color: "#000",
+
+    fontSize: 38,
+  };
+  const pressButtonText = {
+    bottom: 4,
+    color: "#fff",
+    fontSize: 38,
+  };
+  const pactiveButtonText = {
+    transform: [{ rotate: "45deg" }],
+    bottom: 2,
+    left: 4,
+    color: "#fff",
+    fontSize: 38,
+  };
+  const normalButtonWrap = {
+    borderColor: "#000",
+    backgroundColor: "#fff",
+  };
+  const activeButtonWrap = {
+    borderColor: "#000",
+    backgroundColor: "#000",
+  };
+  const [buttonStyles, setButtonStyles] = useState({
+    buttonStyle: normalButtonText,
+  });
+  const [buttonWrapStyles, setButtonWrapStyles] = useState({
+    buttonWrapStyle: normalButtonWrap,
+  });
+  const [buttonState, setButtonState] = useState("normal");
 
   const changeStyle = () => {
-    setIsActive(!isActive);
-  }
+    switch (buttonState) {
+      case "normal":
+        setButtonStyles({ buttonStyle: pressButtonText });
+        setButtonState("press");
+        break;
+      case "press":
+        setButtonStyles({ buttonStyle: pactiveButtonText });
+        setButtonWrapStyles({ buttonWrapStyle: activeButtonWrap });
+        setButtonState("active");
+        break;
+      case "active":
+        setButtonState("pressActive");
+        break;
+      default:
+        // case 'pressActive'
+        setButtonStyles({ buttonStyle: normalButtonText });
+        setButtonWrapStyles({ buttonWrapStyle: normalButtonWrap });
+        setButtonState("normal");
+    }
+  };
 
   return (
-    <SafeAreaView style={styles.lap}>
+    <SafeAreaView style={styles.wrap}>
+      <View style={styles.whiteWrap} />
       <View style={styles.bottomNavCenterWrap}>
-        <View style={styles.bottomNavCenter}></View>
+        <View style={styles.bottomNavCenter} />
       </View>
       <View style={styles.bottomNav}>
         <Text>テスト</Text>
         <Text>テスト</Text>
         <TouchableHighlight
-          style={styles.buttonWrap}
-          underlayColor="rgba(0,0,0,1)"
+          style={[styles.buttonWrap, buttonWrapStyles.buttonWrapStyle]}
+          // onPress={changeStyle}
           onPressIn={changeStyle}
           onPressOut={changeStyle}
         >
-          <Text style={isActive ? styles.buttonPlusWhite : styles.buttonPlusBlack}>+</Text>
+          <Text style={buttonStyles.buttonStyle}>+</Text>
         </TouchableHighlight>
         <Text>テスト</Text>
         <Text>テスト</Text>
@@ -42,9 +93,16 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  lap: {
+  wrap: {
     backgroundColor: "#000",
     flex: 1,
+  },
+  whiteWrap: {
+    display: "none",
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(255,255,255,0.5)",
   },
   bottomNavCenterWrap: {
     position: "absolute",
@@ -88,19 +146,7 @@ const styles = StyleSheet.create({
     height: 46,
     borderWidth: 3,
     borderRadius: 23,
-    borderColor: "#000",
-    backgroundColor: "#fff",
   },
-  buttonPlusBlack: {
-    bottom: 3,
-    color: "#000",
-    fontSize: 36,
-  },
-  buttonPlusWhite: {
-    bottom: 3,
-    color: "#fff",
-    fontSize: 36,
-  }
 });
 
 export default App;
