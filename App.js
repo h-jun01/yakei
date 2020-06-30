@@ -1,24 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   StyleSheet,
   Text,
   View,
   SafeAreaView,
-  Button,
-  Image,
-  FlatList,
-  Dimensions,
+  Animated,
+  InteractionManager,
   TouchableHighlight,
-  LayoutAnimation,
 } from "react-native";
 
 const App = () => {
   const stateArray = ["normal", "press", "active", "pressActive"];
   const [index, setIndex] = useState(0);
   const [buttonState, setButtonState] = useState(stateArray[0]);
+  // const plusToCrossAnim = useRef(new Animated.Value(0)).current;
 
   const changeStyle = () => {
-    // LayoutAnimation.spring();
     const newIndex = (index + 1) % 4;
     setIndex(newIndex);
     setButtonState(stateArray[newIndex]);
@@ -33,7 +30,7 @@ const App = () => {
       <View style={styles.bottomNav}>
         <Text>テスト</Text>
         <Text>テスト</Text>
-        <TouchableHighlight
+        <Animated.TouchableHighlight
           style={[
             styles.buttonWrap,
             buttonState === "normal"
@@ -44,7 +41,7 @@ const App = () => {
           onPressIn={changeStyle}
           onPressOut={changeStyle}
         >
-          <Text
+          <Animated.Text
             style={[
               buttonState === "normal" ? styles.normalButtonText : null,
               buttonState === "press" ? styles.pressButtonText : null,
@@ -54,8 +51,8 @@ const App = () => {
             ]}
           >
             +
-          </Text>
-        </TouchableHighlight>
+          </Animated.Text>
+        </Animated.TouchableHighlight>
         <Text>テスト</Text>
         <Text>テスト</Text>
       </View>
