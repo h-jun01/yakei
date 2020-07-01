@@ -8,11 +8,15 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.29",
+    "@fortawesome/free-solid-svg-icons": "^5.13.1",
+    "@fortawesome/react-native-fontawesome": "^0.2.5",
     "expo": "^37.0.12",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
     "react-native-maps": "^0.27.1",
+    "react-native-svg": "^12.1.0",
     "react-native-web": "~0.11.7"
   },
   "devDependencies": {

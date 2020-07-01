@@ -5,20 +5,59 @@ import {
   View,
   SafeAreaView,
   Animated,
-  InteractionManager,
   TouchableHighlight,
 } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 const App = () => {
   const stateArray = ["normal", "press", "active", "pressActive"];
   const [index, setIndex] = useState(0);
   const [buttonState, setButtonState] = useState(stateArray[0]);
-  // const plusToCrossAnim = useRef(new Animated.Value(0)).current;
+  const plusToCrossAnim = useRef(new Animated.Value(0)).current;
+
+  const resetAnimValue = () => {
+    plusToCrossAnim.setValue(0);
+  };
 
   const changeStyle = () => {
     const newIndex = (index + 1) % 4;
     setIndex(newIndex);
     setButtonState(stateArray[newIndex]);
+    if (newIndex == 2) {
+      // press→active
+      Animated.timing(plusToCrossAnim, {
+        toValue: 1,
+        duration: 200,
+      }).start();
+    } else if (newIndex == 0) {
+      // pressActive→normal
+      Animated.timing(plusToCrossAnim, {
+        toValue: 2,
+        duration: 200,
+      }).start(() => resetAnimValue());
+    }
+  };
+
+  // フレーム値0から1、1から2にかけて0degから45degに変化
+  const interPolateRotate = plusToCrossAnim.interpolate({
+    inputRange: [0, 1, 2],
+    outputRange: ["0deg", "45deg", "90deg"],
+  });
+
+  const interPolateTop = plusToCrossAnim.interpolate({
+    inputRange: [0, 1, 2],
+    outputRange: [2, 1.85, 1.7],
+  });
+
+  const interPolateRight = plusToCrossAnim.interpolate({
+    inputRange: [0, 1, 2],
+    outputRange: [0, 0.6, 1.2],
+  });
+
+  const animatedRotateStyle = {
+    transform: [{ rotate: interPolateRotate }],
+    top: interPolateTop,
+    right: interPolateRight,
   };
 
   return (
@@ -30,7 +69,7 @@ const App = () => {
       <View style={styles.bottomNav}>
         <Text>テスト</Text>
         <Text>テスト</Text>
-        <Animated.TouchableHighlight
+        <TouchableHighlight
           style={[
             styles.buttonWrap,
             buttonState === "normal"
@@ -43,16 +82,15 @@ const App = () => {
         >
           <Animated.Text
             style={[
-              buttonState === "normal" ? styles.normalButtonText : null,
-              buttonState === "press" ? styles.pressButtonText : null,
-              buttonState === "active" || buttonState === "pressActive"
-                ? styles.activeButtonText
-                : null,
+              buttonState === "normal"
+                ? styles.normalButtonText
+                : styles.activeButtonText,
+              animatedRotateStyle,
             ]}
           >
             +
           </Animated.Text>
-        </Animated.TouchableHighlight>
+        </TouchableHighlight>
         <Text>テスト</Text>
         <Text>テスト</Text>
       </View>
@@ -124,19 +162,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
   },
   normalButtonText: {
-    bottom: 4,
+    lineHeight: 38,
     color: "#000",
     fontSize: 38,
   },
-  pressButtonText: {
-    bottom: 4,
-    color: "#fff",
-    fontSize: 38,
-  },
   activeButtonText: {
-    transform: [{ rotate: "45deg" }],
-    bottom: 2,
-    left: 4,
+    lineHeight: 38,
     color: "#fff",
     fontSize: 38,
   },
