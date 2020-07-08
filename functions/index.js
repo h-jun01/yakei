@@ -11,4 +11,6 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
   console.log(user.displayName);
   console.log("hoge");
+  const email = user.email; // The email of the user.
+  console.log(email);
 });

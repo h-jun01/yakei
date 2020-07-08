@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  SafeAreaView,
-  Text,
-  TextInput,
-  Button,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { View, Text, TextInput, TouchableWithoutFeedback } from "react-native";
 import firebase from "../firebase/firebase";
+import { styles } from "../styles/auth";
 
 const Auth = () => {
   const [userData, setUserData] = useState({
@@ -27,22 +20,13 @@ const Auth = () => {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
-          firebase
-            .firestore()
-            .collection("users")
-            .add({
-              name: userData.name, //ユーザ名
-              titleList: [], //称号
-              photoList: [], //投稿した画像
-              createTime: firebase.firestore.FieldValue.serverTimestamp(), //作成日時
-              updateTime: firebase.firestore.FieldValue.serverTimestamp(), //更新日時
-            })
-            .then(() => {
-              console.log("書き込み成功");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          firebase.firestore().collection("users").add({
+            name: userData.name, //ユーザ名
+            titleList: [], //称号
+            photoList: [], //投稿した画像
+            createTime: firebase.firestore.FieldValue.serverTimestamp(), //作成日時
+            updateTime: firebase.firestore.FieldValue.serverTimestamp(), //更新日時
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -59,7 +43,6 @@ const Auth = () => {
         .signInWithEmailAndPassword(email, password)
         .then(function (user) {
           console.log(user);
-          console.log("ログイン成功");
         });
     } catch (errro) {
       console.log(error.toString());
@@ -71,7 +54,7 @@ const Auth = () => {
         <View style={styles.title}>
           <Text style={styles.titleText}>yakei(仮)</Text>
         </View>
-        {/* <FontAwesome name="envelope" size={18} color="#fff" /> */}
+
         <View style={styles.input}>
           <TextInput
             value={userData.email}
@@ -83,7 +66,6 @@ const Auth = () => {
           />
         </View>
 
-        {/* <FontAwesome5 name="user-alt" size={18} color="#fff" /> */}
         <View style={styles.input}>
           <TextInput
             value={userData.name}
@@ -95,7 +77,6 @@ const Auth = () => {
           />
         </View>
 
-        {/* <FontAwesome5 name="key" size={18} color="#fff" /> */}
         <View style={styles.input}>
           <TextInput
             value={userData.password}
@@ -134,87 +115,5 @@ const Auth = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  lap: {
-    flex: 1,
-    // backgroundColor: "#1C3952",
-    justifyContent: "center",
-  },
-  box: {
-    width: 300,
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-  title: {
-    marginBottom: 70,
-  },
-  titleText: {
-    color: "#fff",
-    textAlign: "center",
-    fontSize: 25,
-  },
-  input: {
-    backgroundColor: "#fff",
-    marginBottom: 20,
-    padding: 15,
-    borderRadius: 5,
-    opacity: 0.7,
-  },
-  buttonBack: {
-    backgroundColor: "#337CEA",
-    borderRadius: 5,
-    paddingTop: 4,
-    paddingBottom: 4,
-    marginBottom: 15,
-  },
-  buttonText: {
-    color: "#fff",
-    padding: 11,
-    textAlign: "center",
-  },
-  text: {
-    marginBottom: 40,
-  },
-  textColor: {
-    color: "#fff",
-    fontSize: 12,
-    textAlign: "center",
-    lineHeight: 18,
-  },
-  borderBox: {
-    flexDirection: "row",
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-  orText: {
-    color: "#fff",
-    marginLeft: 30,
-    marginRight: 30,
-    marginBottom: 15,
-    fontSize: 12,
-  },
-  borderLeft: {
-    borderWidth: 0.3,
-    borderColor: "#fff",
-    width: 100,
-    height: 1,
-    marginTop: 6,
-  },
-  borderRight: {
-    borderWidth: 0.3,
-    borderColor: "#fff",
-    width: 100,
-    height: 1,
-    marginTop: 6,
-  },
-  twitterBack: {
-    backgroundColor: "#55aced",
-    borderRadius: 5,
-    paddingTop: 4,
-    paddingBottom: 4,
-    marginBottom: 15,
-  },
-});
 
 export default Auth;

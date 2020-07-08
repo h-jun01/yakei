@@ -1,15 +1,8 @@
+import React from "react";
+import { SafeAreaView } from "react-native";
 import { decode, encode } from "base-64";
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  SafeAreaView,
-  Text,
-  TextInput,
-  Button,
-  TouchableWithoutFeedback,
-} from "react-native";
 import Auth from "./componets/Auth";
+import { styles } from "./styles/app";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -25,13 +18,5 @@ const App = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  lap: {
-    flex: 1,
-    backgroundColor: "#1C3952",
-    // justifyContent: "center",
-  },
-});
 
 export default App;
