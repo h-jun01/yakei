@@ -10,23 +10,50 @@ const Auth = () => {
     password: "",
   });
 
-  const signUpUser = async (email, password) => {
+  // const signUpUser = (email, password) => {
+  //   try {
+  //     if (userData.password.length < 6) {
+  //       alert("6文字以上で入力");
+  //       return;
+  //     }
+  //     firebase
+  //       .auth()
+  //       .createUserWithEmailAndPassword(email, password)
+  //       .then(async (result) => {
+  //         await result.user.updateProfile({
+  //           displayName: userData.name,
+  //         });
+  //         console.log(result.user);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } catch (errro) {
+  //     console.log(error.toString());
+  //   }
+  // };
+
+  const signUpUser = (name, email, password) => {
     try {
       if (userData.password.length < 6) {
         alert("6文字以上で入力");
         return;
       }
-      await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          firebase.firestore().collection("users").add({
-            name: userData.name, //ユーザ名
-            titleList: [], //称号
-            photoList: [], //投稿した画像
-            createTime: firebase.firestore.FieldValue.serverTimestamp(), //作成日時
-            updateTime: firebase.firestore.FieldValue.serverTimestamp(), //更新日時
-          });
+      const url = "https://us-central1-hal-yakei.cloudfunctions.net/registe";
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          displayName: name,
+          email: email,
+          password: password,
+        }),
+      })
+        .then((res) => {
+          firebase.auth().signInWithEmailAndPassword(email, password);
+          return res.json();
         })
         .catch((err) => {
           console.log(err);
@@ -90,7 +117,9 @@ const Auth = () => {
         </View>
         <View style={styles.buttonBack}>
           <TouchableWithoutFeedback
-            onPress={() => signUpUser(userData.email, userData.password)}
+            onPress={() =>
+              signUpUser(userData.name, userData.email, userData.password)
+            }
           >
             <Text style={styles.buttonText}>登録</Text>
           </TouchableWithoutFeedback>

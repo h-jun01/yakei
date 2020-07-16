@@ -13,6 +13,7 @@
     "expo": "^37.0.12",
     "expo-font": "~8.1.0",
     "firebase": "^7.15.4",
+    "firebase-admin": "^8.13.0",
     "firebase-tools": "^8.4.3",
     "native-base": "^2.13.12",
     "react": "~16.9.0",
