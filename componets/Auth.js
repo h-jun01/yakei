@@ -10,29 +10,6 @@ const Auth = () => {
     password: "",
   });
 
-  // const signUpUser = (email, password) => {
-  //   try {
-  //     if (userData.password.length < 6) {
-  //       alert("6文字以上で入力");
-  //       return;
-  //     }
-  //     firebase
-  //       .auth()
-  //       .createUserWithEmailAndPassword(email, password)
-  //       .then(async (result) => {
-  //         await result.user.updateProfile({
-  //           displayName: userData.name,
-  //         });
-  //         console.log(result.user);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   } catch (errro) {
-  //     console.log(error.toString());
-  //   }
-  // };
-
   const signUpUser = (name, email, password) => {
     try {
       if (userData.password.length < 6) {
