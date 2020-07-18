@@ -1,21 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { FC } from "react";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import { decode, encode } from "base-64";
+import { rootReducer } from "./src/reducers";
+import Root from "./src";
+import "./src/firebase/firebase";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+if (!global.btoa) {
+  global.btoa = encode;
+}
+if (!global.atob) {
+  global.atob = decode;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const store = createStore(rootReducer);
+
+const App: FC = () => {
+  return (
+    <Provider store={store}>
+      <Root />
+    </Provider>
+  );
+};
+
+export default App;
