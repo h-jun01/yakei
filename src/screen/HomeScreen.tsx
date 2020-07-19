@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../containers/home/Home";
 import Details from "../containers/home/Detail";
 
-const NotificationScreen: FC = () => {
+const HomeScreen: FC = () => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator>
@@ -19,4 +19,4 @@ const NotificationScreen: FC = () => {
   );
 };
 
-export default NotificationScreen;
+export default HomeScreen;

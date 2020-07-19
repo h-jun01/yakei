@@ -79,6 +79,7 @@ const Root: FC = () => {
             component={Auth}
             options={{
               headerShown: false,
+              animationEnabled: false,
             }}
           />
         </Stack.Navigator>

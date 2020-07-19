@@ -11,7 +11,7 @@ export type UserData = {
 type Props = {
   userData: UserData;
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
-  signUpUser: (name: string, email: string, password: string) => void;
+  signUpUser: (args: UserData) => void;
 };
 
 const Auth: FC<Props> = ({ ...props }) => {
@@ -60,7 +60,11 @@ const Auth: FC<Props> = ({ ...props }) => {
         <View style={styles.buttonBack}>
           <TouchableWithoutFeedback
             onPress={() =>
-              signUpUser(userData.name, userData.email, userData.password)
+              signUpUser({
+                name: userData.name,
+                email: userData.email,
+                password: userData.password,
+              })
             }
           >
             <Text style={styles.buttonText}>登録</Text>
