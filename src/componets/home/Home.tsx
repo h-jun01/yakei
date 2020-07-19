@@ -13,13 +13,13 @@ export type HomeScreenNavigationProp = CompositeNavigationProp<
 
 type Props = {
   navigation: HomeScreenNavigationProp;
-  signOut: () => void;
+  signOutUser: () => void;
   title: string;
 };
 
 //主に見た目に関する記述はこのファイル
 const Home: FC<Props> = ({ ...props }) => {
-  const { navigation, signOut, title } = props;
+  const { navigation, signOutUser, title } = props;
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -28,7 +28,7 @@ const Home: FC<Props> = ({ ...props }) => {
         title="地図の詳細"
         onPress={() => navigation.navigate("Detail")}
       />
-      <Button title="ログアウト" onPress={() => signOut()} />
+      <Button title="ログアウト" onPress={() => signOutUser()} />
     </View>
   );
 };

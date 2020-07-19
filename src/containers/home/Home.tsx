@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { auth } from "../../firebase/firebase";
+import { accountFireStore } from "../../firebase/accountFireStore";
 import Home, { HomeScreenNavigationProp } from "../../componets/home/Home";
 
 type Props = {
@@ -13,11 +13,13 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
   //例）このファイルで作った処理をcomponents側に渡す
   const title = "地図";
 
-  const signOut = (): void => {
-    auth.signOut();
-  };
-
-  return <Home navigation={navigation} signOut={signOut} title={title} />;
+  return (
+    <Home
+      navigation={navigation}
+      signOutUser={accountFireStore.signOutUser}
+      title={title}
+    />
+  );
 };
 
 export default ContainerHome;

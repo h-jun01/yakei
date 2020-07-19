@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Auth, { UserData } from "../componets/Auth";
-import { auth } from "../firebase/firebase";
+import { accountFireStore } from "../firebase/accountFireStore";
+import { callingAlert } from "../utilities/alert";
 
+import { auth } from "../firebase/firebase";
+import firebase from "firebase";
 const ContainerAuth = () => {
   const [userData, setUserData] = useState<UserData>({
     email: "",
@@ -9,11 +12,51 @@ const ContainerAuth = () => {
     password: "",
   });
 
-  const signUpUser = (name: string, email: string, password: string): void => {
+  const signUpUser = async (args: UserData) => {
+    const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const REGEX_PASSWORD = /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}$/i;
+
     try {
-      if (userData.password.length < 6) {
-        alert("6文字以上で入力");
-        return;
+      if (!userData.email) {
+        return callingAlert({
+          alertTitle: "エラー",
+          alertMessage: "メールドレスを入力してください",
+          alertClose: "OK",
+          alertStyle: "default",
+        });
+      } else if (!userData.email.match(REGEX_EMAIL)) {
+        return callingAlert({
+          alertTitle: "エラー",
+          alertMessage: "メールドレスの形式が不正です",
+          alertClose: "OK",
+          alertStyle: "default",
+        });
+      } else if (!userData.name) {
+        return callingAlert({
+          alertTitle: "エラー",
+          alertMessage: "ユーザ名を入力してください",
+          alertClose: "OK",
+          alertStyle: "default",
+        });
+      } else if (!userData.password.match(REGEX_PASSWORD)) {
+        return callingAlert({
+          alertTitle: "エラー",
+          alertMessage:
+            "パスワードは半角英数字を含めた6文字以上で入力してください",
+          alertClose: "OK",
+          alertStyle: "default",
+        });
+      } else if (
+        (await accountFireStore.providers(userData.email)).findIndex(
+          (p: string) => p === accountFireStore.authenticationName
+        ) !== -1
+      ) {
+        return callingAlert({
+          alertTitle: "エラー",
+          alertMessage: "既に登録済みのメールアドレスです",
+          alertClose: "OK",
+          alertStyle: "default",
+        });
       }
 
       const url =
@@ -25,13 +68,16 @@ const ContainerAuth = () => {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          displayName: name,
-          email: email,
-          password: password,
+          displayName: args.name,
+          email: args.email,
+          password: args.password,
         }),
       })
         .then((res) => {
-          auth.signInWithEmailAndPassword(email, password);
+          accountFireStore.loginUser({
+            email: args.email,
+            password: args.password,
+          });
           return res.json();
         })
         .catch((err) => {
@@ -42,15 +88,6 @@ const ContainerAuth = () => {
     }
   };
 
-  // const loginUser = (email, password) => {
-  //   try {
-  //     auth.signInWithEmailAndPassword(email, password).then(function (user) {
-  //       console.log(user);
-  //     });
-  //   } catch (error) {
-  //     console.log(error.toString());
-  //   }
-  // };
   return (
     <Auth
       userData={userData}
