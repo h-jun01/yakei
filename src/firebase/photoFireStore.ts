@@ -12,7 +12,7 @@ type photoFireStore = {
 const photo = db.collection("photos");
 
 export const photoFireStore = {
-  //ユーザ情報を取得
+  //写真一覧を取得
   getPhotoList: (uid: string) => {
     return photo.doc(uid).get();
   },

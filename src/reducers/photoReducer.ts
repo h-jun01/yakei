@@ -2,7 +2,6 @@ import { ActionTypes, UnionedAction } from "../actions/index";
 
 type PhotoDataList = {
   URL: string;
-  uid: string;
   latitude: number;
   longitude: number;
 };
