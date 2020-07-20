@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View, Text, Button, Image } from "react-native";
+import { View, Text, Button, Image, FlatList } from "react-native";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -39,7 +39,7 @@ const User: FC<Props> = ({ ...props }) => {
         }}
       />
       <Text>写真一覧</Text>
-      {photoDataList[0] !== undefined
+      {/* {photoDataList[0] !== undefined
         ? photoDataList.map((item, index) => (
             <View key={index}>
               <Image
@@ -50,7 +50,19 @@ const User: FC<Props> = ({ ...props }) => {
               />
             </View>
           ))
-        : console.log("noData")}
+        : console.log("noData")} */}
+      <FlatList
+        data={photoDataList}
+        renderItem={({ item }) => (
+          <Image
+            style={styles.userImage}
+            source={{
+              uri: item.URL,
+            }}
+          />
+        )}
+        keyExtractor={(item, index) => index.toString()}
+      />
       <Button
         title="ユーザページの詳細"
         onPress={() => navigation.navigate("Detail")}

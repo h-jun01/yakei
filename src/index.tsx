@@ -11,7 +11,7 @@ import { lodingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import Auth from "./containers/Auth";
-import LodingScreen from "./componets/LoadingScreen";
+import LodingScreen from "./utilities/LoadingScreen";
 import HomeScreen from "./screen/HomeScreen";
 import SearchScreen from "./screen/SearchScreen";
 import NotificationScreen from "./screen/NotificationScreen";
