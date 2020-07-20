@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  lap: {
+  container: {
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#1C3952",

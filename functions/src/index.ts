@@ -1,6 +1,5 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-
 const cors = require("cors")({ origin: true });
 
 admin.initializeApp(functions.config().firebase);
@@ -12,6 +11,8 @@ const userCreation = async (request, response) => {
     displayName: request.body.displayName,
     password: request.body.password,
     disabled: false,
+    photoURL:
+      "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/default.png?alt=media&token=04a08b6e-f169-4204-97de-598d7ed42225",
   };
   await admin
     .auth()
@@ -21,9 +22,8 @@ const userCreation = async (request, response) => {
       return await userRef.set({
         uid: userRecord.uid,
         name: userRecord.displayName,
-        user_img: "",
+        user_img: userRecord.photoURL,
         title_list: [],
-        photo_list: [],
         create_time: admin.firestore.FieldValue.serverTimestamp(),
         update_time: admin.firestore.FieldValue.serverTimestamp(),
       });
@@ -42,7 +42,7 @@ const send = (response, statusCode, body) => {
   });
 };
 
-exports.registe = functions
+exports.signUp = functions
   .region("asia-northeast1")
   .https.onRequest((request, response) => {
     cors(request, response, () => {
@@ -52,4 +52,19 @@ exports.registe = functions
         send(response, 500, { error: error.message });
       }
     });
+  });
+
+exports.inputPhotoDataList = functions
+  .region("asia-northeast1")
+  .auth.user()
+  .onCreate(async (user) => {
+    const photoRef = admin.firestore().collection("photos").doc(user.uid);
+    return await photoRef
+      .set({
+        uid: user.uid,
+        photo_list: [],
+      })
+      .catch((error) => {
+        throw new Error("Profile doesn't exist");
+      });
   });

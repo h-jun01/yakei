@@ -1,17 +1,31 @@
 import React, { FC } from "react";
 import User, { UserScreenNavigationProp } from "../../componets/user/User";
+import { RootState } from "../../reducers/index";
+import { useSelector } from "react-redux";
 
 type Props = {
   navigation: UserScreenNavigationProp;
 };
 
-//主に処理に関する記述はこのファイル
 const ContainerUser: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
-  //例）このファイルで作った処理をcomponents側に渡す
-  const title = "ユーザ";
+  //ユーザ名,アイコン,写真一覧を取得
+  const selectName = (state: RootState) => state.userReducer.name;
+  const selectImage = (state: RootState) => state.userReducer.userImg;
+  const selectPhotoDataList = (state: RootState) =>
+    state.photoReducer.photoDataList;
+  const name = useSelector(selectName);
+  const image = useSelector(selectImage);
+  const photoDataList = useSelector(selectPhotoDataList);
 
-  return <User navigation={navigation} title={title} />;
+  return (
+    <User
+      navigation={navigation}
+      name={name}
+      image={image}
+      photoDataList={photoDataList}
+    />
+  );
 };
 
 export default ContainerUser;

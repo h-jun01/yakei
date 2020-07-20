@@ -1,7 +1,13 @@
 import firebase from "firebase";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 
 type AccountFireStore = {
+  getUser: (
+    uid: string
+  ) => Promise<
+    firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
+  >;
+  signUpTwitterRedirect: (provider: any) => Promise<void>;
   loginUser: (account: LginUser) => Promise<firebase.auth.UserCredential>;
   signOutUser: () => void;
   providers: (email: string) => Promise<string[]>;
@@ -13,7 +19,17 @@ type LginUser = {
   password: string;
 };
 
+const user = db.collection("users");
+
 export const accountFireStore: AccountFireStore = {
+  //ユーザ情報を取得
+  getUser: (uid: string) => {
+    return user.doc(uid).get();
+  },
+  //Twitterを利用した登録処理
+  signUpTwitterRedirect: async (provider) => {
+    return await auth.signInWithRedirect(provider);
+  },
   //ログイン処理
   loginUser: async (account: LginUser) => {
     return await auth.signInWithEmailAndPassword(

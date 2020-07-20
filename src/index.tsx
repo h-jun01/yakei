@@ -4,8 +4,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useSelector, useDispatch } from "react-redux";
 import { auth } from "./firebase/firebase";
-import { RootState } from "./reducers";
+import { accountFireStore } from "./firebase/accountFireStore";
+import { photoFireStore } from "./firebase/photoFireStore";
+import { RootState } from "./reducers/index";
 import { lodingStatusChange, loginStatusChange } from "./actions/auth";
+import { setUserData } from "./actions/user";
+import { setPhotoListData } from "./actions/photo";
 import Auth from "./containers/Auth";
 import LodingScreen from "./componets/LoadingScreen";
 import HomeScreen from "./screen/HomeScreen";
@@ -33,7 +37,6 @@ const Root: FC = () => {
   //ログイン状態とローディング状態をstateから持ってくる
   const selectIsLoding = (state: RootState) => state.authReducer.isLoding;
   const selectIsLogin = (state: RootState) => state.authReducer.isLogin;
-  //持ってきた情報を格納
   const isLoding = useSelector(selectIsLoding);
   const isLogin = useSelector(selectIsLogin);
   //ルーティング作成
@@ -42,10 +45,16 @@ const Root: FC = () => {
 
   const dispatch = useDispatch();
 
-  //ログイン済みかチェック
+  //ログインチェック
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
+        accountFireStore.getUser(user.uid).then((querySnapshot) => {
+          dispatch(setUserData(querySnapshot.data()));
+        });
+        photoFireStore.getPhotoList(user.uid).then((querySnapshot) => {
+          dispatch(setPhotoListData(querySnapshot.data()));
+        });
         dispatch(lodingStatusChange(true));
         dispatch(loginStatusChange(true));
       } else {
@@ -56,7 +65,6 @@ const Root: FC = () => {
   }, []);
 
   //ローディング中の画面を表示
-  //これがないと判定中に地図かログインページが見える
   if (!isLoding) {
     return <LodingScreen />;
   }
