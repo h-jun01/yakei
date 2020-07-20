@@ -1,28 +1,56 @@
 import React, { FC } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Image } from "react-native";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../index";
 import { StackParamList } from "../../index";
+import { styles } from "../../styles/user";
 
 export type UserScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, "User">,
   StackNavigationProp<StackParamList>
 >;
 
-type Props = {
-  navigation: UserScreenNavigationProp;
-  title: string;
+type PhotoDataList = {
+  URL: string;
+  uid: string;
+  latitude: number;
+  longitude: number;
 };
 
-//主に見た目に関する記述はこのファイル
-const User: FC<Props> = ({ ...props }) => {
-  const { navigation, title } = props;
+type Props = {
+  navigation: UserScreenNavigationProp;
+  name: string;
+  image: string;
+  photoDataList: PhotoDataList[];
+};
 
+const User: FC<Props> = ({ ...props }) => {
+  const { navigation, name, image, photoDataList } = props;
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>{title}ページ</Text>
+    <View style={styles.container}>
+      <Text>{name}のマイページ</Text>
+      <Text>ユーザーアイコン</Text>
+      <Image
+        style={styles.userImage}
+        source={{
+          uri: image,
+        }}
+      />
+      <Text>写真一覧</Text>
+      {photoDataList[0] !== undefined
+        ? photoDataList.map((item, index) => (
+            <View key={index}>
+              <Image
+                style={styles.userImage}
+                source={{
+                  uri: item.URL,
+                }}
+              />
+            </View>
+          ))
+        : console.log("noData")}
       <Button
         title="ユーザページの詳細"
         onPress={() => navigation.navigate("Detail")}

@@ -1,24 +1,26 @@
 import React, { FC } from "react";
 import { View, Text, TextInput, TouchableWithoutFeedback } from "react-native";
+import { accountFireStore } from "../firebase/accountFireStore";
 import { styles } from "../styles/auth";
 
-export type UserData = {
+export type SignUpData = {
   name: string;
   email: string;
   password: string;
 };
 
 type Props = {
-  userData: UserData;
-  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
-  signUpUser: (args: UserData) => void;
+  signUpData: SignUpData;
+  setSignUpData: React.Dispatch<React.SetStateAction<SignUpData>>;
+  signUpUser: (args: SignUpData) => void;
+  signUpTwitterUser: () => Promise<void>;
 };
 
 const Auth: FC<Props> = ({ ...props }) => {
-  const { userData, setUserData, signUpUser } = props;
+  const { signUpData, setSignUpData, signUpUser, signUpTwitterUser } = props;
 
   return (
-    <View style={styles.lap}>
+    <View style={styles.container}>
       <View style={styles.box}>
         <View style={styles.title}>
           <Text style={styles.titleText}>yakei(仮)</Text>
@@ -26,34 +28,37 @@ const Auth: FC<Props> = ({ ...props }) => {
 
         <View style={styles.input}>
           <TextInput
-            value={userData.email}
+            value={signUpData.email}
             placeholder="メールアドレスを入力"
             placeholderTextColor="#808080"
             onChangeText={(email) =>
-              setUserData((prevState) => ({ ...prevState, email: email }))
+              setSignUpData((prevState) => ({ ...prevState, email: email }))
             }
           />
         </View>
 
         <View style={styles.input}>
           <TextInput
-            value={userData.name}
+            value={signUpData.name}
             placeholder="ユーザ名を入力"
             placeholderTextColor="#808080"
             onChangeText={(name) =>
-              setUserData((prevState) => ({ ...prevState, name: name }))
+              setSignUpData((prevState) => ({ ...prevState, name: name }))
             }
           />
         </View>
 
         <View style={styles.input}>
           <TextInput
-            value={userData.password}
+            value={signUpData.password}
             secureTextEntry={true}
             placeholder="パスワードを入力"
             placeholderTextColor="#808080"
             onChangeText={(password) =>
-              setUserData((prevState) => ({ ...prevState, password: password }))
+              setSignUpData((prevState) => ({
+                ...prevState,
+                password: password,
+              }))
             }
           />
         </View>
@@ -61,13 +66,13 @@ const Auth: FC<Props> = ({ ...props }) => {
           <TouchableWithoutFeedback
             onPress={() =>
               signUpUser({
-                name: userData.name,
-                email: userData.email,
-                password: userData.password,
+                name: signUpData.name,
+                email: signUpData.email,
+                password: signUpData.password,
               })
             }
           >
-            <Text style={styles.buttonText}>登録</Text>
+            <Text style={styles.buttonText}>新規登録</Text>
           </TouchableWithoutFeedback>
         </View>
         <View style={styles.text}>
@@ -82,8 +87,20 @@ const Auth: FC<Props> = ({ ...props }) => {
         </View>
 
         <View style={styles.twitterBack}>
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => signUpTwitterUser()}>
             <Text style={styles.buttonText}>Twitterでログイン</Text>
+          </TouchableWithoutFeedback>
+        </View>
+        <View style={styles.twitterBack}>
+          <TouchableWithoutFeedback
+            onPress={() =>
+              accountFireStore.loginUser({
+                email: "test@gmail.com",
+                password: "123456a",
+              })
+            }
+          >
+            <Text style={styles.buttonText}>テストユーザーでログイン</Text>
           </TouchableWithoutFeedback>
         </View>
       </View>

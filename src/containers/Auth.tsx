@@ -1,44 +1,45 @@
 import React, { useState } from "react";
-import Auth, { UserData } from "../componets/Auth";
+import Auth, { SignUpData } from "../componets/Auth";
+import { provider } from "../firebase/firebase";
 import { accountFireStore } from "../firebase/accountFireStore";
 import { callingAlert } from "../utilities/alert";
 
-import { auth } from "../firebase/firebase";
-import firebase from "firebase";
 const ContainerAuth = () => {
-  const [userData, setUserData] = useState<UserData>({
+  const [signUpData, setSignUpData] = useState<SignUpData>({
     email: "",
     name: "",
     password: "",
   });
 
-  const signUpUser = async (args: UserData) => {
+  //新規登録処理
+  const signUpUser = async (args: SignUpData) => {
     const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const REGEX_PASSWORD = /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}$/i;
+    const url = "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
 
     try {
-      if (!userData.email) {
+      if (!signUpData.email) {
         return callingAlert({
           alertTitle: "エラー",
           alertMessage: "メールドレスを入力してください",
           alertClose: "OK",
           alertStyle: "default",
         });
-      } else if (!userData.email.match(REGEX_EMAIL)) {
+      } else if (!signUpData.email.match(REGEX_EMAIL)) {
         return callingAlert({
           alertTitle: "エラー",
           alertMessage: "メールドレスの形式が不正です",
           alertClose: "OK",
           alertStyle: "default",
         });
-      } else if (!userData.name) {
+      } else if (!signUpData.name) {
         return callingAlert({
           alertTitle: "エラー",
           alertMessage: "ユーザ名を入力してください",
           alertClose: "OK",
           alertStyle: "default",
         });
-      } else if (!userData.password.match(REGEX_PASSWORD)) {
+      } else if (!signUpData.password.match(REGEX_PASSWORD)) {
         return callingAlert({
           alertTitle: "エラー",
           alertMessage:
@@ -47,7 +48,7 @@ const ContainerAuth = () => {
           alertStyle: "default",
         });
       } else if (
-        (await accountFireStore.providers(userData.email)).findIndex(
+        (await accountFireStore.providers(signUpData.email)).findIndex(
           (p: string) => p === accountFireStore.authenticationName
         ) !== -1
       ) {
@@ -58,9 +59,6 @@ const ContainerAuth = () => {
           alertStyle: "default",
         });
       }
-
-      const url =
-        "https://asia-northeast1-hal-yakei.cloudfunctions.net/registe";
 
       fetch(url, {
         method: "POST",
@@ -88,11 +86,18 @@ const ContainerAuth = () => {
     }
   };
 
+  const signUpTwitterUser = async () => {
+    await accountFireStore.signUpTwitterRedirect(provider).then((user) => {
+      console.log(user);
+    });
+  };
+
   return (
     <Auth
-      userData={userData}
-      setUserData={setUserData}
+      signUpData={signUpData}
+      setSignUpData={setSignUpData}
       signUpUser={signUpUser}
+      signUpTwitterUser={signUpTwitterUser}
     />
   );
 };
