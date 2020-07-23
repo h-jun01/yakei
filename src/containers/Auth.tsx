@@ -3,6 +3,7 @@ import Auth, { SignUpData } from "../componets/Auth";
 import { provider } from "../firebase/firebase";
 import { accountFireStore } from "../firebase/accountFireStore";
 import { callingAlert } from "../utilities/alert";
+import * as Google from "expo-google-app-auth";
 
 const ContainerAuth = () => {
   const [signUpData, setSignUpData] = useState<SignUpData>({
@@ -86,10 +87,59 @@ const ContainerAuth = () => {
     }
   };
 
-  const signUpTwitterUser = async () => {
-    await accountFireStore.signUpTwitterRedirect(provider).then((user) => {
-      console.log(user);
-    });
+  //Google認証処理
+  const signInWithGoogle = async () => {
+    try {
+      const result = await Google.logInAsync({
+        androidClientId: "",
+        iosClientId: "",
+        scopes: ["profile", "email"],
+      });
+      if (result.type === "success") {
+        if (
+          (
+            await accountFireStore.providers(result.user.email as string)
+          ).findIndex(
+            (p: string) => p === accountFireStore.authenticationName
+          ) !== -1
+        ) {
+          accountFireStore.loginUser({
+            email: result.user.email as string,
+            password: result.user.id as string,
+          });
+        } else {
+          console.log(result.user);
+
+          const url =
+            "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+              displayName: result.user.name,
+              email: result.user.email,
+              password: result.user.id,
+            }),
+          })
+            .then((res) => {
+              accountFireStore.loginUser({
+                email: result.user.email as string,
+                password: result.user.id as string,
+              });
+              return res.json();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      } else {
+        return { cancelled: true };
+      }
+    } catch (e) {
+      return { error: true };
+    }
   };
 
   return (
@@ -97,7 +147,7 @@ const ContainerAuth = () => {
       signUpData={signUpData}
       setSignUpData={setSignUpData}
       signUpUser={signUpUser}
-      signUpTwitterUser={signUpTwitterUser}
+      signInWithGoogle={signInWithGoogle}
     />
   );
 };
