@@ -28,6 +28,7 @@ type Props = {
 
 const User: FC<Props> = ({ ...props }) => {
   const { navigation, name, image, photoDataList } = props;
+
   return (
     <View style={styles.container}>
       <Text>{name}のマイページ</Text>
