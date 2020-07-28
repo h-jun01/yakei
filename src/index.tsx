@@ -33,6 +33,7 @@ export type StackParamList = {
   Detail: undefined;
   設定: undefined;
   利用規約: undefined;
+  プライバシーポリシー: undefined;
 };
 
 const Root: FC = () => {

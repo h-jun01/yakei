@@ -5,7 +5,7 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../index";
 import { StackParamList } from "../../index";
-import { styles } from "../../styles/user";
+import { styles } from "../../styles/user/user";
 
 export type UserScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, "User">,
