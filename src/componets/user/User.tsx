@@ -28,6 +28,7 @@ type Props = {
 
 const User: FC<Props> = ({ ...props }) => {
   const { navigation, name, image, photoDataList } = props;
+
   return (
     <View style={styles.container}>
       <Text>{name}のマイページ</Text>
@@ -63,10 +64,7 @@ const User: FC<Props> = ({ ...props }) => {
         )}
         keyExtractor={(item, index) => index.toString()}
       />
-      <Button
-        title="ユーザページの詳細"
-        onPress={() => navigation.navigate("Detail")}
-      />
+      <Button title="設定" onPress={() => navigation.navigate("設定")} />
     </View>
   );
 };

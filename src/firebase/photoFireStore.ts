@@ -2,7 +2,7 @@ import firebase from "firebase";
 import { auth, db } from "./firebase";
 
 type photoFireStore = {
-  getUser: (
+  getPhotoList: (
     uid: string
   ) => Promise<
     firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>

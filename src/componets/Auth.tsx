@@ -13,11 +13,21 @@ type Props = {
   signUpData: SignUpData;
   setSignUpData: React.Dispatch<React.SetStateAction<SignUpData>>;
   signUpUser: (args: SignUpData) => void;
-  signUpTwitterUser: () => Promise<void>;
+  signInWithGoogle: () => Promise<
+    | {
+        cancelled: boolean;
+        error?: undefined;
+      }
+    | {
+        error: boolean;
+        cancelled?: undefined;
+      }
+    | undefined
+  >;
 };
 
 const Auth: FC<Props> = ({ ...props }) => {
-  const { signUpData, setSignUpData, signUpUser, signUpTwitterUser } = props;
+  const { signUpData, setSignUpData, signUpUser, signInWithGoogle } = props;
 
   return (
     <View style={styles.container}>
@@ -87,16 +97,17 @@ const Auth: FC<Props> = ({ ...props }) => {
         </View>
 
         <View style={styles.twitterBack}>
-          <TouchableWithoutFeedback onPress={() => signUpTwitterUser()}>
-            <Text style={styles.buttonText}>Twitterでログイン</Text>
+          <TouchableWithoutFeedback onPress={() => signInWithGoogle()}>
+            <Text style={styles.buttonText}>Googleアカウントでログイン</Text>
           </TouchableWithoutFeedback>
         </View>
+
         <View style={styles.twitterBack}>
           <TouchableWithoutFeedback
             onPress={() =>
               accountFireStore.loginUser({
-                email: "test@gmail.com",
-                password: "123456a",
+                email: "",
+                password: "",
               })
             }
           >

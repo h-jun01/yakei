@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import User from "../containers/user/User";
-import Details from "../containers/user/Detail";
+import Setting from "../containers/user/Setting";
+import TermsOfService from "../componets/user/TermsOfService";
 
 const UserScreen: FC = () => {
   const Stack = createStackNavigator();
@@ -14,7 +15,8 @@ const UserScreen: FC = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="Detail" component={Details} />
+      <Stack.Screen name="設定" component={Setting} />
+      <Stack.Screen name="利用規約" component={TermsOfService} />
     </Stack.Navigator>
   );
 };

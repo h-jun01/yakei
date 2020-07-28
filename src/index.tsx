@@ -11,11 +11,11 @@ import { lodingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import Auth from "./containers/Auth";
-import LodingScreen from "./utilities/LoadingScreen";
-import HomeScreen from "./screen/HomeScreen";
-import SearchScreen from "./screen/SearchScreen";
-import NotificationScreen from "./screen/NotificationScreen";
-import UserScreen from "./screen/UserScreen";
+import LodingScreen from "./componets/LoadingScreen";
+import HomeScreen from "./screens/HomeScreen";
+import SearchScreen from "./screens/SearchScreen";
+import NotificationScreen from "./screens/NotificationScreen";
+import UserScreen from "./screens/UserScreen";
 
 export type TabParamList = {
   Home: undefined;
@@ -31,6 +31,8 @@ export type StackParamList = {
   Notification: undefined;
   User: undefined;
   Detail: undefined;
+  設定: undefined;
+  利用規約: undefined;
 };
 
 const Root: FC = () => {
@@ -49,11 +51,11 @@ const Root: FC = () => {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        accountFireStore.getUser(user.uid).then((querySnapshot) => {
-          dispatch(setUserData(querySnapshot.data()));
+        accountFireStore.getUser(user.uid).then((documentSnapshot) => {
+          dispatch(setUserData(documentSnapshot.data()));
         });
-        photoFireStore.getPhotoList(user.uid).then((querySnapshot) => {
-          dispatch(setPhotoListData(querySnapshot.data()));
+        photoFireStore.getPhotoList(user.uid).then((documentSnapshot) => {
+          dispatch(setPhotoListData(documentSnapshot.data()));
         });
         dispatch(lodingStatusChange(true));
         dispatch(loginStatusChange(true));
