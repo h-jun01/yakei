@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View, Text, Button, Image, FlatList } from "react-native";
+import { View, Text, Button, Image, FlatList, SafeAreaView } from "react-native";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -26,18 +26,22 @@ type Props = {
   photoDataList: PhotoDataList[];
 };
 
+let numColumns = 3;
+
 const User: FC<Props> = ({ ...props }) => {
   const { navigation, name, image, photoDataList } = props;
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text>{name}のマイページ</Text>
-      <Text>ユーザーアイコン</Text>
-      <Image
-        style={styles.userImage}
-        source={{
-          uri: image,
-        }}
-      />
+      <View style={styles.userInfo}>
+        <Image
+          style={styles.userImage}
+          source={{
+            uri: image,
+          }}
+        />
+        <Text>ユーザーアイコン</Text>
+      </View>
       <Text>写真一覧</Text>
       {/* {photoDataList[0] !== undefined
         ? photoDataList.map((item, index) => (
@@ -51,23 +55,26 @@ const User: FC<Props> = ({ ...props }) => {
             </View>
           ))
         : console.log("noData")} */}
-      <FlatList
-        data={photoDataList}
-        renderItem={({ item }) => (
-          <Image
-            style={styles.userImage}
-            source={{
-              uri: item.URL,
-            }}
+        <View style={styles.imagesWrap}>
+        <FlatList
+          numColumns={numColumns}
+          data={photoDataList}
+          renderItem={({ item }) => (
+              <Image
+                style={styles.photoImage}
+                source={{
+                  uri: item.URL,
+                }}
+              />
+            )}
+            keyExtractor={(item, index) => index.toString()}
           />
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
+        </View>
       <Button
         title="ユーザページの詳細"
         onPress={() => navigation.navigate("Detail")}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
