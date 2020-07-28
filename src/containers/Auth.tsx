@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Auth, { SignUpData } from "../componets/Auth";
-import { provider } from "../firebase/firebase";
 import { accountFireStore } from "../firebase/accountFireStore";
 import { callingAlert } from "../utilities/alert";
 import * as Google from "expo-google-app-auth";
@@ -12,11 +11,13 @@ const ContainerAuth = () => {
     password: "",
   });
 
+  //エンドポイント
+  const url = "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
+
   //新規登録処理
   const signUpUser = async (args: SignUpData) => {
     const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const REGEX_PASSWORD = /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}$/i;
-    const url = "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
 
     try {
       if (!signUpData.email) {
@@ -91,8 +92,10 @@ const ContainerAuth = () => {
   const signInWithGoogle = async () => {
     try {
       const result = await Google.logInAsync({
-        androidClientId: "",
-        iosClientId: "",
+        androidClientId:
+          "655737634399-lklkkiauc2cgm6rcmvlrfn1bhnvijhkf.apps.googleusercontent.com",
+        iosClientId:
+          "655737634399-10b4vips3mpdkht5kdsol7dskcmuqjkb.apps.googleusercontent.com",
         scopes: ["profile", "email"],
       });
       if (result.type === "success") {
@@ -108,10 +111,6 @@ const ContainerAuth = () => {
             password: result.user.id as string,
           });
         } else {
-          console.log(result.user);
-
-          const url =
-            "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
           fetch(url, {
             method: "POST",
             headers: {

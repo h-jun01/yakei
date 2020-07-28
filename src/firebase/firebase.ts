@@ -19,6 +19,5 @@ const firebaseApp = !firebase.apps.length
 
 firebaseApp;
 
-export const provider = new firebase.auth.TwitterAuthProvider();
 export const db = firebase.firestore();
 export const auth = firebase.auth();

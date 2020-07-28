@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View, Text, Button } from "react-native";
+import { View } from "react-native";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -17,8 +17,6 @@ export type HomeScreenNavigationProp = CompositeNavigationProp<
 
 type Props = {
   navigation: HomeScreenNavigationProp;
-  signOutUser: () => void;
-  title: string;
   region: Region;
 };
 // デモデータ(本来はfirestoreからのデータで行う)
@@ -55,7 +53,7 @@ const point = [
 
 //主に見た目に関する記述はこのファイル
 const Home: FC<Props> = ({ ...props }) => {
-  const { navigation, signOutUser, title, region } = props;
+  const { navigation, region } = props;
   return (
     <View style={{ flex: 1 }}>
       <MapView
@@ -75,12 +73,6 @@ const Home: FC<Props> = ({ ...props }) => {
           );
         })}
       </MapView>
-      {/* <Text>{title}の画面</Text> */}
-      {/* <Button
-        title="地図の詳細"
-        onPress={() => navigation.navigate("Detail")}
-      />
-      <Button title="ログアウト" onPress={() => signOutUser()} /> */}
     </View>
   );
 };

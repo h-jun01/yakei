@@ -1,5 +1,4 @@
 import React, { FC, useEffect } from "react";
-import { accountFireStore } from "../../firebase/accountFireStore";
 import Home, { HomeScreenNavigationProp } from "../../componets/home/Home";
 
 import * as Permissions from "expo-permissions";
@@ -57,16 +56,7 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
     };
   }, []);
 
-  //例）このファイルで作った処理をcomponents側に渡す
-  const title = "地図";
-  return (
-    <Home
-      navigation={navigation}
-      signOutUser={accountFireStore.signOutUser}
-      title={title}
-      region={region}
-    />
-  );
+  return <Home navigation={navigation} region={region} />;
 };
 
 export default ContainerHome;
