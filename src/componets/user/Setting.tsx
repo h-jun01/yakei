@@ -17,7 +17,9 @@ const Setting: FC<Props> = ({ ...props }) => {
       <Text>お知らせ</Text>
       <Text>ヘルプ</Text>
       <Text onPress={() => navigation.navigate("利用規約")}>利用規約</Text>
-      <Text>プライバシーポリシー</Text>
+      <Text onPress={() => navigation.navigate("プライバシーポリシー")}>
+        プライバシーポリシー
+      </Text>
       <Text>アカウント削除</Text>
       <Text onPress={() => signOutUser()}>ログアウト</Text>
     </View>
