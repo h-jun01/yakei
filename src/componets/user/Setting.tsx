@@ -12,7 +12,9 @@ const Setting: FC<Props> = ({ ...props }) => {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>プロフィール編集</Text>
+      <Text onPress={() => navigation.navigate("プロフィール編集")}>
+        プロフィール編集
+      </Text>
       <Text>パスワード変更</Text>
       <Text>お知らせ</Text>
       <Text>ヘルプ</Text>

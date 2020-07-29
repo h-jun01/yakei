@@ -1,6 +1,7 @@
 import firebase from "firebase";
 import "firebase/firestore";
 import "firebase/auth";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAb00UD1DkTptJejh92XaVLYROk34nICy4",
@@ -21,3 +22,5 @@ firebaseApp;
 
 export const db = firebase.firestore();
 export const auth = firebase.auth();
+export const storage = firebase.storage();
+export const FieldValue = firebase.firestore.FieldValue;

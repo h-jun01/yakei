@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import User from "../containers/user/User";
 import Setting from "../containers/user/Setting";
+import EditProfile from "../containers/user/EditProfile";
 import TermsOfService from "../componets/user/TermsOfService";
 import PrivacyPolicy from "../componets/user/PrivacyPolicy";
 
@@ -17,6 +18,7 @@ const UserScreen: FC = () => {
         }}
       />
       <Stack.Screen name="設定" component={Setting} />
+      <Stack.Screen name="プロフィール編集" component={EditProfile} />
       <Stack.Screen name="利用規約" component={TermsOfService} />
       <Stack.Screen name="プライバシーポリシー" component={PrivacyPolicy} />
     </Stack.Navigator>

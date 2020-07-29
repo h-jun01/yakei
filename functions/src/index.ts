@@ -23,7 +23,6 @@ const userCreation = async (request, response) => {
         uid: userRecord.uid,
         name: userRecord.displayName,
         user_img: userRecord.photoURL,
-        title_list: [],
         create_time: admin.firestore.FieldValue.serverTimestamp(),
         update_time: admin.firestore.FieldValue.serverTimestamp(),
       });

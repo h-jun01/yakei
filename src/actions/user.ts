@@ -7,11 +7,19 @@ export const setUserData = (
   ({
     type: ActionTypes.USER_DATA,
     payload: {
-      uid: account?.uid,
-      name: account?.name,
-      userImg: account?.user_img,
-      titleList: account?.title_list,
+      uid: account?.uid as string,
+      name: account?.name as string,
+      userImg: account?.user_img as string,
       createTime: account?.create_time,
       updateTime: account?.update_time,
+    },
+  } as const);
+
+//ユーザ名の更新
+export const upDateUserName = (name: string) =>
+  ({
+    type: ActionTypes.UPDATE_USER_NAME,
+    payload: {
+      name,
     },
   } as const);
