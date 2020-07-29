@@ -32,6 +32,7 @@ export type StackParamList = {
   User: undefined;
   Detail: undefined;
   設定: undefined;
+  プロフィール編集: undefined;
   利用規約: undefined;
   プライバシーポリシー: undefined;
 };

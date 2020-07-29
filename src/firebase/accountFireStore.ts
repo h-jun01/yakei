@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import { auth, db } from "./firebase";
+import { auth, db, FieldValue } from "./firebase";
 
 type AccountFireStore = {
   getUser: (
@@ -10,6 +10,7 @@ type AccountFireStore = {
   loginUser: (account: LginUser) => Promise<firebase.auth.UserCredential>;
   signOutUser: () => void;
   providers: (email: string) => Promise<string[]>;
+  updateName: (name: string) => Promise<void>;
   authenticationName: string;
 };
 
@@ -19,6 +20,7 @@ type LginUser = {
 };
 
 const user = db.collection("users");
+const userData = auth.currentUser;
 
 export const accountFireStore: AccountFireStore = {
   //ユーザ情報を取得
@@ -35,6 +37,20 @@ export const accountFireStore: AccountFireStore = {
   //ログアウト処理
   signOutUser: () => {
     auth.signOut();
+  },
+  //名前の更新
+  updateName: async (name: string) => {
+    if (userData) {
+      await userData
+        .updateProfile({
+          displayName: name,
+        })
+        .then(async () => {
+          return await user
+            .doc(userData.uid)
+            .update({ name: name, update_time: FieldValue.serverTimestamp() });
+        });
+    }
   },
   //認証済みチェック
   providers: async (email: string) => {
