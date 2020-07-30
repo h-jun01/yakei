@@ -15,9 +15,7 @@ const App = () => {
   const [buttonState, setButtonState] = useState(stateArray[0]);
   const plusToCrossAnim = useRef(new Animated.Value(0)).current;
 
-  const resetAnimValue = () => {
-    plusToCrossAnim.setValue(0);
-  };
+  const resetAnimValue = () => plusToCrossAnim.setValue(0);
 
   const changeStyle = () => {
     const newIndex = (index + 1) % 4;
@@ -32,7 +30,7 @@ const App = () => {
       Animated.timing(plusToCrossAnim, {
         toValue: 2,
         duration: 200,
-      }).start(() => resetAnimValue());
+      }).start(resetAnimValue);
     }
     setIndex(newIndex);
     setButtonState(stateArray[newIndex]);
@@ -78,6 +76,7 @@ const App = () => {
           ]}
           onPressIn={changeStyle}
           onPressOut={changeStyle}
+          underlayColor={"black"}
           activeOpacity={0.7}
         >
           <Animated.Text
