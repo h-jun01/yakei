@@ -3,6 +3,7 @@ import Auth, { SignUpData } from "../componets/Auth";
 import { accountFireStore } from "../firebase/accountFireStore";
 import { callingAlert } from "../utilities/alert";
 import * as Google from "expo-google-app-auth";
+import { Alert } from "react-native";
 
 const ContainerAuth = () => {
   const [signUpData, setSignUpData] = useState<SignUpData>({
@@ -21,45 +22,26 @@ const ContainerAuth = () => {
 
     try {
       if (!signUpData.email) {
-        return callingAlert({
-          alertTitle: "エラー",
-          alertMessage: "メールドレスを入力してください",
-          alertClose: "OK",
-          alertStyle: "default",
-        });
+        callingAlert("メールアドレスを入力してください");
+        return;
       } else if (!signUpData.email.match(REGEX_EMAIL)) {
-        return callingAlert({
-          alertTitle: "エラー",
-          alertMessage: "メールドレスの形式が不正です",
-          alertClose: "OK",
-          alertStyle: "default",
-        });
+        callingAlert("メールドレスの形式が不正です");
+        return;
       } else if (!signUpData.name) {
-        return callingAlert({
-          alertTitle: "エラー",
-          alertMessage: "ユーザ名を入力してください",
-          alertClose: "OK",
-          alertStyle: "default",
-        });
+        callingAlert("ユーザ名を入力してください");
+        return;
       } else if (!signUpData.password.match(REGEX_PASSWORD)) {
-        return callingAlert({
-          alertTitle: "エラー",
-          alertMessage:
-            "パスワードは半角英数字を含めた6文字以上で入力してください",
-          alertClose: "OK",
-          alertStyle: "default",
-        });
+        callingAlert(
+          "パスワードは半角英数字を含めた6文字以上で入力してください"
+        );
+        return;
       } else if (
         (await accountFireStore.providers(signUpData.email)).findIndex(
           (p: string) => p === accountFireStore.authenticationName
         ) !== -1
       ) {
-        return callingAlert({
-          alertTitle: "エラー",
-          alertMessage: "既に登録済みのメールアドレスです",
-          alertClose: "OK",
-          alertStyle: "default",
-        });
+        callingAlert("既に登録済みのメールアドレスです");
+        return;
       }
 
       fetch(url, {

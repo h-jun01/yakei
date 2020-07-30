@@ -60,12 +60,8 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
       dispatch(upDateUserName(userName));
       await accountFireStore.updateName(userName);
     } else {
-      callingAlert({
-        alertTitle: "エラー",
-        alertMessage: "ユーザ名を入力してください",
-        alertClose: "OK",
-        alertStyle: "default",
-      });
+      callingAlert("ユーザ名を入力してください");
+      return;
     }
   };
 

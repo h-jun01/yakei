@@ -1,20 +1,13 @@
 import { Alert } from "react-native";
 
-type AlertInformation = {
-  alertTitle: string;
-  alertMessage: string;
-  alertClose: string;
-  alertStyle: "default" | "cancel" | "destructive" | undefined;
-};
-
-export const callingAlert = (args: AlertInformation): void => {
+export const callingAlert = (alertMessage: string): void => {
   Alert.alert(
-    args.alertTitle,
-    args.alertMessage,
+    "エラー",
+    alertMessage,
     [
       {
-        text: args.alertClose,
-        style: args.alertStyle,
+        text: "OK",
+        style: "default",
       },
     ],
     { cancelable: false }
