@@ -21,21 +21,21 @@ const App = () => {
 
   const changeStyle = () => {
     const newIndex = (index + 1) % 4;
-    setIndex(newIndex);
-    setButtonState(stateArray[newIndex]);
-    if (newIndex == 2) {
+    if (buttonState == "press") {
       // press→active
       Animated.timing(plusToCrossAnim, {
         toValue: 1,
         duration: 200,
       }).start();
-    } else if (newIndex == 0) {
+    } else if (buttonState == "pressActive") {
       // pressActive→normal
       Animated.timing(plusToCrossAnim, {
         toValue: 2,
         duration: 200,
       }).start(() => resetAnimValue());
     }
+    setIndex(newIndex);
+    setButtonState(stateArray[newIndex]);
   };
 
   // フレーム値0から1、1から2にかけて0degから45degに変化
@@ -76,9 +76,9 @@ const App = () => {
               ? styles.normalButtonWrap
               : styles.activeButtonWrap,
           ]}
-          // onPress={changeStyle}
           onPressIn={changeStyle}
           onPressOut={changeStyle}
+          activeOpacity={0.7}
         >
           <Animated.Text
             style={[
