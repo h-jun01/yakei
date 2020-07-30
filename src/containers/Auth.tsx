@@ -3,7 +3,6 @@ import Auth, { SignUpData } from "../componets/Auth";
 import { accountFireStore } from "../firebase/accountFireStore";
 import { callingAlert } from "../utilities/alert";
 import * as Google from "expo-google-app-auth";
-import { Alert } from "react-native";
 
 const ContainerAuth = () => {
   const [signUpData, setSignUpData] = useState<SignUpData>({

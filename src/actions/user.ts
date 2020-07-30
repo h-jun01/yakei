@@ -10,8 +10,6 @@ export const setUserData = (
       uid: account?.uid as string,
       name: account?.name as string,
       userImg: account?.user_img as string,
-      createTime: account?.create_time,
-      updateTime: account?.update_time,
     },
   } as const);
 
@@ -21,5 +19,14 @@ export const upDateUserName = (name: string) =>
     type: ActionTypes.UPDATE_USER_NAME,
     payload: {
       name,
+    },
+  } as const);
+
+//プロフィール画像の更新
+export const upDateUserProfileImage = (userImg: string) =>
+  ({
+    type: ActionTypes.UPDATE_PROFILE_IMAGE,
+    payload: {
+      userImg,
     },
   } as const);
