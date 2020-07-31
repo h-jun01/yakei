@@ -3,14 +3,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { UserScreenNavigationProp } from "../../componets/user/User";
 import { callingAlert } from "../../utilities/alert";
-import { upDateUserName, upDateUserProfileImage } from "../../actions/user";
 import { RootState } from "../../reducers/index";
-import EditProfile, {
-  StorageImageData,
-} from "../../componets/user/EditProfile";
+import {
+  upDateUserName,
+  upDateUserProfileImage,
+  upDateUserImgIndex,
+} from "../../actions/user";
+import EditProfile from "../../componets/user/EditProfile";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
+
+type StorageImageData = {
+  imgUrl: string;
+  postIndex: string;
+};
 
 type Props = {
   navigation: UserScreenNavigationProp;
@@ -20,6 +27,8 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
   const selectName = (state: RootState) => state.userReducer.name;
   const selectImage = (state: RootState) => state.userReducer.userImg;
+  const selectImgIndex = (state: RootState) => state.userReducer.imgIndex;
+  const imgIndex = useSelector(selectImgIndex);
   const name = useSelector(selectName);
   const image = useSelector(selectImage);
   const dispatch = useDispatch();
@@ -60,7 +69,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     }
   };
 
-  //ストレージに画像をアップロード
+  //storageに画像をアップロード
   const uploadPostImage = async () => {
     const metadata = {
       contentType: "image/jpeg",
@@ -68,21 +77,30 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     const postIndex = Date.now().toString();
     const response = await fetch(storageImageData.imgUrl);
     const blob = await response.blob();
-    const uploadRef = accountFireStore.upload(postIndex);
+    const uploadRef = accountFireStore.uploadStorageImage(postIndex);
 
     await uploadRef.put(blob, metadata).catch(() => {
       callingAlert("画像の保存に失敗しました");
+      return;
     });
+
+    //前回のプロフィール画像を削除
+    if (imgIndex) {
+      await accountFireStore.deleteStorageImage(imgIndex);
+    }
 
     //storageのダウンロードURLを保存
     await uploadRef
       .getDownloadURL()
-      .then((url: string) => {
+      .then(async (imgUrl) => {
         setStorageImageData((prevState) => ({
           ...prevState,
-          imgUrl: url,
+          imgUrl,
           postIndex,
         }));
+        //img_indexを保存
+        await accountFireStore.updateImgIndex(postIndex);
+        dispatch(upDateUserImgIndex(postIndex));
       })
       .catch(() => {
         callingAlert("失敗しました");
@@ -104,9 +122,6 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
       dispatch(upDateUserProfileImage(storageImageData.imgUrl));
       await uploadPostImage();
       await accountFireStore.updateProfileImage(storageImageData.imgUrl);
-    } else {
-      callingAlert("正常処理失敗");
-      return;
     }
     navigation.navigate("User");
   };

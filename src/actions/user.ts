@@ -10,6 +10,7 @@ export const setUserData = (
       uid: account?.uid as string,
       name: account?.name as string,
       userImg: account?.user_img as string,
+      imgIndex: account?.img_index as string,
     },
   } as const);
 
@@ -28,5 +29,14 @@ export const upDateUserProfileImage = (userImg: string) =>
     type: ActionTypes.UPDATE_PROFILE_IMAGE,
     payload: {
       userImg,
+    },
+  } as const);
+
+//プロフィール画像の更新
+export const upDateUserImgIndex = (imgIndex: string) =>
+  ({
+    type: ActionTypes.UPDATE_IMG_INDEX,
+    payload: {
+      imgIndex,
     },
   } as const);

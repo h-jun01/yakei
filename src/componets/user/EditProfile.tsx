@@ -2,11 +2,6 @@ import React, { FC } from "react";
 import { View, Text, TextInput, TouchableWithoutFeedback } from "react-native";
 import { Avatar } from "react-native-elements";
 
-export type StorageImageData = {
-  imgUrl: string;
-  postIndex: string;
-};
-
 type Props = {
   userName: string;
   userImage: string;

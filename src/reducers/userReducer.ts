@@ -4,12 +4,14 @@ type State = {
   uid: string;
   name: string;
   userImg: string;
+  imgIndex: string;
 };
 
 const initialState: State = {
   uid: "",
   name: "",
   userImg: "",
+  imgIndex: "",
 };
 
 export const userReducer = (state = initialState, action: UnionedAction) => {
@@ -20,6 +22,7 @@ export const userReducer = (state = initialState, action: UnionedAction) => {
         uid: action.payload.uid,
         name: action.payload.name,
         userImg: action.payload.userImg,
+        imgIndex: action.payload.imgIndex,
       };
     case ActionTypes.UPDATE_USER_NAME:
       return {
@@ -30,6 +33,11 @@ export const userReducer = (state = initialState, action: UnionedAction) => {
       return {
         ...state,
         userImg: action.payload.userImg,
+      };
+    case ActionTypes.UPDATE_IMG_INDEX:
+      return {
+        ...state,
+        imgIndex: action.payload.imgIndex,
       };
     default: {
       return state;

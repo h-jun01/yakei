@@ -1,6 +1,11 @@
 import { lodingStatusChange, loginStatusChange } from "./auth";
-import { setUserData, upDateUserName, upDateUserProfileImage } from "./user";
 import { setPhotoListData } from "./photo";
+import {
+  setUserData,
+  upDateUserName,
+  upDateUserProfileImage,
+  upDateUserImgIndex,
+} from "./user";
 
 export enum ActionTypes {
   LODING_STATUS = "LODING_STATUS",
@@ -9,6 +14,7 @@ export enum ActionTypes {
   PHOTO_DATA_LIST = "PHOTO_DATA_LIST",
   UPDATE_USER_NAME = "UPDATE_USER_NAME",
   UPDATE_PROFILE_IMAGE = "UPDATE_PROFILE_IMAGE",
+  UPDATE_IMG_INDEX = "UPDATE_IMG_INDEX",
 }
 
 export type UnionedAction =
@@ -17,4 +23,5 @@ export type UnionedAction =
   | ReturnType<typeof setUserData>
   | ReturnType<typeof setPhotoListData>
   | ReturnType<typeof upDateUserName>
-  | ReturnType<typeof upDateUserProfileImage>;
+  | ReturnType<typeof upDateUserProfileImage>
+  | ReturnType<typeof upDateUserImgIndex>;

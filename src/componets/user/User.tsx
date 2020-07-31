@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { View, Text, Button, Image, FlatList } from "react-native";
+import { Avatar } from "react-native-elements";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -33,8 +34,11 @@ const User: FC<Props> = ({ ...props }) => {
     <View style={styles.container}>
       <Text>{name}のマイページ</Text>
       <Text>ユーザーアイコン</Text>
-      <Image
-        style={styles.userImage}
+      <Avatar
+        size={100}
+        activeOpacity={0.7}
+        rounded
+        icon={{ name: "user", type: "font-awesome" }}
         source={{
           uri: image,
         }}
