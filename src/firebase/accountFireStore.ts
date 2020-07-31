@@ -9,10 +9,12 @@ type AccountFireStore = {
   >;
   loginUser: (account: LginUser) => Promise<firebase.auth.UserCredential>;
   signOutUser: () => void;
-  providers: (email: string) => Promise<string[]>;
   updateName: (name: string) => Promise<void>;
-  upload: (postIndex: string) => firebase.storage.Reference;
-  updateProfileImage: (url: string) => Promise<void>;
+  uploadStorageImage: (postIndex: string) => firebase.storage.Reference;
+  updateProfileImage: (img_url: string) => Promise<void>;
+  updateImgIndex: (img_index: string) => Promise<void>;
+  providers: (email: string) => Promise<string[]>;
+  deleteStorageImage: (imgIndex: string) => Promise<void> | undefined;
   authenticationName: string;
 };
 
@@ -56,19 +58,48 @@ export const accountFireStore: AccountFireStore = {
     }
   },
   //プロフィール画像の更新
-  updateProfileImage: async (url: string) => {
+  updateProfileImage: async (user_img: string) => {
+    const userData = auth.currentUser;
+    if (userData) {
+      await userData
+        .updateProfile({
+          photoURL: user_img,
+        })
+        .then(async () => {
+          return await user.doc(userData.uid).update({
+            user_img,
+            update_time: FieldValue.serverTimestamp(),
+          });
+        });
+    }
+  },
+  //storageに保存してあるファイル名の更新
+  updateImgIndex: async (img_index: string) => {
     const userData = auth.currentUser;
     if (userData) {
       return await user.doc(userData.uid).update({
-        user_img: url,
+        img_index,
         update_time: FieldValue.serverTimestamp(),
       });
     }
   },
-  //ストレージに画像を保存
-  upload: (postIndex: string) => {
+  //storageに画像を保存
+  uploadStorageImage: (postIndex: string) => {
     const userData = auth.currentUser;
     return storage.ref(`users/${userData?.uid}`).child(postIndex);
+  },
+  deleteStorageImage: (imgIndex: string) => {
+    const userData = auth.currentUser;
+    if (userData) {
+      return storage.ref(`users/${userData.uid}`).child(imgIndex).delete();
+      // return desertRef.delete();
+      // .then(function () {
+      //   // File deleted successfully
+      // })
+      // .catch(function (error) {
+      //   // Uh-oh, an error occurred!
+      // });
+    }
   },
   //認証済みチェック
   providers: async (email: string) => {

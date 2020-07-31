@@ -55,6 +55,7 @@ const Root: FC = () => {
       if (user) {
         accountFireStore.getUser(user.uid).then((documentSnapshot) => {
           dispatch(setUserData(documentSnapshot.data()));
+          // console.log(documentSnapshot.data());
         });
         photoFireStore.getPhotoList(user.uid).then((documentSnapshot) => {
           dispatch(setPhotoListData(documentSnapshot.data()));
