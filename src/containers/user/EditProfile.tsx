@@ -1,4 +1,9 @@
-import React, { FC, useState } from "react";
+import React, { FC, Fragment, useState } from "react";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+import * as ImageManipulator from "expo-image-manipulator";
+import EditProfile from "../../componets/user/EditProfile";
+import Spinner from "react-native-loading-spinner-overlay";
 import { useSelector, useDispatch } from "react-redux";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { UserScreenNavigationProp } from "../../componets/user/User";
@@ -9,10 +14,6 @@ import {
   upDateUserProfileImage,
   upDateUserImgIndex,
 } from "../../actions/user";
-import EditProfile from "../../componets/user/EditProfile";
-import * as Permissions from "expo-permissions";
-import * as ImagePicker from "expo-image-picker";
-import * as ImageManipulator from "expo-image-manipulator";
 
 type StorageImageData = {
   imgUrl: string;
@@ -28,12 +29,13 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
   const selectName = (state: RootState) => state.userReducer.name;
   const selectImage = (state: RootState) => state.userReducer.userImg;
   const selectImgIndex = (state: RootState) => state.userReducer.imgIndex;
-  const imgIndex = useSelector(selectImgIndex);
   const name = useSelector(selectName);
   const image = useSelector(selectImage);
+  const imgIndex = useSelector(selectImgIndex);
   const dispatch = useDispatch();
   const [userName, setUserName] = useState<string>(name);
   const [userImage, setUserImage] = useState<string>(image);
+  const [isloading, setIsLoading] = useState<boolean>(false);
   const [storageImageData, setStorageImageData] = useState<StorageImageData>({
     imgUrl: "",
     postIndex: "",
@@ -98,7 +100,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
           imgUrl,
           postIndex,
         }));
-        //img_indexを保存
+        //画像URLを保存
         await accountFireStore.updateImgIndex(postIndex);
         dispatch(upDateUserImgIndex(postIndex));
       })
@@ -109,12 +111,14 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
 
   //保存処理
   const saveData = async () => {
+    setIsLoading(true);
     //ユーザ名を更新して保存
     if (userName) {
       dispatch(upDateUserName(userName));
       await accountFireStore.updateName(userName);
     } else {
       callingAlert("ユーザ名を入力してください");
+      setIsLoading(false);
       return;
     }
     //storageに画像を保存,firedtoreに画像URLを保存
@@ -123,17 +127,26 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
       await uploadPostImage();
       await accountFireStore.updateProfileImage(storageImageData.imgUrl);
     }
+    setIsLoading(false);
     navigation.navigate("User");
   };
 
   return (
-    <EditProfile
-      userName={userName}
-      userImage={userImage}
-      setUserName={setUserName}
-      saveData={saveData}
-      onAddImagePressed={onAddImagePressed}
-    />
+    <Fragment>
+      <EditProfile
+        userName={userName}
+        userImage={userImage}
+        setUserName={setUserName}
+        saveData={saveData}
+        onAddImagePressed={onAddImagePressed}
+      />
+      <Spinner
+        visible={isloading}
+        textContent="保存中..."
+        textStyle={{ color: "#fff", fontSize: 13 }}
+        overlayColor="rgba(0,0,0,0.5)"
+      />
+    </Fragment>
   );
 };
 

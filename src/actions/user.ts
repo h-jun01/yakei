@@ -32,7 +32,7 @@ export const upDateUserProfileImage = (userImg: string) =>
     },
   } as const);
 
-//プロフィール画像の更新
+//画像URLの更新
 export const upDateUserImgIndex = (imgIndex: string) =>
   ({
     type: ActionTypes.UPDATE_IMG_INDEX,

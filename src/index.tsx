@@ -7,7 +7,7 @@ import { auth } from "./firebase/firebase";
 import { accountFireStore } from "./firebase/accountFireStore";
 import { photoFireStore } from "./firebase/photoFireStore";
 import { RootState } from "./reducers/index";
-import { lodingStatusChange, loginStatusChange } from "./actions/auth";
+import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import Auth from "./containers/Auth";
@@ -39,9 +39,9 @@ export type StackParamList = {
 
 const Root: FC = () => {
   //ログイン状態とローディング状態をstateから持ってくる
-  const selectIsLoding = (state: RootState) => state.authReducer.isLoding;
+  const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
   const selectIsLogin = (state: RootState) => state.authReducer.isLogin;
-  const isLoding = useSelector(selectIsLoding);
+  const isLoading = useSelector(selectIsLoading);
   const isLogin = useSelector(selectIsLogin);
   //ルーティング作成
   const Stack = createStackNavigator();
@@ -55,28 +55,27 @@ const Root: FC = () => {
       if (user) {
         accountFireStore.getUser(user.uid).then((documentSnapshot) => {
           dispatch(setUserData(documentSnapshot.data()));
-          // console.log(documentSnapshot.data());
         });
         photoFireStore.getPhotoList(user.uid).then((documentSnapshot) => {
           dispatch(setPhotoListData(documentSnapshot.data()));
         });
-        dispatch(lodingStatusChange(true));
+        dispatch(loadingStatusChange(true));
         dispatch(loginStatusChange(true));
       } else {
         dispatch(loginStatusChange(false));
-        dispatch(lodingStatusChange(true));
+        dispatch(loadingStatusChange(true));
       }
     });
   }, []);
 
   //ローディング中の画面を表示
-  if (!isLoding) {
+  if (!isLoading) {
     return <LodingScreen />;
   }
 
   return (
     <NavigationContainer>
-      {isLogin && isLoding ? (
+      {isLogin && isLoading ? (
         <Fragment>
           <Tab.Navigator>
             <Tab.Screen name="Home" component={HomeScreen} />
