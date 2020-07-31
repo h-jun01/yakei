@@ -8,7 +8,7 @@ import {
 } from "./user";
 
 export enum ActionTypes {
-  LODING_STATUS = "LODING_STATUS",
+  LOADING_STATUS = "LOADING_STATUS",
   LOGIN_STATUS = "LOGIN_STATUS",
   USER_DATA = "USER_DATA",
   PHOTO_DATA_LIST = "PHOTO_DATA_LIST",

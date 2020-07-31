@@ -1,11 +1,11 @@
 import { ActionTypes } from "./index";
 
 //ローディング状態の変更
-export const lodingStatusChange = (isLoding: boolean) =>
+export const loadingStatusChange = (isLoading: boolean) =>
   ({
-    type: ActionTypes.LODING_STATUS,
+    type: ActionTypes.LOADING_STATUS,
     payload: {
-      isLoding,
+      isLoading,
     },
   } as const);
 

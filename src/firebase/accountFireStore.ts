@@ -73,7 +73,7 @@ export const accountFireStore: AccountFireStore = {
         });
     }
   },
-  //storageに保存してあるファイル名の更新
+  //画像URLの更新
   updateImgIndex: async (img_index: string) => {
     const userData = auth.currentUser;
     if (userData) {
@@ -92,13 +92,6 @@ export const accountFireStore: AccountFireStore = {
     const userData = auth.currentUser;
     if (userData) {
       return storage.ref(`users/${userData.uid}`).child(imgIndex).delete();
-      // return desertRef.delete();
-      // .then(function () {
-      //   // File deleted successfully
-      // })
-      // .catch(function (error) {
-      //   // Uh-oh, an error occurred!
-      // });
     }
   },
   //認証済みチェック

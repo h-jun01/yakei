@@ -1,21 +1,21 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
 
 type State = {
-  isLoding: boolean;
+  isLoading: boolean;
   isLogin: boolean;
 };
 
 const initialState: State = {
-  isLoding: false,
+  isLoading: false,
   isLogin: false,
 };
 
 export const authReducer = (state = initialState, action: UnionedAction) => {
   switch (action.type) {
-    case ActionTypes.LODING_STATUS:
+    case ActionTypes.LOADING_STATUS:
       return {
         ...state,
-        isLoding: action.payload.isLoding,
+        isLoading: action.payload.isLoading,
       };
     case ActionTypes.LOGIN_STATUS:
       return {
@@ -23,9 +23,6 @@ export const authReducer = (state = initialState, action: UnionedAction) => {
         isLogin: action.payload.isLogin,
       };
     default: {
-      // const _: never = action.type;
-      //command+Sを押すした時になぜか通る。
-      //別のファイルでcommand+Sすると解決する
       return state;
     }
   }

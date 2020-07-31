@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { FC, Fragment, useState } from "react";
+import * as Google from "expo-google-app-auth";
+import Spinner from "react-native-loading-spinner-overlay";
 import Auth, { SignUpData } from "../componets/Auth";
 import { accountFireStore } from "../firebase/accountFireStore";
 import { callingAlert } from "../utilities/alert";
-import * as Google from "expo-google-app-auth";
 
-const ContainerAuth = () => {
+const ContainerAuth: FC = () => {
+  const [isloading, setIsLoading] = useState<boolean>(false);
   const [signUpData, setSignUpData] = useState<SignUpData>({
     email: "",
     name: "",
@@ -42,8 +44,8 @@ const ContainerAuth = () => {
         callingAlert("既に登録済みのメールアドレスです");
         return;
       }
-
-      fetch(url, {
+      setIsLoading(true);
+      await fetch(url, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -54,14 +56,14 @@ const ContainerAuth = () => {
           password: args.password,
         }),
       })
-        .then((res) => {
-          accountFireStore.loginUser({
+        .then(async () => {
+          await accountFireStore.loginUser({
             email: args.email,
             password: args.password,
           });
-          return res.json();
         })
         .catch((err) => {
+          setIsLoading(false);
           console.log(err);
         });
     } catch (error) {
@@ -85,11 +87,13 @@ const ContainerAuth = () => {
             (p: string) => p === accountFireStore.authenticationName
           ) !== -1
         ) {
+          setIsLoading(true);
           accountFireStore.loginUser({
             email: result.user.email as string,
             password: result.user.id as string,
           });
         } else {
+          setIsLoading(true);
           fetch(url, {
             method: "POST",
             headers: {
@@ -101,12 +105,11 @@ const ContainerAuth = () => {
               password: result.user.id,
             }),
           })
-            .then((res) => {
+            .then(() => {
               accountFireStore.loginUser({
                 email: result.user.email as string,
                 password: result.user.id as string,
               });
-              return res.json();
             })
             .catch((err) => {
               console.log(err);
@@ -121,12 +124,20 @@ const ContainerAuth = () => {
   };
 
   return (
-    <Auth
-      signUpData={signUpData}
-      setSignUpData={setSignUpData}
-      signUpUser={signUpUser}
-      signInWithGoogle={signInWithGoogle}
-    />
+    <Fragment>
+      <Auth
+        signUpData={signUpData}
+        setSignUpData={setSignUpData}
+        signUpUser={signUpUser}
+        signInWithGoogle={signInWithGoogle}
+      />
+      <Spinner
+        visible={isloading}
+        textContent="読み込み中..."
+        textStyle={{ color: "#fff", fontSize: 13 }}
+        overlayColor="rgba(0,0,0,0.5)"
+      />
+    </Fragment>
   );
 };
 
