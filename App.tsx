@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { FC, useState, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,60 +7,61 @@ import {
   Animated,
   TouchableHighlight,
 } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import BottomNav from "./BottomNavComponent";
 
-const App = () => {
-  const stateArray = ["normal", "press", "active", "pressActive"];
-  const [index, setIndex] = useState(0);
-  const [buttonState, setButtonState] = useState(stateArray[0]);
-  const plusToCrossAnim = useRef(new Animated.Value(0)).current;
+const App: FC = () => {
+  // const stateArray = ["normal", "press", "active", "pressActive"];
+  // const [index, setIndex] = useState(0);
+  // const [buttonState, setButtonState] = useState(stateArray[0]);
+  // const plusToCrossAnim = useRef(new Animated.Value(0)).current;
 
-  const resetAnimValue = () => plusToCrossAnim.setValue(0);
+  // const resetAnimValue = () => plusToCrossAnim.setValue(0);
 
-  const changeStyle = () => {
-    const newIndex = (index + 1) % 4;
-    if (buttonState == "press") {
-      // press→active
-      Animated.timing(plusToCrossAnim, {
-        toValue: 1,
-        duration: 200,
-      }).start();
-    } else if (buttonState == "pressActive") {
-      // pressActive→normal
-      Animated.timing(plusToCrossAnim, {
-        toValue: 2,
-        duration: 200,
-      }).start(resetAnimValue);
-    }
-    setIndex(newIndex);
-    setButtonState(stateArray[newIndex]);
-  };
+  // const changeStyle = () => {
+  //   const newIndex = (index + 1) % 4;
+  //   if (buttonState == "press") {
+  //     // press→active
+  //     Animated.timing(plusToCrossAnim, {
+  //       toValue: 1,
+  //       duration: 200,
+  //     }).start();
+  //   } else if (buttonState == "pressActive") {
+  //     // pressActive→normal
+  //     Animated.timing(plusToCrossAnim, {
+  //       toValue: 2,
+  //       duration: 200,
+  //     }).start(resetAnimValue);
+  //   }
+  //   setIndex(newIndex);
+  //   setButtonState(stateArray[newIndex]);
+  // };
 
-  // フレーム値0から1、1から2にかけて0degから45degに変化
-  const interPolateRotate = plusToCrossAnim.interpolate({
-    inputRange: [0, 1, 2],
-    outputRange: ["0deg", "45deg", "90deg"],
-  });
+  // // フレーム値0から1、1から2にかけて0degから45degに変化
+  // const interPolateRotate = plusToCrossAnim.interpolate({
+  //   inputRange: [0, 1, 2],
+  //   outputRange: ["0deg", "45deg", "90deg"],
+  // });
 
-  const interPolateTop = plusToCrossAnim.interpolate({
-    inputRange: [0, 1, 2],
-    outputRange: [2, 1.85, 1.7],
-  });
+  // const interPolateTop = plusToCrossAnim.interpolate({
+  //   inputRange: [0, 1, 2],
+  //   outputRange: [2, 1.85, 1.7],
+  // });
 
-  const interPolateRight = plusToCrossAnim.interpolate({
-    inputRange: [0, 1, 2],
-    outputRange: [0, 0.6, 1.2],
-  });
+  // const interPolateRight = plusToCrossAnim.interpolate({
+  //   inputRange: [0, 1, 2],
+  //   outputRange: [0, 0.6, 1.2],
+  // });
 
-  const animatedRotateStyle = {
-    transform: [{ rotate: interPolateRotate }],
-    top: interPolateTop,
-    right: interPolateRight,
-  };
+  // const animatedRotateStyle = {
+  //   transform: [{ rotate: interPolateRotate }],
+  //   top: interPolateTop,
+  //   right: interPolateRight,
+  // };
 
   return (
     <SafeAreaView style={styles.wrap}>
-      <View style={styles.whiteWrap} />
+      <BottomNav />
+      {/* <View style={styles.whiteWrap} />
       <View style={styles.bottomNavCenterWrap}>
         <View style={styles.bottomNavCenter} />
       </View>
@@ -92,7 +93,7 @@ const App = () => {
         </TouchableHighlight>
         <Text>テスト</Text>
         <Text>テスト</Text>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };
