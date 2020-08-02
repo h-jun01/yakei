@@ -3,7 +3,7 @@ import { StyleSheet, View, Dimensions } from "react-native";
 
 import PlusButtonSvg from "../ui/svg/PlusButtonSvg";
 import MapButtonSvg from "../ui/svg/MapButtonSvg";
-import SearchButtonSvg from "../ui/svg/SearchButtonSvg";
+import FolderButtonSvg from "../ui/svg/FolderButtonSvg";
 import NotificationButtonSvg from "../ui/svg/NotificationButtonSvg";
 
 const BottomNavComponent: FC = () => {
@@ -11,8 +11,8 @@ const BottomNavComponent: FC = () => {
     <View style={styles.container}>
       <View style={styles.fotterItem}>
         <MapButtonSvg />
+        <FolderButtonSvg />
         <PlusButtonSvg />
-        <SearchButtonSvg />
         <NotificationButtonSvg />
       </View>
     </View>
