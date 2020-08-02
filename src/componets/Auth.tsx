@@ -9,9 +9,12 @@ export type SignUpData = {
   password: string;
 };
 
+type UseInput = {
+  value: string;
+  onChangeText: (val: string) => void;
+};
+
 type Props = {
-  signUpData: SignUpData;
-  setSignUpData: React.Dispatch<React.SetStateAction<SignUpData>>;
   signUpUser: (args: SignUpData) => void;
   signInWithGoogle: () => Promise<
     | {
@@ -24,10 +27,13 @@ type Props = {
       }
     | undefined
   >;
+  name: UseInput;
+  email: UseInput;
+  pass: UseInput;
 };
 
 const Auth: FC<Props> = ({ ...props }) => {
-  const { signUpData, setSignUpData, signUpUser, signInWithGoogle } = props;
+  const { signUpUser, signInWithGoogle, name, email, pass } = props;
 
   return (
     <View style={styles.container}>
@@ -38,47 +44,38 @@ const Auth: FC<Props> = ({ ...props }) => {
 
         <View style={styles.input}>
           <TextInput
-            value={signUpData.email}
             placeholder="メールアドレスを入力"
             placeholderTextColor="#808080"
-            onChangeText={(email) =>
-              setSignUpData((prevState) => ({ ...prevState, email: email }))
-            }
+            {...email}
           />
         </View>
 
         <View style={styles.input}>
           <TextInput
-            value={signUpData.name}
+            // value={signUpData.name}
             placeholder="ユーザ名を入力"
             placeholderTextColor="#808080"
-            onChangeText={(name) =>
-              setSignUpData((prevState) => ({ ...prevState, name: name }))
-            }
+            {...name}
           />
         </View>
 
         <View style={styles.input}>
           <TextInput
-            value={signUpData.password}
+            // value={signUpData.password}
             secureTextEntry={true}
             placeholder="パスワードを入力"
             placeholderTextColor="#808080"
-            onChangeText={(password) =>
-              setSignUpData((prevState) => ({
-                ...prevState,
-                password: password,
-              }))
-            }
+            {...pass}
           />
         </View>
         <View style={styles.buttonBack}>
+          {console.log(email.value)}
           <TouchableWithoutFeedback
             onPress={() =>
               signUpUser({
-                name: signUpData.name,
-                email: signUpData.email,
-                password: signUpData.password,
+                name: name.value,
+                email: email.value,
+                password: pass.value,
               })
             }
           >
