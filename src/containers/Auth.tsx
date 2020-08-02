@@ -5,13 +5,21 @@ import Auth, { SignUpData } from "../componets/Auth";
 import { accountFireStore } from "../firebase/accountFireStore";
 import { callingAlert } from "../utilities/alert";
 
+type UseInput = {
+  value: string;
+  onChangeText: (val: string) => void;
+};
+
 const ContainerAuth: FC = () => {
   const [isloading, setIsLoading] = useState<boolean>(false);
-  const [signUpData, setSignUpData] = useState<SignUpData>({
-    email: "",
-    name: "",
-    password: "",
-  });
+  const useInput = (initialValue: string): UseInput => {
+    const [value, setValue] = useState(initialValue);
+    return { value, onChangeText: (val: string) => setValue(val) };
+  };
+
+  const name = useInput("");
+  const email = useInput("");
+  const pass = useInput("");
 
   //エンドポイント
   const url = "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
@@ -22,22 +30,22 @@ const ContainerAuth: FC = () => {
     const REGEX_PASSWORD = /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}$/i;
 
     try {
-      if (!signUpData.email) {
+      if (!email.value) {
         callingAlert("メールアドレスを入力してください");
         return;
-      } else if (!signUpData.email.match(REGEX_EMAIL)) {
+      } else if (!email.value.match(REGEX_EMAIL)) {
         callingAlert("メールドレスの形式が不正です");
         return;
-      } else if (!signUpData.name) {
+      } else if (!name.value) {
         callingAlert("ユーザ名を入力してください");
         return;
-      } else if (!signUpData.password.match(REGEX_PASSWORD)) {
+      } else if (!pass.value.match(REGEX_PASSWORD)) {
         callingAlert(
           "パスワードは半角英数字を含めた6文字以上で入力してください"
         );
         return;
       } else if (
-        (await accountFireStore.providers(signUpData.email)).findIndex(
+        (await accountFireStore.providers(email.value)).findIndex(
           (p: string) => p === accountFireStore.authenticationName
         ) !== -1
       ) {
@@ -75,8 +83,10 @@ const ContainerAuth: FC = () => {
   const signInWithGoogle = async () => {
     try {
       const result = await Google.logInAsync({
-        androidClientId: "",
-        iosClientId: "",
+        androidClientId:
+          "655737634399-lklkkiauc2cgm6rcmvlrfn1bhnvijhkf.apps.googleusercontent.com",
+        iosClientId:
+          "655737634399-10b4vips3mpdkht5kdsol7dskcmuqjkb.apps.googleusercontent.com",
         scopes: ["profile", "email"],
       });
       if (result.type === "success") {
@@ -126,10 +136,11 @@ const ContainerAuth: FC = () => {
   return (
     <Fragment>
       <Auth
-        signUpData={signUpData}
-        setSignUpData={setSignUpData}
         signUpUser={signUpUser}
         signInWithGoogle={signInWithGoogle}
+        name={name}
+        email={email}
+        pass={pass}
       />
       <Spinner
         visible={isloading}
