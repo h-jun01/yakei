@@ -83,10 +83,8 @@ const ContainerAuth: FC = () => {
   const signInWithGoogle = async () => {
     try {
       const result = await Google.logInAsync({
-        androidClientId:
-          "655737634399-lklkkiauc2cgm6rcmvlrfn1bhnvijhkf.apps.googleusercontent.com",
-        iosClientId:
-          "655737634399-10b4vips3mpdkht5kdsol7dskcmuqjkb.apps.googleusercontent.com",
+        androidClientId: "",
+        iosClientId: "",
         scopes: ["profile", "email"],
       });
       if (result.type === "success") {

@@ -103,8 +103,8 @@ const Auth: FC<Props> = ({ ...props }) => {
           <TouchableWithoutFeedback
             onPress={() =>
               accountFireStore.loginUser({
-                email: "test@gmail.com",
-                password: "123456a",
+                email: "",
+                password: "",
               })
             }
           >
