@@ -7,7 +7,7 @@ import {
   Animated,
   TouchableHighlight,
 } from "react-native";
-import BottomNav from "./BottomNavComponent";
+import BottomNav from "./src/components/layouts/BottomNav";
 
 const App: FC = () => {
   // const stateArray = ["normal", "press", "active", "pressActive"];
