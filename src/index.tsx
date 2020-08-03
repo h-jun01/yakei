@@ -10,7 +10,8 @@ import { RootState } from "./reducers/index";
 import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
-import Auth from "./containers/Auth";
+import SignUp from "./containers/organisms/SignUp";
+import SignIn from "./containers/organisms/SignIn";
 import LodingScreen from "./componets/LoadingScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SearchScreen from "./screens/SearchScreen";
@@ -25,7 +26,8 @@ export type TabParamList = {
 };
 
 export type StackParamList = {
-  Auth: undefined;
+  SignUp: undefined;
+  SignIn: undefined;
   Home: undefined;
   Search: undefined;
   Notification: undefined;
@@ -87,11 +89,18 @@ const Root: FC = () => {
       ) : (
         <Stack.Navigator>
           <Stack.Screen
-            name="Auth"
-            component={Auth}
+            name="SignUp"
+            component={SignUp}
             options={{
               headerShown: false,
               animationEnabled: false,
+            }}
+          />
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{
+              headerShown: false,
             }}
           />
         </Stack.Navigator>

@@ -1,5 +1,13 @@
 import React, { FC } from "react";
-import { View, Text, Button, Image, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  Image,
+  FlatList,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 import { Avatar } from "react-native-elements";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
@@ -31,21 +39,22 @@ const User: FC<Props> = ({ ...props }) => {
   const { navigation, name, image, photoDataList } = props;
 
   return (
-    <View style={styles.container}>
-      <Text>{name}のマイページ</Text>
-      <Text>ユーザーアイコン</Text>
-      <Avatar
-        size={100}
-        activeOpacity={0.7}
-        rounded
-        icon={{ name: "user", type: "font-awesome" }}
-        source={{
-          uri: image,
-        }}
-      />
-      <Text>写真一覧</Text>
-      {/* {photoDataList[0] !== undefined
-        ? photoDataList.map((item, index) => (
+    <SafeAreaView>
+      <ScrollView>
+        <Text>{name}のマイページ</Text>
+        <Text>ユーザーアイコン</Text>
+        <Avatar
+          size={100}
+          activeOpacity={0.7}
+          rounded
+          icon={{ name: "user", type: "font-awesome" }}
+          source={{
+            uri: image,
+          }}
+        />
+        <Text>写真一覧</Text>
+        {photoDataList !== undefined &&
+          photoDataList.map((item, index) => (
             <View key={index}>
               <Image
                 style={styles.userImage}
@@ -54,22 +63,10 @@ const User: FC<Props> = ({ ...props }) => {
                 }}
               />
             </View>
-          ))
-        : console.log("noData")} */}
-      <FlatList
-        data={photoDataList}
-        renderItem={({ item }) => (
-          <Image
-            style={styles.userImage}
-            source={{
-              uri: item.URL,
-            }}
-          />
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-      <Button title="設定" onPress={() => navigation.navigate("設定")} />
-    </View>
+          ))}
+        <Button title="設定" onPress={() => navigation.navigate("設定")} />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
