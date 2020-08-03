@@ -1,28 +1,28 @@
 import React, { FC, Fragment } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableWithoutFeedback } from "react-native";
+import { UseInputResult } from "../../utilities/hooks/input";
 import { styles } from "../../styles/auth";
 import FormInput from "../atoms/auth/FormInput";
 import ServiceTitle from "../atoms/auth/ServiceTitle";
-import AuthButton from "../atoms/auth/AuthButton";
+import GoogleAuthButton from "../atoms/auth/GoogleAuthButton";
 import AuthChoiceText from "../atoms/auth/AuthChoiceText";
 import AuthStatusChange from "../atoms/auth/AuthStatusChange";
-
-type UseInput = {
-  value: string;
-  onChangeText: (val: string) => void;
-};
+import AuthScreenButton from "../atoms/auth/AuthScreenButton";
+import ForgotPassword from "../atoms/auth/ForgotPassword";
 
 type ItemList = {
   item: string;
   placeholder: string;
   secureTextEntry: boolean;
-  signUpUserData: UseInput;
+  signUpUserData: UseInputResult;
 };
 
 type Props = {
   navigation: any;
   itemList: ItemList[];
-  signInUser: () => void;
+  email: UseInputResult;
+  pass: UseInputResult;
+  signInUser: (email: string, password: string) => void;
   signInWithGoogle: () => Promise<
     | {
         cancelled: boolean;
@@ -37,13 +37,22 @@ type Props = {
 };
 
 const SignIn: FC<Props> = ({ ...props }) => {
-  const { navigation, itemList, signInUser, signInWithGoogle } = props;
+  const {
+    navigation,
+    itemList,
+    email,
+    pass,
+    signInUser,
+    signInWithGoogle,
+  } = props;
 
   return (
     <Fragment>
       <View style={styles.container}>
         <View style={styles.box}>
+          {/* ロゴ */}
           <ServiceTitle />
+          {/* 入力フォーム */}
           {itemList.map((item, index) => (
             <FormInput
               key={index}
@@ -53,24 +62,23 @@ const SignIn: FC<Props> = ({ ...props }) => {
               signUpUserData={item.signUpUserData}
             />
           ))}
-          <View style={styles.buttonBack}>
-            <AuthButton label="ログイン" onPressFunction={signInUser} />
-          </View>
-          <View style={styles.text}>
-            <Text style={styles.textColor}>パスワードをお忘れですか</Text>
-          </View>
+          {/* 新規登録とログインボタン */}
+          <AuthScreenButton
+            label="ログイン"
+            authFunction={() => signInUser(email.value, pass.value)}
+          />
+          {/* パスワードお忘れですか */}
+          <ForgotPassword />
+          {/* またはのとこ */}
           <AuthChoiceText />
-          <View style={styles.twitterBack}>
-            <AuthButton
-              label="Googleアカウントでログイン"
-              onPressFunction={signInWithGoogle}
-            />
-          </View>
+          {/* Google認証ボタン */}
+          <GoogleAuthButton signInWithGoogle={signInWithGoogle} />
         </View>
       </View>
+      {/* ログインか新規登録に切り替え */}
       <AuthStatusChange
         text="アカウントをお持ちでない場合は、新規登録を行ってください"
-        navigation={() => navigation.navigate("SignUp")}
+        navigation={() => navigation.navigate("新規登録")}
       />
     </Fragment>
   );

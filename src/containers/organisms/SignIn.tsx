@@ -50,9 +50,9 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
   const url = "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
 
   //新規登録処理
-  const signInUser = async () => {
+  const signInUser = async (email: string, password: string) => {
     try {
-      accountFireStore.loginUser({ email: email.value, password: pass.value });
+      accountFireStore.loginUser({ email, password });
     } catch (error) {
       console.log(error.toString());
     }
@@ -115,6 +115,8 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
       <SignIn
         navigation={navigation}
         itemList={itemList}
+        email={email}
+        pass={pass}
         signInUser={signInUser}
         signInWithGoogle={signInWithGoogle}
       />

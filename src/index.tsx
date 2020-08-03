@@ -12,6 +12,8 @@ import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import SignUp from "./containers/organisms/SignUp";
 import SignIn from "./containers/organisms/SignIn";
+import TermsOfService from "./componets/user/TermsOfService";
+import PrivacyPolicy from "./componets/user/PrivacyPolicy";
 import LodingScreen from "./componets/LoadingScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SearchScreen from "./screens/SearchScreen";
@@ -26,8 +28,8 @@ export type TabParamList = {
 };
 
 export type StackParamList = {
-  SignUp: undefined;
-  SignIn: undefined;
+  新規登録: undefined;
+  ログイン: undefined;
   Home: undefined;
   Search: undefined;
   Notification: undefined;
@@ -89,7 +91,7 @@ const Root: FC = () => {
       ) : (
         <Stack.Navigator>
           <Stack.Screen
-            name="SignUp"
+            name="新規登録"
             component={SignUp}
             options={{
               headerShown: false,
@@ -97,12 +99,14 @@ const Root: FC = () => {
             }}
           />
           <Stack.Screen
-            name="SignIn"
+            name="ログイン"
             component={SignIn}
             options={{
               headerShown: false,
             }}
           />
+          <Stack.Screen name="利用規約" component={TermsOfService} />
+          <Stack.Screen name="プライバシーポリシー" component={PrivacyPolicy} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
