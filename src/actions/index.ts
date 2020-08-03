@@ -1,4 +1,4 @@
-import { lodingStatusChange, loginStatusChange } from "./auth";
+import { loadingStatusChange, loginStatusChange } from "./auth";
 import { setPhotoListData } from "./photo";
 import {
   setUserData,
@@ -18,7 +18,7 @@ export enum ActionTypes {
 }
 
 export type UnionedAction =
-  | ReturnType<typeof lodingStatusChange>
+  | ReturnType<typeof loadingStatusChange>
   | ReturnType<typeof loginStatusChange>
   | ReturnType<typeof setUserData>
   | ReturnType<typeof setPhotoListData>
