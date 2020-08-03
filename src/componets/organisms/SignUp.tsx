@@ -1,31 +1,29 @@
 import React, { FC, Fragment } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
+import { UseInputResult } from "../../utilities/hooks/input";
 import { styles } from "../../styles/auth";
 import FormInput from "../atoms/auth/FormInput";
 import ServiceTitle from "../atoms/auth/ServiceTitle";
-import AuthButton from "../atoms/auth/AuthButton";
+import GoogleAuthButton from "../atoms/auth/GoogleAuthButton";
 import AuthChoiceText from "../atoms/auth/AuthChoiceText";
 import AuthStatusChange from "../atoms/auth/AuthStatusChange";
-
-type UseInput = {
-  value: string;
-  onChangeText: (val: string) => void;
-};
+import SginUpScreenText from "../atoms/auth/SginUpScreenText";
+import AuthScreenButton from "../atoms/auth/AuthScreenButton";
 
 type ItemList = {
   item: string;
   placeholder: string;
   secureTextEntry: boolean;
-  signUpUserData: UseInput;
+  signUpUserData: UseInputResult;
 };
 
 type Props = {
   navigation: any;
-  name: UseInput;
-  email: UseInput;
-  pass: UseInput;
   itemList: ItemList[];
-  signUpUser: () => void;
+  name: UseInputResult;
+  email: UseInputResult;
+  pass: UseInputResult;
+  signUpUser: (name: string, email: string, password: string) => void;
   signInWithGoogle: () => Promise<
     | {
         cancelled: boolean;
@@ -40,13 +38,23 @@ type Props = {
 };
 
 const SignUp: FC<Props> = ({ ...props }) => {
-  const { navigation, itemList, signUpUser, signInWithGoogle } = props;
+  const {
+    navigation,
+    name,
+    email,
+    pass,
+    itemList,
+    signUpUser,
+    signInWithGoogle,
+  } = props;
 
   return (
     <Fragment>
       <View style={styles.container}>
         <View style={styles.box}>
+          {/* ロゴ */}
           <ServiceTitle />
+          {/* 入力フォーム */}
           {itemList.map((item, index) => (
             <FormInput
               key={index}
@@ -56,26 +64,23 @@ const SignUp: FC<Props> = ({ ...props }) => {
               signUpUserData={item.signUpUserData}
             />
           ))}
-          <View style={styles.buttonBack}>
-            <AuthButton label="新規登録" onPressFunction={signUpUser} />
-          </View>
-          <View style={styles.text}>
-            <Text style={styles.textColor}>
-              登録することで、利用規約及びプライバシーポリシーに同意するものとします。
-            </Text>
-          </View>
+          {/* 新規登録とログインボタン */}
+          <AuthScreenButton
+            label="新規登録"
+            authFunction={() => signUpUser(name.value, email.value, pass.value)}
+          />
+          {/* 利用規約とプラポリ */}
+          <SginUpScreenText navigation={navigation} />
+          {/* またはのとこ */}
           <AuthChoiceText />
-          <View style={styles.twitterBack}>
-            <AuthButton
-              label="Googleアカウントでログイン"
-              onPressFunction={signInWithGoogle}
-            />
-          </View>
+          {/* Google認証ボタン */}
+          <GoogleAuthButton signInWithGoogle={signInWithGoogle} />
         </View>
       </View>
+      {/* ログインか新規登録に切り替え */}
       <AuthStatusChange
         text="既にアカウントをお持ちの場合、ログインはこちら"
-        navigation={() => navigation.navigate("SignIn")}
+        navigation={() => navigation.navigate("ログイン")}
       />
     </Fragment>
   );
