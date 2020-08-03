@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Notification, {
   NotificationScreenNavigationProp,
-} from "../../componets/notification/Notification";
+} from "../../../componets/organisms/notification/Notification";
 
 type Props = {
   navigation: NotificationScreenNavigationProp;

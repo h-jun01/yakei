@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import User from "../containers/user/User";
-import Setting from "../containers/user/Setting";
-import EditProfile from "../containers/user/EditProfile";
-import TermsOfService from "../componets/user/TermsOfService";
-import PrivacyPolicy from "../componets/user/PrivacyPolicy";
+import User from "../containers/organisms/user/User";
+import Setting from "../containers/organisms/user/Setting";
+import EditProfile from "../containers/organisms/user/EditProfile";
+import TermsOfService from "../componets/organisms/user/TermsOfService";
+import PrivacyPolicy from "../componets/organisms/user/PrivacyPolicy";
 
 const UserScreen: FC = () => {
   const Stack = createStackNavigator();

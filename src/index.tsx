@@ -12,8 +12,8 @@ import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import SignUp from "./containers/organisms/SignUp";
 import SignIn from "./containers/organisms/SignIn";
-import TermsOfService from "./componets/user/TermsOfService";
-import PrivacyPolicy from "./componets/user/PrivacyPolicy";
+import TermsOfService from "./componets/organisms/user/TermsOfService";
+import PrivacyPolicy from "./componets/organisms/user/PrivacyPolicy";
 import LodingScreen from "./componets/LoadingScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SearchScreen from "./screens/SearchScreen";
@@ -105,8 +105,16 @@ const Root: FC = () => {
               headerShown: false,
             }}
           />
-          <Stack.Screen name="利用規約" component={TermsOfService} />
-          <Stack.Screen name="プライバシーポリシー" component={PrivacyPolicy} />
+          <Stack.Screen
+            name="利用規約"
+            component={TermsOfService}
+            options={{ headerBackTitleVisible: false }}
+          />
+          <Stack.Screen
+            name="プライバシーポリシー"
+            component={PrivacyPolicy}
+            options={{ headerBackTitleVisible: false }}
+          />
         </Stack.Navigator>
       )}
     </NavigationContainer>

@@ -5,6 +5,7 @@ import Auth from "../../componets/organisms/SignUp";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { callingAlert } from "../../utilities/alert";
 import { useInput, UseInputResult } from "../../utilities/hooks/input";
+import { StackParamList } from "../../index";
 
 type ItemList = {
   item: string;
@@ -14,7 +15,7 @@ type ItemList = {
 };
 
 type Props = {
-  navigation: any;
+  navigation: StackParamList;
 };
 
 const ContainerSignUp: FC<Props> = ({ navigation }) => {
@@ -49,18 +50,22 @@ const ContainerSignUp: FC<Props> = ({ navigation }) => {
 
   //新規登録処理
   const signUpUser = async (name: string, email: string, password: string) => {
+    const REGEX_NAME = /^.{2,6}$/;
     const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const REGEX_PASSWORD = /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}$/i;
 
     try {
-      if (!email) {
+      if (!name) {
+        callingAlert("ユーザ名を入力してください");
+        return;
+      } else if (!name.match(REGEX_NAME)) {
+        callingAlert("ユーザ名は2〜6文字以内で入力してください");
+        return;
+      } else if (!email!) {
         callingAlert("メールアドレスを入力してください");
         return;
       } else if (!email.match(REGEX_EMAIL)) {
         callingAlert("メールドレスの形式が不正です");
-        return;
-      } else if (!name) {
-        callingAlert("ユーザ名を入力してください");
         return;
       } else if (!password.match(REGEX_PASSWORD)) {
         callingAlert(
