@@ -3,12 +3,12 @@ import { View } from "react-native";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { TabParamList } from "../../index";
-import { StackParamList } from "../../index";
+import { TabParamList } from "../../../index";
+import { StackParamList } from "../../../index";
 
 import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { Region } from "../../entities/index";
+import { Region } from "../../../entities/index";
 
 export type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, "Home">,

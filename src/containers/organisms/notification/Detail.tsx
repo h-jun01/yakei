@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
-import Detail from "../../componets/notification/Detail";
+import Detail from "../../../componets/organisms/notification/Detail";
 
 //主に処理に関する記述はこのファイル
 const ContainerDetail = () => {

@@ -3,8 +3,8 @@ import { View, Text, Button } from "react-native";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { TabParamList } from "../../index";
-import { StackParamList } from "../../index";
+import { TabParamList } from "../../../index";
+import { StackParamList } from "../../../index";
 
 export type SearchScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, "Search">,

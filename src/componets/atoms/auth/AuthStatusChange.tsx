@@ -1,10 +1,9 @@
 import React, { FC } from "react";
-import { Text, SafeAreaView } from "react-native";
-import { styles } from "../../../styles/auth";
+import { Text, SafeAreaView, GestureResponderEvent } from "react-native";
 
 type Props = {
   text: string;
-  navigation: any;
+  navigation: ((event: GestureResponderEvent) => void) | undefined;
 };
 
 const AuthStatusChange: FC<Props> = ({ ...props }) => {

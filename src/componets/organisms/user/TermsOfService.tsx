@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { ScrollView, View, Text } from "react-native";
-import { styles } from "../../styles/user/terms";
+import { styles } from "../../../styles/user/terms";
 
 const TermsOfService: FC = () => {
   return (

@@ -1,9 +1,11 @@
 import React, { FC, useEffect } from "react";
-import Home, { HomeScreenNavigationProp } from "../../componets/home/Home";
+import Home, {
+  HomeScreenNavigationProp,
+} from "../../../componets/organisms/home/Home";
 
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
-import { Region } from "../../entities/index";
+import { Region } from "../../../entities/index";
 
 const getLocationAsync = async () => {
   const { status } = await Permissions.askAsync(Permissions.LOCATION);
