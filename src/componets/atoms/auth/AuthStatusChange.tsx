@@ -9,8 +9,10 @@ type Props = {
 const AuthStatusChange: FC<Props> = ({ ...props }) => {
   const { text, navigation } = props;
   return (
-    <SafeAreaView>
-      <Text onPress={navigation}>{text}</Text>
+    <SafeAreaView style={styles.authChangeWrap}>
+      <Text style={styles.authChangeText} onPress={navigation}>
+        {text}
+      </Text>
     </SafeAreaView>
   );
 };

@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+import { baseColor,utilityColor, fontColor } from "./thema/colors"
+import {fontSize} from "./thema/fonts"
 
 export const styles = StyleSheet.create({
   container: {
@@ -6,78 +8,116 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#1C3952",
   },
-  box: {
-    width: 300,
+  authBack: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
+  authWrap: {
+    width: "90%",
     marginLeft: "auto",
     marginRight: "auto",
+    padding: 25,
+    backgroundColor: utilityColor.inputBack,
+    borderRadius: 10,
   },
-  title: {
-    marginBottom: 70,
+
+  //アプリ名
+  titleWrap: {
+    marginBottom: 50,
   },
   titleText: {
-    color: "#fff",
+    color: baseColor.text,
     textAlign: "center",
-    fontSize: 25,
+    fontSize: 40,
+  },
+
+  //input
+  inputItemName: {
+    color: baseColor.text,
+    fontSize: fontSize.Small,
   },
   input: {
-    backgroundColor: "#fff",
     marginBottom: 20,
-    padding: 15,
+    padding: 10,
     borderRadius: 5,
-    opacity: 0.7,
+    borderBottomWidth: 1,
+    borderBottomColor: utilityColor.border,
+    fontSize: fontSize.Large,
   },
+
+  //authBtn
   buttonBack: {
-    backgroundColor: "#337CEA",
+    backgroundColor: baseColor.accent,
     borderRadius: 5,
-    paddingTop: 4,
-    paddingBottom: 4,
+    paddingVertical: 15,
     marginBottom: 15,
   },
   buttonText: {
-    color: "#fff",
-    padding: 11,
+    color: baseColor.text,
+    fontSize: fontSize.Large,
+    fontWeight: "900",
     textAlign: "center",
   },
+
+  // 利用規約
   text: {
-    marginBottom: 40,
+    marginTop: 15,
   },
   textColor: {
-    color: "#fff",
-    fontSize: 12,
+    color: baseColor.text,
+    fontSize: fontSize.Small,
     textAlign: "center",
-    lineHeight: 18,
+    lineHeight: fontSize.lineHeight,
   },
+  attention: {
+    color: baseColor.accent,
+    fontWeight: "bold",
+    fontSize: fontSize.NormalS,
+  },
+
+  //または
   borderBox: {
     flexDirection: "row",
+    alignItems: "center",
     marginLeft: "auto",
     marginRight: "auto",
+    marginVertical: 15,
   },
   orText: {
-    color: "#fff",
-    marginLeft: 30,
-    marginRight: 30,
-    marginBottom: 15,
-    fontSize: 12,
+    color: baseColor.text,
+    paddingHorizontal: 30,
+    fontSize: fontSize.Small,
   },
-  borderLeft: {
+  borderItem: {
     borderWidth: 0.3,
-    borderColor: "#fff",
+    borderColor: utilityColor.border,
     width: 100,
     height: 1,
-    marginTop: 6,
+    opacity: 0.5,
   },
-  borderRight: {
-    borderWidth: 0.3,
-    borderColor: "#fff",
-    width: 100,
-    height: 1,
-    marginTop: 6,
-  },
+
+  //連携ログイン
   twitterBack: {
-    backgroundColor: "#55aced",
+    backgroundColor: "#DC4E42",
     borderRadius: 5,
-    paddingTop: 4,
-    paddingBottom: 4,
+    paddingVertical: 15,
     marginBottom: 15,
+  },
+
+  authChangeWrap: {
+    height: 58,
+    width: "100%",
+    position: "absolute",
+    bottom: 0,
+    backgroundColor: utilityColor.authNav,
+    alignItems: "center",
+    borderTopWidth: 1,
+    borderColor: utilityColor.border,
+  },
+  authChangeText: {
+    color: baseColor.text,
+    fontSize: fontSize.Small,
+    padding: 20,
   },
 });

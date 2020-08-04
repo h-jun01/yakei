@@ -18,12 +18,12 @@ const FormInput: FC<Props> = ({ ...props }) => {
   const { item, placeholder, secureTextEntry, signUpUserData } = props;
   return (
     <View>
-      <Text>{item}</Text>
+      <Text style={styles.inputItemName}>{item}</Text>
       <TextInput
         style={styles.input}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
-        placeholderTextColor="#808080"
+        placeholderTextColor="#8C9197"
         {...signUpUserData}
       />
     </View>

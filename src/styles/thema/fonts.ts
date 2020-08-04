@@ -1,13 +1,13 @@
 export const fontSize = {
-  fontSizeXxsmall: "8",
-  fontSizeXsmall: "10",
-  fontSizeSmall: "12",
-  fontSizeNormalS: "13",
-  fontSizeNormal: "14",
-  fontSizeLarge: "16",
-  fontSizeXlarge: "18",
-  fontSizeXxlarge: "20",
-  lineHeight: "1.5",
+  Xxsmall: 8,
+  Xsmall: 10,
+  Small: 12,
+  NormalS: 13,
+  Normal: 14,
+  Large: 16,
+  Xlarge: 18,
+  Xxlarge: 20,
+  lineHeight: 15,
 };
 export const fontFamily = {
   gothic: "YuGothic",
