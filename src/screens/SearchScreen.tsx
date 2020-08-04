@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Search from "../containers/search/Search";
-import Details from "../containers/search/Detail";
+import Search from "../containers/organisms/search/Search";
+import Details from "../containers/organisms/search/Detail";
 
 const SearchScreen: FC = () => {
   const Stack = createStackNavigator();

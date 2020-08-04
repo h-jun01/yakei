@@ -1,6 +1,8 @@
 import React, { FC } from "react";
-import User, { UserScreenNavigationProp } from "../../componets/user/User";
-import { RootState } from "../../reducers/index";
+import User, {
+  UserScreenNavigationProp,
+} from "../../../componets/organisms/user/User";
+import { RootState } from "../../../reducers/index";
 import { useSelector } from "react-redux";
 
 type Props = {

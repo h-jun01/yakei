@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text } from "react-native";
 import { styles } from "../../../styles/auth";
 
 type Props = {

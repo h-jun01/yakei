@@ -12,9 +12,9 @@ import { Avatar } from "react-native-elements";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { TabParamList } from "../../index";
-import { StackParamList } from "../../index";
-import { styles } from "../../styles/user/user";
+import { TabParamList } from "../../../index";
+import { StackParamList } from "../../../index";
+import { styles } from "../../../styles/user/user";
 
 export type UserScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, "User">,

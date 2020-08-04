@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import { accountFireStore } from "../../firebase/accountFireStore";
-import { UserScreenNavigationProp } from "../../componets/user/User";
-import Setting from "../../componets/user/Setting";
+import { accountFireStore } from "../../../firebase/accountFireStore";
+import { UserScreenNavigationProp } from "../../../componets/organisms/user/User";
+import Setting from "../../../componets/organisms/user/Setting";
 
 type Props = {
   navigation: UserScreenNavigationProp;
