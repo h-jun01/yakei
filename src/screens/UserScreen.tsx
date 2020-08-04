@@ -17,10 +17,26 @@ const UserScreen: FC = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="設定" component={Setting} />
-      <Stack.Screen name="プロフィール編集" component={EditProfile} />
-      <Stack.Screen name="利用規約" component={TermsOfService} />
-      <Stack.Screen name="プライバシーポリシー" component={PrivacyPolicy} />
+      <Stack.Screen
+        name="設定"
+        component={Setting}
+        options={{ headerBackTitleVisible: false }}
+      />
+      <Stack.Screen
+        name="プロフィール編集"
+        component={EditProfile}
+        options={{ headerBackTitleVisible: false }}
+      />
+      <Stack.Screen
+        name="利用規約"
+        component={TermsOfService}
+        options={{ headerBackTitleVisible: false }}
+      />
+      <Stack.Screen
+        name="プライバシーポリシー"
+        component={PrivacyPolicy}
+        options={{ headerBackTitleVisible: false }}
+      />
     </Stack.Navigator>
   );
 };

@@ -3,18 +3,17 @@ import {
   View,
   Text,
   Button,
-  Image,
-  FlatList,
+  ActivityIndicator,
   ScrollView,
-  SafeAreaView,
 } from "react-native";
-import { Avatar } from "react-native-elements";
+import { Avatar, Image } from "react-native-elements";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TabParamList } from "../../../index";
 import { StackParamList } from "../../../index";
 import { styles } from "../../../styles/user/user";
+import { deviceWidth } from "../../../utilities/dimensions";
 
 export type UserScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, "User">,
@@ -32,41 +31,58 @@ type Props = {
   navigation: UserScreenNavigationProp;
   name: string;
   image: string;
+  headerImage: string;
+  selfIntroduction: string;
   photoDataList: PhotoDataList[];
 };
 
 const User: FC<Props> = ({ ...props }) => {
-  const { navigation, name, image, photoDataList } = props;
+  const {
+    navigation,
+    name,
+    image,
+    headerImage,
+    selfIntroduction,
+    photoDataList,
+  } = props;
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Text>{name}のマイページ</Text>
-        <Text>ユーザーアイコン</Text>
-        <Avatar
-          size={100}
-          activeOpacity={0.7}
-          rounded
-          icon={{ name: "user", type: "font-awesome" }}
-          source={{
-            uri: image,
-          }}
+    <ScrollView>
+      <View>
+        <Image
+          source={{ uri: headerImage }}
+          style={{ width: deviceWidth, height: 150 }}
+          PlaceholderContent={<ActivityIndicator />}
         />
-        <Text>写真一覧</Text>
-        {photoDataList !== undefined &&
-          photoDataList.map((item, index) => (
-            <View key={index}>
-              <Image
-                style={styles.userImage}
-                source={{
-                  uri: item.URL,
-                }}
-              />
-            </View>
-          ))}
-        <Button title="設定" onPress={() => navigation.navigate("設定")} />
-      </ScrollView>
-    </SafeAreaView>
+        <View>
+          <Text>{name}のマイページ</Text>
+          <Avatar
+            size={100}
+            activeOpacity={0.7}
+            rounded
+            icon={{ name: "user", type: "font-awesome" }}
+            source={{
+              uri: image,
+            }}
+          />
+          <Text>{selfIntroduction}</Text>
+          <Text>写真一覧</Text>
+          {photoDataList !== undefined &&
+            photoDataList.map((item, index) => (
+              <View key={index}>
+                <Image
+                  style={styles.userImage}
+                  PlaceholderContent={<ActivityIndicator />}
+                  source={{
+                    uri: item.URL,
+                  }}
+                />
+              </View>
+            ))}
+          <Button title="設定" onPress={() => navigation.navigate("設定")} />
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

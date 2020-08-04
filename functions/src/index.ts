@@ -23,7 +23,11 @@ const userCreation = async (request, response) => {
         uid: userRecord.uid,
         name: userRecord.displayName,
         user_img: userRecord.photoURL,
+        user_header_img:
+          "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/defaultHeader.png?alt=media&token=f8c65ab2-c140-4a24-a2c7-e9592d0c830e",
         img_index: "",
+        header_img_index: "",
+        self_introduction: "",
         create_time: admin.firestore.FieldValue.serverTimestamp(),
         update_time: admin.firestore.FieldValue.serverTimestamp(),
       });

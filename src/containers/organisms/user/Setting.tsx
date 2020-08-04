@@ -1,7 +1,6 @@
 import React, { FC } from "react";
-import { accountFireStore } from "../../../firebase/accountFireStore";
-import { UserScreenNavigationProp } from "../../../componets/organisms/user/User";
 import Setting from "../../../componets/organisms/user/Setting";
+import { UserScreenNavigationProp } from "../../../componets/organisms/user/User";
 
 type Props = {
   navigation: UserScreenNavigationProp;
@@ -10,12 +9,7 @@ type Props = {
 const ContainerSetting: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
 
-  return (
-    <Setting
-      signOutUser={accountFireStore.signOutUser}
-      navigation={navigation}
-    />
-  );
+  return <Setting navigation={navigation} />;
 };
 
 export default ContainerSetting;

@@ -4,14 +4,20 @@ type State = {
   uid: string;
   name: string;
   userImg: string;
+  userHeaderImg: string;
   imgIndex: string;
+  headerImgIndex: string;
+  selfIntroduction: string;
 };
 
 const initialState: State = {
   uid: "",
   name: "",
   userImg: "",
+  userHeaderImg: "",
   imgIndex: "",
+  headerImgIndex: "",
+  selfIntroduction: "",
 };
 
 export const userReducer = (state = initialState, action: UnionedAction) => {
@@ -22,7 +28,10 @@ export const userReducer = (state = initialState, action: UnionedAction) => {
         uid: action.payload.uid,
         name: action.payload.name,
         userImg: action.payload.userImg,
+        userHeaderImg: action.payload.userHeaderImg,
         imgIndex: action.payload.imgIndex,
+        headerImgIndex: action.payload.headerImgIndex,
+        selfIntroduction: action.payload.selfIntroduction,
       };
     case ActionTypes.UPDATE_USER_NAME:
       return {
@@ -34,10 +43,25 @@ export const userReducer = (state = initialState, action: UnionedAction) => {
         ...state,
         userImg: action.payload.userImg,
       };
+    case ActionTypes.UPDATE_PROFILE_HEADER_IMAGE:
+      return {
+        ...state,
+        userHeaderImg: action.payload.userHeaderImg,
+      };
     case ActionTypes.UPDATE_IMG_INDEX:
       return {
         ...state,
         imgIndex: action.payload.imgIndex,
+      };
+    case ActionTypes.UPDATE_HEADER_IMG_INDEX:
+      return {
+        ...state,
+        headerImgIndex: action.payload.headerImgIndex,
+      };
+    case ActionTypes.UPDATE_SELF_INTRODUCTION:
+      return {
+        ...state,
+        selfIntroduction: action.payload.selfIntroduction,
       };
     default: {
       return state;

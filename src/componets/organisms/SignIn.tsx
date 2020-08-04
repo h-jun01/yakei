@@ -87,7 +87,7 @@ const SignIn: FC<Props> = ({ ...props }) => {
           {/* ログインか新規登録に切り替え */}
           <View style={styles.authChangeWrap}>
             <AuthStatusChange
-              text="アカウントをお持ちでない場合は、新規登録を行ってください"
+              text="アカウントをお持ちでない場合、新規登録はこちら"
               navigation={() => navigation.navigate("新規登録")}
             />
           </View>
