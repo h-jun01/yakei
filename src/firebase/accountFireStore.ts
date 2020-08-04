@@ -10,11 +10,18 @@ type AccountFireStore = {
   loginUser: (account: LginUser) => Promise<firebase.auth.UserCredential>;
   signOutUser: () => void;
   updateName: (name: string) => Promise<void>;
+  upDateSelfIntroduction: (self_introduction: string) => Promise<void>;
   uploadStorageImage: (postIndex: string) => firebase.storage.Reference;
+  uploadStorageHeaderImage: (postIndex: string) => firebase.storage.Reference;
   updateProfileImage: (img_url: string) => Promise<void>;
+  updateProfileHeaderImage: (user_header_img: string) => Promise<void>;
   updateImgIndex: (img_index: string) => Promise<void>;
-  providers: (email: string) => Promise<string[]>;
+  updateHeaderImgIndex: (header_img_index: string) => Promise<void>;
   deleteStorageImage: (imgIndex: string) => Promise<void> | undefined;
+  deleteStorageHeaderImage: (
+    headerImgIndex: string
+  ) => Promise<any> | undefined;
+  providers: (email: string) => Promise<string[]>;
   authenticationName: string;
 };
 
@@ -57,7 +64,17 @@ export const accountFireStore: AccountFireStore = {
         });
     }
   },
-  //プロフィール画像の更新
+  //自己紹介の更新
+  upDateSelfIntroduction: async (self_introduction: string) => {
+    const userData = auth.currentUser;
+    if (userData) {
+      return await user.doc(userData.uid).update({
+        self_introduction,
+        update_time: FieldValue.serverTimestamp(),
+      });
+    }
+  },
+  //プロフィールアイコン画像の更新
   updateProfileImage: async (user_img: string) => {
     const userData = auth.currentUser;
     if (userData) {
@@ -73,7 +90,17 @@ export const accountFireStore: AccountFireStore = {
         });
     }
   },
-  //画像URLの更新
+  //プロフィールヘッダー画像の更新
+  updateProfileHeaderImage: async (user_header_img: string) => {
+    const userData = auth.currentUser;
+    if (userData) {
+      return await user.doc(userData.uid).update({
+        user_header_img,
+        update_time: FieldValue.serverTimestamp(),
+      });
+    }
+  },
+  //アイコン画像のURLを更新
   updateImgIndex: async (img_index: string) => {
     const userData = auth.currentUser;
     if (userData) {
@@ -83,16 +110,41 @@ export const accountFireStore: AccountFireStore = {
       });
     }
   },
-  //storageに画像を保存
+  //ヘッダー画像のURLを更新
+  updateHeaderImgIndex: async (header_img_index: string) => {
+    const userData = auth.currentUser;
+    if (userData) {
+      return await user.doc(userData.uid).update({
+        header_img_index,
+        update_time: FieldValue.serverTimestamp(),
+      });
+    }
+  },
+  //storageにアイコン画像を保存
   uploadStorageImage: (postIndex: string) => {
     const userData = auth.currentUser;
     return storage.ref(`users/${userData?.uid}`).child(postIndex);
   },
-  //storageから画像を削除
+  //storageにヘッダー画像を保存
+  uploadStorageHeaderImage: (postIndex: string) => {
+    const userData = auth.currentUser;
+    return storage.ref(`users/${userData?.uid}/header`).child(postIndex);
+  },
+  //storageからアイコン画像を削除
   deleteStorageImage: (imgIndex: string) => {
     const userData = auth.currentUser;
     if (userData) {
       return storage.ref(`users/${userData.uid}`).child(imgIndex).delete();
+    }
+  },
+  //storageからヘッダー画像を削除
+  deleteStorageHeaderImage: (headerImgIndex: string) => {
+    const userData = auth.currentUser;
+    if (userData) {
+      return storage
+        .ref(`users/${userData.uid}/header`)
+        .child(headerImgIndex)
+        .delete();
     }
   },
   //認証済みチェック

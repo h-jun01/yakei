@@ -61,7 +61,7 @@ const ContainerSignUp: FC<Props> = ({ navigation }) => {
       } else if (!name.match(REGEX_NAME)) {
         callingAlert("ユーザ名は2〜6文字以内で入力してください");
         return;
-      } else if (!email!) {
+      } else if (!email) {
         callingAlert("メールアドレスを入力してください");
         return;
       } else if (!email.match(REGEX_EMAIL)) {

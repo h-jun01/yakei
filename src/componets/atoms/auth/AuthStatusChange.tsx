@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Text, SafeAreaView, GestureResponderEvent } from "react-native";
+import { styles } from "../../../styles/auth";
 
 type Props = {
   text: string;
