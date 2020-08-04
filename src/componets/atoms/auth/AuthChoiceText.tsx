@@ -5,9 +5,9 @@ import { styles } from "../../../styles/auth";
 const AuthChoiceText: FC = () => {
   return (
     <View style={styles.borderBox}>
-      <View style={styles.borderLeft} />
+      <View style={styles.borderItem} />
       <Text style={styles.orText}>または</Text>
-      <View style={styles.borderRight} />
+      <View style={styles.borderItem} />
     </View>
   );
 };

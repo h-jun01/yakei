@@ -11,9 +11,17 @@ const SginUpScreenText: FC<Props> = ({ navigation }) => {
     <View style={styles.text}>
       <Text style={styles.textColor}>
         登録することで、
-        <Text onPress={() => navigation.navigate("利用規約")}>利用規約</Text>
+        <Text
+          style={styles.attention}
+          onPress={() => navigation.navigate("利用規約")}
+        >
+          利用規約
+        </Text>
         及び
-        <Text onPress={() => navigation.navigate("プライバシーポリシー")}>
+        <Text
+          style={styles.attention}
+          onPress={() => navigation.navigate("プライバシーポリシー")}
+        >
           プライバシーポリシー
         </Text>
         に同意するものとします。
