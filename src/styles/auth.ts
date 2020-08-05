@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
-import { baseColor,utilityColor, fontColor } from "./thema/colors"
-import {fontSize} from "./thema/fonts"
+import { baseColor,utilityColor } from "./thema/colors"
+import { Size ,Weights } from "./thema/fonts"
 
 export const styles = StyleSheet.create({
   container: {
@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
   //input
   inputItemName: {
     color: baseColor.text,
-    fontSize: fontSize.Small,
+    fontSize: Size.Small,
   },
   input: {
     marginBottom: 20,
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     borderBottomWidth: 1,
     borderBottomColor: utilityColor.border,
-    fontSize: fontSize.Large,
+    fontSize: Size.Large,
   },
 
   //authBtn
@@ -55,8 +55,8 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     color: baseColor.text,
-    fontSize: fontSize.Large,
-    fontWeight: "900",
+    fontSize: Size.Large,
+    fontWeight: Weights.Bold,
     textAlign: "center",
   },
 
@@ -66,14 +66,14 @@ export const styles = StyleSheet.create({
   },
   textColor: {
     color: baseColor.text,
-    fontSize: fontSize.Small,
+    fontSize: Size.Small,
     textAlign: "center",
-    lineHeight: fontSize.lineHeight,
+    lineHeight: Size.lineHeight,
   },
   attention: {
     color: baseColor.accent,
     fontWeight: "bold",
-    fontSize: fontSize.NormalS,
+    fontSize: Size.NormalS,
   },
 
   //または
@@ -87,7 +87,7 @@ export const styles = StyleSheet.create({
   orText: {
     color: baseColor.text,
     paddingHorizontal: 30,
-    fontSize: fontSize.Small,
+    fontSize: Size.Small,
   },
   borderItem: {
     borderWidth: 0.3,
@@ -117,7 +117,7 @@ export const styles = StyleSheet.create({
   },
   authChangeText: {
     color: baseColor.text,
-    fontSize: fontSize.Small,
+    fontSize: Size.Small,
     padding: 20,
   },
 });
