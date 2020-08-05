@@ -4,12 +4,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 import SignIn from "../../componets/organisms/SignIn";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { useInput } from "../../utilities/hooks/input";
-
-type SignUpData = {
-  name: string;
-  email: string;
-  password: string;
-};
+import { StackParamList } from "../../index";
 
 type UseInput = {
   value: string;
@@ -24,7 +19,7 @@ type ItemList = {
 };
 
 type Props = {
-  navigation: any;
+  navigation: StackParamList;
 };
 
 const ContainerAuth: FC<Props> = ({ navigation }) => {

@@ -2,18 +2,18 @@ import React, { FC, Fragment, useState } from "react";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
-import EditProfile from "../../componets/user/EditProfile";
+import EditProfile from "../../../componets/organisms/user/EditProfile";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useSelector, useDispatch } from "react-redux";
-import { accountFireStore } from "../../firebase/accountFireStore";
-import { UserScreenNavigationProp } from "../../componets/user/User";
-import { callingAlert } from "../../utilities/alert";
-import { RootState } from "../../reducers/index";
+import { accountFireStore } from "../../../firebase/accountFireStore";
+import { UserScreenNavigationProp } from "../../../componets/organisms/user/User";
+import { callingAlert } from "../../../utilities/alert";
+import { RootState } from "../../../reducers/index";
 import {
   upDateUserName,
   upDateUserProfileImage,
   upDateUserImgIndex,
-} from "../../actions/user";
+} from "../../../actions/user";
 
 type StorageImageData = {
   imgUrl: string;
@@ -111,15 +111,20 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
 
   //保存処理
   const saveData = async () => {
+    const REGEX_NAME = /^.{2,6}$/;
     setIsLoading(true);
     //ユーザ名を更新して保存
-    if (userName) {
-      dispatch(upDateUserName(userName));
-      await accountFireStore.updateName(userName);
-    } else {
+    if (!userName) {
       callingAlert("ユーザ名を入力してください");
       setIsLoading(false);
       return;
+    } else if (!userName.match(REGEX_NAME)) {
+      callingAlert("ユーザ名は2〜6文字以内で入力してください");
+      setIsLoading(false);
+      return;
+    } else {
+      dispatch(upDateUserName(userName));
+      await accountFireStore.updateName(userName);
     }
     //storageに画像を保存,firedtoreに画像URLを保存
     if (storageImageData.imgUrl) {

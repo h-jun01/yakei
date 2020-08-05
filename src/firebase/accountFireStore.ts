@@ -88,6 +88,7 @@ export const accountFireStore: AccountFireStore = {
     const userData = auth.currentUser;
     return storage.ref(`users/${userData?.uid}`).child(postIndex);
   },
+  //storageから画像を削除
   deleteStorageImage: (imgIndex: string) => {
     const userData = auth.currentUser;
     if (userData) {

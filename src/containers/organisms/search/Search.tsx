@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Search, {
   SearchScreenNavigationProp,
-} from "../../componets/search/Search";
+} from "../../../componets/organisms/search/Search";
 
 type Props = {
   navigation: SearchScreenNavigationProp;

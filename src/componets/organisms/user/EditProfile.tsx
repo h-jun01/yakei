@@ -1,9 +1,7 @@
 import React, { FC } from "react";
 import { View, Text, TouchableWithoutFeedback } from "react-native";
-import HeaderImage from "../../atoms/user/HeaderImage";
 import UserImage from "../../atoms/user/UserImage";
 import UserInput from "../../atoms/user/UserInput";
-import UserSaveButton from "../../atoms/user/UserSaveButton";
 import { styles } from "../../../styles/user/editProfile";
 
 type Props = {

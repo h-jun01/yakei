@@ -29,6 +29,7 @@ const UserInput: FC<Props> = ({ ...props }) => {
 };
 
 const styles = StyleSheet.create({
+  //fontWeightを変数指定すると赤線が出る。影響はなし
   labelItem: {
     color: "#fff",
     fontSize: Size.Normal,
