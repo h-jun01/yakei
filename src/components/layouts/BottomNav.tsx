@@ -1,14 +1,16 @@
 import React, { FC } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 
+import FooterBackgroundSvg from "../ui/svg/FooterBackgroundSvg";
 import PlusButtonSvg from "../ui/svg/PlusButtonSvg";
 import MapButtonSvg from "../ui/svg/MapButtonSvg";
-import FolderButtonSvg from "../ui/svg/FolderButtonSvg";
+import FolderButtonSvg from "../ui/svg/CollectionButtonSvg";
 import NotificationButtonSvg from "../ui/svg/NotificationButtonSvg";
 
 const BottomNavComponent: FC = () => {
   return (
     <View style={styles.container}>
+      <FooterBackgroundSvg style={styles.fotterItem} />
       <View style={styles.fotterItem}>
         <MapButtonSvg />
         <FolderButtonSvg />
@@ -26,12 +28,12 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   fotterItem: {
-    // flexDirection: "column",
     zIndex: 0,
-    width: Dimensions.get("window").width,
-    marginBottom: "4%",
     position: "absolute",
-    bottom: "1%",
+    flexDirection: "row",
+    justifyContent: "center",
+    bottom: 0,
+    width: Dimensions.get("window").width,
   },
 });
 
