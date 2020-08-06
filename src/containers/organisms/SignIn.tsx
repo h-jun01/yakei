@@ -64,12 +64,17 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
       }
       setIsLoading(true);
 
-      await accountFireStore.loginUser({ email, password }).catch((error) => {
-        console.log(error.toString());
-        setIsLoading(false);
-        callingAlert("メールアドレスまたはパスワードが違います。");
-        return;
-      });
+      await accountFireStore
+        .loginUser({
+          email,
+          password,
+        })
+        .catch((error) => {
+          console.log(error.toString());
+          setIsLoading(false);
+          callingAlert("メールアドレスまたはパスワードが違います。");
+          return;
+        });
     } catch (error) {
       setIsLoading(false);
       console.log(error.toString());
@@ -84,47 +89,19 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
         iosClientId: "",
         scopes: ["profile", "email"],
       });
+      setIsLoading(true);
       if (result.type === "success") {
-        if (
-          (
-            await accountFireStore.providers(result.user.email as string)
-          ).findIndex(
-            (p: string) => p === accountFireStore.authenticationName
-          ) !== -1
-        ) {
-          setIsLoading(true);
-          accountFireStore.loginUser({
-            email: result.user.email as string,
-            password: result.user.id as string,
-          });
-        } else {
-          setIsLoading(true);
-          fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-              displayName: result.user.name,
-              email: result.user.email,
-              password: result.user.id,
-            }),
-          })
-            .then(() => {
-              accountFireStore.loginUser({
-                email: result.user.email as string,
-                password: result.user.id as string,
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
+        await accountFireStore.loginGoogleUser(
+          result.idToken as string,
+          result.accessToken as string
+        );
       } else {
         return { cancelled: true };
       }
     } catch (e) {
-      return { error: true };
+      return {
+        error: true,
+      };
     }
   };
 
@@ -141,7 +118,10 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
       <Spinner
         visible={isloading}
         textContent="読み込み中..."
-        textStyle={{ color: "#fff", fontSize: 13 }}
+        textStyle={{
+          color: "#fff",
+          fontSize: 13,
+        }}
         overlayColor="rgba(0,0,0,0.5)"
       />
     </Fragment>

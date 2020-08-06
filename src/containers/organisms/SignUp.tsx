@@ -45,11 +45,10 @@ const ContainerSignUp: FC<Props> = ({ navigation }) => {
     },
   ];
 
-  //エンドポイント
-  const url = "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
-
   //新規登録処理
   const signUpUser = async (name: string, email: string, password: string) => {
+    //エンドポイント
+    const url = "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
     const REGEX_NAME = /^.{2,6}$/;
     const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const REGEX_PASSWORD = /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}$/i;
@@ -117,42 +116,12 @@ const ContainerSignUp: FC<Props> = ({ navigation }) => {
         iosClientId: "",
         scopes: ["profile", "email"],
       });
+      setIsLoading(true);
       if (result.type === "success") {
-        if (
-          (
-            await accountFireStore.providers(result.user.email as string)
-          ).findIndex(
-            (p: string) => p === accountFireStore.authenticationName
-          ) !== -1
-        ) {
-          setIsLoading(true);
-          accountFireStore.loginUser({
-            email: result.user.email as string,
-            password: result.user.id as string,
-          });
-        } else {
-          setIsLoading(true);
-          fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-              displayName: result.user.name,
-              email: result.user.email,
-              password: result.user.id,
-            }),
-          })
-            .then(() => {
-              accountFireStore.loginUser({
-                email: result.user.email as string,
-                password: result.user.id as string,
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
+        await accountFireStore.loginGoogleUser(
+          result.idToken as string,
+          result.accessToken as string
+        );
       } else {
         return { cancelled: true };
       }

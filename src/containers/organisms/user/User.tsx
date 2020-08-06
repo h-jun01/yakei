@@ -3,7 +3,13 @@ import User, {
   UserScreenNavigationProp,
 } from "../../../componets/organisms/user/User";
 import { RootState } from "../../../reducers/index";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { auth } from "../../../firebase/firebase";
+import { accountFireStore } from "../../../firebase/accountFireStore";
+import { setUserData } from "../../../actions/user";
+import { photoFireStore } from "../../../firebase/photoFireStore";
+import { setPhotoListData } from "../../../actions/photo";
 
 type Props = {
   navigation: UserScreenNavigationProp;
@@ -25,6 +31,21 @@ const ContainerUser: FC<Props> = ({ ...props }) => {
   const headerImage = useSelector(selectHeaderImage);
   const selfIntroduction = useSelector(selectSelfIntroduction);
   const photoDataList = useSelector(selectPhotoDataList);
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        await accountFireStore.getUser(user.uid).then((documentSnapshot) => {
+          dispatch(setUserData(documentSnapshot.data()));
+        });
+        await photoFireStore.getPhotoList(user.uid).then((documentSnapshot) => {
+          dispatch(setPhotoListData(documentSnapshot.data()));
+        });
+      }
+    });
+  }, []);
 
   return (
     <User
