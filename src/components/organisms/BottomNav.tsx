@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
-import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
 import MapButtonSvg from "../atoms/svg/MapButtonSvg";
 import FolderButtonSvg from "../atoms/svg/CollectionButtonSvg";
+import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
 import NotificationButtonSvg from "../atoms/svg/NotificationButtonSvg";
 import RoundedUserImage from "../atoms/RoundedUserImage";
 
