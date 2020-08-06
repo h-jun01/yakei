@@ -5,6 +5,7 @@ import UserInput from "../../atoms/user/UserInput";
 import { styles } from "../../../styles/user/editProfile";
 import HeaderImage from "../../atoms/user/HeaderImage";
 import UserSaveButton from "../../atoms/user/UserSaveButton";
+import { deviceWidth } from "../../../utilities/dimensions";
 
 type Props = {
   userName: string;
@@ -41,7 +42,7 @@ const EditProfile: FC<Props> = ({ ...props }) => {
         <View style={styles.userIconWrap}>
           {/* ユーザアイコン画像 */}
           <Text style={styles.iconImg} onPress={() => onAddImagePressed()}>
-            <UserImage userImage={userImage} size={75} />
+            <UserImage userImage={userImage} size={deviceWidth / 5} />
           </Text>
         </View>
         {/* 入力フォーム */}
