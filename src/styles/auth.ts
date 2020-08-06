@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
   buttonText: {
     color: baseColor.text,
     fontSize: Size.Large,
-    fontWeight: Weights.Bold,
+    fontWeight: "700",
     textAlign: "center",
   },
 

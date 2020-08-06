@@ -3,6 +3,8 @@ import { View, Text, TouchableWithoutFeedback } from "react-native";
 import UserImage from "../../atoms/user/UserImage";
 import UserInput from "../../atoms/user/UserInput";
 import { styles } from "../../../styles/user/editProfile";
+import HeaderImage from "../../atoms/user/HeaderImage";
+import UserSaveButton from "../../atoms/user/UserSaveButton";
 
 type Props = {
   userName: string;
