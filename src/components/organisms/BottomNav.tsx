@@ -6,6 +6,7 @@ import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
 import MapButtonSvg from "../atoms/svg/MapButtonSvg";
 import FolderButtonSvg from "../atoms/svg/CollectionButtonSvg";
 import NotificationButtonSvg from "../atoms/svg/NotificationButtonSvg";
+import RoundedUserImage from "../atoms/RoundedUserImage";
 
 const BottomNavComponent: FC = () => {
   return (
@@ -16,6 +17,7 @@ const BottomNavComponent: FC = () => {
         <FolderButtonSvg />
         <PlusButtonSvg />
         <NotificationButtonSvg />
+        <RoundedUserImage />
       </View>
     </View>
   );
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
     zIndex: 0,
     position: "absolute",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     bottom: 0,
     width: Dimensions.get("window").width,
   },
