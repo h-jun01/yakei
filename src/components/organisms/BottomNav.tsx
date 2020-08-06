@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 
-import FooterBackgroundSvg from "../ui/svg/FooterBackgroundSvg";
-import PlusButtonSvg from "../ui/svg/PlusButtonSvg";
-import MapButtonSvg from "../ui/svg/MapButtonSvg";
-import FolderButtonSvg from "../ui/svg/CollectionButtonSvg";
-import NotificationButtonSvg from "../ui/svg/NotificationButtonSvg";
+import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
+import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
+import MapButtonSvg from "../atoms/svg/MapButtonSvg";
+import FolderButtonSvg from "../atoms/svg/CollectionButtonSvg";
+import NotificationButtonSvg from "../atoms/svg/NotificationButtonSvg";
 
 const BottomNavComponent: FC = () => {
   return (
