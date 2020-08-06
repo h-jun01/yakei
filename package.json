@@ -11,6 +11,8 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.29",
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@fortawesome/react-native-fontawesome": "^0.2.5",
+    "@react-navigation/bottom-tabs": "^5.8.0",
+    "@react-navigation/native": "^5.7.3",
     "@types/expo": "^33.0.1",
     "expo": "^37.0.12",
     "react": "~16.9.0",
