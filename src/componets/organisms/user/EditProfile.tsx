@@ -8,6 +8,7 @@ import { deviceWidth } from "../../../utilities/dimensions";
 
 import { accountFireStore } from "../../../firebase/accountFireStore";
 import { styles } from "../../../styles/user/editProfile";
+import { deviceWidth } from "../../../utilities/dimensions";
 
 type Props = {
   userName: string;
