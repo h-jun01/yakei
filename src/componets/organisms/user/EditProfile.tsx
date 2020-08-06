@@ -38,31 +38,29 @@ const EditProfile: FC<Props> = ({ ...props }) => {
         <Text onPress={() => onAddHeaderImagePressed()}>
           <HeaderImage userHeaderImage={userHeaderImage} />
         </Text>
-          <View style={styles.userIconWrap}>
-            {/* ユーザアイコン画像 */}
-          <Text
-              style={styles.iconImg}
-              onPress={() => onAddImagePressed()}>
-              <UserImage userImage={userImage} size={75} />
-            </Text>
-          </View>
-          {/* 入力フォーム */}
-          <UserInput
-            label="ユーザ名"
-            placeholder="ユーザ名を入力"
-            value={userName}
-            setValue={setUserName}
-          />
-          <UserInput
-            label="自己紹介"
-            placeholder="自己紹介を入力"
-            value={userSelfIntroduction}
-            setValue={setUserSelfIntroduction}
-          />
-          {/* 更新ボタン */}
-          <UserSaveButton saveData={saveData} />
+        <View style={styles.userIconWrap}>
+          {/* ユーザアイコン画像 */}
+          <Text style={styles.iconImg} onPress={() => onAddImagePressed()}>
+            <UserImage userImage={userImage} size={75} />
+          </Text>
         </View>
+        {/* 入力フォーム */}
+        <UserInput
+          label="ユーザ名"
+          placeholder="ユーザ名を入力"
+          value={userName}
+          setValue={setUserName}
+        />
+        <UserInput
+          label="自己紹介"
+          placeholder="自己紹介を入力"
+          value={userSelfIntroduction}
+          setValue={setUserSelfIntroduction}
+        />
+        {/* 更新ボタン */}
+        <UserSaveButton saveData={saveData} />
       </View>
+    </View>
   );
 };
 
