@@ -45,7 +45,7 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
   //エンドポイント
   const url = "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
 
-  //新規登録処理
+  //ログイン処理
   const signInUser = async (email: string, password: string) => {
     const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const REGEX_PASSWORD = /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}$/i;
