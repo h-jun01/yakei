@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   labelItem: {
     color: "#fff",
     fontSize: Size.Normal,
-    fontWeight: "600",
+    fontWeight: "500",
     marginTop: 30,
     marginLeft: 10,
     marginBottom: 5,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   editInput: {
     color: utilityColor.editBox,
     fontSize: Size.Normal,
-    fontWeight: "600",
+    fontWeight: "500",
     lineHeight: Size.lineHeight,
     paddingTop: 15,
     paddingBottom: 15,
