@@ -72,3 +72,26 @@ exports.inputPhotoDataList = functions
         throw new Error("Profile doesn't exist");
       });
   });
+
+exports.googleLogin = functions
+  .region("asia-northeast1")
+  .auth.user()
+  .onCreate(async (user) => {
+    const userRef = admin.firestore().collection("users").doc(user.uid);
+    return await userRef
+      .set({
+        uid: user.uid,
+        name: user.displayName,
+        user_img: user.photoURL,
+        user_header_img:
+          "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/defaultHeader.png?alt=media&token=f8c65ab2-c140-4a24-a2c7-e9592d0c830e",
+        img_index: "",
+        header_img_index: "",
+        self_introduction: "",
+        create_time: admin.firestore.FieldValue.serverTimestamp(),
+        update_time: admin.firestore.FieldValue.serverTimestamp(),
+      })
+      .catch(() => {
+        throw new Error("Profile doesn't exist");
+      });
+  });
