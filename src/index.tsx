@@ -20,6 +20,8 @@ import SearchScreen from "./screens/SearchScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
 
+import Intro from "./containers/Intro";
+
 export type TabParamList = {
   Home: undefined;
   Search: undefined;
@@ -45,8 +47,10 @@ const Root: FC = () => {
   //ログイン状態とローディング状態をstateから持ってくる
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
   const selectIsLogin = (state: RootState) => state.authReducer.isLogin;
+  const selectUid = (state: RootState) => state.userReducer.uid;
   const isLoading = useSelector(selectIsLoading);
   const isLogin = useSelector(selectIsLogin);
+  const uid = useSelector(selectUid);
   //ルーティング作成
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
@@ -55,12 +59,12 @@ const Root: FC = () => {
 
   //ログインチェック
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged(async (user) => {
       if (user) {
-        accountFireStore.getUser(user.uid).then((documentSnapshot) => {
+        await accountFireStore.getUser(user.uid).then((documentSnapshot) => {
           dispatch(setUserData(documentSnapshot.data()));
         });
-        photoFireStore.getPhotoList(user.uid).then((documentSnapshot) => {
+        await photoFireStore.getPhotoList(user.uid).then((documentSnapshot) => {
           dispatch(setPhotoListData(documentSnapshot.data()));
         });
         dispatch(loadingStatusChange(true));
@@ -90,6 +94,14 @@ const Root: FC = () => {
         </Fragment>
       ) : (
         <Stack.Navigator>
+          <Stack.Screen
+            name="イントロ"
+            component={Intro}
+            options={{
+              headerShown: false,
+              animationEnabled: false,
+            }}
+          />
           <Stack.Screen
             name="新規登録"
             component={SignUp}
