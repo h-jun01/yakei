@@ -5,6 +5,7 @@ import SignIn from "../../componets/organisms/SignIn";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { useInput } from "../../utilities/hooks/input";
 import { StackParamList } from "../../index";
+import { callingAlert } from "../../utilities/alert";
 
 type UseInput = {
   value: string;
@@ -46,9 +47,36 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
 
   //新規登録処理
   const signInUser = async (email: string, password: string) => {
+    const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const REGEX_PASSWORD = /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}$/i;
     try {
-      accountFireStore.loginUser({ email, password });
+      if (!email) {
+        callingAlert("メールアドレスを入力してください");
+        return;
+      } else if (!email.match(REGEX_EMAIL)) {
+        callingAlert("メールドレスの形式が不正です");
+        return;
+      } else if (!password.match(REGEX_PASSWORD)) {
+        callingAlert(
+          "パスワードは半角英数字を含めた6文字以上で入力してください"
+        );
+        return;
+      }
+      setIsLoading(true);
+
+      await accountFireStore
+        .loginUser({
+          email,
+          password,
+        })
+        .catch((error) => {
+          console.log(error.toString());
+          setIsLoading(false);
+          callingAlert("メールアドレスまたはパスワードが違います。");
+          return;
+        });
     } catch (error) {
+      setIsLoading(false);
       console.log(error.toString());
     }
   };
@@ -61,47 +89,19 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
         iosClientId: "",
         scopes: ["profile", "email"],
       });
+      setIsLoading(true);
       if (result.type === "success") {
-        if (
-          (
-            await accountFireStore.providers(result.user.email as string)
-          ).findIndex(
-            (p: string) => p === accountFireStore.authenticationName
-          ) !== -1
-        ) {
-          setIsLoading(true);
-          accountFireStore.loginUser({
-            email: result.user.email as string,
-            password: result.user.id as string,
-          });
-        } else {
-          setIsLoading(true);
-          fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-              displayName: result.user.name,
-              email: result.user.email,
-              password: result.user.id,
-            }),
-          })
-            .then(() => {
-              accountFireStore.loginUser({
-                email: result.user.email as string,
-                password: result.user.id as string,
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
+        await accountFireStore.loginGoogleUser(
+          result.idToken as string,
+          result.accessToken as string
+        );
       } else {
         return { cancelled: true };
       }
     } catch (e) {
-      return { error: true };
+      return {
+        error: true,
+      };
     }
   };
 
@@ -118,7 +118,10 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
       <Spinner
         visible={isloading}
         textContent="読み込み中..."
-        textStyle={{ color: "#fff", fontSize: 13 }}
+        textStyle={{
+          color: "#fff",
+          fontSize: 13,
+        }}
         overlayColor="rgba(0,0,0,0.5)"
       />
     </Fragment>

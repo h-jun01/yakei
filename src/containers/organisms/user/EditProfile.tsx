@@ -152,7 +152,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     //storageのダウンロードURLを保存
     await uploadRef
       .getDownloadURL()
-      .then(async (imgUrl) => {
+      .then(async (imgUrl: string) => {
         setStorageImageData((prevState) => ({
           ...prevState,
           imgUrl,
@@ -160,7 +160,9 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
         }));
         //画像URLを保存
         await accountFireStore.updateImgIndex(postIndex);
+        await accountFireStore.updateProfileImage(imgUrl);
         dispatch(upDateUserImgIndex(postIndex));
+        dispatch(upDateUserProfileImage(imgUrl));
       })
       .catch(() => {
         callingAlert("失敗しました");
@@ -198,7 +200,9 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
         }));
         //画像URLを保存
         await accountFireStore.updateHeaderImgIndex(postIndex);
+        await accountFireStore.updateProfileHeaderImage(imgUrl);
         dispatch(upDateUserHeaderImgIndex(postIndex));
+        dispatch(upDateUserProfileHeaderImage(imgUrl));
       })
       .catch(() => {
         callingAlert("失敗しました");
@@ -229,19 +233,13 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     }
     //storageにアイコン画像を保存,firedtoreにアイコン画像URLを保存
     if (isSelectImage) {
-      dispatch(upDateUserProfileImage(storageImageData.imgUrl));
       await uploadPostImage();
-      await accountFireStore.updateProfileImage(storageImageData.imgUrl);
     }
     //storageにヘッダー画像を保存,firedtoreにヘッダー画像URLを保存
     if (isSelectHeaderImage) {
-      dispatch(upDateUserProfileHeaderImage(storageHeaderImageData.imgUrl));
       await uploadPostHeaderImage();
-      await accountFireStore.updateProfileHeaderImage(
-        storageHeaderImageData.imgUrl
-      );
     }
-    setIsLoading(false);
+    // setIsLoading(false);
     navigation.navigate("User");
   };
 

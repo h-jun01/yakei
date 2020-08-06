@@ -8,6 +8,10 @@ type AccountFireStore = {
     firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
   >;
   loginUser: (account: LginUser) => Promise<firebase.auth.UserCredential>;
+  loginGoogleUser: (
+    idToken: string,
+    accessToken: string
+  ) => Promise<void | firebase.auth.UserCredential>;
   signOutUser: () => void;
   updateName: (name: string) => Promise<void>;
   upDateSelfIntroduction: (self_introduction: string) => Promise<void>;
@@ -21,6 +25,7 @@ type AccountFireStore = {
   deleteStorageHeaderImage: (
     headerImgIndex: string
   ) => Promise<any> | undefined;
+  passwordResetEmail: () => Promise<void>;
   providers: (email: string) => Promise<string[]>;
   authenticationName: string;
 };
@@ -31,6 +36,7 @@ type LginUser = {
 };
 
 const user = db.collection("users");
+export const userData = auth.currentUser;
 
 export const accountFireStore: AccountFireStore = {
   //ユーザ情報を取得
@@ -43,6 +49,14 @@ export const accountFireStore: AccountFireStore = {
       account.email,
       account.password
     );
+  },
+  //Googleログイン処理
+  loginGoogleUser: async (idToken: string, accessToken: string) => {
+    const credential = firebase.auth.GoogleAuthProvider.credential(
+      idToken,
+      accessToken
+    );
+    return await auth.signInWithCredential(credential);
   },
   //ログアウト処理
   signOutUser: () => {
@@ -120,12 +134,12 @@ export const accountFireStore: AccountFireStore = {
       });
     }
   },
-  //storageにアイコン画像を保存
+  //storageのアイコン画像を参照
   uploadStorageImage: (postIndex: string) => {
     const userData = auth.currentUser;
     return storage.ref(`users/${userData?.uid}`).child(postIndex);
   },
-  //storageにヘッダー画像を保存
+  //storageのヘッダー画像を参照
   uploadStorageHeaderImage: (postIndex: string) => {
     const userData = auth.currentUser;
     return storage.ref(`users/${userData?.uid}/header`).child(postIndex);
@@ -145,6 +159,14 @@ export const accountFireStore: AccountFireStore = {
         .ref(`users/${userData.uid}/header`)
         .child(headerImgIndex)
         .delete();
+    }
+  },
+  //パスワード変更
+  passwordResetEmail: async () => {
+    const userData = auth.currentUser;
+    if (userData) {
+      const emailAddress = userData.email;
+      return await auth.sendPasswordResetEmail(emailAddress as string);
     }
   },
   //認証済みチェック
