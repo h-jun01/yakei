@@ -1,13 +1,11 @@
 import React, { FC } from "react";
-import { View, Text, TouchableWithoutFeedback } from "react-native";
-import { accountFireStore } from "../../../firebase/accountFireStore";
+import { View, Text } from "react-native";
 import UserImage from "../../atoms/user/UserImage";
 import UserInput from "../../atoms/user/UserInput";
 import HeaderImage from "../../atoms/user/HeaderImage";
 import UserSaveButton from "../../atoms/user/UserSaveButton";
 import { deviceWidth } from "../../../utilities/dimensions";
 import { styles } from "../../../styles/user/editProfile";
-
 
 type Props = {
   userName: string;
@@ -63,11 +61,6 @@ const EditProfile: FC<Props> = ({ ...props }) => {
         {/* 更新ボタン */}
         <UserSaveButton saveData={saveData} />
       </View>
-      {/* 更新ボタン */}
-      <UserSaveButton saveData={saveData} />
-      <Text onPress={() => accountFireStore.passwordResetEmail()}>
-        メール送信テキスト
-      </Text>
     </View>
   );
 };
