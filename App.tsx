@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { StatusBar, Platform } from "react-native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { decode, encode } from "base-64";
@@ -11,6 +12,11 @@ if (!global.btoa) {
 }
 if (!global.atob) {
   global.atob = decode;
+}
+if (Platform.OS === "ios") {
+  StatusBar.setBarStyle("light-content", true);
+} else if (Platform.OS === "android") {
+  StatusBar.setBackgroundColor("#fff", true);
 }
 
 const store = createStore(rootReducer);
