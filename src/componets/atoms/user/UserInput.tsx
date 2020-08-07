@@ -26,6 +26,7 @@ const UserInput: FC<Props> = ({ ...props }) => {
         multiline={true}
         keyboardType="default"
         returnKeyType="done"
+        blurOnSubmit={true}
         placeholderTextColor={utilityColor.placeholderText}
         onChangeText={(name) => setValue(name)}
         style={styles.editInput}
@@ -43,6 +44,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginLeft: 10,
     marginBottom: 15,
+    borderBottomWidth: 1,
+    borderColor: utilityColor.border,
     paddingLeft: 10,
   },
   editInput: {
@@ -50,10 +53,8 @@ const styles = StyleSheet.create({
     fontSize: Size.Large,
     fontWeight: "600",
     lineHeight: Size.lineHeight,
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingBottom: 10,
     paddingHorizontal: 30,
-    borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: utilityColor.border,
   },

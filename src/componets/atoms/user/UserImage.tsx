@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Image } from "react-native-elements";
 import { ActivityIndicator } from "react-native";
+import { baseColor } from "../../../styles/thema/colors";
 
 type Props = {
   userImage: string;
@@ -16,7 +17,7 @@ const UserImage: FC<Props> = ({ userImage, size }) => {
         height: size + 10,
         borderRadius: 50,
         borderWidth: 9,
-        borderColor: "#1a1a1a",
+        borderColor: baseColor.base,
       }}
       PlaceholderContent={<ActivityIndicator />}
     />
