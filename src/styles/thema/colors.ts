@@ -4,7 +4,7 @@ export const baseColor = {
   primaryDarker: '#00783e',
   primaryLite: '#00b747',
   accent: '#21A6B8',
-  base: '#f7f7f7',
+  base: '#1A1A1A',
   text: '#fff',
   main: '#4CAF7C',
 }
@@ -16,7 +16,9 @@ export const utilityColor = {
   borderSub: '#e0e0e0',
   attention: '#e8ac51',
   authNav: 'rgba(62,64,75,0.8)',
-  inputBack: "rgba(62,64,75,0.9)"
+  inputBack: "rgba(62,64,75,0.9)",
+  editBox: 'rgba(51, 124, 234,0.8)',
+  placeholderText: 'rgba(204, 204, 204,0.7)',
   // attentionSub: '#fe446d',
   // attentionBg: '#faeedc',
   // warning: '#de6641',
@@ -27,8 +29,8 @@ export const utilityColor = {
 
 // text Colors
 export const fontColor = {
-  sub: ' #667587',
-  main: '#313541',
+  // sub: ' #667587',
+  // main: '#313541',
   // error: '#c62828',
   // success: '#33691e',
   // buttonWhite: '#fff',

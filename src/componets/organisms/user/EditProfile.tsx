@@ -1,11 +1,13 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
-import HeaderImage from "../../atoms/user/HeaderImage";
+import { View, Text, TouchableWithoutFeedback } from "react-native";
+import { accountFireStore } from "../../../firebase/accountFireStore";
 import UserImage from "../../atoms/user/UserImage";
 import UserInput from "../../atoms/user/UserInput";
+import HeaderImage from "../../atoms/user/HeaderImage";
 import UserSaveButton from "../../atoms/user/UserSaveButton";
+import { deviceWidth } from "../../../utilities/dimensions";
+import { styles } from "../../../styles/user/editProfile";
 
-import { accountFireStore } from "../../../firebase/accountFireStore";
 
 type Props = {
   userName: string;
@@ -33,16 +35,18 @@ const EditProfile: FC<Props> = ({ ...props }) => {
   } = props;
 
   return (
-    <View style={{ flex: 1 }}>
-      <View>
+    <View>
+      <View style={styles.editProWrap}>
         {/* ヘッダー画像 */}
         <Text onPress={() => onAddHeaderImagePressed()}>
           <HeaderImage userHeaderImage={userHeaderImage} />
         </Text>
-        {/* ユーザアイコン画像 */}
-        <Text onPress={() => onAddImagePressed()}>
-          <UserImage userImage={userImage} size={100} />
-        </Text>
+        <View style={styles.userIconWrap}>
+          {/* ユーザアイコン画像 */}
+          <Text style={styles.iconImg} onPress={() => onAddImagePressed()}>
+            <UserImage userImage={userImage} size={deviceWidth / 5} />
+          </Text>
+        </View>
         {/* 入力フォーム */}
         <UserInput
           label="ユーザ名"
@@ -56,6 +60,8 @@ const EditProfile: FC<Props> = ({ ...props }) => {
           value={userSelfIntroduction}
           setValue={setUserSelfIntroduction}
         />
+        {/* 更新ボタン */}
+        <UserSaveButton saveData={saveData} />
       </View>
       {/* 更新ボタン */}
       <UserSaveButton saveData={saveData} />
