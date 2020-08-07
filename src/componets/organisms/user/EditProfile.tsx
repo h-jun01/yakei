@@ -8,6 +8,7 @@ import UserSaveButton from "../../atoms/user/UserSaveButton";
 import { deviceWidth } from "../../../utilities/dimensions";
 import { styles } from "../../../styles/user/editProfile";
 
+
 type Props = {
   userName: string;
   userImage: string;
@@ -62,6 +63,8 @@ const EditProfile: FC<Props> = ({ ...props }) => {
         {/* 更新ボタン */}
         <UserSaveButton saveData={saveData} />
       </View>
+      {/* 更新ボタン */}
+      <UserSaveButton saveData={saveData} />
       <Text onPress={() => accountFireStore.passwordResetEmail()}>
         メール送信テキスト
       </Text>
