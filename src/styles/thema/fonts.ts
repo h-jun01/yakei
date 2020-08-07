@@ -10,16 +10,17 @@ export const Size = {
   lineHeight: 15,
 };
 
-//fontWeight変数で入れると赤い線が出る。影響はなさそう。
-export const Weights = {
-  Thin: "100",
-  DimLight: "300",
-  Light: "400",
-  Regular: "500",
-  Medium: "600",
-  Bold: "700",
-  Black: "900"
-};
+// export const Weights = {
+//   Thin: "100",
+//   UltraLight: "200",
+//   Light: "300",
+//   Regular: "400",
+//   Medium: "500",
+//   Semibold: "600",
+//   Bold: "700",
+//   Heavy: "800",
+//   Black: "900"
+// };
 
 export const fontFamily = {
   gothic: "YuGothic",

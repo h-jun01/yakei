@@ -1,14 +1,12 @@
 import React, { FC } from "react";
 import { View, Text, TouchableWithoutFeedback } from "react-native";
-import HeaderImage from "../../atoms/user/HeaderImage";
+import { accountFireStore } from "../../../firebase/accountFireStore";
 import UserImage from "../../atoms/user/UserImage";
 import UserInput from "../../atoms/user/UserInput";
+import HeaderImage from "../../atoms/user/HeaderImage";
 import UserSaveButton from "../../atoms/user/UserSaveButton";
 import { deviceWidth } from "../../../utilities/dimensions";
-
-import { accountFireStore } from "../../../firebase/accountFireStore";
 import { styles } from "../../../styles/user/editProfile";
-import { deviceWidth } from "../../../utilities/dimensions";
 
 type Props = {
   userName: string;

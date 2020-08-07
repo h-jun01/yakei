@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from "react";
 import { Text, TextInput, StyleSheet } from "react-native";
 import { utilityColor } from "../../../styles/thema/colors";
-import { Size ,Weights} from "../../../styles/thema/fonts";
+import { Size } from "../../../styles/thema/fonts";
 
 type Props = {
   label: string;

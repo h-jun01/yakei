@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { baseColor,utilityColor } from "./thema/colors"
-import { Size ,Weights } from "./thema/fonts"
+import { Size } from "./thema/fonts"
 
 export const styles = StyleSheet.create({
   container: {
