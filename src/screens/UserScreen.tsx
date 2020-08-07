@@ -20,12 +20,24 @@ const UserScreen: FC = () => {
       <Stack.Screen
         name="設定"
         component={Setting}
-        options={{ headerBackTitleVisible: false }}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#141D2C",
+          },
+        }}
       />
       <Stack.Screen
         name="プロフィール編集"
         component={EditProfile}
-        options={{ headerBackTitleVisible: false }}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#141D2C",
+          },
+        }}
       />
       <Stack.Screen
         name="利用規約"

@@ -7,7 +7,16 @@ const NotificationScreen: FC = () => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Notification" component={Notification} />
+      <Stack.Screen
+        name="Notification"
+        component={Notification}
+        options={{
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#141D2C",
+          },
+        }}
+      />
       <Stack.Screen name="Detail" component={Details} />
     </Stack.Navigator>
   );
