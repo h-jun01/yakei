@@ -17,7 +17,6 @@ type Props = {
 
 const ContainerUser: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
-  //ユーザ名,アイコン,写真一覧を取得
   const selectName = (state: RootState) => state.userReducer.name;
   const selectImage = (state: RootState) => state.userReducer.userImg;
   const selectHeaderImage = (state: RootState) =>

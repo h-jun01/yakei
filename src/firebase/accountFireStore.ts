@@ -8,7 +8,9 @@ type AccountFireStore = {
   ) => Promise<
     firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
   >;
-  loginUser: (account: LginUser) => Promise<firebase.auth.UserCredential>;
+  loginUser: (
+    account: LginUser
+  ) => Promise<void | firebase.auth.UserCredential>;
   loginGoogleUser: (
     idToken: string,
     accessToken: string
@@ -37,7 +39,6 @@ type LginUser = {
 };
 
 const user = db.collection("users");
-export const userData = auth.currentUser;
 
 export const accountFireStore: AccountFireStore = {
   //ユーザ情報を取得
@@ -46,10 +47,11 @@ export const accountFireStore: AccountFireStore = {
   },
   //ログイン処理
   loginUser: async (account: LginUser) => {
-    return await auth.signInWithEmailAndPassword(
-      account.email,
-      account.password
-    );
+    return await auth
+      .signInWithEmailAndPassword(account.email, account.password)
+      .catch(() => {
+        callingAlert("メールアドレスまたはパスワードが違います。");
+      });
   },
   //Googleログイン処理
   loginGoogleUser: async (idToken: string, accessToken: string) => {

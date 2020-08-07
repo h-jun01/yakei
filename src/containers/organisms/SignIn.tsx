@@ -48,7 +48,7 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
   //ログイン処理
   const signInUser = async (email: string, password: string) => {
     const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const REGEX_PASSWORD = /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}$/i;
+    const REGEX_PASSWORD = /^([a-zA-Z0-9]{6,})$/;
     try {
       if (!email) {
         callingAlert("メールアドレスを入力してください");
@@ -57,24 +57,15 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
         callingAlert("メールドレスの形式が不正です");
         return;
       } else if (!password.match(REGEX_PASSWORD)) {
-        callingAlert(
-          "パスワードは半角英数字を含めた6文字以上で入力してください"
-        );
+        callingAlert("パスワードは6文字以上の半角英数字で入力してください");
         return;
       }
       setIsLoading(true);
 
-      await accountFireStore
-        .loginUser({
-          email,
-          password,
-        })
-        .catch((error) => {
-          console.log(error.toString());
-          setIsLoading(false);
-          callingAlert("メールアドレスまたはパスワードが違います。");
-          return;
-        });
+      await accountFireStore.loginUser({
+        email,
+        password,
+      });
     } catch (error) {
       setIsLoading(false);
       console.log(error.toString());

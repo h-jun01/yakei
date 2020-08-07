@@ -31,6 +31,7 @@ const SettingItemContainer: FC<Props> = ({ navigation }) => {
       leftIcon: <MaterialCommunityIcons name="bell" />,
       rightIcon: <MaterialCommunityIcons name="chevron-right" />,
       label: "お知らせ",
+      navigation: () => navigation.navigate("お知らせ"),
     },
   ];
 
