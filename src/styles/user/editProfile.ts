@@ -15,8 +15,8 @@ export const styles = StyleSheet.create({
     position: "relative",
     top: -20,
     width: deviceWidth,
-    height: "auto",
-    backgroundColor: "#1a1a1a",
+    height: deviceWidth / 4.5,
+    backgroundColor: baseColor.base,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
   },
@@ -27,8 +27,16 @@ export const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
-  headerImageSize: {
-    width: deviceWidth,
-    height: 155,
+  margin: {
+    margin: 15,
+  },
+  userButtonWrap: {
+    width: "90%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 50,
+    backgroundColor: baseColor.accent,
+    borderRadius: 5,
+    paddingVertical: 15,
   },
 });

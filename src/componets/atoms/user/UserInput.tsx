@@ -1,6 +1,10 @@
 import React, { FC, Fragment } from "react";
-import { Text, TextInput, StyleSheet } from "react-native";
-import { utilityColor } from "../../../styles/thema/colors";
+import {
+  Text,
+  TextInput,
+  StyleSheet,
+} from "react-native";
+import { baseColor,utilityColor } from "../../../styles/thema/colors";
 import { Size } from "../../../styles/thema/fonts";
 
 type Props = {
@@ -20,6 +24,8 @@ const UserInput: FC<Props> = ({ ...props }) => {
         value={value}
         placeholder={placeholder}
         multiline={true}
+        keyboardType="default"
+        returnKeyType="done"
         placeholderTextColor={utilityColor.placeholderText}
         onChangeText={(name) => setValue(name)}
         style={styles.editInput}
@@ -32,21 +38,20 @@ const UserInput: FC<Props> = ({ ...props }) => {
 const styles = StyleSheet.create({
   //fontWeightを変数指定すると赤線が出る。影響はなし
   labelItem: {
-    color: "#fff",
+    color: baseColor.text,
     fontSize: Size.Normal,
     fontWeight: "600",
-    marginTop: 30,
     marginLeft: 10,
-    marginBottom: 5,
-    padding: 10,
+    marginBottom: 15,
+    paddingLeft: 10,
   },
   editInput: {
     color: utilityColor.editBox,
-    fontSize: Size.Normal,
+    fontSize: Size.Large,
     fontWeight: "600",
     lineHeight: Size.lineHeight,
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingTop: 20,
+    paddingBottom: 20,
     paddingHorizontal: 30,
     borderTopWidth: 1,
     borderBottomWidth: 1,

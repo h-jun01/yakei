@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator,StyleSheet } from "react-native";
 import { Image } from "react-native-elements";
-import { styles } from "../../../styles/user/editProfile";
+import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
 
 type Props = {
   userHeaderImage: string;
@@ -16,5 +16,11 @@ const HeaderImage: FC<Props> = ({ userHeaderImage }) => {
     />
   );
 };
+const styles = StyleSheet.create({
+  headerImageSize: {
+    width: deviceWidth,
+    height: deviceHeight / 6,
+  },
+});
 
 export default HeaderImage;
