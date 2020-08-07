@@ -134,12 +134,12 @@ export const accountFireStore: AccountFireStore = {
       });
     }
   },
-  //storageにアイコン画像を保存
+  //storageのアイコン画像を参照
   uploadStorageImage: (postIndex: string) => {
     const userData = auth.currentUser;
     return storage.ref(`users/${userData?.uid}`).child(postIndex);
   },
-  //storageにヘッダー画像を保存
+  //storageのヘッダー画像を参照
   uploadStorageHeaderImage: (postIndex: string) => {
     const userData = auth.currentUser;
     return storage.ref(`users/${userData?.uid}/header`).child(postIndex);
