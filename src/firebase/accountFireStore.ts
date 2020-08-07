@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import { auth, db, storage, FieldValue } from "./firebase";
+import { callingAlert } from "../utilities/alert";
 
 type AccountFireStore = {
   getUser: (
@@ -166,7 +167,12 @@ export const accountFireStore: AccountFireStore = {
     const userData = auth.currentUser;
     if (userData) {
       const emailAddress = userData.email;
-      return await auth.sendPasswordResetEmail(emailAddress as string);
+      return await auth
+        .sendPasswordResetEmail(emailAddress as string)
+        .catch((err) => {
+          callingAlert("不正な操作です。");
+          return;
+        });
     }
   },
   //認証済みチェック

@@ -13,15 +13,15 @@ if (!global.btoa) {
 if (!global.atob) {
   global.atob = decode;
 }
+if (Platform.OS === "ios") {
+  StatusBar.setBarStyle("light-content", true);
+} else if (Platform.OS === "android") {
+  StatusBar.setBackgroundColor("#fff", true);
+}
 
 const store = createStore(rootReducer);
 
 const App: FC = () => {
-  if (Platform.OS === "ios") {
-    StatusBar.setBarStyle("light-content", true);
-  } else if (Platform.OS === "android") {
-    StatusBar.setBackgroundColor("#fff", true);
-  }
   return (
     <Provider store={store}>
       <Root />
