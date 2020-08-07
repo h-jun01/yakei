@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import MapButtonSvg from "../atoms/svg/MapButtonSvg";
-import FolderButtonSvg from "../atoms/svg/CollectionButtonSvg";
+import CollectionButtonSvg from "../atoms/svg/CollectionButtonSvg";
 import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
 import NotificationButtonSvg from "../atoms/svg/NotificationButtonSvg";
 import RoundedUserImage from "../atoms/RoundedUserImage";
@@ -31,16 +31,40 @@ const SettingsScreen = () => {
 const BottomNavComponent: FC = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            switch (route.name) {
+              case "Map":
+                return <MapButtonSvg />;
+              case "Collection":
+                return <CollectionButtonSvg />;
+              case "Plus":
+                return <PlusButtonSvg />;
+              case "Notification":
+                return <NotificationButtonSvg />;
+              default:
+                return <RoundedUserImage />;
+            }
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: "tomato",
+          inactiveTintColor: "gray",
+        }}
+      >
+        <Tab.Screen name="Map" component={HomeScreen} />
+        <Tab.Screen name="Collection" component={SettingsScreen} />
+        <Tab.Screen name="Plus" component={HomeScreen} />
+        <Tab.Screen name="Notification" component={SettingsScreen} />
+        <Tab.Screen name="User" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
     // <View style={styles.container}>
     //   <FooterBackgroundSvg style={styles.fotterItem} />
     //   <View style={styles.fotterItem}>
     //     <MapButtonSvg />
-    //     <FolderButtonSvg />
+    //     <CollectionButtonSvg />
     //     <PlusButtonSvg />
     //     <NotificationButtonSvg />
     //     <RoundedUserImage />
