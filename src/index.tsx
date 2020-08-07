@@ -6,10 +6,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { auth } from "./firebase/firebase";
 import { accountFireStore } from "./firebase/accountFireStore";
 import { photoFireStore } from "./firebase/photoFireStore";
+import { noticeFireStore } from "./firebase/noticeFireStore";
 import { RootState } from "./reducers/index";
 import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
+import { setNoticeListData } from "./actions/notice";
 import Intro from "./containers/Intro";
 import SignUp from "./containers/organisms/SignUp";
 import SignIn from "./containers/organisms/SignIn";
@@ -38,6 +40,7 @@ export type StackParamList = {
   Detail: undefined;
   設定: undefined;
   プロフィール編集: undefined;
+  お知らせ: undefined;
   利用規約: undefined;
   プライバシーポリシー: undefined;
 };
@@ -65,6 +68,9 @@ const Root: FC = () => {
         });
         await photoFireStore.getPhotoList(user.uid).then((documentSnapshot) => {
           dispatch(setPhotoListData(documentSnapshot.data()));
+        });
+        await noticeFireStore.getNoticeList().then((documentSnapshot) => {
+          dispatch(setNoticeListData(documentSnapshot.data()));
         });
         dispatch(loadingStatusChange(true));
         dispatch(loginStatusChange(true));
