@@ -9,24 +9,13 @@ type Props = {
 
 const UserSaveButton: FC<Props> = ({ saveData }) => {
   return (
-    <View style={styles.userButtonWrap}>
-      <TouchableWithoutFeedback onPress={() => saveData()}>
-        <Text style={styles.userButtonText}>プロフィールを更新する</Text>
-      </TouchableWithoutFeedback>
-    </View>
+    <TouchableWithoutFeedback onPress={() => saveData()}>
+      <Text style={styles.userButtonText}>プロフィールを更新する</Text>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
-  userButtonWrap: {
-    width: "90%",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: 100,
-    backgroundColor: baseColor.accent,
-    borderRadius: 5,
-    paddingVertical: 15,
-  },
   userButtonText: {
     color: baseColor.text,
     fontSize: Size.Large,

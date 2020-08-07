@@ -1,5 +1,12 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  SafeAreaView,
+  KeyboardAvoidingView,
+} from "react-native";
+import { accountFireStore } from "../../../firebase/accountFireStore";
 import UserImage from "../../atoms/user/UserImage";
 import UserInput from "../../atoms/user/UserInput";
 import HeaderImage from "../../atoms/user/HeaderImage";
@@ -35,31 +42,41 @@ const EditProfile: FC<Props> = ({ ...props }) => {
   return (
     <View>
       <View style={styles.editProWrap}>
-        {/* ヘッダー画像 */}
-        <Text onPress={() => onAddHeaderImagePressed()}>
-          <HeaderImage userHeaderImage={userHeaderImage} />
-        </Text>
-        <View style={styles.userIconWrap}>
-          {/* ユーザアイコン画像 */}
-          <Text style={styles.iconImg} onPress={() => onAddImagePressed()}>
-            <UserImage userImage={userImage} size={deviceWidth / 5} />
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ flex: 1 }}
+          behavior="position"
+        >
+          {/* ヘッダー画像 */}
+          <Text onPress={() => onAddHeaderImagePressed()}>
+            <HeaderImage userHeaderImage={userHeaderImage} />
           </Text>
-        </View>
-        {/* 入力フォーム */}
-        <UserInput
-          label="ユーザ名"
-          placeholder="ユーザ名を入力"
-          value={userName}
-          setValue={setUserName}
-        />
-        <UserInput
-          label="自己紹介"
-          placeholder="自己紹介を入力"
-          value={userSelfIntroduction}
-          setValue={setUserSelfIntroduction}
-        />
-        {/* 更新ボタン */}
-        <UserSaveButton saveData={saveData} />
+          <View style={styles.userIconWrap}>
+            {/* ユーザアイコン画像 */}
+            <Text style={styles.iconImg} onPress={() => onAddImagePressed()}>
+              <UserImage userImage={userImage} size={deviceWidth / 5} />
+            </Text>
+          </View>
+          {/* 入力フォーム */}
+          <UserInput
+            label="ユーザ名"
+            placeholder="ユーザ名を入力"
+            value={userName}
+            setValue={setUserName}
+          />
+          <View style={styles.margin}></View>
+          <UserInput
+            label="自己紹介"
+            placeholder="自己紹介を入力"
+            value={userSelfIntroduction}
+            setValue={setUserSelfIntroduction}
+          />
+
+          {/* 更新ボタン */}
+          <View style={styles.userButtonWrap}>
+            <UserSaveButton saveData={saveData} />
+          </View>
+        </KeyboardAvoidingView>
       </View>
     </View>
   );

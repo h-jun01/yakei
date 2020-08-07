@@ -17,7 +17,7 @@ export const utilityColor = {
   attention: '#e8ac51',
   authNav: 'rgba(62,64,75,0.8)',
   inputBack: "rgba(62,64,75,0.9)",
-  editBox: 'rgba(51, 124, 234,0.8)',
+  editBox: 'rgb(51, 124, 234)',
   placeholderText: 'rgba(204, 204, 204,0.7)',
   // attentionSub: '#fe446d',
   // attentionBg: '#faeedc',
