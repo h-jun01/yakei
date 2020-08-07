@@ -9,6 +9,7 @@ import { accountFireStore } from "../../../firebase/accountFireStore";
 import { UserScreenNavigationProp } from "../../../componets/organisms/user/User";
 import { callingAlert } from "../../../utilities/alert";
 import { RootState } from "../../../reducers/index";
+import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
 import {
   upDateUserName,
   upDateUserProfileImage,
@@ -110,14 +111,17 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
       //リサイズ処理
       if (!result.cancelled) {
         const actions: any = [];
-        actions.push({ resize: { width: 350 } });
+        actions.push({
+          resize: { width: deviceWidth, height: deviceHeight / 6 },
+        });
         const manipulatorResult = await ImageManipulator.manipulateAsync(
           result.uri,
           actions,
           {
-            compress: 0.4,
+            compress: 1,
           }
         );
+
         //リサイズしたデータを保存
         setStorageHeaderImageData((prevState) => ({
           ...prevState,

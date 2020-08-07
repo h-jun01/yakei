@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import AppIntroSlider from "react-native-app-intro-slider";
-import { View, Text } from "react-native";
+import { View, SafeAreaView, Text } from "react-native";
 import { deviceHeight } from "../utilities/dimensions";
 
 type Props = {
@@ -34,12 +34,15 @@ const Intro: FC<Props> = ({ navigation }) => {
 
   const _renderItem = ({ item }) => {
     return (
-      <View
-        style={{ backgroundColor: item.backgroundColor, height: deviceHeight }}
+      <SafeAreaView
+        style={{
+          backgroundColor: item.backgroundColor,
+          height: deviceHeight,
+        }}
       >
         <Text>{item.title}</Text>
         <Text>{item.text}</Text>
-      </View>
+      </SafeAreaView>
     );
   };
 

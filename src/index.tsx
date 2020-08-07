@@ -10,6 +10,7 @@ import { RootState } from "./reducers/index";
 import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
+import Intro from "./containers/Intro";
 import SignUp from "./containers/organisms/SignUp";
 import SignIn from "./containers/organisms/SignIn";
 import TermsOfService from "./componets/organisms/user/TermsOfService";
@@ -19,8 +20,6 @@ import HomeScreen from "./screens/HomeScreen";
 import SearchScreen from "./screens/SearchScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
-
-import Intro from "./containers/Intro";
 
 export type TabParamList = {
   Home: undefined;
