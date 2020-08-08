@@ -5,13 +5,15 @@ import {
   TouchableWithoutFeedback,
   SafeAreaView,
   KeyboardAvoidingView,
+  Keyboard,
+  Platform,
 } from "react-native";
 import { accountFireStore } from "../../../firebase/accountFireStore";
 import UserImage from "../../atoms/user/UserImage";
 import UserInput from "../../atoms/user/UserInput";
 import HeaderImage from "../../atoms/user/HeaderImage";
 import UserSaveButton from "../../atoms/user/UserSaveButton";
-import { deviceWidth } from "../../../utilities/dimensions";
+import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
 import { styles } from "../../../styles/user/editProfile";
 
 type Props = {
@@ -40,23 +42,22 @@ const EditProfile: FC<Props> = ({ ...props }) => {
   } = props;
 
   return (
-    <View>
-      <View style={styles.editProWrap}>
-        <KeyboardAvoidingView
-          style={{ flex: 1 }}
-          contentContainerStyle={{ flex: 1 }}
-          behavior="position"
-        >
-          {/* ヘッダー画像 */}
-          <Text onPress={() => onAddHeaderImagePressed()}>
-            <HeaderImage userHeaderImage={userHeaderImage} />
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+    >
+      <SafeAreaView style={styles.editProWrap}>
+        {/* ヘッダー画像 */}
+        <Text onPress={() => onAddHeaderImagePressed()}>
+          <HeaderImage userHeaderImage={userHeaderImage} />
+        </Text>
+        <View style={styles.userIconWrap}>
+          {/* ユーザアイコン画像 */}
+          <Text style={styles.iconImg} onPress={() => onAddImagePressed()}>
+            <UserImage userImage={userImage} size={deviceWidth / 5} />
           </Text>
-          <View style={styles.userIconWrap}>
-            {/* ユーザアイコン画像 */}
-            <Text style={styles.iconImg} onPress={() => onAddImagePressed()}>
-              <UserImage userImage={userImage} size={deviceWidth / 5} />
-            </Text>
-          </View>
+        </View>
+        <View style={styles.inputWrap}>
           {/* 入力フォーム */}
           <UserInput
             label="ユーザ名"
@@ -64,21 +65,21 @@ const EditProfile: FC<Props> = ({ ...props }) => {
             value={userName}
             setValue={setUserName}
           />
-          <View style={styles.margin}></View>
+          <View style={styles.margin} />
           <UserInput
             label="自己紹介"
             placeholder="自己紹介を入力"
             value={userSelfIntroduction}
             setValue={setUserSelfIntroduction}
           />
+        </View>
 
-          {/* 更新ボタン */}
-          <View style={styles.userButtonWrap}>
-            <UserSaveButton saveData={saveData} />
-          </View>
-        </KeyboardAvoidingView>
-      </View>
-    </View>
+        {/* 更新ボタン */}
+        <View style={styles.userButtonWrap}>
+          <UserSaveButton saveData={saveData} />
+        </View>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 

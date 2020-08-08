@@ -1,19 +1,18 @@
 import { StyleSheet } from "react-native";
 import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
-import {baseColor} from '../thema/colors'
+import { baseColor } from '../thema/colors'
 
 export const styles = StyleSheet.create({
   editProWrap: {
     width: deviceWidth,
-    height: deviceHeight,
-    color: baseColor.text,
-    display: "flex",
-    flexDirection: "column",
+    height: "auto",
     backgroundColor: baseColor.base,
+    flex: 1,
+    justifyContent: "space-between",
   },
   userIconWrap: {
     position: "relative",
-    top: -20,
+    top: "-8%",
     width: deviceWidth,
     height: deviceWidth / 4.5,
     backgroundColor: baseColor.base,
@@ -23,9 +22,12 @@ export const styles = StyleSheet.create({
   iconImg: {
     position: "relative",
     top: -30,
-    zIndex: 10,
     marginLeft: "auto",
     marginRight: "auto",
+  },
+  inputWrap: {
+    position: "relative",
+    top: -40,
   },
   margin: {
     margin: 15,
@@ -35,8 +37,10 @@ export const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 50,
+    marginBottom: 30,
     backgroundColor: baseColor.accent,
     borderRadius: 5,
     paddingVertical: 15,
   },
 });
+
