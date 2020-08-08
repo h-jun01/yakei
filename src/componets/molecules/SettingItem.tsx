@@ -21,31 +21,31 @@ const SettingItem: FC<Props> = ({ ...props }) => {
   return (
     <View style={styles.container}>
       {itemList1.map((item, index) => (
-        <View style={styles.item} key={index}>
-          <Text onPress={item.navigation}>
-            <Text>{item.leftIcon}</Text>
-            <Text>{item.label}</Text>
-            <Text>{item.rightIcon}</Text>
+        <View style={styles.itemWrap} key={index}>
+          <Text style={styles.settingItem} onPress={item.navigation}>
+            <Text style={styles.leftIcon}>{item.leftIcon}</Text>
+            <Text style={styles.itemLabel}>{item.label}</Text>
+            <Text style={styles.rightIcon}>{item.rightIcon}</Text>
           </Text>
         </View>
       ))}
       <View style={styles.borderItem} />
       {itemList2.map((item, index) => (
-        <View style={styles.item} key={index}>
-          <Text onPress={item.navigation}>
-            <Text>{item.leftIcon}</Text>
-            <Text>{item.label}</Text>
-            <Text>{item.rightIcon}</Text>
+        <View style={styles.itemWrap} key={index}>
+          <Text style={styles.settingItem} onPress={item.navigation}>
+            <Text style={styles.leftIcon}>{item.leftIcon}</Text>
+            <Text style={styles.itemLabel}>{item.label}</Text>
+            <Text style={styles.rightIcon}>{item.rightIcon}</Text>
           </Text>
         </View>
       ))}
       <View style={styles.borderItem} />
       {itemList3.map((item, index) => (
-        <View style={styles.item} key={index}>
-          <Text onPress={item.navigation}>
-            <Text>{item.leftIcon}</Text>
-            <Text>{item.label}</Text>
-            <Text>{item.rightIcon}</Text>
+        <View style={styles.itemWrap} key={index}>
+          <Text style={styles.settingItem} onPress={item.navigation}>
+            <Text style={styles.leftIcon}>{item.leftIcon}</Text>
+            <Text style={styles.itemLabel}>{item.label}</Text>
+            <Text style={styles.rightIcon}>{item.rightIcon}</Text>
           </Text>
         </View>
       ))}
