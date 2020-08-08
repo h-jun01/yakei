@@ -17,6 +17,7 @@ import SignUp from "./containers/organisms/SignUp";
 import SignIn from "./containers/organisms/SignIn";
 import TermsOfService from "./componets/organisms/user/TermsOfService";
 import PrivacyPolicy from "./componets/organisms/user/PrivacyPolicy";
+import PasswordReset from "./componets/organisms/user/PasswordReset";
 import LodingScreen from "./componets/LoadingScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SearchScreen from "./screens/SearchScreen";
@@ -40,6 +41,7 @@ export type StackParamList = {
   Detail: undefined;
   設定: undefined;
   プロフィール編集: undefined;
+  パスワード再設定: undefined;
   お知らせ: undefined;
   利用規約: undefined;
   プライバシーポリシー: undefined;
@@ -131,6 +133,17 @@ const Root: FC = () => {
             name="プライバシーポリシー"
             component={PrivacyPolicy}
             options={{ headerBackTitleVisible: false }}
+          />
+          <Stack.Screen
+            name="パスワード再設定"
+            component={PasswordReset}
+            options={{
+              headerBackTitleVisible: false,
+              headerTintColor: "#fff",
+              headerStyle: {
+                backgroundColor: "#141D2C",
+              },
+            }}
           />
         </Stack.Navigator>
       )}

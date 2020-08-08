@@ -1,5 +1,6 @@
 import React, { FC, Fragment } from "react";
 import { View, Text } from "react-native";
+import { styles } from "../../../styles/user/notice";
 
 type NoticeDataList = {
   message: string;
@@ -12,12 +13,12 @@ type Props = {
 
 const Notice: FC<Props> = ({ noticeDataList }) => {
   return (
-    <View>
-      {console.log(noticeDataList)}
+    <View style={styles.container}>
       {noticeDataList.map((item, index) => (
         <Fragment key={index}>
           <Text>{item.message}</Text>
           <Text>{item.time}</Text>
+          <View style={styles.borderItem} />
         </Fragment>
       ))}
     </View>

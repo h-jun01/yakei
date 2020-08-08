@@ -26,6 +26,7 @@ const SettingItemContainer: FC<Props> = ({ navigation }) => {
       leftIcon: <MaterialCommunityIcons name="key" />,
       rightIcon: <MaterialCommunityIcons name="chevron-right" />,
       label: "パスワード再設定",
+      navigation: () => navigation.navigate("パスワード再設定"),
     },
     {
       leftIcon: <MaterialCommunityIcons name="bell" />,

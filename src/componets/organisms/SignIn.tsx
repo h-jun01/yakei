@@ -77,7 +77,7 @@ const SignIn: FC<Props> = ({ ...props }) => {
               authFunction={() => signInUser(email.value, pass.value)}
             />
             {/* パスワードお忘れですか */}
-            <ForgotPassword />
+            <ForgotPassword navigation={navigation} />
             {/* またはのとこ */}
             <AuthChoiceText />
             {/* Google認証ボタン */}

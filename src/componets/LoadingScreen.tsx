@@ -7,7 +7,7 @@ const LoadingScreen: FC = () => {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Spinner
         visible={true}
-        textContent="読込中..."
+        textContent="読み込み中..."
         textStyle={{ color: "#fff", fontSize: 13 }}
         overlayColor="rgba(0,0,0,0.5)"
       />

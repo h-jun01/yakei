@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import User from "../containers/organisms/user/User";
 import Setting from "../containers/organisms/user/Setting";
 import EditProfile from "../containers/organisms/user/EditProfile";
+import PasswordReset from "../componets/organisms/user/PasswordReset";
 import Notice from "../containers/organisms/user/Notice";
 import TermsOfService from "../componets/organisms/user/TermsOfService";
 import PrivacyPolicy from "../componets/organisms/user/PrivacyPolicy";
@@ -32,6 +33,17 @@ const UserScreen: FC = () => {
       <Stack.Screen
         name="プロフィール編集"
         component={EditProfile}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#141D2C",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="パスワード再設定"
+        component={PasswordReset}
         options={{
           headerBackTitleVisible: false,
           headerTintColor: "#fff",

@@ -1,6 +1,6 @@
 import firebase from "firebase";
 import { auth, db, storage, FieldValue } from "./firebase";
-import { callingAlert } from "../utilities/alert";
+import { callingAlert, callingDoneAlert } from "../utilities/alert";
 
 type AccountFireStore = {
   getUser: (
@@ -28,7 +28,7 @@ type AccountFireStore = {
   deleteStorageHeaderImage: (
     headerImgIndex: string
   ) => Promise<any> | undefined;
-  passwordResetEmail: () => Promise<void>;
+  passwordResetEmail: (emailAddress: string) => Promise<void>;
   providers: (email: string) => Promise<string[]>;
   authenticationName: string;
 };
@@ -51,6 +51,7 @@ export const accountFireStore: AccountFireStore = {
       .signInWithEmailAndPassword(account.email, account.password)
       .catch(() => {
         callingAlert("メールアドレスまたはパスワードが違います。");
+        return;
       });
   },
   //Googleログイン処理
@@ -165,17 +166,17 @@ export const accountFireStore: AccountFireStore = {
     }
   },
   //パスワード変更
-  passwordResetEmail: async () => {
-    const userData = auth.currentUser;
-    if (userData) {
-      const emailAddress = userData.email;
-      return await auth
-        .sendPasswordResetEmail(emailAddress as string)
-        .catch((err) => {
-          callingAlert("不正な操作です。");
-          return;
-        });
-    }
+  passwordResetEmail: async (emailAddress: string) => {
+    return await auth
+      .sendPasswordResetEmail(emailAddress)
+      .then(() => {
+        callingDoneAlert("再設定用のURLを送信しました。");
+        return;
+      })
+      .catch((err) => {
+        callingAlert("登録されていないメールアドレスです。");
+        return;
+      });
   },
   //認証済みチェック
   providers: async (email: string) => {
