@@ -13,7 +13,7 @@ import UserImage from "../../atoms/user/UserImage";
 import UserInput from "../../atoms/user/UserInput";
 import HeaderImage from "../../atoms/user/HeaderImage";
 import UserSaveButton from "../../atoms/user/UserSaveButton";
-import { deviceWidth,deviceHeight } from "../../../utilities/dimensions";
+import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
 import { styles } from "../../../styles/user/editProfile";
 
 type Props = {

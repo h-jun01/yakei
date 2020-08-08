@@ -23,10 +23,12 @@ const UserInput: FC<Props> = ({ ...props }) => {
       <TextInput
         value={value}
         placeholder={placeholder}
-        multiline={true}
         keyboardType="default"
         returnKeyType="done"
+        multiline={true}
+        autoFocus={true}
         blurOnSubmit={true}
+        editable={true}
         placeholderTextColor={utilityColor.placeholderText}
         onChangeText={(name) => setValue(name)}
         style={styles.editInput}

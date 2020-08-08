@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
-import {baseColor} from '../thema/colors'
+import { baseColor } from '../thema/colors'
 
 export const styles = StyleSheet.create({
   editProWrap: {
@@ -43,3 +43,4 @@ export const styles = StyleSheet.create({
     paddingVertical: 15,
   },
 });
+
