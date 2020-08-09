@@ -10,7 +10,7 @@ const source = {
     "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/users%2F8HG1hZgvW7WiXA1oaaPMyn59ayB2%2Fuser.jpeg?alt=media&token=cb63a15b-d239-4543-9e1c-d45e1932bb98",
 };
 
-const RoundedUserImageComponent: FC<Props> = ({ color = "#ddd" }) => {
+const RoundedUserImageComponent: FC<Props> = ({ color = "#606578" }) => {
   const styles = StyleSheet.create({
     image: {
       borderRadius: 14, // width / 2

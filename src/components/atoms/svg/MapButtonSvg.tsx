@@ -5,7 +5,7 @@ type Props = {
   color?: string;
 };
 
-const MapButtonSvg: FC<Props> = ({ color = "#ddd" }) => {
+const MapButtonSvg: FC<Props> = ({ color = "#606578" }) => {
   return (
     <Svg width={25} height={24} viewBox="0 0 18 24" fill="none">
       <Path

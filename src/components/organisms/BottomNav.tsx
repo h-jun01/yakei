@@ -27,11 +27,11 @@ const BottomNavComponent: FC = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator tabBar={(props) => <BottomNavContent {...props} />}>
-        <Tab.Screen name="Map" component={HomeScreen} />
-        <Tab.Screen name="Collection" component={SettingsScreen} />
+        <Tab.Screen name="スポット" component={HomeScreen} />
+        <Tab.Screen name="ギャラリー" component={SettingsScreen} />
         <Tab.Screen name="Plus" component={HomeScreen} />
-        <Tab.Screen name="Notification" component={SettingsScreen} />
-        <Tab.Screen name="User" component={SettingsScreen} />
+        <Tab.Screen name="通知" component={SettingsScreen} />
+        <Tab.Screen name="マイページ" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

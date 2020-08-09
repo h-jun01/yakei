@@ -3,9 +3,15 @@ import Svg, { G, Circle, Rect, Defs } from "react-native-svg";
 
 const PlusButtonSvg: FC = () => {
   return (
-    <Svg width={72} height={72} viewBox="0 0 72 72" fill="none">
+    <Svg
+      style={{ bottom: 17 }}
+      width={72}
+      height={72}
+      viewBox="0 0 72 72"
+      fill="none"
+    >
       <G>
-        <Circle cx={36} cy={36} r={35} fill="#282828" />
+        <Circle cx={36} cy={36} r={35} fill="#272E45" />
         <Circle
           cx={36.412}
           cy={36.411}

@@ -5,7 +5,7 @@ type Props = {
   color?: string;
 };
 
-const NotificationButtonSvg: FC<Props> = ({ color = "#ddd" }) => {
+const NotificationButtonSvg: FC<Props> = ({ color = "#606578" }) => {
   return (
     <Svg width={22} height={24} viewBox="0 0 22 24" fill="none">
       <Path
