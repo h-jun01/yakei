@@ -7,7 +7,7 @@ import {
   Animated,
   TouchableHighlight,
 } from "react-native";
-import BottomNav from "./src/components/organisms/BottomNav";
+import ScreenSwitcher from "./ScreenSwitcher";
 
 const App: FC = () => {
   // const stateArray = ["normal", "press", "active", "pressActive"];
@@ -60,7 +60,7 @@ const App: FC = () => {
 
   return (
     <SafeAreaView style={styles.wrap}>
-      <BottomNav />
+      <ScreenSwitcher />
       {/* <View style={styles.whiteWrap} />
       <View style={styles.bottomNavCenterWrap}>
         <View style={styles.bottomNavCenter} />
