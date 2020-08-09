@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ViewStyle, TextStyle, ImageStyle, StyleSheet } from "react-native";
+import { ViewStyle, TextStyle, ImageStyle } from "react-native";
 import Svg, { G, Path } from "react-native-svg";
 
 type Props = {

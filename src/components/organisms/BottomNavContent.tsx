@@ -9,19 +9,20 @@ import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
 import NotificationButtonSvg from "../atoms/svg/NotificationButtonSvg";
 import RoundedUserImage from "../atoms/RoundedUserImage";
 
-const Svg: FC<{ index: number }> = (props) => {
-  const { index } = props;
+const Svg: FC<{ index: number; isFocused: boolean }> = (props) => {
+  const { index, isFocused } = props;
+  const color = isFocused ? "#FC2E7E" : "#ddd";
   switch (index) {
     case 0:
-      return <MapButtonSvg />;
+      return <MapButtonSvg color={color} />;
     case 1:
-      return <CollectionButtonSvg />;
+      return <CollectionButtonSvg color={color} />;
     case 2:
       return <PlusButtonSvg />;
     case 3:
-      return <NotificationButtonSvg />;
+      return <NotificationButtonSvg color={color} />;
     default:
-      return <RoundedUserImage />;
+      return <RoundedUserImage color={color} />;
   }
 };
 
@@ -65,9 +66,10 @@ const BottomNavContent: FC<Props> = ({ state, descriptors, navigation }) => {
               accessibilityLabel={options.tabBarAccessibilityLabel}
               onPress={onPress}
               onLongPress={onLongPress}
+              activeOpacity={1}
               style={styles.footerItem}
             >
-              <Svg index={index} />
+              <Svg index={index} isFocused={isFocused} />
             </TouchableOpacity>
           );
         })}
