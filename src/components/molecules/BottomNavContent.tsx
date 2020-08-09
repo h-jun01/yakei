@@ -42,7 +42,7 @@ const BottomNavContent: FC<Props> = ({ state, descriptors, navigation }) => {
               onPress={onPress}
               onLongPress={onLongPress}
               activeOpacity={1}
-              style={styles.footerItem}
+              style={[styles.footerItem, index === 2 ? styles.plusButton : {}]}
             >
               <BottomNavItem
                 index={index}
@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+  },
+  plusButton: {
+    paddingHorizontal: 10,
   },
 });
 
