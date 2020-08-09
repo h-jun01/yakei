@@ -59,10 +59,6 @@ const Svg: FC<SvgProps> = (props) => {
 };
 
 const BottomNavContent: FC<Props> = ({ state, descriptors, navigation }) => {
-  // console.log(state);
-  // console.log(descriptors);
-  // console.log(navigation);
-
   return (
     <View style={styles.container}>
       <FooterBackgroundSvg style={styles.fotterWrap} />

@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import BottomNavContent from "./BottomNavContent";
+import BottomNavContent from "../molecules/BottomNavContent";
 
 const Tab = createBottomTabNavigator();
 
