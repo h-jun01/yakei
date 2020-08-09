@@ -1,99 +1,11 @@
-import React, { FC, useState, useRef } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Animated,
-  TouchableHighlight,
-} from "react-native";
+import React, { FC } from "react";
+import { StyleSheet, SafeAreaView } from "react-native";
 import ScreenSwitcher from "./ScreenSwitcher";
 
 const App: FC = () => {
-  // const stateArray = ["normal", "press", "active", "pressActive"];
-  // const [index, setIndex] = useState(0);
-  // const [buttonState, setButtonState] = useState(stateArray[0]);
-  // const plusToCrossAnim = useRef(new Animated.Value(0)).current;
-
-  // const resetAnimValue = () => plusToCrossAnim.setValue(0);
-
-  // const changeStyle = () => {
-  //   const newIndex = (index + 1) % 4;
-  //   if (buttonState == "press") {
-  //     // press→active
-  //     Animated.timing(plusToCrossAnim, {
-  //       toValue: 1,
-  //       duration: 200,
-  //     }).start();
-  //   } else if (buttonState == "pressActive") {
-  //     // pressActive→normal
-  //     Animated.timing(plusToCrossAnim, {
-  //       toValue: 2,
-  //       duration: 200,
-  //     }).start(resetAnimValue);
-  //   }
-  //   setIndex(newIndex);
-  //   setButtonState(stateArray[newIndex]);
-  // };
-
-  // // フレーム値0から1、1から2にかけて0degから45degに変化
-  // const interPolateRotate = plusToCrossAnim.interpolate({
-  //   inputRange: [0, 1, 2],
-  //   outputRange: ["0deg", "45deg", "90deg"],
-  // });
-
-  // const interPolateTop = plusToCrossAnim.interpolate({
-  //   inputRange: [0, 1, 2],
-  //   outputRange: [2, 1.85, 1.7],
-  // });
-
-  // const interPolateRight = plusToCrossAnim.interpolate({
-  //   inputRange: [0, 1, 2],
-  //   outputRange: [0, 0.6, 1.2],
-  // });
-
-  // const animatedRotateStyle = {
-  //   transform: [{ rotate: interPolateRotate }],
-  //   top: interPolateTop,
-  //   right: interPolateRight,
-  // };
-
   return (
     <SafeAreaView style={styles.wrap}>
       <ScreenSwitcher />
-      {/* <View style={styles.whiteWrap} />
-      <View style={styles.bottomNavCenterWrap}>
-        <View style={styles.bottomNavCenter} />
-      </View>
-      <View style={styles.bottomNav}>
-        <Text>テスト</Text>
-        <Text>テスト</Text>
-        <TouchableHighlight
-          style={[
-            styles.buttonWrap,
-            buttonState === "normal"
-              ? styles.normalButtonWrap
-              : styles.activeButtonWrap,
-          ]}
-          onPressIn={changeStyle}
-          onPressOut={changeStyle}
-          underlayColor={"black"}
-          activeOpacity={0.7}
-        >
-          <Animated.Text
-            style={[
-              buttonState === "normal"
-                ? styles.normalButtonText
-                : styles.activeButtonText,
-              animatedRotateStyle,
-            ]}
-          >
-            +
-          </Animated.Text>
-        </TouchableHighlight>
-        <Text>テスト</Text>
-        <Text>テスト</Text>
-      </View> */}
     </SafeAreaView>
   );
 };

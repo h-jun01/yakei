@@ -11,10 +11,12 @@ type Props = {
   index: number;
   isFocused: boolean;
   label: string;
+  style?: Object;
+  changeStyle: () => void;
 };
 
 const BottomNavItem: FC<Props> = (props) => {
-  const { index, isFocused, label } = props;
+  const { index, isFocused, label, style, changeStyle } = props;
   const color = isFocused ? "#FC2E7E" : "#606578";
   switch (index) {
     case 0:
@@ -32,7 +34,7 @@ const BottomNavItem: FC<Props> = (props) => {
         </>
       );
     case 2:
-      return <PlusButtonSvg />;
+      return <PlusButtonSvg style={style} changeStyle={changeStyle} />;
     case 3:
       return (
         <>

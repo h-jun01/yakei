@@ -1,10 +1,19 @@
 import React, { FC } from "react";
+import { Animated } from "react-native";
 import Svg, { G, Circle, Rect, Defs } from "react-native-svg";
 
-const PlusButtonSvg: FC = () => {
+type Props = {
+  style?: Object;
+  changeStyle: () => void;
+};
+
+const PlusButtonSvg: FC<Props> = ({ ...props }) => {
+  const { style, changeStyle } = props;
+  const AnimatedSvg = Animated.createAnimatedComponent(Svg);
   return (
-    <Svg
-      style={{ bottom: 17 }}
+    <AnimatedSvg
+      style={[{ bottom: 17 }, style]}
+      onPress={changeStyle}
       width={72}
       height={72}
       viewBox="0 0 72 72"
@@ -40,7 +49,7 @@ const PlusButtonSvg: FC = () => {
         />
       </G>
       <Defs></Defs>
-    </Svg>
+    </AnimatedSvg>
   );
 };
 
