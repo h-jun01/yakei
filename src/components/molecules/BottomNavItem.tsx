@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 
 import MapButtonSvg from "../atoms/svg/MapButtonSvg";
 import CollectionButtonSvg from "../atoms/svg/CollectionButtonSvg";
@@ -21,14 +21,14 @@ const BottomNavItem: FC<Props> = (props) => {
       return (
         <>
           <MapButtonSvg color={color} />
-          <Text style={{ color: "#fff" }}>{label}</Text>
+          <Text style={styles.label}>{label}</Text>
         </>
       );
     case 1:
       return (
         <>
           <CollectionButtonSvg color={color} />
-          <Text style={{ color: "#fff" }}>{label}</Text>
+          <Text style={styles.label}>{label}</Text>
         </>
       );
     case 2:
@@ -37,17 +37,25 @@ const BottomNavItem: FC<Props> = (props) => {
       return (
         <>
           <NotificationButtonSvg color={color} />
-          <Text style={{ color: "#fff" }}>{label}</Text>
+          <Text style={styles.label}>{label}</Text>
         </>
       );
     default:
       return (
         <>
           <RoundedUserImage color={color} />
-          <Text style={{ color: "#fff" }}>{label}</Text>
+          <Text style={styles.label}>{label}</Text>
         </>
       );
   }
 };
+
+const styles = StyleSheet.create({
+  label: {
+    color: "#fff",
+    fontSize: 10,
+    marginTop: 5,
+  },
+});
 
 export default BottomNavItem;
