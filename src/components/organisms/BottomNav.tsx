@@ -37,7 +37,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
             <TouchableOpacity
               key={index}
               accessibilityRole="button"
-              accessibilityStates={isFocused ? ["selected"] : []}
+              accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
               onPress={onPress}
               onLongPress={onLongPress}
