@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
-import BottomNavItem from "../molecules/BottomNavItem";
+import BottomNavItem from "../../containers/molecules/BottomNavItem";
 
 const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   return (
