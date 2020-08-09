@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import BottomNavContent from "../molecules/BottomNavContent";
+import BottomNav from "./src/components/organisms/BottomNav";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +26,7 @@ const SettingsScreen = () => {
 const BottomNavComponent: FC = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator tabBar={(props) => <BottomNavContent {...props} />}>
+      <Tab.Navigator tabBar={(props) => <BottomNav {...props} />}>
         <Tab.Screen name="スポット" component={HomeScreen} />
         <Tab.Screen name="ギャラリー" component={SettingsScreen} />
         <Tab.Screen name="Plus" component={HomeScreen} />
