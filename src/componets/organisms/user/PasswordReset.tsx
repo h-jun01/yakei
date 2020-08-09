@@ -8,7 +8,7 @@ const PasswordReset: FC = () => {
   const email = useInput("");
   return (
     <View style={styles.container}>
-      <TextInput {...email} />
+      <TextInput placeholder="メールアドレスを入力" {...email} />
       <Text onPress={() => accountFireStore.passwordResetEmail(email.value)}>
         メール送信テスト
       </Text>
