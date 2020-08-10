@@ -5,7 +5,7 @@ type Props = {
   color?: string;
 };
 
-const CollectionButtonSvg: FC<Props> = ({ color = "#606578" }) => {
+const CollectionButtonSvg: FC<Props> = ({ color = "#838692" }) => {
   return (
     <Svg width={24} height={24} viewBox="0 0 24 24" fill="none">
       <Path

@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import { Text, StyleSheet } from "react-native";
 
 import ActiveMapButtonSvg from "../atoms/svg/ActiveMapButtonSvg";
+import ActiveCollectionButtonSvg from "../atoms/svg/ActiveCollectionButtonSvg";
+import ActiveNotificationButtonSvg from "../atoms/svg/ActiveNotificationButtonSvg";
 import CollectionButtonSvg from "../atoms/svg/CollectionButtonSvg";
 import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
 import NotificationButtonSvg from "../atoms/svg/NotificationButtonSvg";
@@ -18,11 +20,13 @@ type Props = {
 
 const BottomNavItem: FC<Props> = (props) => {
   const { index, isFocused, label, style, changeStyle } = props;
-  const color = isFocused ? "#FC2E7E" : "#606578";
+  const activeColor = "#FC2E7E";
+  const normalColor = "#838692";
+  const backColor = "#272E45";
 
   const styles = StyleSheet.create({
     label: {
-      color: isFocused ? "#FC2E7E" : "#fff",
+      color: isFocused ? "#fff" : "#838692",
       fontSize: 10,
       marginTop: 5,
     },
@@ -32,14 +36,25 @@ const BottomNavItem: FC<Props> = (props) => {
     case 0:
       return (
         <>
-          {isFocused ? <ActiveMapButtonSvg /> : <NormalMapButtonSvg />}
+          {isFocused ? (
+            <ActiveMapButtonSvg color={activeColor} />
+          ) : (
+            <NormalMapButtonSvg
+              strokeColor={normalColor}
+              backColor={backColor}
+            />
+          )}
           <Text style={styles.label}>{label}</Text>
         </>
       );
     case 1:
       return (
         <>
-          <CollectionButtonSvg color={color} />
+          {isFocused ? (
+            <ActiveCollectionButtonSvg color={activeColor} />
+          ) : (
+            <CollectionButtonSvg color={normalColor} />
+          )}
           <Text style={styles.label}>{label}</Text>
         </>
       );
@@ -48,14 +63,18 @@ const BottomNavItem: FC<Props> = (props) => {
     case 3:
       return (
         <>
-          <NotificationButtonSvg color={color} />
+          {isFocused ? (
+            <ActiveNotificationButtonSvg color={activeColor} />
+          ) : (
+            <NotificationButtonSvg color={normalColor} />
+          )}
           <Text style={styles.label}>{label}</Text>
         </>
       );
     default:
       return (
         <>
-          <RoundedUserImage color={color} />
+          <RoundedUserImage color={isFocused ? activeColor : normalColor} />
           <Text style={styles.label}>{label}</Text>
         </>
       );

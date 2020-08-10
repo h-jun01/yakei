@@ -70,14 +70,16 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
   },
   footerItem: {
+    bottom: 17,
     width: 0,
     height: 79,
     flexGrow: 1,
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
   },
   plusButton: {
+    bottom: 0,
     paddingHorizontal: 10,
   },
 });
