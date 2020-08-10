@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import Home, {
   HomeScreenNavigationProp,
-} from "../../../componets/organisms/home/Home";
+} from "../../../components/organisms/home/Home";
 
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";

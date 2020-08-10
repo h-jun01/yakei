@@ -3,10 +3,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import User from "../containers/organisms/user/User";
 import Setting from "../containers/organisms/user/Setting";
 import EditProfile from "../containers/organisms/user/EditProfile";
-import PasswordReset from "../componets/organisms/user/PasswordReset";
+import PasswordReset from "../components/organisms/user/PasswordReset";
 import Notice from "../containers/organisms/user/Notice";
-import TermsOfService from "../componets/organisms/user/TermsOfService";
-import PrivacyPolicy from "../componets/organisms/user/PrivacyPolicy";
+import TermsOfService from "../components/organisms/user/TermsOfService";
+import PrivacyPolicy from "../components/organisms/user/PrivacyPolicy";
 
 const UserScreen: FC = () => {
   const Stack = createStackNavigator();

@@ -8,8 +8,10 @@ import BottomNavItem from "../../containers/molecules/BottomNavItem";
 const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   return (
     <View style={styles.container}>
-      <FooterBackgroundSvg style={styles.fotterWrap} />
-      <View style={styles.fotterWrap}>
+      <View style={styles.footerSvgWrap}>
+        <FooterBackgroundSvg style={styles.footerSvg} />
+      </View>
+      <View style={styles.footerWrap}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           const label = route.name;
@@ -39,7 +41,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
               accessibilityRole="button"
               accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
-              onPress={onPress}
+              onPress={index !== 2 ? onPress : () => {}}
               onLongPress={onLongPress}
               activeOpacity={1}
               style={[styles.footerItem, index === 2 ? styles.plusButton : {}]}
@@ -60,17 +62,29 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    height: 0,
   },
-  fotterWrap: {
+  footerWrap: {
     zIndex: 0,
     position: "absolute",
     flexDirection: "row",
     justifyContent: "space-evenly",
-    bottom: -1,
+    bottom: 17,
     width: Dimensions.get("window").width,
   },
-  footerItem: {
+  footerSvgWrap: {
+    position: "relative",
+    bottom: 75,
+    left: -3,
+    width: Dimensions.get("window").width + 6,
+    aspectRatio: 4.4588, // viewbox.width / viewbox.height
+  },
+  footerSvg: {
+    position: "absolute",
     bottom: 17,
+  },
+  footerItem: {
+    bottom: 15,
     width: 0,
     height: 79,
     flexGrow: 1,
