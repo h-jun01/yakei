@@ -1,14 +1,14 @@
 import React, { FC } from "react";
 import { Text, StyleSheet } from "react-native";
 
-import ActiveMapButtonSvg from "../atoms/svg/ActiveMapButtonSvg";
-import ActiveCollectionButtonSvg from "../atoms/svg/ActiveCollectionButtonSvg";
-import ActiveNotificationButtonSvg from "../atoms/svg/ActiveNotificationButtonSvg";
-import CollectionButtonSvg from "../atoms/svg/CollectionButtonSvg";
+import MapButtonTintedSvg from "../atoms/svg/MapButtonTintedSvg";
+import CollectionButtonTintedSvg from "../atoms/svg/CollectionButtonTintedSvg";
+import NotificationButtonTintedSvg from "../atoms/svg/NotificationButtonTintedSvg";
+import CollectionButtonStrokedSvg from "../atoms/svg/CollectionButtonStrokedSvg";
 import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
-import NotificationButtonSvg from "../atoms/svg/NotificationButtonSvg";
+import NotificationButtonStrokedSvg from "../atoms/svg/NotificationButtonStrokedSvg";
 import RoundedUserImage from "../atoms/RoundedUserImage";
-import NormalMapButtonSvg from "../atoms/svg/NormalMapButtonSvg";
+import MapButtonStrokedSvg from "../atoms/svg/MapButtonStrokedSvg";
 
 type Props = {
   index: number;
@@ -37,9 +37,9 @@ const BottomNavItem: FC<Props> = (props) => {
       return (
         <>
           {isFocused ? (
-            <ActiveMapButtonSvg color={activeColor} />
+            <MapButtonTintedSvg color={activeColor} />
           ) : (
-            <NormalMapButtonSvg
+            <MapButtonStrokedSvg
               strokeColor={normalColor}
               backColor={backColor}
             />
@@ -51,9 +51,9 @@ const BottomNavItem: FC<Props> = (props) => {
       return (
         <>
           {isFocused ? (
-            <ActiveCollectionButtonSvg color={activeColor} />
+            <CollectionButtonTintedSvg color={activeColor} />
           ) : (
-            <CollectionButtonSvg color={normalColor} />
+            <CollectionButtonStrokedSvg color={normalColor} />
           )}
           <Text style={styles.label}>{label}</Text>
         </>
@@ -64,9 +64,9 @@ const BottomNavItem: FC<Props> = (props) => {
       return (
         <>
           {isFocused ? (
-            <ActiveNotificationButtonSvg color={activeColor} />
+            <NotificationButtonTintedSvg color={activeColor} />
           ) : (
-            <NotificationButtonSvg color={normalColor} />
+            <NotificationButtonStrokedSvg color={normalColor} />
           )}
           <Text style={styles.label}>{label}</Text>
         </>
