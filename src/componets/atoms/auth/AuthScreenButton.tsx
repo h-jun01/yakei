@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { View, Text, TouchableWithoutFeedback } from "react-native";
-import { styles } from "../../../styles/auth";
+import { styles } from "../../../styles/auth/auth";
 
 type Props = {
   label: string;

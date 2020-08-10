@@ -13,8 +13,8 @@ import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import { setNoticeListData } from "./actions/notice";
 import Intro from "./containers/Intro";
-import SignUp from "./containers/organisms/SignUp";
-import SignIn from "./containers/organisms/SignIn";
+import SignUp from "./containers/organisms/auth/SignUp";
+import SignIn from "./containers/organisms/auth/SignIn";
 import TermsOfService from "./componets/organisms/user/TermsOfService";
 import PrivacyPolicy from "./componets/organisms/user/PrivacyPolicy";
 import PasswordReset from "./componets/organisms/user/PasswordReset";
@@ -48,20 +48,14 @@ export type StackParamList = {
 };
 
 const Root: FC = () => {
-  //ログイン状態とローディング状態をstateから持ってくる
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
   const selectIsLogin = (state: RootState) => state.authReducer.isLogin;
-  const selectUid = (state: RootState) => state.userReducer.uid;
   const isLoading = useSelector(selectIsLoading);
   const isLogin = useSelector(selectIsLogin);
-  const uid = useSelector(selectUid);
-  //ルーティング作成
+  const dispatch = useDispatch();
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
-  const dispatch = useDispatch();
-
-  //ログインチェック
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -83,7 +77,6 @@ const Root: FC = () => {
     });
   }, []);
 
-  //ローディング中の画面を表示
   if (!isLoading) {
     return <LodingScreen />;
   }
