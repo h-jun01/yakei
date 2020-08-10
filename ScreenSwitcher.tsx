@@ -30,7 +30,7 @@ const BottomNavComponent: FC = () => {
         <Tab.Screen name="スポット" component={HomeScreen} />
         <Tab.Screen name="ギャラリー" component={SettingsScreen} />
         <Tab.Screen name="Plus" component={HomeScreen} />
-        <Tab.Screen name="通知" component={SettingsScreen} />
+        <Tab.Screen name="通知" component={HomeScreen} />
         <Tab.Screen name="マイページ" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
