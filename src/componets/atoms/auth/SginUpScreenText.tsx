@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { View, Text } from "react-native";
-import { styles } from "../../../styles/auth";
+import { styles } from "../../../styles/auth/auth";
 
 type Props = {
   navigation: any;

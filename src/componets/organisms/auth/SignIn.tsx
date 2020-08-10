@@ -1,14 +1,14 @@
 import React, { FC, Fragment } from "react";
-import { View,ImageBackground } from "react-native";
-import { UseInputResult } from "../../utilities/hooks/input";
-import { styles } from "../../styles/auth";
-import FormInput from "../atoms/auth/FormInput";
-import ServiceTitle from "../atoms/auth/ServiceTitle";
-import GoogleAuthButton from "../atoms/auth/GoogleAuthButton";
-import AuthChoiceText from "../atoms/auth/AuthChoiceText";
-import AuthStatusChange from "../atoms/auth/AuthStatusChange";
-import SginUpScreenText from "../atoms/auth/SginUpScreenText";
-import AuthScreenButton from "../atoms/auth/AuthScreenButton";
+import { View, ImageBackground } from "react-native";
+import { UseInputResult } from "../../../utilities/hooks/input";
+import { styles } from "../../../styles/auth/auth";
+import FormInput from "../../atoms/auth/FormInput";
+import ServiceTitle from "../../atoms/auth/ServiceTitle";
+import GoogleAuthButton from "../../atoms/auth/GoogleAuthButton";
+import AuthChoiceText from "../../atoms/auth/AuthChoiceText";
+import AuthStatusChange from "../../atoms/auth/AuthStatusChange";
+import AuthScreenButton from "../../atoms/auth/AuthScreenButton";
+import ForgotPassword from "../../atoms/auth/ForgotPassword";
 
 type ItemList = {
   item: string;
@@ -20,10 +20,9 @@ type ItemList = {
 type Props = {
   navigation: any;
   itemList: ItemList[];
-  name: UseInputResult;
   email: UseInputResult;
   pass: UseInputResult;
-  signUpUser: (name: string, email: string, password: string) => void;
+  signInUser: (email: string, password: string) => void;
   signInWithGoogle: () => Promise<
     | {
         cancelled: boolean;
@@ -37,14 +36,13 @@ type Props = {
   >;
 };
 
-const SignUp: FC<Props> = ({ ...props }) => {
+const SignIn: FC<Props> = ({ ...props }) => {
   const {
     navigation,
-    name,
+    itemList,
     email,
     pass,
-    itemList,
-    signUpUser,
+    signInUser,
     signInWithGoogle,
   } = props;
 
@@ -52,7 +50,7 @@ const SignUp: FC<Props> = ({ ...props }) => {
     <Fragment>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../../../assets/authBackImg.jpg")}
+          source={require("../../../../assets/authBackImg.jpg")}
           style={styles.authBack}
         >
           {/* ロゴ */}
@@ -70,23 +68,22 @@ const SignUp: FC<Props> = ({ ...props }) => {
             ))}
             {/* 新規登録とログインボタン */}
             <AuthScreenButton
-              label="新規登録"
-              authFunction={() =>
-                signUpUser(name.value, email.value, pass.value)
-              }
+              label="ログイン"
+              authFunction={() => signInUser(email.value, pass.value)}
             />
+            {/* パスワードお忘れですか */}
+            <ForgotPassword navigation={navigation} />
             {/* またはのとこ */}
             <AuthChoiceText />
             {/* Google認証ボタン */}
             <GoogleAuthButton signInWithGoogle={signInWithGoogle} />
-            {/* 利用規約とプラポリ */}
-            <SginUpScreenText navigation={navigation} />
           </View>
+
           {/* ログインか新規登録に切り替え */}
           <View style={styles.authChangeWrap}>
             <AuthStatusChange
-              text="既にアカウントをお持ちの場合、ログインはこちら"
-              navigation={() => navigation.navigate("ログイン")}
+              text="アカウントをお持ちでない場合、新規登録はこちら"
+              navigation={() => navigation.navigate("新規登録")}
             />
           </View>
         </ImageBackground>
@@ -95,4 +92,4 @@ const SignUp: FC<Props> = ({ ...props }) => {
   );
 };
 
-export default SignUp;
+export default SignIn;

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
-import { baseColor,utilityColor } from "./thema/colors"
-import { Size } from "./thema/fonts"
+import { baseColor, utilityColor } from "../thema/colors";
+import { Size } from "../thema/fonts";
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   authBack: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   authWrap: {
     width: "90%",
