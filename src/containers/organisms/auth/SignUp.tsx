@@ -5,7 +5,7 @@ import Auth from "../../../components/organisms/auth/SignUp";
 import { accountFireStore } from "../../../firebase/accountFireStore";
 import { callingAlert } from "../../../utilities/alert";
 import { useInput, UseInputResult } from "../../../utilities/hooks/input";
-import { StackParamList } from "../../../index";
+import { StackParamList } from "../../../ScreenSwitcher";
 
 type ItemList = {
   item: string;
