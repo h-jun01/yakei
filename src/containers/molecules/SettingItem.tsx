@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import SettingItem from "../../componets/molecules/SettingItem";
+import SettingItem from "../../components/molecules/SettingItem";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { callingLogoutAlert } from "../../utilities/alert";
 import { accountFireStore } from "../../firebase/accountFireStore";

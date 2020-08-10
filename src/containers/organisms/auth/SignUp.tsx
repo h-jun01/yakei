@@ -1,11 +1,11 @@
 import React, { FC, Fragment, useState } from "react";
 import * as Google from "expo-google-app-auth";
 import Spinner from "react-native-loading-spinner-overlay";
-import Auth from "../../../componets/organisms/auth/SignUp";
+import Auth from "../../../components/organisms/auth/SignUp";
 import { accountFireStore } from "../../../firebase/accountFireStore";
 import { callingAlert } from "../../../utilities/alert";
 import { useInput, UseInputResult } from "../../../utilities/hooks/input";
-import { StackParamList } from "../../../index";
+import { StackParamList } from "../../../ScreenSwitcher";
 
 type ItemList = {
   item: string;

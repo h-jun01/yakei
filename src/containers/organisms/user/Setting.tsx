@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import Setting from "../../../componets/organisms/user/Setting";
-import { UserScreenNavigationProp } from "../../../componets/organisms/user/User";
+import Setting from "../../../components/organisms/user/Setting";
+import { UserScreenNavigationProp } from "../../../components/organisms/user/User";
 
 type Props = {
   navigation: UserScreenNavigationProp;

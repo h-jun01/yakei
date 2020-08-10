@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import User, {
   UserScreenNavigationProp,
-} from "../../../componets/organisms/user/User";
+} from "../../../components/organisms/user/User";
 import { RootState } from "../../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 
