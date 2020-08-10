@@ -4,7 +4,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { decode, encode } from "base-64";
 import { rootReducer } from "./src/reducers";
-import Root from "./src";
+import Root from "./src/ScreenSwitcher";
 import "./src/firebase/firebase";
 
 if (!global.btoa) {

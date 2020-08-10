@@ -62,9 +62,10 @@ const Home: FC<Props> = ({ ...props }) => {
         showsUserLocation
         initialRegion={region}
       >
-        {point.map((data) => {
+        {point.map((data, index) => {
           return (
             <Marker
+              key={index}
               coordinate={{
                 latitude: data.latitude,
                 longitude: data.longitude,
