@@ -13,9 +13,6 @@ const Setting: FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SettingItem navigation={navigation} />
-      <Text onPress={() => accountFireStore.passwordResetEmail()}>
-        メール送信テスト
-      </Text>
     </View>
   );
 };

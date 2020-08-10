@@ -66,12 +66,24 @@ const UserScreen: FC = () => {
       <Stack.Screen
         name="利用規約"
         component={TermsOfService}
-        options={{ headerBackTitleVisible: false }}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#141D2C",
+          },
+        }}
       />
       <Stack.Screen
         name="プライバシーポリシー"
         component={PrivacyPolicy}
-        options={{ headerBackTitleVisible: false }}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#141D2C",
+          },
+        }}
       />
     </Stack.Navigator>
   );
