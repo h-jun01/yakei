@@ -6,6 +6,7 @@ import CollectionButtonSvg from "../atoms/svg/CollectionButtonSvg";
 import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
 import NotificationButtonSvg from "../atoms/svg/NotificationButtonSvg";
 import RoundedUserImage from "../atoms/RoundedUserImage";
+import NormalMapButtonSvg from "../atoms/svg/NormalMapButtonSvg";
 
 type Props = {
   index: number;
@@ -18,11 +19,20 @@ type Props = {
 const BottomNavItem: FC<Props> = (props) => {
   const { index, isFocused, label, style, changeStyle } = props;
   const color = isFocused ? "#FC2E7E" : "#606578";
+
+  const styles = StyleSheet.create({
+    label: {
+      color: isFocused ? "#FC2E7E" : "#fff",
+      fontSize: 10,
+      marginTop: 5,
+    },
+  });
+
   switch (index) {
     case 0:
       return (
         <>
-          <MapButtonSvg color={color} />
+          {isFocused ? <MapButtonSvg /> : <NormalMapButtonSvg />}
           <Text style={styles.label}>{label}</Text>
         </>
       );
@@ -51,13 +61,5 @@ const BottomNavItem: FC<Props> = (props) => {
       );
   }
 };
-
-const styles = StyleSheet.create({
-  label: {
-    color: "#fff",
-    fontSize: 10,
-    marginTop: 5,
-  },
-});
 
 export default BottomNavItem;

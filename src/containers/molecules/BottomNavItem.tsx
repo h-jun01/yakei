@@ -15,21 +15,18 @@ const BottomNavItem: FC<Props> = (props) => {
   const stateArray = ["0deg", "45deg"];
   const [stateIndex, setStateIndex] = useState(0);
   const plusToCrossAnim = useRef(new Animated.Value(0)).current;
-
   const resetAnimValue = () => plusToCrossAnim.setValue(0);
 
   const changeStyle = () => {
     const buttonState = stateArray[stateIndex];
     const newIndex = (stateIndex + 1) % 2;
     if (buttonState == "0deg") {
-      // press→active
       Animated.timing(plusToCrossAnim, {
         toValue: 1,
         duration: 200,
         useNativeDriver: true,
       }).start();
     } else if (buttonState == "45deg") {
-      // pressActive→normal
       Animated.timing(plusToCrossAnim, {
         toValue: 2,
         duration: 200,
