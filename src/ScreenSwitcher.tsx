@@ -15,6 +15,7 @@ import { setNoticeListData } from "./actions/notice";
 import Intro from "./containers/Intro";
 import SignUp from "./containers/organisms/auth/SignUp";
 import SignIn from "./containers/organisms/auth/SignIn";
+import BottomNav from "./components/organisms/BottomNav";
 import TermsOfService from "./componets/organisms/user/TermsOfService";
 import PrivacyPolicy from "./componets/organisms/user/PrivacyPolicy";
 import PasswordReset from "./componets/organisms/user/PasswordReset";
@@ -85,11 +86,12 @@ const Root: FC = () => {
     <NavigationContainer>
       {isLogin && isLoading ? (
         <Fragment>
-          <Tab.Navigator>
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Search" component={SearchScreen} />
-            <Tab.Screen name="Notification" component={NotificationScreen} />
-            <Tab.Screen name="User" component={UserScreen} />
+          <Tab.Navigator tabBar={(props) => <BottomNav {...props} />}>
+            <Tab.Screen name="スポット" component={HomeScreen} />
+            <Tab.Screen name="ギャラリー" component={SearchScreen} />
+            <Tab.Screen name="Plus" component={HomeScreen} />
+            <Tab.Screen name="通知" component={NotificationScreen} />
+            <Tab.Screen name="マイページ" component={UserScreen} />
           </Tab.Navigator>
         </Fragment>
       ) : (
