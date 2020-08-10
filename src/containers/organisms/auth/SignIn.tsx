@@ -1,7 +1,7 @@
 import React, { FC, Fragment, useState } from "react";
 import * as Google from "expo-google-app-auth";
 import Spinner from "react-native-loading-spinner-overlay";
-import SignIn from "../../../componets/organisms/auth/SignIn";
+import SignIn from "../../../components/organisms/auth/SignIn";
 import { accountFireStore } from "../../../firebase/accountFireStore";
 import { useInput } from "../../../utilities/hooks/input";
 import { StackParamList } from "../../../index";
