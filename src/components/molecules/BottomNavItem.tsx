@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Text, StyleSheet } from "react-native";
 
-import MapButtonSvg from "../atoms/svg/MapButtonSvg";
+import ActiveMapButtonSvg from "../atoms/svg/ActiveMapButtonSvg";
 import CollectionButtonSvg from "../atoms/svg/CollectionButtonSvg";
 import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
 import NotificationButtonSvg from "../atoms/svg/NotificationButtonSvg";
@@ -32,7 +32,7 @@ const BottomNavItem: FC<Props> = (props) => {
     case 0:
       return (
         <>
-          {isFocused ? <MapButtonSvg /> : <NormalMapButtonSvg />}
+          {isFocused ? <ActiveMapButtonSvg /> : <NormalMapButtonSvg />}
           <Text style={styles.label}>{label}</Text>
         </>
       );
