@@ -39,7 +39,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
               accessibilityRole="button"
               accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
-              onPress={onPress}
+              onPress={index !== 2 ? onPress : () => {}}
               onLongPress={onLongPress}
               activeOpacity={1}
               style={[styles.footerItem, index === 2 ? styles.plusButton : {}]}
