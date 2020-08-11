@@ -51,32 +51,32 @@ const EditProfile: FC<Props> = ({ ...props }) => {
         <Text onPress={() => onAddHeaderImagePressed()}>
           <HeaderImage userHeaderImage={userHeaderImage} />
         </Text>
-        <View style={styles.userIconWrap}>
+        <View style={styles.userInfoWrap}>
           {/* ユーザアイコン画像 */}
           <Text style={styles.iconImg} onPress={() => onAddImagePressed()}>
             <UserImage userImage={userImage} size={deviceWidth / 5} />
           </Text>
-        </View>
-        <View style={styles.inputWrap}>
-          {/* 入力フォーム */}
-          <UserInput
-            label="ユーザ名"
-            placeholder="ユーザ名を入力"
-            value={userName}
-            setValue={setUserName}
-          />
-          <View style={styles.margin} />
-          <UserInput
-            label="自己紹介"
-            placeholder="自己紹介を入力"
-            value={userSelfIntroduction}
-            setValue={setUserSelfIntroduction}
-          />
-        </View>
+          <View style={styles.inputWrap}>
+            {/* 入力フォーム */}
+            <UserInput
+              label="ユーザ名"
+              placeholder="ユーザ名を入力"
+              value={userName}
+              setValue={setUserName}
+            />
+            <View style={styles.margin} />
+            <UserInput
+              label="自己紹介"
+              placeholder="自己紹介を入力"
+              value={userSelfIntroduction}
+              setValue={setUserSelfIntroduction}
+            />
+          </View>
 
-        {/* 更新ボタン */}
-        <View style={styles.userButtonWrap}>
-          <UserSaveButton saveData={saveData} />
+          {/* 更新ボタン */}
+          <View style={styles.userButtonWrap}>
+            <UserSaveButton saveData={saveData} />
+          </View>
         </View>
       </SafeAreaView>
     </KeyboardAvoidingView>

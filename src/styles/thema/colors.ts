@@ -4,7 +4,7 @@ export const baseColor = {
   primaryDarker: '#00783e',
   primaryLite: '#00b747',
   accent: '#21A6B8',
-  base: '#1A1A1A',
+  base: '#272E45',
   text: '#fff',
   main: '#4CAF7C',
 }

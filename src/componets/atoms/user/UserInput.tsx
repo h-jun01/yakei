@@ -26,7 +26,6 @@ const UserInput: FC<Props> = ({ ...props }) => {
         keyboardType="default"
         returnKeyType="done"
         multiline={true}
-        autoFocus={true}
         blurOnSubmit={true}
         editable={true}
         placeholderTextColor={utilityColor.placeholderText}

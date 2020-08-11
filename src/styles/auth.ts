@@ -33,17 +33,19 @@ export const styles = StyleSheet.create({
   },
 
   //input
-  inputItemName: {
+  authInputItemName: {
     color: baseColor.text,
     fontSize: Size.Small,
+    fontWeight: "600",
   },
-  input: {
+  authInput: {
     marginBottom: 20,
     padding: 10,
     borderRadius: 5,
     borderBottomWidth: 1,
     borderBottomColor: utilityColor.border,
     fontSize: Size.Large,
+    color: baseColor.text,
   },
 
   //authBtn

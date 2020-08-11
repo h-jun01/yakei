@@ -15,7 +15,6 @@ export const styles = StyleSheet.create({
   settingItem: {
     flexDirection: "row",
     alignItems: "center",
-    // justifyContent: "space-between",
     paddingHorizontal: 25,
     paddingVertical: 20,
     color : baseColor.text,

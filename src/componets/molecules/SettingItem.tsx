@@ -20,6 +20,8 @@ const SettingItem: FC<Props> = ({ ...props }) => {
 
   return (
     <View style={styles.container}>
+
+      {/* 一段目 */}
       {itemList1.map((item, index) => (
         <View style={styles.itemWrap} key={index}>
           <Text style={styles.settingItem} onPress={item.navigation}>
@@ -30,6 +32,8 @@ const SettingItem: FC<Props> = ({ ...props }) => {
         </View>
       ))}
       <View style={styles.borderItem} />
+
+      {/* 二段目 */}
       {itemList2.map((item, index) => (
         <View style={styles.itemWrap} key={index}>
           <Text style={styles.settingItem} onPress={item.navigation}>
@@ -40,6 +44,8 @@ const SettingItem: FC<Props> = ({ ...props }) => {
         </View>
       ))}
       <View style={styles.borderItem} />
+
+      {/* 三段目 */}
       {itemList3.map((item, index) => (
         <View style={styles.itemWrap} key={index}>
           <Text style={styles.settingItem} onPress={item.navigation}>
