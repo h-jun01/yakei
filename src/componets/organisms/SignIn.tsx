@@ -58,32 +58,33 @@ const SignIn: FC<Props> = ({ ...props }) => {
           source={require("../../../assets/authBackImg.jpg")}
           style={styles.authBack}
         >
-          {/* ロゴ */}
-          <ServiceTitle />
-          <View style={styles.authWrap}>
-            {/* 入力フォーム */}
-            {itemList.map((item, index) => (
-              <FormInput
-                key={index}
-                item={item.item}
-                placeholder={item.placeholder}
-                secureTextEntry={item.secureTextEntry}
-                signUpUserData={item.signUpUserData}
+          <View style={styles.allWrap}>
+            {/* ロゴ */}
+            <ServiceTitle />
+            <View style={styles.authWrap}>
+              {/* 入力フォーム */}
+              {itemList.map((item, index) => (
+                <FormInput
+                  key={index}
+                  item={item.item}
+                  placeholder={item.placeholder}
+                  secureTextEntry={item.secureTextEntry}
+                  signUpUserData={item.signUpUserData}
+                />
+              ))}
+              {/* 新規登録とログインボタン */}
+              <AuthScreenButton
+                label="ログイン"
+                authFunction={() => signInUser(email.value, pass.value)}
               />
-            ))}
-            {/* 新規登録とログインボタン */}
-            <AuthScreenButton
-              label="ログイン"
-              authFunction={() => signInUser(email.value, pass.value)}
-            />
-            {/* パスワードお忘れですか */}
-            <ForgotPassword />
-            {/* またはのとこ */}
-            <AuthChoiceText />
-            {/* Google認証ボタン */}
-            <GoogleAuthButton signInWithGoogle={signInWithGoogle} />
+              {/* パスワードお忘れですか */}
+              <ForgotPassword />
+              {/* またはのとこ */}
+              <AuthChoiceText />
+              {/* Google認証ボタン */}
+              <GoogleAuthButton signInWithGoogle={signInWithGoogle} />
+            </View>
           </View>
-
           {/* ログインか新規登録に切り替え */}
           <View style={styles.authChangeWrap}>
             <AuthStatusChange

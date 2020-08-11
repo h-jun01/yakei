@@ -1,9 +1,12 @@
 import { StyleSheet } from "react-native";
 import { baseColor,utilityColor } from "./thema/colors"
 import { Size } from "./thema/fonts"
+import { deviceWidth, deviceHeight } from "../utilities/dimensions";
 
 export const styles = StyleSheet.create({
   container: {
+    width: deviceWidth,
+    height: deviceHeight,
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#1C3952",
@@ -12,6 +15,11 @@ export const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center"
+  },
+  allWrap: {
+    width: deviceWidth,
+    position: "absolute",
+    top: "15%",
   },
   authWrap: {
     width: "90%",

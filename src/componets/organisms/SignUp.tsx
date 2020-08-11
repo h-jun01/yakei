@@ -55,32 +55,34 @@ const SignUp: FC<Props> = ({ ...props }) => {
           source={require("../../../assets/authBackImg.jpg")}
           style={styles.authBack}
         >
-          {/* ロゴ */}
-          <ServiceTitle />
-          <View style={styles.authWrap}>
-            {/* 入力フォーム */}
-            {itemList.map((item, index) => (
-              <FormInput
-                key={index}
-                item={item.item}
-                placeholder={item.placeholder}
-                secureTextEntry={item.secureTextEntry}
-                signUpUserData={item.signUpUserData}
+          <View style={styles.allWrap}>
+            {/* ロゴ */}
+            <ServiceTitle />
+            <View style={styles.authWrap}>
+              {/* 入力フォーム */}
+              {itemList.map((item, index) => (
+                <FormInput
+                  key={index}
+                  item={item.item}
+                  placeholder={item.placeholder}
+                  secureTextEntry={item.secureTextEntry}
+                  signUpUserData={item.signUpUserData}
+                />
+              ))}
+              {/* 新規登録とログインボタン */}
+              <AuthScreenButton
+                label="新規登録"
+                authFunction={() =>
+                  signUpUser(name.value, email.value, pass.value)
+                }
               />
-            ))}
-            {/* 新規登録とログインボタン */}
-            <AuthScreenButton
-              label="新規登録"
-              authFunction={() =>
-                signUpUser(name.value, email.value, pass.value)
-              }
-            />
-            {/* またはのとこ */}
-            <AuthChoiceText />
-            {/* Google認証ボタン */}
-            <GoogleAuthButton signInWithGoogle={signInWithGoogle} />
-            {/* 利用規約とプラポリ */}
-            <SginUpScreenText navigation={navigation} />
+              {/* またはのとこ */}
+              <AuthChoiceText />
+              {/* Google認証ボタン */}
+              <GoogleAuthButton signInWithGoogle={signInWithGoogle} />
+              {/* 利用規約とプラポリ */}
+              <SginUpScreenText navigation={navigation} />
+            </View>
           </View>
           {/* ログインか新規登録に切り替え */}
           <View style={styles.authChangeWrap}>
