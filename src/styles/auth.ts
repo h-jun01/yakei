@@ -55,7 +55,6 @@ export const styles = StyleSheet.create({
     fontSize: Size.Large,
     color: baseColor.text,
   },
-
   //authBtn
   buttonBack: {
     backgroundColor: baseColor.accent,

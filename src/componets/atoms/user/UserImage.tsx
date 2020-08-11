@@ -16,7 +16,7 @@ const UserImage: FC<Props> = ({ userImage, size }) => {
         width: size + 10,
         height: size + 10,
         borderRadius: 180,
-        borderWidth: 10,
+        borderWidth: 9,
         borderColor: baseColor.base,
       }}
       PlaceholderContent={<ActivityIndicator />}

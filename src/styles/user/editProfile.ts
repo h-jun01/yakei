@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { deviceWidth } from "../../utilities/dimensions";
+import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 import { baseColor } from '../thema/colors'
 
 export const styles = StyleSheet.create({
@@ -23,10 +23,6 @@ export const styles = StyleSheet.create({
     top: "-3%",
     marginLeft: "auto",
     marginRight: "auto",
-  },
-  inputWrap: {
-    position: "relative",
-    // top: "-15%",
   },
   margin: {
     margin: 15,
