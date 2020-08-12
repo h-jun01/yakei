@@ -1,6 +1,6 @@
 import firebase from "firebase";
 import { auth, db, storage, FieldValue } from "./firebase";
-import { callingAlert } from "../utilities/alert";
+import { callingAlert, callingDoneAlert } from "../utilities/alert";
 
 type AccountFireStore = {
   getUser: (
@@ -8,7 +8,9 @@ type AccountFireStore = {
   ) => Promise<
     firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
   >;
-  loginUser: (account: LginUser) => Promise<firebase.auth.UserCredential>;
+  loginUser: (
+    account: LginUser
+  ) => Promise<void | firebase.auth.UserCredential>;
   loginGoogleUser: (
     idToken: string,
     accessToken: string
@@ -26,7 +28,7 @@ type AccountFireStore = {
   deleteStorageHeaderImage: (
     headerImgIndex: string
   ) => Promise<any> | undefined;
-  passwordResetEmail: () => Promise<void>;
+  passwordResetEmail: (emailAddress: string) => Promise<void>;
   providers: (email: string) => Promise<string[]>;
   authenticationName: string;
 };
@@ -37,7 +39,6 @@ type LginUser = {
 };
 
 const user = db.collection("users");
-export const userData = auth.currentUser;
 
 export const accountFireStore: AccountFireStore = {
   //ユーザ情報を取得
@@ -46,10 +47,12 @@ export const accountFireStore: AccountFireStore = {
   },
   //ログイン処理
   loginUser: async (account: LginUser) => {
-    return await auth.signInWithEmailAndPassword(
-      account.email,
-      account.password
-    );
+    return await auth
+      .signInWithEmailAndPassword(account.email, account.password)
+      .catch(() => {
+        callingAlert("メールアドレスまたはパスワードが違います。");
+        return;
+      });
   },
   //Googleログイン処理
   loginGoogleUser: async (idToken: string, accessToken: string) => {
@@ -163,17 +166,17 @@ export const accountFireStore: AccountFireStore = {
     }
   },
   //パスワード変更
-  passwordResetEmail: async () => {
-    const userData = auth.currentUser;
-    if (userData) {
-      const emailAddress = userData.email;
-      return await auth
-        .sendPasswordResetEmail(emailAddress as string)
-        .catch((err) => {
-          callingAlert("不正な操作です。");
-          return;
-        });
-    }
+  passwordResetEmail: async (emailAddress: string) => {
+    return await auth
+      .sendPasswordResetEmail(emailAddress)
+      .then(() => {
+        callingDoneAlert("再設定用のURLを送信しました。");
+        return;
+      })
+      .catch((err) => {
+        callingAlert("登録されていないメールアドレスです。");
+        return;
+      });
   },
   //認証済みチェック
   providers: async (email: string) => {

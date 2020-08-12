@@ -3,8 +3,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import User from "../containers/organisms/user/User";
 import Setting from "../containers/organisms/user/Setting";
 import EditProfile from "../containers/organisms/user/EditProfile";
-import TermsOfService from "../componets/organisms/user/TermsOfService";
-import PrivacyPolicy from "../componets/organisms/user/PrivacyPolicy";
+import PasswordReset from "../components/organisms/user/PasswordReset";
+import Notice from "../containers/organisms/user/Notice";
+import TermsOfService from "../components/organisms/user/TermsOfService";
+import PrivacyPolicy from "../components/organisms/user/PrivacyPolicy";
 
 const UserScreen: FC = () => {
   const Stack = createStackNavigator();
@@ -40,14 +42,48 @@ const UserScreen: FC = () => {
         }}
       />
       <Stack.Screen
+        name="パスワード再設定"
+        component={PasswordReset}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#141D2C",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="お知らせ"
+        component={Notice}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#141D2C",
+          },
+        }}
+      />
+      <Stack.Screen
         name="利用規約"
         component={TermsOfService}
-        options={{ headerBackTitleVisible: false }}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#141D2C",
+          },
+        }}
       />
       <Stack.Screen
         name="プライバシーポリシー"
         component={PrivacyPolicy}
-        options={{ headerBackTitleVisible: false }}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#141D2C",
+          },
+        }}
       />
     </Stack.Navigator>
   );

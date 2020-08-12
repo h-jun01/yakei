@@ -2,11 +2,11 @@ import React, { FC, Fragment, useState } from "react";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
-import EditProfile from "../../../componets/organisms/user/EditProfile";
+import EditProfile from "../../../components/organisms/user/EditProfile";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useSelector, useDispatch } from "react-redux";
 import { accountFireStore } from "../../../firebase/accountFireStore";
-import { UserScreenNavigationProp } from "../../../componets/organisms/user/User";
+import { UserScreenNavigationProp } from "../../../components/organisms/user/User";
 import { callingAlert } from "../../../utilities/alert";
 import { RootState } from "../../../reducers/index";
 import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
@@ -45,7 +45,6 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
   const imgIndex = useSelector(selectImgIndex);
   const headerImgIndex = useSelector(selectHeaderImgIndex);
   const selfIntroduction = useSelector(selectSelfIntroduction);
-  const dispatch = useDispatch();
   const [userName, setUserName] = useState<string>(name);
   const [userImage, setUserImage] = useState<string>(image);
   const [userHeaderImage, setUserHeaderImage] = useState<string>(headerImage);
@@ -68,6 +67,8 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     postIndex: "",
   });
 
+  const dispatch = useDispatch();
+
   //リサイズしてアイコンをstorageImageDataに一時保存
   const onAddImagePressed = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -75,6 +76,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
       const result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
       });
 
       //リサイズ処理
@@ -85,7 +87,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
           result.uri,
           actions,
           {
-            compress: 0.4,
+            compress: 1,
           }
         );
         //リサイズしたデータを保存
@@ -106,13 +108,15 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
       const result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        // aspect: [4, 1],
+        quality: 1,
       });
 
       //リサイズ処理
       if (!result.cancelled) {
         const actions: any = [];
         actions.push({
-          resize: { width: deviceWidth, height: deviceHeight / 6 },
+          resize: { width: deviceWidth },
         });
         const manipulatorResult = await ImageManipulator.manipulateAsync(
           result.uri,

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import User, {
   UserScreenNavigationProp,
-} from "../../../componets/organisms/user/User";
+} from "../../../components/organisms/user/User";
 import { RootState } from "../../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -17,7 +17,6 @@ type Props = {
 
 const ContainerUser: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
-  //ユーザ名,アイコン,写真一覧を取得
   const selectName = (state: RootState) => state.userReducer.name;
   const selectImage = (state: RootState) => state.userReducer.userImg;
   const selectHeaderImage = (state: RootState) =>
