@@ -6,10 +6,10 @@ import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 export const styles = StyleSheet.create({
   container: {
     width: deviceWidth,
-    height: deviceHeight,
+    height: "100%",
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#1C3952",
+    backgroundColor: baseColor.base,
   },
   authBack: {
     flex: 1,
