@@ -5,12 +5,14 @@ import { Size } from "../thema/fonts"
 
 
 export const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    backgroundColor: baseColor.base,
+  },
   allWrap: {
     width: deviceWidth,
-    height: deviceHeight,
     marginLeft: "auto",
     marginRight: "auto",
-    backgroundColor: baseColor.base,
     paddingBottom: 54,
   },
   userInfoWrap: {

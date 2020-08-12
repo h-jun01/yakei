@@ -47,48 +47,48 @@ const User: FC<Props> = ({ ...props }) => {
   } = props;
 
   return (
-      <ScrollView>
-        <View style={styles.allWrap}>
-          <Image
-            source={{ uri: headerImage }}
-            style={{ width: deviceWidth, height: deviceHeight / 5 }}
-            PlaceholderContent={<ActivityIndicator />}
+    <ScrollView style={styles.container}>
+      <View style={styles.allWrap}>
+        <Image
+          source={{ uri: headerImage }}
+          style={{ width: deviceWidth, height: deviceHeight / 5 }}
+          PlaceholderContent={<ActivityIndicator />}
+        />
+        <View style={styles.userInfoWrap}>
+          <Avatar
+            size={deviceWidth / 5 + 10}
+            activeOpacity={0.7}
+            rounded
+            icon={{ name: "user", type: "font-awesome" }}
+            source={{
+              uri: image,
+            }}
+            containerStyle={styles.iconBox}
+            avatarStyle={styles.iconImg}
           />
-          <View style={styles.userInfoWrap}>
-            <Avatar
-              size={deviceWidth / 5 + 10}
-              activeOpacity={0.7}
-              rounded
-              icon={{ name: "user", type: "font-awesome" }}
-              source={{
-                uri: image,
-              }}
-              containerStyle={styles.iconBox}
-              avatarStyle={styles.iconImg}
-            />
-            <View style={styles.userInfo}>
-              <Text style={styles.userName}>{name}</Text>
-              <Text style={styles.userIntro}>{selfIntroduction}</Text>
-              <Text style={styles.photoText}>写真一覧</Text>
-            </View>
-            <View style={styles.imgItemWrap}>
-              {photoDataList !== undefined &&
-                photoDataList.map((item, index) => (
-                  <View key={index}>
-                    <Image
-                      style={styles.imgItem}
-                      PlaceholderContent={<ActivityIndicator />}
-                      source={{
-                        uri: item.URL,
-                      }}
-                    />
-                  </View>
-                ))}
-            </View>
-            <Button title="設定" onPress={() => navigation.navigate("設定")} />
+          <View style={styles.userInfo}>
+            <Text style={styles.userName}>{name}</Text>
+            <Text style={styles.userIntro}>{selfIntroduction}</Text>
+            <Text style={styles.photoText}>写真一覧</Text>
           </View>
+          <View style={styles.imgItemWrap}>
+            {photoDataList !== undefined &&
+              photoDataList.map((item, index) => (
+                <View key={index}>
+                  <Image
+                    style={styles.imgItem}
+                    PlaceholderContent={<ActivityIndicator />}
+                    source={{
+                      uri: item.URL,
+                    }}
+                  />
+                </View>
+              ))}
+          </View>
+          <Button title="設定" onPress={() => navigation.navigate("設定")} />
         </View>
-      </ScrollView>
+      </View>
+    </ScrollView>
   );
 };
 
