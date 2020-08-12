@@ -5,14 +5,13 @@ import {
   Button,
   ActivityIndicator,
   ScrollView,
-  SafeAreaView,
 } from "react-native";
 import { Avatar, Image } from "react-native-elements";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { TabParamList } from "../../../index";
-import { StackParamList } from "../../../index";
+import { TabParamList } from "../../../ScreenSwitcher";
+import { StackParamList } from "../../../ScreenSwitcher";
 import { styles } from "../../../styles/user/user";
 import { deviceWidth,deviceHeight } from "../../../utilities/dimensions";
 
@@ -48,7 +47,6 @@ const User: FC<Props> = ({ ...props }) => {
   } = props;
 
   return (
-    <SafeAreaView>
       <ScrollView>
         <View style={styles.allWrap}>
           <Image
@@ -91,7 +89,6 @@ const User: FC<Props> = ({ ...props }) => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
   );
 };
 

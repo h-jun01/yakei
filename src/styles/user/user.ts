@@ -7,10 +7,11 @@ import { Size } from "../thema/fonts"
 export const styles = StyleSheet.create({
   allWrap: {
     width: deviceWidth,
-    height: "auto",
+    height: deviceHeight,
     marginLeft: "auto",
     marginRight: "auto",
     backgroundColor: baseColor.base,
+    paddingBottom: 54,
   },
   userInfoWrap: {
     position: "relative",

@@ -72,11 +72,6 @@ const SignIn: FC<Props> = ({ ...props }) => {
                 label="ログイン"
                 authFunction={() => signInUser(email.value, pass.value)}
               />
-              {/* 新規登録とログインボタン */}
-              <AuthScreenButton
-                label="ログイン"
-                authFunction={() => signInUser(email.value, pass.value)}
-              />
               {/* パスワードお忘れですか */}
               <ForgotPassword navigation={navigation} />
               {/* またはのとこ */}
@@ -84,14 +79,13 @@ const SignIn: FC<Props> = ({ ...props }) => {
               {/* Google認証ボタン */}
               <GoogleAuthButton signInWithGoogle={signInWithGoogle} />
             </View>
-
-            {/* ログインか新規登録に切り替え */}
-            <View style={styles.authChangeWrap}>
-              <AuthStatusChange
-                text="アカウントをお持ちでない場合、新規登録はこちら"
-                navigation={() => navigation.navigate("新規登録")}
-              />
-            </View>
+          </View>
+          {/* ログインか新規登録に切り替え */}
+          <View style={styles.authChangeWrap}>
+            <AuthStatusChange
+              text="アカウントをお持ちでない場合、新規登録はこちら"
+              navigation={() => navigation.navigate("新規登録")}
+            />
           </View>
         </ImageBackground>
       </View>
