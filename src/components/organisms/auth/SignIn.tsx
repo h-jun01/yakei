@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from "react";
-import { View, ImageBackground } from "react-native";
+import { View, ImageBackground, } from "react-native";
 import { UseInputResult } from "../../../utilities/hooks/input";
 import { styles } from "../../../styles/auth/auth";
 import FormInput from "../../atoms/auth/FormInput";
@@ -53,38 +53,45 @@ const SignIn: FC<Props> = ({ ...props }) => {
           source={require("../../../../assets/authBackImg.jpg")}
           style={styles.authBack}
         >
-          {/* ロゴ */}
-          <ServiceTitle />
-          <View style={styles.authWrap}>
-            {/* 入力フォーム */}
-            {itemList.map((item, index) => (
-              <FormInput
-                key={index}
-                item={item.item}
-                placeholder={item.placeholder}
-                secureTextEntry={item.secureTextEntry}
-                signUpUserData={item.signUpUserData}
+          <View style={styles.allWrap}>
+            {/* ロゴ */}
+            <ServiceTitle />
+            <View style={styles.authWrap}>
+              {/* 入力フォーム */}
+              {itemList.map((item, index) => (
+                <FormInput
+                  key={index}
+                  item={item.item}
+                  placeholder={item.placeholder}
+                  secureTextEntry={item.secureTextEntry}
+                  signUpUserData={item.signUpUserData}
+                />
+              ))}
+              {/* 新規登録とログインボタン */}
+              <AuthScreenButton
+                label="ログイン"
+                authFunction={() => signInUser(email.value, pass.value)}
               />
-            ))}
-            {/* 新規登録とログインボタン */}
-            <AuthScreenButton
-              label="ログイン"
-              authFunction={() => signInUser(email.value, pass.value)}
-            />
-            {/* パスワードお忘れですか */}
-            <ForgotPassword navigation={navigation} />
-            {/* またはのとこ */}
-            <AuthChoiceText />
-            {/* Google認証ボタン */}
-            <GoogleAuthButton signInWithGoogle={signInWithGoogle} />
-          </View>
+              {/* 新規登録とログインボタン */}
+              <AuthScreenButton
+                label="ログイン"
+                authFunction={() => signInUser(email.value, pass.value)}
+              />
+              {/* パスワードお忘れですか */}
+              <ForgotPassword navigation={navigation} />
+              {/* またはのとこ */}
+              <AuthChoiceText />
+              {/* Google認証ボタン */}
+              <GoogleAuthButton signInWithGoogle={signInWithGoogle} />
+            </View>
 
-          {/* ログインか新規登録に切り替え */}
-          <View style={styles.authChangeWrap}>
-            <AuthStatusChange
-              text="アカウントをお持ちでない場合、新規登録はこちら"
-              navigation={() => navigation.navigate("新規登録")}
-            />
+            {/* ログインか新規登録に切り替え */}
+            <View style={styles.authChangeWrap}>
+              <AuthStatusChange
+                text="アカウントをお持ちでない場合、新規登録はこちら"
+                navigation={() => navigation.navigate("新規登録")}
+              />
+            </View>
           </View>
         </ImageBackground>
       </View>

@@ -19,7 +19,7 @@ const HeaderImage: FC<Props> = ({ userHeaderImage }) => {
 const styles = StyleSheet.create({
   headerImageSize: {
     width: deviceWidth,
-    height: deviceHeight / 6,
+    height: deviceHeight / 5,
   },
 });
 

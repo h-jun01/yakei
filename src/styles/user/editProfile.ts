@@ -7,27 +7,22 @@ export const styles = StyleSheet.create({
     width: deviceWidth,
     height: "auto",
     backgroundColor: baseColor.base,
-    flex: 1,
     justifyContent: "space-between",
   },
-  userIconWrap: {
+  userInfoWrap: {
     position: "relative",
-    top: "-8%",
+    top: "-5%",
     width: deviceWidth,
-    height: deviceWidth / 4.5,
+    height: deviceWidth * 2,
     backgroundColor: baseColor.base,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
   },
   iconImg: {
     position: "relative",
-    top: -30,
+    top: "-3%",
     marginLeft: "auto",
     marginRight: "auto",
-  },
-  inputWrap: {
-    position: "relative",
-    top: -40,
   },
   margin: {
     margin: 15,
@@ -36,11 +31,9 @@ export const styles = StyleSheet.create({
     width: "90%",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 50,
-    marginBottom: 30,
+    marginTop: 100,
     backgroundColor: baseColor.accent,
     borderRadius: 5,
     paddingVertical: 15,
   },
 });
-
