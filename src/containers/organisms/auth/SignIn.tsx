@@ -42,8 +42,6 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
       signUpUserData: pass,
     },
   ];
-  //エンドポイント
-  const url = "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
 
   //ログイン処理
   const signInUser = async (email: string, password: string) => {

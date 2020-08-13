@@ -36,11 +36,11 @@ const ContainerUser: FC<Props> = ({ ...props }) => {
   React.useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
-        await accountFireStore.getUser(user.uid).then((documentSnapshot) => {
-          dispatch(setUserData(documentSnapshot.data()));
+        await accountFireStore.getUser(user.uid).then((res) => {
+          dispatch(setUserData(res.data()));
         });
-        await photoFireStore.getPhotoList(user.uid).then((documentSnapshot) => {
-          dispatch(setPhotoListData(documentSnapshot.data()));
+        await photoFireStore.getPhotoList(user.uid).then((res) => {
+          dispatch(setPhotoListData(res));
         });
       }
     });
