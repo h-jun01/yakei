@@ -8,7 +8,6 @@ import {
   Keyboard,
   Platform,
 } from "react-native";
-import { accountFireStore } from "../../../firebase/accountFireStore";
 import UserImage from "../../atoms/user/UserImage";
 import UserInput from "../../atoms/user/UserInput";
 import HeaderImage from "../../atoms/user/HeaderImage";
@@ -56,22 +55,20 @@ const EditProfile: FC<Props> = ({ ...props }) => {
           <Text style={styles.iconImg} onPress={() => onAddImagePressed()}>
             <UserImage userImage={userImage} size={deviceWidth / 5} />
           </Text>
-          <View style={styles.inputWrap}>
-            {/* 入力フォーム */}
-            <UserInput
-              label="ユーザ名"
-              placeholder="ユーザ名を入力"
-              value={userName}
-              setValue={setUserName}
-            />
-            <View style={styles.margin} />
-            <UserInput
-              label="自己紹介"
-              placeholder="自己紹介を入力"
-              value={userSelfIntroduction}
-              setValue={setUserSelfIntroduction}
-            />
-          </View>
+          {/* 入力フォーム */}
+          <UserInput
+            label="ユーザ名"
+            placeholder="ユーザ名を入力"
+            value={userName}
+            setValue={setUserName}
+          />
+          <View style={styles.margin} />
+          <UserInput
+            label="自己紹介"
+            placeholder="自己紹介を入力"
+            value={userSelfIntroduction}
+            setValue={setUserSelfIntroduction}
+          />
 
           {/* 更新ボタン */}
           <View style={styles.userButtonWrap}>

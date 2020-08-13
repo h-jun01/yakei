@@ -1,5 +1,5 @@
 import { Alert } from "react-native";
-import { accountFireStore } from "../firebase/accountFireStore";
+import { auth } from "../firebase/firebase";
 
 export const callingAlert = (alertMessage: string): void => {
   Alert.alert(
@@ -40,7 +40,7 @@ export const callingLogoutAlert = (): void => {
       },
       {
         text: "ログアウト",
-        onPress: () => accountFireStore.signOutUser(),
+        onPress: () => auth.signOut(),
         style: "default",
       },
     ],
