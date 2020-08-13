@@ -1,5 +1,6 @@
-import React, { FC } from "react";
-import { View } from "react-native";
+import React, { FC, useState } from "react";
+import { StyleSheet, View, Alert } from "react-native";
+import { Container } from "native-base";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -12,6 +13,8 @@ import { Region } from "../../../entities/index";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../reducers/index";
 import { PhotoData } from "../../../entities/index";
+
+import LocationButtonView from "./PresentLocationButton";
 
 export type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, "Home">,
@@ -28,19 +31,21 @@ type Props = {
 const Home: FC<Props> = ({ ...props }) => {
   const { navigation, region, allPhotoList } = props;
 
-  const selectAllPhotoDataList = (state: RootState) => state.allPhotoReducer;
-  const photoDataList = useSelector(selectAllPhotoDataList);
-
   return (
-    <View style={{ flex: 1 }}>
+    <Container>
       <MapView
-        style={{ flex: 1 }}
+        style={{ ...StyleSheet.absoluteFillObject }}
         provider={PROVIDER_GOOGLE}
         showsUserLocation
         initialRegion={region}
         onClusterPress={(cluster, markers) => {
+          let photoDataList: any = [];
           markers?.forEach((value) => {
-            console.log(value["properties"]);
+            photoDataList.push(value["properties"]["id"]);
+          });
+          console.log(photoDataList);
+          navigation.navigate("Detail", {
+            allPhotoId: photoDataList,
           });
         }}
         preserveClusterPressBehavior={true}
@@ -49,7 +54,7 @@ const Home: FC<Props> = ({ ...props }) => {
           console.log(data);
           return (
             <Marker
-              id={data.userID}
+              id={data.latitude}
               coordinate={{
                 latitude: data.latitude,
                 longitude: data.longitude,
@@ -58,7 +63,12 @@ const Home: FC<Props> = ({ ...props }) => {
           );
         })}
       </MapView>
-    </View>
+      <LocationButtonView
+        onPressIcon={() => {
+          Alert.alert("アイコンをタップしたよ!!");
+        }}
+      />
+    </Container>
   );
 };
 
