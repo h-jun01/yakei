@@ -29,6 +29,11 @@ export const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
+  baseLine: {
+    position: "absolute",
+    top: "1%",
+    right: "10%"
+  },
   iconImg: {
     borderWidth: 9,
     borderColor: baseColor.base,
@@ -67,12 +72,13 @@ export const styles = StyleSheet.create({
     flex: 3,
     flexDirection: 'row',
     flexWrap:　"wrap",
-    justifyContent: 'center',
   },
   imgItem: {
     width: deviceWidth / 3.1,
     height: deviceWidth / 3.1,
     margin: 1.5,
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 5,
   }
 });

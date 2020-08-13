@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { styles } from "../../styles/user/setting";
 
 type ItemList = {
@@ -24,11 +24,11 @@ const SettingItem: FC<Props> = ({ ...props }) => {
       {/* 一段目 */}
       {itemList1.map((item, index) => (
         <View style={styles.itemWrap} key={index}>
-          <Text style={styles.settingItem} onPress={item.navigation}>
+          <TouchableOpacity style={styles.settingItem} onPress={item.navigation}>
             <Text style={styles.leftIcon}>{item.leftIcon}</Text>
             <Text style={styles.itemLabel}>{item.label}</Text>
             <Text style={styles.rightIcon}>{item.rightIcon}</Text>
-          </Text>
+          </TouchableOpacity>
         </View>
       ))}
       <View style={styles.borderItem} />
@@ -36,11 +36,11 @@ const SettingItem: FC<Props> = ({ ...props }) => {
       {/* 二段目 */}
       {itemList2.map((item, index) => (
         <View style={styles.itemWrap} key={index}>
-          <Text style={styles.settingItem} onPress={item.navigation}>
+          <TouchableOpacity style={styles.settingItem} onPress={item.navigation}>
             <Text style={styles.leftIcon}>{item.leftIcon}</Text>
             <Text style={styles.itemLabel}>{item.label}</Text>
             <Text style={styles.rightIcon}>{item.rightIcon}</Text>
-          </Text>
+          </TouchableOpacity>
         </View>
       ))}
       <View style={styles.borderItem} />
@@ -48,11 +48,11 @@ const SettingItem: FC<Props> = ({ ...props }) => {
       {/* 三段目 */}
       {itemList3.map((item, index) => (
         <View style={styles.itemWrap} key={index}>
-          <Text style={styles.settingItem} onPress={item.navigation}>
+          <TouchableOpacity style={styles.settingItem} onPress={item.navigation}>
             <Text style={styles.leftIcon}>{item.leftIcon}</Text>
             <Text style={styles.itemLabel}>{item.label}</Text>
             <Text style={styles.rightIcon}>{item.rightIcon}</Text>
-          </Text>
+          </TouchableOpacity>
         </View>
       ))}
     </View>
