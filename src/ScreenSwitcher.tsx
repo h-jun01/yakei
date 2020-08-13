@@ -60,14 +60,14 @@ const Root: FC = () => {
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
-        await accountFireStore.getUser(user.uid).then((documentSnapshot) => {
-          dispatch(setUserData(documentSnapshot.data()));
+        await accountFireStore.getUser(user.uid).then((res) => {
+          dispatch(setUserData(res.data()));
         });
-        await photoFireStore.getPhotoList(user.uid).then((documentSnapshot) => {
-          dispatch(setPhotoListData(documentSnapshot.data()));
+        await photoFireStore.getPhotoList(user.uid).then((res) => {
+          dispatch(setPhotoListData(res));
         });
-        await noticeFireStore.getNoticeList().then((documentSnapshot) => {
-          dispatch(setNoticeListData(documentSnapshot.data()));
+        await noticeFireStore.getNoticeList().then((res) => {
+          dispatch(setNoticeListData(res.data()));
         });
         dispatch(loadingStatusChange(true));
         dispatch(loginStatusChange(true));
