@@ -11,7 +11,7 @@ const ForgotPassword: FC<Props> = ({ navigation }) => {
     <View style={styles.text}>
       <Text
         style={styles.textColor}
-        onPress={() => navigation.navigate("パスワード再設定")}
+        onPress={() => navigation.navigate("passwordReset")}
       >
         パスワードをお忘れですか?
       </Text>

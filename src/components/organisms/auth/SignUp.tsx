@@ -88,7 +88,7 @@ const SignUp: FC<Props> = ({ ...props }) => {
           <View style={styles.authChangeWrap}>
             <AuthStatusChange
               text="既にアカウントをお持ちの場合、ログインはこちら"
-              navigation={() => navigation.navigate("ログイン")}
+              navigation={() => navigation.navigate("signIn")}
             />
           </View>
         </ImageBackground>

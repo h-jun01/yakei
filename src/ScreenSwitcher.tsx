@@ -25,29 +25,6 @@ import SearchScreen from "./screens/SearchScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
 
-export type TabParamList = {
-  Home: undefined;
-  Search: undefined;
-  Notification: undefined;
-  User: undefined;
-};
-
-export type StackParamList = {
-  新規登録: undefined;
-  ログイン: undefined;
-  Home: undefined;
-  Search: undefined;
-  Notification: undefined;
-  User: undefined;
-  Detail: undefined;
-  設定: undefined;
-  プロフィール編集: undefined;
-  パスワード再設定: undefined;
-  お知らせ: undefined;
-  利用規約: undefined;
-  プライバシーポリシー: undefined;
-};
-
 const Root: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
   const selectIsLogin = (state: RootState) => state.authReducer.isLogin;
@@ -97,7 +74,7 @@ const Root: FC = () => {
       ) : (
         <Stack.Navigator>
           <Stack.Screen
-            name="イントロ"
+            name="intro"
             component={Intro}
             options={{
               headerShown: false,
@@ -105,7 +82,7 @@ const Root: FC = () => {
             }}
           />
           <Stack.Screen
-            name="新規登録"
+            name="signUp"
             component={SignUp}
             options={{
               headerShown: false,
@@ -113,26 +90,30 @@ const Root: FC = () => {
             }}
           />
           <Stack.Screen
-            name="ログイン"
+            name="signIn"
             component={SignIn}
             options={{
               headerShown: false,
             }}
           />
           <Stack.Screen
-            name="利用規約"
+            name="termsOfService"
             component={TermsOfService}
-            options={{ headerBackTitleVisible: false }}
+            options={{ title: "利用規約", headerBackTitleVisible: false }}
           />
           <Stack.Screen
-            name="プライバシーポリシー"
+            name="privacyPolicy"
             component={PrivacyPolicy}
-            options={{ headerBackTitleVisible: false }}
+            options={{
+              title: "プライバシーポリシー",
+              headerBackTitleVisible: false,
+            }}
           />
           <Stack.Screen
-            name="パスワード再設定"
+            name="passwordReset"
             component={PasswordReset}
             options={{
+              title: "パスワード再設定",
               headerBackTitleVisible: false,
               headerTintColor: "#fff",
               headerStyle: {

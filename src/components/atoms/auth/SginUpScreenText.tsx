@@ -13,14 +13,14 @@ const SginUpScreenText: FC<Props> = ({ navigation }) => {
         登録することで、
         <Text
           style={styles.attention}
-          onPress={() => navigation.navigate("利用規約")}
+          onPress={() => navigation.navigate("termsOfService")}
         >
           利用規約
         </Text>
         及び
         <Text
           style={styles.attention}
-          onPress={() => navigation.navigate("プライバシーポリシー")}
+          onPress={() => navigation.navigate("privacyPolicy")}
         >
           プライバシーポリシー
         </Text>

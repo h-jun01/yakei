@@ -1,9 +1,8 @@
 import React, { FC } from "react";
 import SettingItem from "../../components/molecules/SettingItem";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { callingLogoutAlert } from "../../utilities/alert";
 import { accountFireStore } from "../../firebase/accountFireStore";
-import {Size} from "../../styles/thema/fonts"
+import { Size } from "../../styles/thema/fonts";
 
 type ItemList = {
   leftIcon: JSX.Element;
@@ -22,7 +21,7 @@ const SettingItemContainer: FC<Props> = ({ navigation }) => {
       leftIcon: <MaterialCommunityIcons name="pencil" size={18} />,
       rightIcon: <MaterialCommunityIcons name="chevron-right" size={18} />,
       label: "プロフィール編集",
-      navigation: () => navigation.navigate("プロフィール編集"),
+      navigation: () => navigation.navigate("editProfile"),
     },
     {
       leftIcon: <MaterialCommunityIcons name="key" size={Size.Xlarge} />,
@@ -30,7 +29,7 @@ const SettingItemContainer: FC<Props> = ({ navigation }) => {
         <MaterialCommunityIcons name="chevron-right" size={Size.Xlarge} />
       ),
       label: "パスワード再設定",
-      navigation: () => navigation.navigate("パスワード再設定"),
+      navigation: () => navigation.navigate("passwordReset"),
     },
     {
       leftIcon: <MaterialCommunityIcons name="bell" size={Size.Xlarge} />,
@@ -38,7 +37,7 @@ const SettingItemContainer: FC<Props> = ({ navigation }) => {
         <MaterialCommunityIcons name="chevron-right" size={Size.Xlarge} />
       ),
       label: "お知らせ",
-      navigation: () => navigation.navigate("お知らせ"),
+      navigation: () => navigation.navigate("notice"),
     },
   ];
 
@@ -60,7 +59,7 @@ const SettingItemContainer: FC<Props> = ({ navigation }) => {
         <MaterialCommunityIcons name="chevron-right" size={Size.Xlarge} />
       ),
       label: "利用規約",
-      navigation: () => navigation.navigate("利用規約"),
+      navigation: () => navigation.navigate("termsOfService"),
     },
     {
       leftIcon: (
@@ -70,7 +69,7 @@ const SettingItemContainer: FC<Props> = ({ navigation }) => {
         <MaterialCommunityIcons name="chevron-right" size={Size.Xlarge} />
       ),
       label: "プライバシーポリシー",
-      navigation: () => navigation.navigate("プライバシーポリシー"),
+      navigation: () => navigation.navigate("privacyPolicy"),
     },
   ];
 
