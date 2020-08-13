@@ -14,6 +14,7 @@ import { TabParamList } from "../../../ScreenSwitcher";
 import { StackParamList } from "../../../ScreenSwitcher";
 import { styles } from "../../../styles/user/user";
 import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
+import UserImage from "../../atoms/user/UserImage";
 
 export type UserScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, "User">,
@@ -55,7 +56,7 @@ const User: FC<Props> = ({ ...props }) => {
           PlaceholderContent={<ActivityIndicator />}
         />
         <View style={styles.userInfoWrap}>
-          <Avatar
+          {/* <Avatar
             size={deviceWidth / 5 + 10}
             activeOpacity={0.7}
             rounded
@@ -65,7 +66,8 @@ const User: FC<Props> = ({ ...props }) => {
             }}
             containerStyle={styles.iconBox}
             avatarStyle={styles.iconImg}
-          />
+          /> */}
+          <UserImage userImage={image} size={deviceWidth / 5 + 10} />
           <View style={styles.userInfo}>
             <Text style={styles.userName}>{name}</Text>
             <Text style={styles.userIntro}>{selfIntroduction}</Text>
