@@ -1,5 +1,5 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
-import { PhotoData } from "../entities/index";
+import { PhotoData } from "../entities/common";
 
 type State = {
   allPhotoDataList: PhotoData[];

@@ -24,7 +24,7 @@ const ContainerUser: FC<Props> = ({ ...props }) => {
   const selectSelfIntroduction = (state: RootState) =>
     state.userReducer.selfIntroduction;
   const selectPhotoDataList = (state: RootState) =>
-    state.photoReducer.photoDataList;
+    state.myPhotoReducer.photoDataList;
   const name = useSelector(selectName);
   const image = useSelector(selectImage);
   const headerImage = useSelector(selectHeaderImage);

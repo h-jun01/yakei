@@ -8,7 +8,7 @@ const initialState: State = {
   photoDataList: [],
 };
 
-export const photoReducer = (state = initialState, action: UnionedAction) => {
+export const myPhotoReducer = (state = initialState, action: UnionedAction) => {
   switch (action.type) {
     case ActionTypes.PHOTO_DATA_LIST:
       return {
