@@ -2,16 +2,15 @@ import React, { FC } from "react";
 import { View, Text, Button } from "react-native";
 
 type Props = {
-  title: string;
+  allPhotoId: string;
 };
 
 //主に見た目に関する記述はこのファイル
 const Detail: FC<Props> = ({ ...props }) => {
-  const { title } = props;
-
+  const { allPhotoId } = props;
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>地図の{title}</Text>
+      <Text>地図の{allPhotoId}</Text>
     </View>
   );
 };

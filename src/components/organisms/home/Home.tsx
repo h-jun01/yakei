@@ -1,5 +1,6 @@
-import React, { FC } from "react";
-import { View } from "react-native";
+import React, { FC, useState } from "react";
+import { StyleSheet, View, Alert } from "react-native";
+import { Container } from "native-base";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -9,6 +10,11 @@ import { StackParamList } from "../../../index";
 import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Region } from "../../../entities/index";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../reducers/index";
+import { PhotoData } from "../../../entities/index";
+
+import LocationButtonView from "./PresentLocationButton";
 
 export type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, "Home">,
@@ -18,54 +24,37 @@ export type HomeScreenNavigationProp = CompositeNavigationProp<
 type Props = {
   navigation: HomeScreenNavigationProp;
   region: Region;
+  allPhotoList: any;
 };
-// デモデータ(本来はfirestoreからのデータで行う)
-const point = [
-  {
-    latitude: 35.6340873,
-    longitude: 139.525187,
-  },
-  {
-    latitude: 35.5340774,
-    longitude: 139.525187,
-  },
-  {
-    latitude: 35.4340775,
-    longitude: 139.525187,
-  },
-  {
-    latitude: 35.6240873,
-    longitude: 139.525187,
-  },
-  {
-    latitude: 35.5333774,
-    longitude: 139.525187,
-  },
-  {
-    latitude: 35.4320775,
-    longitude: 139.515187,
-  },
-  {
-    latitude: 35.4320771,
-    longitude: 139.515187,
-  },
-];
 
 //主に見た目に関する記述はこのファイル
 const Home: FC<Props> = ({ ...props }) => {
-  const { navigation, region } = props;
+  const { navigation, region, allPhotoList } = props;
+
   return (
-    <View style={{ flex: 1 }}>
+    <Container>
       <MapView
-        style={{ flex: 1 }}
+        style={{ ...StyleSheet.absoluteFillObject }}
         provider={PROVIDER_GOOGLE}
         showsUserLocation
         initialRegion={region}
+        onClusterPress={(cluster, markers) => {
+          let photoDataList: any = [];
+          markers?.forEach((value) => {
+            photoDataList.push(value["properties"]["id"]);
+          });
+          console.log(photoDataList);
+          navigation.navigate("Detail", {
+            allPhotoId: photoDataList,
+          });
+        }}
+        preserveClusterPressBehavior={true}
       >
-        {point.map((data, index) => {
+        {allPhotoList["allPhotoDataList"].map((data) => {
+          console.log(data);
           return (
             <Marker
-              key={index}
+              id={data.latitude}
               coordinate={{
                 latitude: data.latitude,
                 longitude: data.longitude,
@@ -74,7 +63,12 @@ const Home: FC<Props> = ({ ...props }) => {
           );
         })}
       </MapView>
-    </View>
+      <LocationButtonView
+        onPressIcon={() => {
+          Alert.alert("アイコンをタップしたよ!!");
+        }}
+      />
+    </Container>
   );
 };
 
