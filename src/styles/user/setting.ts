@@ -17,18 +17,21 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 25,
     paddingVertical: 20,
-    color : baseColor.text,
   },
   leftIcon: {
     fontSize: Size.Large,
+    color: baseColor.text,
+    marginRight: 10,
   },
   itemLabel: {
-    padding: 111,
     fontSize: Size.Normal,
     fontWeight: "700",
+    color : baseColor.text,
   },
   rightIcon: {
     fontSize: Size.Large,
+    color: baseColor.text,
+    marginLeft: "auto",
   },
   borderItem: {
     borderWidth: 0.3,
