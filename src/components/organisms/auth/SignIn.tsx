@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from "react";
-import { View, ImageBackground, } from "react-native";
+import { View, ImageBackground } from "react-native";
 import { UseInputResult } from "../../../utilities/hooks/input";
 import { styles } from "../../../styles/auth/auth";
 import FormInput from "../../atoms/auth/FormInput";
@@ -84,7 +84,7 @@ const SignIn: FC<Props> = ({ ...props }) => {
           <View style={styles.authChangeWrap}>
             <AuthStatusChange
               text="アカウントをお持ちでない場合、新規登録はこちら"
-              navigation={() => navigation.navigate("新規登録")}
+              navigation={() => navigation.navigate("signUp")}
             />
           </View>
         </ImageBackground>

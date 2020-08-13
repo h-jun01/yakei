@@ -6,20 +6,10 @@ import {
   ActivityIndicator,
   ScrollView,
 } from "react-native";
-import { Avatar, Image } from "react-native-elements";
-import { CompositeNavigationProp } from "@react-navigation/native";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { TabParamList } from "../../../ScreenSwitcher";
-import { StackParamList } from "../../../ScreenSwitcher";
+import { Image } from "react-native-elements";
 import { styles } from "../../../styles/user/user";
 import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
 import UserImage from "../../atoms/user/UserImage";
-
-export type UserScreenNavigationProp = CompositeNavigationProp<
-  BottomTabNavigationProp<TabParamList, "User">,
-  StackNavigationProp<StackParamList>
->;
 
 type PhotoDataList = {
   URL: string;
@@ -29,7 +19,7 @@ type PhotoDataList = {
 };
 
 type Props = {
-  navigation: UserScreenNavigationProp;
+  navigation: any;
   name: string;
   image: string;
   headerImage: string;
@@ -57,13 +47,13 @@ const User: FC<Props> = ({ ...props }) => {
         />
         <View style={styles.userInfoWrap}>
           <View style={styles.iconBox}>
-            <UserImage
-              userImage={image}
-              size={deviceWidth / 5}
-            />
+            <UserImage userImage={image} size={deviceWidth / 5} />
           </View>
           <View style={styles.baseLine}>
-            <Button title="設定" onPress={() => navigation.navigate("設定")} />
+            <Button
+              title="設定"
+              onPress={() => navigation.navigate("setting")}
+            />
           </View>
           <View style={styles.userInfo}>
             <Text style={styles.userName}>{name}</Text>

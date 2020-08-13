@@ -50,7 +50,7 @@ const Intro: FC<Props> = ({ navigation }) => {
     <AppIntroSlider
       renderItem={_renderItem}
       data={slides}
-      onDone={() => navigation.navigate("新規登録")}
+      onDone={() => navigation.navigate("signUp")}
     />
   );
 };
