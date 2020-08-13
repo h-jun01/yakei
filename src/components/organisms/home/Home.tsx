@@ -9,6 +9,9 @@ import { StackParamList } from "../../../index";
 import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Region } from "../../../entities/index";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../reducers/index";
+import { PhotoData } from "../../../entities/index";
 
 export type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, "Home">,
@@ -18,42 +21,16 @@ export type HomeScreenNavigationProp = CompositeNavigationProp<
 type Props = {
   navigation: HomeScreenNavigationProp;
   region: Region;
+  allPhotoList: any;
 };
-// デモデータ(本来はfirestoreからのデータで行う)
-const point = [
-  {
-    latitude: 35.6340873,
-    longitude: 139.525187,
-  },
-  {
-    latitude: 35.5340774,
-    longitude: 139.525187,
-  },
-  {
-    latitude: 35.4340775,
-    longitude: 139.525187,
-  },
-  {
-    latitude: 35.6240873,
-    longitude: 139.525187,
-  },
-  {
-    latitude: 35.5333774,
-    longitude: 139.525187,
-  },
-  {
-    latitude: 35.4320775,
-    longitude: 139.515187,
-  },
-  {
-    latitude: 35.4320771,
-    longitude: 139.515187,
-  },
-];
 
 //主に見た目に関する記述はこのファイル
 const Home: FC<Props> = ({ ...props }) => {
-  const { navigation, region } = props;
+  const { navigation, region, allPhotoList } = props;
+
+  const selectAllPhotoDataList = (state: RootState) => state.allPhotoReducer;
+  const photoDataList = useSelector(selectAllPhotoDataList);
+
   return (
     <View style={{ flex: 1 }}>
       <MapView
@@ -61,11 +38,18 @@ const Home: FC<Props> = ({ ...props }) => {
         provider={PROVIDER_GOOGLE}
         showsUserLocation
         initialRegion={region}
+        onClusterPress={(cluster, markers) => {
+          markers?.forEach((value) => {
+            console.log(value["properties"]);
+          });
+        }}
+        preserveClusterPressBehavior={true}
       >
-        {point.map((data, index) => {
+        {allPhotoList["allPhotoDataList"].map((data) => {
+          console.log(data);
           return (
             <Marker
-              key={index}
+              id={data.userID}
               coordinate={{
                 latitude: data.latitude,
                 longitude: data.longitude,

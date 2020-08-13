@@ -7,13 +7,21 @@ type PhotoFireStore = {
   ) => Promise<
     firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
   >;
+  getAllPhotoList: () => Promise<
+    firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+  >;
 };
 
 const photo = db.collection("photos");
 
 export const photoFireStore: PhotoFireStore = {
-  //写真一覧を取得
+  //ユーザーの写真一覧を取得
   getPhotoList: (uid: string) => {
     return photo.doc(uid).get();
+  },
+
+  // 全てのユーザーの写真取得
+  getAllPhotoList: () => {
+    return photo.get();
   },
 };
