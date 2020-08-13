@@ -1,13 +1,7 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
 
-type PhotoDataList = {
-  URL: string;
-  latitude: number;
-  longitude: number;
-};
-
 type State = {
-  photoDataList: PhotoDataList[];
+  photoDataList: firebase.firestore.DocumentData[];
 };
 
 const initialState: State = {

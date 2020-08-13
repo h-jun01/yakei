@@ -1,6 +1,10 @@
 import firebase from "firebase";
 import { auth, db, storage, FieldValue } from "./firebase";
-import { callingAlert, callingDoneAlert } from "../utilities/alert";
+import {
+  callingAlert,
+  callingDoneAlert,
+  callingLogoutAlert,
+} from "../utilities/alert";
 
 type AccountFireStore = {
   getUser: (
@@ -64,7 +68,7 @@ export const accountFireStore: AccountFireStore = {
   },
   //ログアウト処理
   signOutUser: () => {
-    auth.signOut();
+    callingLogoutAlert();
   },
   //名前の更新
   updateName: async (name: string) => {

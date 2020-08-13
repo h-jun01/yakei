@@ -58,20 +58,20 @@ exports.signUp = functions
     });
   });
 
-exports.inputPhotoDataList = functions
-  .region("asia-northeast1")
-  .auth.user()
-  .onCreate(async (user) => {
-    const photoRef = admin.firestore().collection("photos").doc(user.uid);
-    return await photoRef
-      .set({
-        uid: user.uid,
-        photo_list: [],
-      })
-      .catch((error) => {
-        throw new Error("Profile doesn't exist");
-      });
-  });
+// exports.inputPhotoDataList = functions
+//   .region("asia-northeast1")
+//   .auth.user()
+//   .onCreate(async (user) => {
+//     const photoRef = admin.firestore().collection("photos").doc(user.uid);
+//     return await photoRef
+//       .set({
+//         uid: user.uid,
+//         photo_list: [],
+//       })
+//       .catch((error) => {
+//         throw new Error("Profile doesn't exist");
+//       });
+//   });
 
 exports.googleLogin = functions
   .region("asia-northeast1")

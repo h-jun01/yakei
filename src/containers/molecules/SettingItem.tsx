@@ -61,7 +61,7 @@ const SettingItemContainer: FC<Props> = ({ navigation }) => {
     {
       leftIcon: <MaterialCommunityIcons name="logout" />,
       label: "ログアウト",
-      navigation: () => callingLogoutAlert(),
+      navigation: () => accountFireStore.signOutUser(),
     },
   ];
   return (
