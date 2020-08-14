@@ -3,9 +3,7 @@ import { auth, db } from "./firebase";
 
 type PhotoFireStore = {
   getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
-  getAllPhotoList: () => Promise<
-    firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
-  >;
+  getAllPhotoList: () => Promise<firebase.firestore.DocumentData[]>;
 };
 
 const photo = db.collection("photos");
@@ -22,7 +20,12 @@ export const photoFireStore: PhotoFireStore = {
   },
 
   // 全てのユーザーの写真取得
-  getAllPhotoList: () => {
-    return photo.get();
+  getAllPhotoList: async () => {
+    const allPhotoLis: firebase.firestore.DocumentData[] = [];
+    const querySnapshot = await photo.get();
+    querySnapshot.forEach((doc) => {
+      allPhotoLis.push(doc.data());
+    });
+    return allPhotoLis;
   },
 };

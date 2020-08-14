@@ -11,6 +11,7 @@ import { RootState } from "./reducers/index";
 import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
+import { setAllPhotoListData } from "./actions/allPhoto";
 import { setNoticeListData } from "./actions/notice";
 import Intro from "./containers/Intro";
 import SignUp from "./containers/organisms/auth/SignUp";
@@ -40,6 +41,9 @@ const ScreenSwitcher: FC = () => {
         await accountFireStore.getUser(user.uid).then((res) => {
           dispatch(setUserData(res.data()));
         });
+        // await photoFireStore.getAllPhotoList().then((res) => {
+        //   dispatch(setAllPhotoListData(res));
+        // });
         await photoFireStore.getPhotoList(user.uid).then((res) => {
           dispatch(setPhotoListData(res));
         });

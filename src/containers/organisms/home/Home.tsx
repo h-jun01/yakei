@@ -1,27 +1,15 @@
 import React, { FC, useEffect } from "react";
-import Home, {
-  HomeScreenNavigationProp,
-} from "../../../components/organisms/home/Home";
-
+import Home from "../../../components/organisms/home/Home";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import { Region, PhotoData } from "../../../entities/index";
 import { photoFireStore } from "../../../firebase/photoFireStore";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setAllPhotoListData,
-  defaultPhotoListData,
-} from "../../../actions/allPhoto";
+import { setAllPhotoListData } from "../../../actions/allPhoto";
 import { RootState } from "../../../reducers/index";
 
 const getLocationAsync = async () => {
   const { status } = await Permissions.askAsync(Permissions.LOCATION);
-  // if (status !== "granted") {
-  //   this.setState({
-  //     message: "位置情報のパーミッションの取得に失敗しました。",
-  //   });
-  //   return;
-  // }
   const location = await Location.getCurrentPositionAsync({});
 
   const region: Region = {
@@ -34,7 +22,7 @@ const getLocationAsync = async () => {
 };
 
 type Props = {
-  navigation: HomeScreenNavigationProp;
+  navigation: any;
 };
 
 //主に処理に関する記述はこのファイル
@@ -47,18 +35,25 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
     latitudeDelta: 0.2,
     longitudeDelta: 0.2,
   };
-  const selectAllPhotoDataList = (state: RootState) => state.allPhotoReducer;
+  const selectAllPhotoDataList = (state: RootState) =>
+    state.allPhotoReducer.allPhotoDataList;
+  const selectPhotoDataList = (state: RootState) =>
+    state.myPhotoReducer.photoDataList;
   const allPhotoList = useSelector(selectAllPhotoDataList);
+  const myPhotoDataList = useSelector(selectPhotoDataList);
 
   useEffect(() => {
-    dispatch(defaultPhotoListData());
+    // dispatch(defaultPhotoListData());
     const fetch = async () => {
       try {
         await Permissions.askAsync(Permissions.LOCATION);
-        await photoFireStore.getAllPhotoList().then((documentSnapshot) => {
-          documentSnapshot.forEach((value) => {
-            dispatch(setAllPhotoListData(value.data()));
-          });
+        // await photoFireStore.getAllPhotoList().then((documentSnapshot) => {
+        //   documentSnapshot.forEach((value) => {
+        //     dispatch(setAllPhotoListData(value.data()));
+        //   });
+        // });
+        await photoFireStore.getAllPhotoList().then((res) => {
+          dispatch(setAllPhotoListData(res));
         });
         const location = await Location.getCurrentPositionAsync({});
         region = {
@@ -75,7 +70,12 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
   }, []);
 
   return (
-    <Home navigation={navigation} region={region} allPhotoList={allPhotoList} />
+    <Home
+      navigation={navigation}
+      region={region}
+      allPhotoList={allPhotoList}
+      myPhotoList={myPhotoDataList}
+    />
   );
 };
 

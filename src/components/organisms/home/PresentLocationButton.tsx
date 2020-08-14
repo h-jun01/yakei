@@ -9,7 +9,8 @@ const LocationButtonView: React.FC<{ onPressIcon: () => void }> = (props: {
   return (
     <View style={{ position: "absolute", right: "0%", bottom: "20%" }}>
       <Button style={{ margin: 5 }} onPress={props.onPressIcon}>
-        <Icon type="FontAwesome5" name="search" />
+        <Text>自分(赤)　全員(青)</Text>
+        {/* <Icon type="FontAwesome5" name="search" /> */}
       </Button>
     </View>
   );
