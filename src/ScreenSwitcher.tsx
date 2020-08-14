@@ -25,7 +25,7 @@ import SearchScreen from "./screens/SearchScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
 
-const Root: FC = () => {
+const ScreenSwitcher: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
   const selectIsLogin = (state: RootState) => state.authReducer.isLogin;
   const isLoading = useSelector(selectIsLoading);
@@ -127,4 +127,4 @@ const Root: FC = () => {
   );
 };
 
-export default Root;
+export default ScreenSwitcher;
