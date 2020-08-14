@@ -41,11 +41,12 @@ const Home: FC<Props> = ({ ...props }) => {
         onClusterPress={(cluster, markers) => {
           let photoDataList: any = [];
           markers?.forEach((value) => {
-            photoDataList.push(value["properties"]["id"]);
+            console.log(value);
+            photoDataList.push(value["properties"]["markerDate"]);
           });
           console.log(photoDataList);
           navigation.navigate("Detail", {
-            allPhotoId: photoDataList,
+            allPhoto: photoDataList,
           });
         }}
         preserveClusterPressBehavior={true}
@@ -54,8 +55,16 @@ const Home: FC<Props> = ({ ...props }) => {
           console.log(data);
           return (
             <Marker
-              id={data.latitude}
               coordinate={{
+                latitude: data.latitude,
+                longitude: data.longitude,
+              }}
+              markerDate={{
+                uid: data.uid,
+                createTime: data.createTime,
+                shootTime: data.shootTime,
+                userID: data.userID,
+                url: data.url,
                 latitude: data.latitude,
                 longitude: data.longitude,
               }}
