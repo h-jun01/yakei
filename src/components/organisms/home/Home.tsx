@@ -4,8 +4,6 @@ import { Container } from "native-base";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { TabParamList } from "../../../index";
-import { StackParamList } from "../../../index";
 
 import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -16,16 +14,11 @@ import { PhotoData } from "../../../entities/index";
 
 import LocationButtonView from "./PresentLocationButton";
 
-export type HomeScreenNavigationProp = CompositeNavigationProp<
-  BottomTabNavigationProp<TabParamList, "Home">,
-  StackNavigationProp<StackParamList>
->;
-
 type Props = {
-  navigation: HomeScreenNavigationProp;
+  navigation: any;
   region: Region;
-  allPhotoList: any;
-  myPhotoList: any;
+  allPhotoList: firebase.firestore.DocumentData[];
+  myPhotoList: firebase.firestore.DocumentData[];
 };
 
 //主に見た目に関する記述はこのファイル
@@ -42,7 +35,7 @@ const Home: FC<Props> = ({ ...props }) => {
           showsUserLocation
           initialRegion={region}
           onClusterPress={(cluster, markers) => {
-            let photoDataList: any = [];
+            const photoDataList: firebase.firestore.DocumentData[] = [];
             markers?.forEach((value) => {
               photoDataList.push(value["properties"]["markerDate"]);
             });
@@ -52,25 +45,26 @@ const Home: FC<Props> = ({ ...props }) => {
           }}
           preserveClusterPressBehavior={true}
         >
-          {allPhotoList["allPhotoDataList"].map((data) => {
-            return (
-              <Marker
-                coordinate={{
-                  latitude: data.latitude,
-                  longitude: data.longitude,
-                }}
-                markerDate={{
-                  uid: data.uid,
-                  createTime: data.createTime,
-                  shootTime: data.shootTime,
-                  userID: data.userID,
-                  url: data.url,
-                  latitude: data.latitude,
-                  longitude: data.longitude,
-                }}
-              ></Marker>
-            );
-          })}
+          {allPhotoList !== undefined &&
+            allPhotoList.map((data) => {
+              return (
+                <Marker
+                  coordinate={{
+                    latitude: data.latitude,
+                    longitude: data.longitude,
+                  }}
+                  markerDate={{
+                    uid: data.uid,
+                    createTime: data.createTime,
+                    shootTime: data.shootTime,
+                    userID: data.userID,
+                    url: data.url,
+                    latitude: data.latitude,
+                    longitude: data.longitude,
+                  }}
+                ></Marker>
+              );
+            })}
         </MapView>
       )}
       {!photoDisplayFlag && (
@@ -91,25 +85,26 @@ const Home: FC<Props> = ({ ...props }) => {
           }}
           preserveClusterPressBehavior={true}
         >
-          {myPhotoList.map((data) => {
-            return (
-              <Marker
-                coordinate={{
-                  latitude: data.latitude,
-                  longitude: data.longitude,
-                }}
-                markerDate={{
-                  uid: data.uid,
-                  createTime: data.createTime,
-                  shootTime: data.shootTime,
-                  userID: data.userID,
-                  url: data.url,
-                  latitude: data.latitude,
-                  longitude: data.longitude,
-                }}
-              ></Marker>
-            );
-          })}
+          {myPhotoList !== undefined &&
+            myPhotoList.map((data) => {
+              return (
+                <Marker
+                  coordinate={{
+                    latitude: data.latitude,
+                    longitude: data.longitude,
+                  }}
+                  markerDate={{
+                    uid: data.uid,
+                    createTime: data.createTime,
+                    shootTime: data.shootTime,
+                    userID: data.userID,
+                    url: data.url,
+                    latitude: data.latitude,
+                    longitude: data.longitude,
+                  }}
+                ></Marker>
+              );
+            })}
         </MapView>
       )}
       <LocationButtonView

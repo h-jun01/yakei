@@ -6,7 +6,6 @@ import EditProfile from "../../../components/organisms/user/EditProfile";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useSelector, useDispatch } from "react-redux";
 import { accountFireStore } from "../../../firebase/accountFireStore";
-import { UserScreenNavigationProp } from "../../../components/organisms/user/User";
 import { callingAlert } from "../../../utilities/alert";
 import { RootState } from "../../../reducers/index";
 import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
@@ -25,7 +24,7 @@ type StorageImageData = {
 };
 
 type Props = {
-  navigation: UserScreenNavigationProp;
+  navigation: any;
 };
 
 const ContainerEditProfile: FC<Props> = ({ ...props }) => {

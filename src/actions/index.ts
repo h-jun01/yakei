@@ -18,7 +18,6 @@ export enum ActionTypes {
   USER_DATA = "USER_DATA",
   PHOTO_DATA_LIST = "PHOTO_DATA_LIST",
   PHOTO_ALL_DATA_LIST = "PHOTO_ALL_DATA_LIST",
-  DEFAULT_PHOTO_ALL_DATA_LIST = "DEFAULT_PHOTO_ALL_DATA_LIST",
   NOTICE_DATA_LIST = "NOTICE_DATA_LIST",
   UPDATE_USER_NAME = "UPDATE_USER_NAME",
   UPDATE_SELF_INTRODUCTION = "UPDATE_SELF_INTRODUCTION",
@@ -34,7 +33,6 @@ export type UnionedAction =
   | ReturnType<typeof setUserData>
   | ReturnType<typeof setPhotoListData>
   | ReturnType<typeof setAllPhotoListData>
-  | ReturnType<typeof defaultPhotoListData>
   | ReturnType<typeof setNoticeListData>
   | ReturnType<typeof upDateUserName>
   | ReturnType<typeof upDateUserSelfIntroduction>
