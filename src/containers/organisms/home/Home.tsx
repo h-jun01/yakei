@@ -16,12 +16,6 @@ import { RootState } from "../../../reducers/index";
 
 const getLocationAsync = async () => {
   const { status } = await Permissions.askAsync(Permissions.LOCATION);
-  // if (status !== "granted") {
-  //   this.setState({
-  //     message: "位置情報のパーミッションの取得に失敗しました。",
-  //   });
-  //   return;
-  // }
   const location = await Location.getCurrentPositionAsync({});
 
   const region: Region = {
@@ -48,7 +42,10 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
     longitudeDelta: 0.2,
   };
   const selectAllPhotoDataList = (state: RootState) => state.allPhotoReducer;
+  const selectPhotoDataList = (state: RootState) =>
+    state.myPhotoReducer.photoDataList;
   const allPhotoList = useSelector(selectAllPhotoDataList);
+  const myPhotoDataList = useSelector(selectPhotoDataList);
 
   useEffect(() => {
     dispatch(defaultPhotoListData());
@@ -75,7 +72,12 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
   }, []);
 
   return (
-    <Home navigation={navigation} region={region} allPhotoList={allPhotoList} />
+    <Home
+      navigation={navigation}
+      region={region}
+      allPhotoList={allPhotoList}
+      myPhotoList={myPhotoDataList}
+    />
   );
 };
 
