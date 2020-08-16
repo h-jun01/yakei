@@ -1,18 +1,17 @@
-import React, { FC, useState, useEffect } from "react";
-import { StyleSheet, View, Alert } from "react-native";
+import React, { FC, useState } from "react";
+import { StyleSheet } from "react-native";
 import { Container } from "native-base";
-import { CompositeNavigationProp } from "@react-navigation/native";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { StackNavigationProp } from "@react-navigation/stack";
-
+import { PROVIDER_GOOGLE } from "react-native-maps";
 import MapView from "react-native-map-clustering";
-import { Marker, PROVIDER_GOOGLE, MarkerProps } from "react-native-maps";
-import { Region } from "../../../entities/index";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../reducers/index";
-import { PhotoData } from "../../../entities/index";
-
 import LocationButtonView from "./PresentLocationButton";
+import OriginMarker from "../../atoms/home/OriginMarker";
+
+type Region = {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+};
 
 type Props = {
   navigation: any;
@@ -21,23 +20,9 @@ type Props = {
   myPhotoList: firebase.firestore.DocumentData[];
 };
 
-//主に見た目に関する記述はこのファイル
 const Home: FC<Props> = ({ ...props }) => {
   const { navigation, region, allPhotoList, myPhotoList } = props;
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
-  interface MarkerDate extends MarkerProps {
-    markerDate?: {
-      uid: any;
-      createTime: any;
-      shootTime: any;
-      userID: any;
-      url: any;
-      latitude: any;
-      longitude: any;
-    };
-  }
-
-  class OriginMarker extends React.Component<MarkerDate, any> {}
 
   return (
     <Container>
@@ -63,10 +48,9 @@ const Home: FC<Props> = ({ ...props }) => {
               return (
                 <OriginMarker
                   markerDate={{
+                    photo_id: data.photo_id,
                     uid: data.uid,
                     createTime: data.createTime,
-                    shootTime: data.shootTime,
-                    userID: data.userID,
                     url: data.url,
                     latitude: data.latitude,
                     longitude: data.longitude,
@@ -75,7 +59,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}
-                ></OriginMarker>
+                />
               );
             })}
         </MapView>
@@ -88,7 +72,7 @@ const Home: FC<Props> = ({ ...props }) => {
           showsUserLocation
           initialRegion={region}
           onClusterPress={(cluster, markers) => {
-            let photoDataList: any = [];
+            const photoDataList: firebase.firestore.DocumentData[] = [];
             markers?.forEach((value) => {
               photoDataList.push(value["properties"]["markerDate"]);
             });
@@ -107,15 +91,14 @@ const Home: FC<Props> = ({ ...props }) => {
                     longitude: data.longitude,
                   }}
                   markerDate={{
+                    photo_id: data.photo_id,
                     uid: data.uid,
                     createTime: data.createTime,
-                    shootTime: data.shootTime,
-                    userID: data.userID,
                     url: data.url,
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}
-                ></OriginMarker>
+                />
               );
             })}
         </MapView>

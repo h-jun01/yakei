@@ -2,30 +2,35 @@ import React, { FC, useEffect } from "react";
 import Home from "../../../components/organisms/home/Home";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
-import { Region, PhotoData } from "../../../entities/index";
 import { photoFireStore } from "../../../firebase/photoFireStore";
 import { useSelector, useDispatch } from "react-redux";
 import { setAllPhotoListData } from "../../../actions/allPhoto";
 import { RootState } from "../../../reducers/index";
 
-const getLocationAsync = async () => {
-  const { status } = await Permissions.askAsync(Permissions.LOCATION);
-  const location = await Location.getCurrentPositionAsync({});
+// const getLocationAsync = async () => {
+//   const { status } = await Permissions.askAsync(Permissions.LOCATION);
+//   const location = await Location.getCurrentPositionAsync({});
 
-  const region: Region = {
-    latitude: location.coords.latitude,
-    longitude: location.coords.longitude,
-    latitudeDelta: 8.5,
-    longitudeDelta: 8.5,
-  };
-  return region;
+//   const region: Region = {
+//     latitude: location.coords.latitude,
+//     longitude: location.coords.longitude,
+//     latitudeDelta: 8.5,
+//     longitudeDelta: 8.5,
+//   };
+//   return region;
+// };
+
+type Region = {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
 };
 
 type Props = {
   navigation: any;
 };
 
-//主に処理に関する記述はこのファイル
 const ContainerHome: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
   const dispatch = useDispatch();
@@ -43,7 +48,6 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
   const myPhotoDataList = useSelector(selectPhotoDataList);
 
   useEffect(() => {
-    // dispatch(defaultPhotoListData());
     const fetch = async () => {
       try {
         await Permissions.askAsync(Permissions.LOCATION);
