@@ -6,7 +6,7 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import MapView from "react-native-map-clustering";
-import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { Marker, PROVIDER_GOOGLE, MarkerProps } from "react-native-maps";
 import { Region } from "../../../entities/index";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../reducers/index";
@@ -25,6 +25,19 @@ type Props = {
 const Home: FC<Props> = ({ ...props }) => {
   const { navigation, region, allPhotoList, myPhotoList } = props;
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
+  interface MarkerDate extends MarkerProps {
+    markerDate?: {
+      uid: any;
+      createTime: any;
+      shootTime: any;
+      userID: any;
+      url: any;
+      latitude: any;
+      longitude: any;
+    };
+  }
+
+  class OriginMarker extends React.Component<MarkerDate, any> {}
 
   return (
     <Container>
@@ -48,11 +61,7 @@ const Home: FC<Props> = ({ ...props }) => {
           {allPhotoList !== undefined &&
             allPhotoList.map((data) => {
               return (
-                <Marker
-                  coordinate={{
-                    latitude: data.latitude,
-                    longitude: data.longitude,
-                  }}
+                <OriginMarker
                   markerDate={{
                     uid: data.uid,
                     createTime: data.createTime,
@@ -62,7 +71,11 @@ const Home: FC<Props> = ({ ...props }) => {
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}
-                ></Marker>
+                  coordinate={{
+                    latitude: data.latitude,
+                    longitude: data.longitude,
+                  }}
+                ></OriginMarker>
               );
             })}
         </MapView>
@@ -88,7 +101,7 @@ const Home: FC<Props> = ({ ...props }) => {
           {myPhotoList !== undefined &&
             myPhotoList.map((data) => {
               return (
-                <Marker
+                <OriginMarker
                   coordinate={{
                     latitude: data.latitude,
                     longitude: data.longitude,
@@ -102,7 +115,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}
-                ></Marker>
+                ></OriginMarker>
               );
             })}
         </MapView>
