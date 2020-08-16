@@ -52,6 +52,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     uid: data.uid,
                     create_time: data.create_time,
                     url: data.url,
+                    favoriteNumber: data.favoriteNumber,
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}
@@ -95,6 +96,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     uid: data.uid,
                     create_time: data.create_time,
                     url: data.url,
+                    favoriteNumber: data.favoriteNumber,
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}

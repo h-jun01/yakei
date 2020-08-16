@@ -7,6 +7,7 @@ type MarkerDate = {
     uid: string;
     create_time: string;
     url: string;
+    favoriteNumber: number;
     latitude: number;
     longitude: number;
   };

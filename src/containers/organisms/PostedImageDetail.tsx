@@ -6,7 +6,15 @@ type Props = {
 };
 
 const PostedImageDetailContainer: FC<Props> = ({ route }) => {
-  const { photo_id, uid, createTime, url, latitude, longitude } = route.params;
+  const {
+    photo_id,
+    uid,
+    createTime,
+    url,
+    favoriteNumber,
+    latitude,
+    longitude,
+  } = route.params;
 
   return (
     <PostedImageDetail
@@ -14,6 +22,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
       uid={uid}
       createTime={createTime}
       url={url}
+      favoriteNumber={favoriteNumber}
       latitude={latitude}
       longitude={longitude}
     />

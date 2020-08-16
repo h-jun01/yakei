@@ -9,12 +9,21 @@ type Props = {
   uid: string;
   createTime: string;
   url: string;
+  favoriteNumber: number;
   latitude: number;
   longitude: number;
 };
 
 const PostedImageDetail: FC<Props> = ({ ...props }) => {
-  const { photo_id, uid, createTime, url, latitude, longitude } = props;
+  const {
+    photo_id,
+    uid,
+    createTime,
+    url,
+    favoriteNumber,
+    latitude,
+    longitude,
+  } = props;
 
   return (
     <ScrollView>
@@ -39,6 +48,22 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
         {/* 時間とかお気に入り数とか */}
         <View>
           <Text>{createTime}</Text>
+          <Text>お気に入り数{favoriteNumber}</Text>
+          <Text>
+            {latitude}:{longitude}
+          </Text>
+        </View>
+        <View>
+          <Text>コメント一覧</Text>
+          {/* アイコン */}
+          <Image
+            style={styles.userIcon}
+            source={{
+              uri:
+                "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/users%2F8HG1hZgvW7WiXA1oaaPMyn59ayB2%2Fuser.jpeg?alt=media&token=cb63a15b-d239-4543-9e1c-d45e1932bb98",
+            }}
+            PlaceholderContent={<ActivityIndicator />}
+          />
         </View>
       </View>
     </ScrollView>
