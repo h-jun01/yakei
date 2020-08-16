@@ -37,8 +37,8 @@ const Home: FC<Props> = ({ ...props }) => {
             markers?.forEach((value) => {
               photoDataList.push(value["properties"]["markerDate"]);
             });
-            navigation.navigate("Detail", {
-              allPhoto: photoDataList,
+            navigation.navigate("detail", {
+              photoDataList,
             });
           }}
           preserveClusterPressBehavior={true}
