@@ -50,7 +50,7 @@ const Home: FC<Props> = ({ ...props }) => {
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
-                    createTime: data.createTime,
+                    create_time: data.create_time,
                     url: data.url,
                     latitude: data.latitude,
                     longitude: data.longitude,
@@ -93,7 +93,7 @@ const Home: FC<Props> = ({ ...props }) => {
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
-                    createTime: data.createTime,
+                    create_time: data.create_time,
                     url: data.url,
                     latitude: data.latitude,
                     longitude: data.longitude,

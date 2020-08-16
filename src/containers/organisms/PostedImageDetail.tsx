@@ -7,9 +7,17 @@ type Props = {
 
 const PostedImageDetailContainer: FC<Props> = ({ route }) => {
   const { photo_id, uid, createTime, url, latitude, longitude } = route.params;
-  console.log(uid);
 
-  return <PostedImageDetail />;
+  return (
+    <PostedImageDetail
+      photo_id={photo_id}
+      uid={uid}
+      createTime={createTime}
+      url={url}
+      latitude={latitude}
+      longitude={longitude}
+    />
+  );
 };
 
 export default PostedImageDetailContainer;

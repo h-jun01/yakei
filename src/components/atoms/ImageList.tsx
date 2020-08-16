@@ -7,7 +7,7 @@ import { styles } from "../../styles/imageList";
 type PhotoDataList = {
   photo_id: string;
   uid: string;
-  createTime: string;
+  create_time: string;
   url: string;
   latitude: number;
   longitude: number;
@@ -20,6 +20,7 @@ type Props = {
 
 const ImageList: FC<Props> = ({ ...props }) => {
   const { photoDataList, navigation } = props;
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -31,7 +32,7 @@ const ImageList: FC<Props> = ({ ...props }) => {
                 navigation.navigate("post", {
                   photo_id: item.photo_id,
                   uid: item.uid,
-                  createTime: item.createTime,
+                  createTime: item.create_time,
                   url: item.url,
                   latitude: item.latitude,
                   longitude: item.longitude,

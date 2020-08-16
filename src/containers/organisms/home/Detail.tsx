@@ -9,6 +9,7 @@ type Props = {
 
 const ContainerDetail: FC<Props> = ({ route, navigation }) => {
   const { photoDataList } = route.params;
+
   return <ImageList photoDataList={photoDataList} navigation={navigation} />;
 };
 
