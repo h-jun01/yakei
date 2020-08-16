@@ -12,6 +12,7 @@ type AccountFireStore = {
   ) => Promise<
     firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
   >;
+  getUserName: any;
   loginUser: (
     account: LginUser
   ) => Promise<void | firebase.auth.UserCredential>;
@@ -48,6 +49,15 @@ export const accountFireStore: AccountFireStore = {
   //ユーザ情報を取得
   getUser: (uid: string) => {
     return user.doc(uid).get();
+  },
+  //ユーザ名を取得
+  getUserName: async (uid: string) => {
+    return await user
+      .doc(uid)
+      .get()
+      .then(async (res) => {
+        return await res.data()?.name;
+      });
   },
   //ログイン処理
   loginUser: async (account: LginUser) => {

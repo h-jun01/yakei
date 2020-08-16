@@ -7,6 +7,7 @@ import { styles } from "../../styles/imageList";
 type PhotoDataList = {
   photo_id: string;
   uid: string;
+  name: string;
   create_time: string;
   url: string;
   favoriteNumber: number;

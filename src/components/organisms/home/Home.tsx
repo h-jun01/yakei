@@ -50,6 +50,7 @@ const Home: FC<Props> = ({ ...props }) => {
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
+                    name: data.name,
                     create_time: data.create_time,
                     url: data.url,
                     favoriteNumber: data.favoriteNumber,
@@ -60,7 +61,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}
-                />
+                ></OriginMarker>
               );
             })}
         </MapView>
@@ -94,13 +95,14 @@ const Home: FC<Props> = ({ ...props }) => {
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
+                    name: data.name,
                     create_time: data.create_time,
                     url: data.url,
                     favoriteNumber: data.favoriteNumber,
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}
-                />
+                ></OriginMarker>
               );
             })}
         </MapView>
