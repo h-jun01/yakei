@@ -12,6 +12,7 @@ type Props = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
+  commentCount: number;
 };
 
 const PostedImageDetail: FC<Props> = ({ ...props }) => {
@@ -23,6 +24,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     favoriteNumber,
     latitude,
     longitude,
+    commentCount,
   } = props;
 
   return (

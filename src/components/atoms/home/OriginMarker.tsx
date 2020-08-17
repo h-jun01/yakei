@@ -5,11 +5,12 @@ type MarkerDate = {
   markerDate: {
     photo_id: string;
     uid: string;
-    create_time: string;
+    createTime: string;
     url: string;
     favoriteNumber: number;
     latitude: number;
     longitude: number;
+    commentList: firebase.firestore.DocumentData[];
   };
   coordinate: {
     latitude: number;
@@ -17,8 +18,8 @@ type MarkerDate = {
   };
 } & MarkerProps;
 
-class OriginMarker extends React.Component<MarkerDate, any> {
-  constructor(props) {
+class OriginMarker extends React.Component<MarkerDate> {
+  constructor(props: Readonly<MarkerDate>) {
     super(props);
   }
 

@@ -3,15 +3,25 @@ import { ScrollView, View, Text } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/imageList";
+import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
+import PostedPageItems from "../../components/molecules/PostedPageItems";
+
+type CommentData = {
+  name: string;
+  image: string;
+  comment: string;
+  createTime: string;
+};
 
 type PhotoDataList = {
   photo_id: string;
   uid: string;
-  create_time: string;
+  createTime: string;
   url: string;
   favoriteNumber: number;
   latitude: number;
   longitude: number;
+  commentList: CommentData[];
 };
 
 type Props = {
@@ -25,30 +35,30 @@ const ImageList: FC<Props> = ({ ...props }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text>
-          {photoDataList.map((item, index) => (
-            <Text
-              key={index}
-              onPress={() =>
-                navigation.navigate("post", {
-                  photo_id: item.photo_id,
-                  uid: item.uid,
-                  createTime: item.create_time,
-                  url: item.url,
-                  favoriteNumber: item.favoriteNumber,
-                  latitude: item.latitude,
-                  longitude: item.longitude,
-                })
-              }
-            >
-              <Image
-                style={styles.imageSize}
-                source={{ uri: item.url }}
-                PlaceholderContent={<ActivityIndicator />}
-              />
-            </Text>
-          ))}
-        </Text>
+        {photoDataList.map((item, index) => (
+          <View key={index}>
+            <InformationUserPosted
+              createTime={item.createTime}
+              uid={item.uid}
+            />
+            <Image
+              style={styles.imageSize}
+              source={{ uri: item.url }}
+              PlaceholderContent={<ActivityIndicator />}
+            />
+            <PostedPageItems
+              navigation={navigation}
+              photo_id={item.photo_id}
+              uid={item.uid}
+              createTime={item.createTime}
+              url={item.url}
+              favoriteNumber={item.favoriteNumber}
+              latitude={item.latitude}
+              longitude={item.longitude}
+              commentList={item.commentList}
+            />
+          </View>
+        ))}
       </View>
     </ScrollView>
   );

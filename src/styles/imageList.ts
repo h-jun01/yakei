@@ -1,11 +1,29 @@
 import { StyleSheet } from "react-native";
+import { deviceWidth, deviceHeight } from "../utilities/dimensions";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  userData: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  dotsVertical: {
+    marginLeft: "auto",
+    marginRight: 10,
+  },
+  postItem: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  userIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 180,
+  },
   imageSize: {
-    width: 200,
-    height: 200,
+    width: deviceWidth,
+    height: deviceHeight / 3.5,
   },
 });

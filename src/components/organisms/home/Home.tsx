@@ -50,17 +50,18 @@ const Home: FC<Props> = ({ ...props }) => {
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
-                    create_time: data.create_time,
+                    createTime: data.create_time,
                     url: data.url,
                     favoriteNumber: data.favoriteNumber,
                     latitude: data.latitude,
                     longitude: data.longitude,
+                    commentList: data.comment_list,
                   }}
                   coordinate={{
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}
-                />
+                ></OriginMarker>
               );
             })}
         </MapView>
@@ -77,8 +78,8 @@ const Home: FC<Props> = ({ ...props }) => {
             markers?.forEach((value) => {
               photoDataList.push(value["properties"]["markerDate"]);
             });
-            navigation.navigate("Detail", {
-              allPhoto: photoDataList,
+            navigation.navigate("detail", {
+              photoDataList,
             });
           }}
           preserveClusterPressBehavior={true}
@@ -94,13 +95,14 @@ const Home: FC<Props> = ({ ...props }) => {
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
-                    create_time: data.create_time,
+                    createTime: data.create_time,
                     url: data.url,
                     favoriteNumber: data.favoriteNumber,
                     latitude: data.latitude,
                     longitude: data.longitude,
+                    commentList: data.comment_list,
                   }}
-                />
+                ></OriginMarker>
               );
             })}
         </MapView>
