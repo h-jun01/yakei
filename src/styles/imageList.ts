@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { deviceWidth, deviceHeight } from "../utilities/dimensions";
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,7 +11,7 @@ export const styles = StyleSheet.create({
     borderRadius: 180,
   },
   imageSize: {
-    width: 200,
-    height: 200,
+    width: deviceWidth,
+    height: deviceHeight / 3.5,
   },
 });

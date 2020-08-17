@@ -55,13 +55,13 @@ export const accountFireStore: AccountFireStore = {
   //ユーザ名を取得
   getUserName: async (uid: string) => {
     return await accountFireStore.getUser(uid).then(async (res) => {
-      return await res.data()?.name;
+      return (await res.data()?.name) as string;
     });
   },
   //ユーザのアイコン画像を取得
   getUserImage: async (uid: string) => {
     return await accountFireStore.getUser(uid).then(async (res) => {
-      return await res.data()?.user_img;
+      return (await res.data()?.user_img) as string;
     });
   },
   //ログイン処理

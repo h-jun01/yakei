@@ -55,6 +55,21 @@ const ImageList: FC<Props> = ({ ...props }) => {
             />
             <View>
               <Text>お気に入り数{item.favoriteNumber}</Text>
+              <Text
+                onPress={() =>
+                  navigation.navigate("post", {
+                    photo_id: item.photo_id,
+                    uid: item.uid,
+                    createTime: item.createTime,
+                    url: item.url,
+                    favoriteNumber: item.favoriteNumber,
+                    latitude: item.latitude,
+                    longitude: item.longitude,
+                  })
+                }
+              >
+                コメント
+              </Text>
               <Text>
                 {item.latitude}:{item.longitude}
               </Text>

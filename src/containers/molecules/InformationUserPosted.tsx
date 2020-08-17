@@ -1,8 +1,4 @@
 import React, { FC, useEffect } from "react";
-import { ScrollView, View, Text } from "react-native";
-import { ActivityIndicator } from "react-native";
-import { Image } from "react-native-elements";
-import { styles } from "../../styles/imageList";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 import { accountFireStore } from "../../firebase/accountFireStore";
 
@@ -14,7 +10,9 @@ type Props = {
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   const { uid, createTime } = props;
   const [postUserName, setPostUserName] = React.useState<string>("");
-  const [postUserImage, setPostUserImage] = React.useState<string>("");
+  const [postUserImage, setPostUserImage] = React.useState<string>(
+    "https://example.com"
+  );
 
   //投稿したユーザ名の取得
   useEffect(() => {
