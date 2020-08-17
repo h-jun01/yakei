@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/imageList";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 type Props = {
   postUserName: string;
@@ -26,6 +27,9 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
         <Text>{postUserName}</Text>
         <Text>{createTime}</Text>
       </View>
+      <Text style={styles.dotsVertical}>
+        <MaterialCommunityIcons name="dots-vertical" size={20} />
+      </Text>
     </View>
   );
 };

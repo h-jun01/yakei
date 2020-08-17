@@ -6,6 +6,13 @@ import { styles } from "../../styles/imageList";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import PostedPageItems from "../../components/molecules/PostedPageItems";
 
+type CommentData = {
+  name: string;
+  image: string;
+  comment: string;
+  createTime: string;
+};
+
 type PhotoDataList = {
   photo_id: string;
   uid: string;
@@ -14,6 +21,7 @@ type PhotoDataList = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
+  commentList: CommentData[];
 };
 
 type Props = {
@@ -47,31 +55,8 @@ const ImageList: FC<Props> = ({ ...props }) => {
               favoriteNumber={item.favoriteNumber}
               latitude={item.latitude}
               longitude={item.longitude}
+              commentList={item.commentList}
             />
-            {/* <View>
-              <Text>
-                <EvilIcons name="heart" size={20} />
-                {item.favoriteNumber}
-              </Text>
-              <Text
-                onPress={() =>
-                  navigation.navigate("post", {
-                    photo_id: item.photo_id,
-                    uid: item.uid,
-                    createTime: item.createTime,
-                    url: item.url,
-                    favoriteNumber: item.favoriteNumber,
-                    latitude: item.latitude,
-                    longitude: item.longitude,
-                  })
-                }
-              >
-                <EvilIcons name="comment" size={20} />0
-              </Text>
-              <Text>
-                <EvilIcons name="location" size={20} />
-              </Text>
-            </View> */}
           </View>
         ))}
       </View>

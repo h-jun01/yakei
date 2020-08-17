@@ -55,6 +55,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     favoriteNumber: data.favoriteNumber,
                     latitude: data.latitude,
                     longitude: data.longitude,
+                    commentList: data.comment_list,
                   }}
                   coordinate={{
                     latitude: data.latitude,
@@ -99,6 +100,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     favoriteNumber: data.favoriteNumber,
                     latitude: data.latitude,
                     longitude: data.longitude,
+                    commentList: data.comment_list,
                   }}
                 ></OriginMarker>
               );

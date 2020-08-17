@@ -9,6 +9,10 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  dotsVertical: {
+    marginLeft: "auto",
+    marginRight: 10,
+  },
   postItem: {
     flexDirection: "row",
     alignItems: "center",
