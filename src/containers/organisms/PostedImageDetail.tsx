@@ -14,6 +14,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     favoriteNumber,
     latitude,
     longitude,
+    commentCount,
   } = route.params;
 
   return (
@@ -25,6 +26,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
       favoriteNumber={favoriteNumber}
       latitude={latitude}
       longitude={longitude}
+      commentCount={commentCount}
     />
   );
 };

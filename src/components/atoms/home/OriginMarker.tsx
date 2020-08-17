@@ -10,6 +10,7 @@ type MarkerDate = {
     favoriteNumber: number;
     latitude: number;
     longitude: number;
+    commentList: firebase.firestore.DocumentData[];
   };
   coordinate: {
     latitude: number;
