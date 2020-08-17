@@ -5,7 +5,6 @@ type MarkerDate = {
   markerDate: {
     photo_id: string;
     uid: string;
-    name: string;
     createTime: string;
     url: string;
     favoriteNumber: number;
@@ -18,8 +17,8 @@ type MarkerDate = {
   };
 } & MarkerProps;
 
-class OriginMarker extends React.Component<MarkerDate, any> {
-  constructor(props) {
+class OriginMarker extends React.Component<MarkerDate> {
+  constructor(props: Readonly<MarkerDate>) {
     super(props);
   }
 

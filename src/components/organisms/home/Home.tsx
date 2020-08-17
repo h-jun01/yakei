@@ -50,7 +50,6 @@ const Home: FC<Props> = ({ ...props }) => {
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
-                    name: data.name,
                     createTime: data.create_time,
                     url: data.url,
                     favoriteNumber: data.favoriteNumber,
@@ -78,8 +77,8 @@ const Home: FC<Props> = ({ ...props }) => {
             markers?.forEach((value) => {
               photoDataList.push(value["properties"]["markerDate"]);
             });
-            navigation.navigate("Detail", {
-              allPhoto: photoDataList,
+            navigation.navigate("detail", {
+              photoDataList,
             });
           }}
           preserveClusterPressBehavior={true}
@@ -95,7 +94,6 @@ const Home: FC<Props> = ({ ...props }) => {
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
-                    name: data.name,
                     createTime: data.create_time,
                     url: data.url,
                     favoriteNumber: data.favoriteNumber,

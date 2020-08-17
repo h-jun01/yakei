@@ -1,5 +1,5 @@
-import React, { FC, Fragment } from "react";
-import { ScrollView, View, Text } from "react-native";
+import React, { FC } from "react";
+import { View, Text } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/imageList";
@@ -14,7 +14,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
   const { postUserName, postUserImage, createTime } = props;
 
   return (
-    <Fragment>
+    <View style={styles.userData}>
       <Image
         style={styles.userIcon}
         source={{
@@ -22,9 +22,11 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
         }}
         PlaceholderContent={<ActivityIndicator />}
       />
-      <Text>{postUserName}</Text>
-      <Text>{createTime}</Text>
-    </Fragment>
+      <View>
+        <Text>{postUserName}</Text>
+        <Text>{createTime}</Text>
+      </View>
+    </View>
   );
 };
 

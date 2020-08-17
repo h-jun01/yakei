@@ -4,11 +4,11 @@ import { ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/imageList";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
+import PostedPageItems from "../../components/molecules/PostedPageItems";
 
 type PhotoDataList = {
   photo_id: string;
   uid: string;
-  name: string;
   createTime: string;
   url: string;
   favoriteNumber: number;
@@ -28,21 +28,6 @@ const ImageList: FC<Props> = ({ ...props }) => {
     <ScrollView>
       <View style={styles.container}>
         {photoDataList.map((item, index) => (
-          // <Text
-          //   key={index}
-          //   onPress={() =>
-          //     navigation.navigate("post", {
-          //       photo_id: item.photo_id,
-          //       uid: item.uid,
-          //       createTime: item.create_time,
-          //       url: item.url,
-          //       favoriteNumber: item.favoriteNumber,
-          //       latitude: item.latitude,
-          //       longitude: item.longitude,
-          //     })
-          //   }
-          // >
-
           <View key={index}>
             <InformationUserPosted
               createTime={item.createTime}
@@ -53,8 +38,21 @@ const ImageList: FC<Props> = ({ ...props }) => {
               source={{ uri: item.url }}
               PlaceholderContent={<ActivityIndicator />}
             />
-            <View>
-              <Text>お気に入り数{item.favoriteNumber}</Text>
+            <PostedPageItems
+              navigation={navigation}
+              photo_id={item.photo_id}
+              uid={item.uid}
+              createTime={item.createTime}
+              url={item.url}
+              favoriteNumber={item.favoriteNumber}
+              latitude={item.latitude}
+              longitude={item.longitude}
+            />
+            {/* <View>
+              <Text>
+                <EvilIcons name="heart" size={20} />
+                {item.favoriteNumber}
+              </Text>
               <Text
                 onPress={() =>
                   navigation.navigate("post", {
@@ -68,14 +66,13 @@ const ImageList: FC<Props> = ({ ...props }) => {
                   })
                 }
               >
-                コメント
+                <EvilIcons name="comment" size={20} />0
               </Text>
               <Text>
-                {item.latitude}:{item.longitude}
+                <EvilIcons name="location" size={20} />
               </Text>
-            </View>
+            </View> */}
           </View>
-          // </Text>
         ))}
       </View>
     </ScrollView>
