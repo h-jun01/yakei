@@ -1,3 +1,4 @@
+import React from "react";
 import firebase from "firebase";
 import { auth, db, storage, FieldValue } from "./firebase";
 import {
@@ -12,7 +13,8 @@ type AccountFireStore = {
   ) => Promise<
     firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
   >;
-  getUserName: any;
+  getUserName: (uid: string) => Promise<React.SetStateAction<string>>;
+  getUserImage: (uid: string) => Promise<React.SetStateAction<string>>;
   loginUser: (
     account: LginUser
   ) => Promise<void | firebase.auth.UserCredential>;
@@ -52,12 +54,15 @@ export const accountFireStore: AccountFireStore = {
   },
   //ユーザ名を取得
   getUserName: async (uid: string) => {
-    return await user
-      .doc(uid)
-      .get()
-      .then(async (res) => {
-        return await res.data()?.name;
-      });
+    return await accountFireStore.getUser(uid).then(async (res) => {
+      return await res.data()?.name;
+    });
+  },
+  //ユーザのアイコン画像を取得
+  getUserImage: async (uid: string) => {
+    return await accountFireStore.getUser(uid).then(async (res) => {
+      return await res.data()?.user_img;
+    });
   },
   //ログイン処理
   loginUser: async (account: LginUser) => {

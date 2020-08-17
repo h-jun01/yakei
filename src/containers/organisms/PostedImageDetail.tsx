@@ -20,18 +20,18 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
 
   const [postUserName, setPostUserName] = React.useState<string>("");
 
-  React.useEffect(() => {
-    photoFireStore.getPostDocument(photo_id).then(async (res) => {
-      await accountFireStore
-        .getUserName(res)
-        .then((res: React.SetStateAction<string>) => {
-          res && setPostUserName(res);
-        })
-        .catch(() => {
-          setPostUserName("Anonymous");
-        });
-    });
-  }, []);
+  //   React.useEffect(() => {
+  //     photoFireStore.getPostDocument(photo_id).then(async (res) => {
+  //       await accountFireStore
+  //         .getUserName(res)
+  //         .then((res: React.SetStateAction<string>) => {
+  //           res && setPostUserName(res);
+  //         })
+  //         .catch(() => {
+  //           setPostUserName("Anonymous");
+  //         });
+  //     });
+  //   }, []);
 
   return (
     <PostedImageDetail

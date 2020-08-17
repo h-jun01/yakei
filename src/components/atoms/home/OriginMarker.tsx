@@ -6,7 +6,7 @@ type MarkerDate = {
     photo_id: string;
     uid: string;
     name: string;
-    create_time: string;
+    createTime: string;
     url: string;
     favoriteNumber: number;
     latitude: number;
