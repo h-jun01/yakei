@@ -1,5 +1,5 @@
 import React from "react";
-import { MarkerProps } from "react-native-maps";
+import { MarkerProps, Marker } from "react-native-maps";
 
 type MarkerDate = {
   markerDate: {
@@ -11,8 +11,27 @@ type MarkerDate = {
     latitude: number;
     longitude: number;
   };
+  coordinate: {
+    latitude: number;
+    longitude: number;
+  };
 } & MarkerProps;
 
-class OriginMarker extends React.Component<MarkerDate, {}> {}
+class OriginMarker extends React.Component<MarkerDate, any> {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <Marker
+        coordinate={{
+          latitude: this.props.coordinate.latitude,
+          longitude: this.props.coordinate.longitude,
+        }}
+      ></Marker>
+    );
+  }
+}
 
 export default OriginMarker;
