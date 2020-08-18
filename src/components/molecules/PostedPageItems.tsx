@@ -53,7 +53,7 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
             favoriteNumber,
             latitude,
             longitude,
-            commentCount,
+            commentList,
           })
         }
       >

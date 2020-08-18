@@ -14,4 +14,8 @@ export const styles = StyleSheet.create({
     width: deviceWidth,
     height: 250,
   },
+  postItem: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 });
