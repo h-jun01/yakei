@@ -1,6 +1,7 @@
 import React, { FC, Fragment, useState } from "react";
 import * as Google from "expo-google-app-auth";
 import Spinner from "react-native-loading-spinner-overlay";
+import env from "../../../../env.json";
 import Auth from "../../../components/organisms/auth/SignUp";
 import { accountFireStore } from "../../../firebase/accountFireStore";
 import { callingAlert } from "../../../utilities/alert";
@@ -47,7 +48,7 @@ const ContainerSignUp: FC<Props> = ({ navigation }) => {
   //新規登録処理
   const signUpUser = async (name: string, email: string, password: string) => {
     //エンドポイント
-    const url = "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
+    const url = env.END_PONT;
     const REGEX_NAME = /^.{2,6}$/;
     const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const REGEX_PASSWORD = /^([a-zA-Z0-9]{6,})$/;
@@ -109,8 +110,8 @@ const ContainerSignUp: FC<Props> = ({ navigation }) => {
   const signInWithGoogle = async () => {
     try {
       const result = await Google.logInAsync({
-        androidClientId: "",
-        iosClientId: "",
+        androidClientId: env.ANDROID_CLIENT_ID,
+        iosClientId: env.IOS_CLIENT_ID,
         scopes: ["profile", "email"],
       });
       setIsLoading(true);
