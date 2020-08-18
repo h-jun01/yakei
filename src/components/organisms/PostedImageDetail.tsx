@@ -4,9 +4,9 @@ import { Image } from "react-native-elements";
 import { ActivityIndicator } from "react-native";
 import { UseInputResult } from "../../utilities/hooks/input";
 import { styles } from "../../styles/postedImageDetail";
-import KeyboardStickyView from "rn-keyboard-sticky-view";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
+import KeyboardInputView from "../atoms/home/KeyboardInputView";
 
 type Props = {
   photo_id: string;
@@ -49,14 +49,8 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
           latitude={latitude}
           longitude={longitude}
         />
+        <KeyboardInputView inputValue={inputValue} />
       </View>
-      <KeyboardStickyView>
-        <TextInput
-          {...inputValue}
-          onSubmitEditing={() => alert(inputValue.value)}
-          placeholder="コメントを入力..."
-        />
-      </KeyboardStickyView>
     </ScrollView>
   );
 };
