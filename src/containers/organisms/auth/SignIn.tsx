@@ -1,6 +1,7 @@
 import React, { FC, Fragment, useState } from "react";
 import * as Google from "expo-google-app-auth";
 import Spinner from "react-native-loading-spinner-overlay";
+import env from "../../../../env.json";
 import SignIn from "../../../components/organisms/auth/SignIn";
 import { accountFireStore } from "../../../firebase/accountFireStore";
 import { useInput } from "../../../utilities/hooks/input";
@@ -73,8 +74,8 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
   const signInWithGoogle = async () => {
     try {
       const result = await Google.logInAsync({
-        androidClientId: "",
-        iosClientId: "",
+        androidClientId: env.ANDROID_CLIENT_ID,
+        iosClientId: env.IOS_CLIENT_ID,
         scopes: ["profile", "email"],
       });
       setIsLoading(true);
