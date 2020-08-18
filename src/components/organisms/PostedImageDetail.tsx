@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import { ScrollView, View, Text, TextInput } from "react-native";
+import { ScrollView, View, ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
-import { ActivityIndicator } from "react-native";
 import { UseInputResult } from "../../utilities/hooks/input";
 import { styles } from "../../styles/postedImageDetail";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
 import KeyboardInputView from "../atoms/home/KeyboardInputView";
+import CommentField from "../../containers/molecules/CommentField";
 
 type Props = {
   photo_id: string;
@@ -56,7 +56,11 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
         {commentList !== undefined &&
           commentList.map((item, index) => (
             <View key={index}>
-              <Text>{item.test}</Text>
+              <CommentField
+                uid={item.uid}
+                message={item.message}
+                createTime={item.createTime}
+              />
             </View>
           ))}
       </ScrollView>
