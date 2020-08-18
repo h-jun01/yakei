@@ -20,6 +20,16 @@ export const styles = StyleSheet.create({
   },
 
   keyboardView: {
+    display: "none",
+    flexDirection: "row",
+    width: deviceWidth,
+    height: "auto",
+    paddingTop: 7,
+    paddingLeft: 7,
+    backgroundColor: "#fff",
+  },
+  keyboardView2: {
+    marginBottom: 80,
     flexDirection: "row",
     width: deviceWidth,
     height: "auto",
@@ -48,5 +58,8 @@ export const styles = StyleSheet.create({
     marginRight: 15,
     marginBottom: 5,
     color: "#606060",
+  },
+  commentBox: {
+    flexDirection: "row",
   },
 });

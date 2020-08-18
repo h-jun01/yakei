@@ -1,5 +1,11 @@
 import React, { FC } from "react";
-import { ScrollView, View, ActivityIndicator } from "react-native";
+import {
+  ScrollView,
+  View,
+  ActivityIndicator,
+  TextInput,
+  Text,
+} from "react-native";
 import { Image } from "react-native-elements";
 import { UseInputResult } from "../../utilities/hooks/input";
 import { styles } from "../../styles/postedImageDetail";
@@ -35,6 +41,13 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     inputValue,
   } = props;
 
+  const textInputRef = React.useRef<null | TextInput>(null);
+  const [show, setShow] = React.useState(false);
+  const focusOnInput = () => {
+    textInputRef.current?.focus();
+    setShow(true);
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -63,8 +76,15 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
               />
             </View>
           ))}
+        <Text onPress={() => focusOnInput()}>適当なボタン</Text>
       </ScrollView>
-      <KeyboardInputView inputValue={inputValue} />
+      <KeyboardInputView
+        inputValue={inputValue}
+        textInputRef={textInputRef}
+        focusOnInput={focusOnInput}
+        show={show}
+        setShow={setShow}
+      />
     </View>
   );
 };
