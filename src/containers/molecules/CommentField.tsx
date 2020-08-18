@@ -1,14 +1,15 @@
 import React, { FC, useState, useEffect } from "react";
 import { accountFireStore } from "../../firebase/accountFireStore";
-import InformationUserPosted from "../../components/molecules/InformationUserPosted";
+import CommentField from "../../components/molecules/CommentField";
 
 type Props = {
   uid: string;
+  message: string;
   createTime: string;
 };
 
-const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
-  const { uid, createTime } = props;
+const CommentFieldContainer: FC<Props> = ({ ...props }) => {
+  const { uid, message, createTime } = props;
   const [postUserName, setPostUserName] = useState<string>("");
   const [postUserImage, setPostUserImage] = useState<string>(
     "https://example.com"
@@ -26,7 +27,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       });
   }, []);
 
-  //投稿したユーザのアイコン画像を取得
+  //コメントを投稿したユーザのアイコン画像を取得
   useEffect(() => {
     accountFireStore
       .getUserImage(uid)
@@ -39,12 +40,13 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   }, []);
 
   return (
-    <InformationUserPosted
+    <CommentField
       postUserName={postUserName}
       postUserImage={postUserImage}
+      message={message}
       createTime={createTime}
     />
   );
 };
 
-export default InformationUserPostedContainer;
+export default CommentFieldContainer;

@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { useInput } from "../../utilities/hooks/input";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 
 type Props = {
@@ -14,8 +15,11 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     favoriteNumber,
     latitude,
     longitude,
-    commentCount,
+    commentList,
   } = route.params;
+
+  const inputValue = useInput("");
+  const commentCount = commentList.length;
 
   return (
     <PostedImageDetail
@@ -26,7 +30,9 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
       favoriteNumber={favoriteNumber}
       latitude={latitude}
       longitude={longitude}
+      commentList={commentList}
       commentCount={commentCount}
+      inputValue={inputValue}
     />
   );
 };

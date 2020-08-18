@@ -1,8 +1,12 @@
 import React, { FC } from "react";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View, ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
-import { ActivityIndicator } from "react-native";
+import { UseInputResult } from "../../utilities/hooks/input";
 import { styles } from "../../styles/postedImageDetail";
+import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
+import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
+import KeyboardInputView from "../atoms/home/KeyboardInputView";
+import CommentField from "../../containers/molecules/CommentField";
 
 type Props = {
   photo_id: string;
@@ -12,7 +16,9 @@ type Props = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
+  commentList: any;
   commentCount: number;
+  inputValue: UseInputResult;
 };
 
 const PostedImageDetail: FC<Props> = ({ ...props }) => {
@@ -24,51 +30,42 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     favoriteNumber,
     latitude,
     longitude,
+    commentList,
     commentCount,
+    inputValue,
   } = props;
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        {/* アイコン */}
-        <Image
-          style={styles.userIcon}
-          source={{
-            uri:
-              "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/users%2F8HG1hZgvW7WiXA1oaaPMyn59ayB2%2Fuser.jpeg?alt=media&token=cb63a15b-d239-4543-9e1c-d45e1932bb98",
-          }}
-          PlaceholderContent={<ActivityIndicator />}
-        />
-        {/* 画像 */}
-        <Image
-          style={styles.image}
-          source={{
-            uri: url,
-          }}
-          PlaceholderContent={<ActivityIndicator />}
-        />
-        {/* 時間とかお気に入り数とか */}
+    <View style={styles.container}>
+      <ScrollView>
         <View>
-          <Text>{createTime}</Text>
-          <Text>お気に入り数{favoriteNumber}</Text>
-          <Text>
-            {latitude}:{longitude}
-          </Text>
-        </View>
-        <View>
-          <Text>コメント一覧</Text>
-          {/* アイコン */}
+          <InformationUserPosted createTime={createTime} uid={uid} />
           <Image
-            style={styles.userIcon}
+            style={styles.image}
             source={{
-              uri:
-                "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/users%2F8HG1hZgvW7WiXA1oaaPMyn59ayB2%2Fuser.jpeg?alt=media&token=cb63a15b-d239-4543-9e1c-d45e1932bb98",
+              uri: url,
             }}
             PlaceholderContent={<ActivityIndicator />}
           />
+          <DetailPostedPageItems
+            commentCount={commentCount}
+            latitude={latitude}
+            longitude={longitude}
+          />
         </View>
-      </View>
-    </ScrollView>
+        {commentList !== undefined &&
+          commentList.map((item, index) => (
+            <View key={index}>
+              <CommentField
+                uid={item.uid}
+                message={item.message}
+                createTime={item.createTime}
+              />
+            </View>
+          ))}
+      </ScrollView>
+      <KeyboardInputView inputValue={inputValue} />
+    </View>
   );
 };
 

@@ -7,6 +7,11 @@ import {
   callingLogoutAlert,
 } from "../utilities/alert";
 
+type LoginUser = {
+  email: string;
+  password: string;
+};
+
 type AccountFireStore = {
   getUser: (
     uid: string
@@ -16,7 +21,7 @@ type AccountFireStore = {
   getUserName: (uid: string) => Promise<React.SetStateAction<string>>;
   getUserImage: (uid: string) => Promise<React.SetStateAction<string>>;
   loginUser: (
-    account: LginUser
+    account: LoginUser
   ) => Promise<void | firebase.auth.UserCredential>;
   loginGoogleUser: (
     idToken: string,
@@ -40,11 +45,6 @@ type AccountFireStore = {
   authenticationName: string;
 };
 
-type LginUser = {
-  email: string;
-  password: string;
-};
-
 const user = db.collection("users");
 
 export const accountFireStore: AccountFireStore = {
@@ -65,7 +65,7 @@ export const accountFireStore: AccountFireStore = {
     });
   },
   //ログイン処理
-  loginUser: async (account: LginUser) => {
+  loginUser: async (account: LoginUser) => {
     return await auth
       .signInWithEmailAndPassword(account.email, account.password)
       .catch(() => {
