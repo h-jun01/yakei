@@ -16,6 +16,7 @@ type Props = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
+  commentList: any;
   commentCount: number;
   inputValue: UseInputResult;
 };
@@ -29,29 +30,38 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     favoriteNumber,
     latitude,
     longitude,
+    commentList,
     commentCount,
     inputValue,
   } = props;
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <InformationUserPosted createTime={createTime} uid={uid} />
-        <Image
-          style={styles.image}
-          source={{
-            uri: url,
-          }}
-          PlaceholderContent={<ActivityIndicator />}
-        />
-        <DetailPostedPageItems
-          commentCount={commentCount}
-          latitude={latitude}
-          longitude={longitude}
-        />
-        <KeyboardInputView inputValue={inputValue} />
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView>
+        <View>
+          <InformationUserPosted createTime={createTime} uid={uid} />
+          <Image
+            style={styles.image}
+            source={{
+              uri: url,
+            }}
+            PlaceholderContent={<ActivityIndicator />}
+          />
+          <DetailPostedPageItems
+            commentCount={commentCount}
+            latitude={latitude}
+            longitude={longitude}
+          />
+        </View>
+        {commentList !== undefined &&
+          commentList.map((item, index) => (
+            <View key={index}>
+              <Text>{item.test}</Text>
+            </View>
+          ))}
+      </ScrollView>
+      <KeyboardInputView inputValue={inputValue} />
+    </View>
   );
 };
 

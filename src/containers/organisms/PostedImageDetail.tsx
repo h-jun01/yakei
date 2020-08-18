@@ -30,6 +30,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
       favoriteNumber={favoriteNumber}
       latitude={latitude}
       longitude={longitude}
+      commentList={commentList}
       commentCount={commentCount}
       inputValue={inputValue}
     />
