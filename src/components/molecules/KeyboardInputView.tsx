@@ -25,7 +25,7 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
 
   return (
     <KeyboardStickyView
-      style={isInputForm ? styles.keyboardView2 : styles.keyboardView}
+      style={isInputForm ? styles.keyboardViewTrue : styles.keyboardViewFalse}
     >
       <TextInput
         multiline

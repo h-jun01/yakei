@@ -13,6 +13,7 @@ const CommentInputFieldContainer: FC<Props> = ({ focusOnInput }) => {
   const selectUid = (state: RootState) => state.userReducer.uid;
   const uid = useSelector(selectUid);
 
+  //自分のアイコン画像を取得
   useEffect(() => {
     accountFireStore.getUserImage(uid).then((res) => {
       res && setUserImage(res);

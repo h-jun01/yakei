@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
+import { styles } from "../../styles/postedImageDetail";
 
 type Props = {
   userImage: string;
@@ -9,8 +10,19 @@ type Props = {
 
 const CommentInputField: FC<Props> = ({ userImage, focusOnInput }) => {
   return (
-    <View>
-      <Text>aa</Text>
+    <View style={styles.commentInputField}>
+      <Image
+        style={styles.userIcon}
+        source={{
+          uri: userImage,
+        }}
+        PlaceholderContent={<ActivityIndicator />}
+      />
+      <View style={styles.tapInputField}>
+        <Text style={styles.tapInputText} onPress={() => focusOnInput()}>
+          コメントを入力...
+        </Text>
+      </View>
     </View>
   );
 };
