@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import { auth, db } from "./firebase";
+import { db } from "./firebase";
 
 type CommentDataList = {
   uid: string;

@@ -9,14 +9,19 @@ type CommentDataList = {
 type State = {
   commentDataList: CommentDataList[];
   inputValue: string;
+  isInputForm: boolean;
 };
 
 const initialState: State = {
   commentDataList: [],
   inputValue: "",
+  isInputForm: false,
 };
 
-export const commentReducer = (state = initialState, action: UnionedAction) => {
+export const postedDataReducer = (
+  state = initialState,
+  action: UnionedAction
+) => {
   switch (action.type) {
     case ActionTypes.COMMENT_DATA_LIST:
       return {
@@ -27,6 +32,11 @@ export const commentReducer = (state = initialState, action: UnionedAction) => {
       return {
         ...state,
         inputValue: action.payload.inputValue,
+      };
+    case ActionTypes.INPUT_FORM_STATUS:
+      return {
+        ...state,
+        isInputForm: action.payload.isInputForm,
       };
     default: {
       return state;

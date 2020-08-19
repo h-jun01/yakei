@@ -16,6 +16,12 @@ import CommentField from "../../containers/molecules/CommentField";
 
 import { Keyboard } from "react-native";
 
+type CommentDataList = {
+  uid: string;
+  message: string;
+  createTime: string;
+};
+
 type Props = {
   photo_id: string;
   uid: string;
@@ -24,7 +30,9 @@ type Props = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
-  commentDataList: any[];
+  commentDataList: CommentDataList[];
+  textInputRef;
+  focusOnInput: () => void;
   //   commentList: any;
   //   commentCount: number;
   //   inputValue: UseInputResult;
@@ -40,17 +48,19 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     latitude,
     longitude,
     commentDataList,
+    textInputRef,
+    focusOnInput,
     // commentList,
     // commentCount,
     // inputValue,
   } = props;
 
-  const textInputRef = React.useRef<null | TextInput>(null);
-  const [show, setShow] = React.useState(false);
-  const focusOnInput = () => {
-    textInputRef.current?.focus();
-    setShow(true);
-  };
+  //   const textInputRef = React.useRef<null | TextInput>(null);
+  //   const [show, setShow] = React.useState(false);
+  //   const focusOnInput = () => {
+  //     textInputRef.current?.focus();
+  //     setShow(true);
+  //   };
 
   return (
     <View style={styles.container}>
@@ -84,8 +94,8 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
       </ScrollView>
       <KeyboardInputView
         textInputRef={textInputRef}
-        show={show}
-        setShow={setShow}
+        // show={show}
+        // setShow={setShow}
       />
     </View>
   );

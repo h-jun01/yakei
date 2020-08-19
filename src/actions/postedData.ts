@@ -23,3 +23,12 @@ export const setInputCommentValue = (inputValue: string) =>
       inputValue,
     },
   } as const);
+
+//入力フォームの切り替え
+export const setIsInputForm = (isInputForm: boolean) =>
+  ({
+    type: ActionTypes.INPUT_FORM_STATUS,
+    payload: {
+      isInputForm,
+    },
+  } as const);

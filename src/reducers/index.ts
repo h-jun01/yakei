@@ -3,7 +3,7 @@ import { authReducer } from "./authReducer";
 import { userReducer } from "./userReducer";
 import { myPhotoReducer } from "./myPhotoReducer";
 import { allPhotoReducer } from "./allPhotoReducer";
-import { commentReducer } from "./commentReducer";
+import { postedDataReducer } from "./postedDataReducer";
 import { noticeReducer } from "./noticeReducer";
 
 export const rootReducer = combineReducers({
@@ -11,7 +11,7 @@ export const rootReducer = combineReducers({
   userReducer,
   allPhotoReducer,
   myPhotoReducer,
-  commentReducer,
+  postedDataReducer,
   noticeReducer,
 });
 
