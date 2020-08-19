@@ -19,7 +19,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  keyboardView: {
+  keyboardViewFalse: {
+    display: "none",
     flexDirection: "row",
     width: deviceWidth,
     height: "auto",
@@ -27,9 +28,35 @@ export const styles = StyleSheet.create({
     paddingLeft: 7,
     backgroundColor: "#fff",
   },
+  keyboardViewTrue: {
+    flexDirection: "row",
+    width: deviceWidth,
+    height: "auto",
+    paddingTop: 7,
+    paddingLeft: 7,
+    backgroundColor: "#fff",
+  },
+  commentInputField: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#808080",
+    borderColor: "#000",
+  },
+  tapInputField: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: deviceWidth / 1.15,
+    minHeight: 30,
+  },
+  tapInputText: {
+    color: "#202020",
+    width: deviceWidth,
+  },
   input: {
     width: deviceWidth / 1.15,
     minHeight: 30,
+    maxHeight: 150,
     height: "auto",
     marginBottom: 7,
     paddingTop: 10,
@@ -48,5 +75,12 @@ export const styles = StyleSheet.create({
     marginRight: 15,
     marginBottom: 5,
     color: "#606060",
+  },
+  commentBox: {
+    flexDirection: "row",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#808080",
+    borderColor: "#000",
+    width: deviceWidth,
   },
 });

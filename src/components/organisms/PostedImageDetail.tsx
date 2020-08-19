@@ -1,12 +1,24 @@
 import React, { FC } from "react";
-import { ScrollView, View, ActivityIndicator } from "react-native";
+import {
+  ScrollView,
+  View,
+  ActivityIndicator,
+  TextInput,
+  Text,
+} from "react-native";
 import { Image } from "react-native-elements";
-import { UseInputResult } from "../../utilities/hooks/input";
 import { styles } from "../../styles/postedImageDetail";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
-import KeyboardInputView from "../atoms/home/KeyboardInputView";
+import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
+import CommentInputField from "../../containers/molecules/CommentInputField";
 import CommentField from "../../containers/molecules/CommentField";
+
+type CommentDataList = {
+  uid: string;
+  message: string;
+  createTime: string;
+};
 
 type Props = {
   photo_id: string;
@@ -16,9 +28,9 @@ type Props = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
-  commentList: any;
-  commentCount: number;
-  inputValue: UseInputResult;
+  commentDataList: CommentDataList[];
+  textInputRef: React.MutableRefObject<TextInput | null>;
+  focusOnInput: () => void;
 };
 
 const PostedImageDetail: FC<Props> = ({ ...props }) => {
@@ -30,9 +42,9 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     favoriteNumber,
     latitude,
     longitude,
-    commentList,
-    commentCount,
-    inputValue,
+    commentDataList,
+    textInputRef,
+    focusOnInput,
   } = props;
 
   return (
@@ -48,13 +60,15 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             PlaceholderContent={<ActivityIndicator />}
           />
           <DetailPostedPageItems
-            commentCount={commentCount}
+            favoriteNumber={favoriteNumber}
             latitude={latitude}
             longitude={longitude}
           />
         </View>
-        {commentList !== undefined &&
-          commentList.map((item, index) => (
+        <CommentInputField focusOnInput={focusOnInput} />
+        {/* <Text onPress={() => focusOnInput()}>適当なボタン</Text> */}
+        {commentDataList !== undefined &&
+          commentDataList.map((item, index) => (
             <View key={index}>
               <CommentField
                 uid={item.uid}
@@ -64,7 +78,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             </View>
           ))}
       </ScrollView>
-      <KeyboardInputView inputValue={inputValue} />
+      <KeyboardInputView textInputRef={textInputRef} />
     </View>
   );
 };

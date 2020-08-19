@@ -14,8 +14,7 @@ const CommentField: FC<Props> = ({ ...props }) => {
   const { postUserName, postUserImage, message, createTime } = props;
 
   return (
-    <View>
-      <Text>{postUserName}</Text>
+    <View style={styles.commentBox}>
       <Image
         style={styles.userIcon}
         source={{
@@ -23,8 +22,11 @@ const CommentField: FC<Props> = ({ ...props }) => {
         }}
         PlaceholderContent={<ActivityIndicator />}
       />
-      <Text>{message}</Text>
-      <Text>{createTime}</Text>
+      <View>
+        <Text>{postUserName}</Text>
+        <Text>{message}</Text>
+        <Text>{createTime}</Text>
+      </View>
     </View>
   );
 };
