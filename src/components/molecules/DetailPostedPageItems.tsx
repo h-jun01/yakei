@@ -14,12 +14,12 @@ const DetailPostedPageItems: FC<Props> = ({ ...props }) => {
 
   return (
     <View style={styles.postItem}>
-      <Text>
-        <EvilIcons name="heart" size={20} />
+      <Text style={styles.favorite}>
+        <EvilIcons name="heart" size={23} />
       </Text>
-      <Text>{favoriteNumber}</Text>
-      <Text>
-        <EvilIcons name="location" size={20} />
+      <Text style={styles.favoriteNumber}>{favoriteNumber}</Text>
+      <Text style={styles.location}>
+        <EvilIcons name="location" size={21} />
       </Text>
     </View>
   );
