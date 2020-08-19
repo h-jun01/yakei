@@ -1,6 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { useInput } from "../../utilities/hooks/input";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
+import { photoFireStore } from "../../firebase/photoFireStore";
+import { RootState } from "../../reducers/index";
+import { useSelector, useDispatch } from "react-redux";
+import { setCommentDataList } from "../../actions/comment";
 
 type Props = {
   route: any;
@@ -15,11 +19,25 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     favoriteNumber,
     latitude,
     longitude,
-    commentList,
+    // commentList,
   } = route.params;
+  const selrctCommentDataList = (state: RootState) =>
+    state.commentReducer.commentDataList;
+  const commentDataList = useSelector(selrctCommentDataList);
+  const dispatch = useDispatch();
 
-  const inputValue = useInput("");
-  const commentCount = commentList.length;
+  //   const inputValue = useInput("");
+  //   const commentCount = commentList.length;
+  const [c, setC] = useState<any>([]);
+
+  useEffect(() => {
+    photoFireStore.getCommentList(photo_id).then((res) => {
+      //   res && setC(res.reverse());
+      res && dispatch(setCommentDataList(res.reverse()));
+    });
+  }, []);
+
+  //   console.log(commentDataList);
 
   return (
     <PostedImageDetail
@@ -30,9 +48,10 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
       favoriteNumber={favoriteNumber}
       latitude={latitude}
       longitude={longitude}
-      commentList={commentList}
-      commentCount={commentCount}
-      inputValue={inputValue}
+      commentDataList={commentDataList}
+      //   commentList={commentList}
+      //   commentCount={commentCount}
+      //   inputValue={inputValue}
     />
   );
 };

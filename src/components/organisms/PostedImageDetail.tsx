@@ -14,6 +14,8 @@ import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
 import KeyboardInputView from "../atoms/home/KeyboardInputView";
 import CommentField from "../../containers/molecules/CommentField";
 
+import { Keyboard } from "react-native";
+
 type Props = {
   photo_id: string;
   uid: string;
@@ -22,9 +24,10 @@ type Props = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
-  commentList: any;
-  commentCount: number;
-  inputValue: UseInputResult;
+  commentDataList: any[];
+  //   commentList: any;
+  //   commentCount: number;
+  //   inputValue: UseInputResult;
 };
 
 const PostedImageDetail: FC<Props> = ({ ...props }) => {
@@ -36,9 +39,10 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     favoriteNumber,
     latitude,
     longitude,
-    commentList,
-    commentCount,
-    inputValue,
+    commentDataList,
+    // commentList,
+    // commentCount,
+    // inputValue,
   } = props;
 
   const textInputRef = React.useRef<null | TextInput>(null);
@@ -46,6 +50,11 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
   const focusOnInput = () => {
     textInputRef.current?.focus();
     setShow(true);
+  };
+  const onSubmit = () => {
+    // inputValue.value = "unko";
+    Keyboard.dismiss();
+    setShow(false);
   };
 
   return (
@@ -61,13 +70,13 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             PlaceholderContent={<ActivityIndicator />}
           />
           <DetailPostedPageItems
-            commentCount={commentCount}
+            // commentCount={commentCount}
             latitude={latitude}
             longitude={longitude}
           />
         </View>
-        {commentList !== undefined &&
-          commentList.map((item, index) => (
+        {commentDataList !== undefined &&
+          commentDataList.map((item, index) => (
             <View key={index}>
               <CommentField
                 uid={item.uid}
@@ -79,11 +88,12 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
         <Text onPress={() => focusOnInput()}>適当なボタン</Text>
       </ScrollView>
       <KeyboardInputView
-        inputValue={inputValue}
+        // inputValue={inputValue}
         textInputRef={textInputRef}
         focusOnInput={focusOnInput}
         show={show}
         setShow={setShow}
+        onSubmit={onSubmit}
       />
     </View>
   );

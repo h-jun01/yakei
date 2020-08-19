@@ -29,7 +29,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   keyboardView2: {
-    marginBottom: 80,
     flexDirection: "row",
     width: deviceWidth,
     height: "auto",
@@ -40,6 +39,7 @@ export const styles = StyleSheet.create({
   input: {
     width: deviceWidth / 1.15,
     minHeight: 30,
+    maxHeight: 150,
     height: "auto",
     marginBottom: 7,
     paddingTop: 10,
