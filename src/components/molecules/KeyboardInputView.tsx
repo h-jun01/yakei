@@ -1,14 +1,13 @@
 import React, { FC } from "react";
 import { Text, TextInput, Alert } from "react-native";
-import { UseInputResult } from "../../../utilities/hooks/input";
+import { UseInputResult } from "../../utilities/hooks/input";
 import KeyboardStickyView from "rn-keyboard-sticky-view";
-import { styles } from "../../../styles/postedImageDetail";
+import { styles } from "../../styles/postedImageDetail";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 type Props = {
   // inputValue: UseInputResult;
   textInputRef: React.MutableRefObject<TextInput | null>;
-  focusOnInput: () => void;
   show: boolean;
   setShow: any;
   onSubmit: any;
@@ -16,7 +15,6 @@ type Props = {
 
 const KeyboardInputView: FC<Props> = ({
   textInputRef,
-  focusOnInput,
   // inputValue,
   show,
   setShow,
@@ -31,7 +29,6 @@ const KeyboardInputView: FC<Props> = ({
       style={show ? styles.keyboardView2 : styles.keyboardView}
     >
       <TextInput
-        // {...inputValue}
         multiline
         ref={textInputRef}
         blurOnSubmit={false}
@@ -43,7 +40,7 @@ const KeyboardInputView: FC<Props> = ({
         }}
         onSubmitEditing={() => onSubmit()}
       />
-      <Text style={styles.sendIcon} onPress={() => focusOnInput()}>
+      <Text style={styles.sendIcon}>
         <FontAwesome name="send" size={17} />
       </Text>
     </KeyboardStickyView>

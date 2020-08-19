@@ -11,7 +11,7 @@ import { UseInputResult } from "../../utilities/hooks/input";
 import { styles } from "../../styles/postedImageDetail";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
-import KeyboardInputView from "../atoms/home/KeyboardInputView";
+import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
 import CommentField from "../../containers/molecules/CommentField";
 
 import { Keyboard } from "react-native";
@@ -51,11 +51,6 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     textInputRef.current?.focus();
     setShow(true);
   };
-  const onSubmit = () => {
-    // inputValue.value = "unko";
-    Keyboard.dismiss();
-    setShow(false);
-  };
 
   return (
     <View style={styles.container}>
@@ -88,12 +83,9 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
         <Text onPress={() => focusOnInput()}>適当なボタン</Text>
       </ScrollView>
       <KeyboardInputView
-        // inputValue={inputValue}
         textInputRef={textInputRef}
-        focusOnInput={focusOnInput}
         show={show}
         setShow={setShow}
-        onSubmit={onSubmit}
       />
     </View>
   );

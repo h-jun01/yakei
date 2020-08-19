@@ -2,10 +2,12 @@ import { ActionTypes, UnionedAction } from "../actions/index";
 
 type State = {
   commentDataList: any[];
+  inputValue: string;
 };
 
 const initialState: State = {
   commentDataList: [],
+  inputValue: "",
 };
 
 export const commentReducer = (state = initialState, action: UnionedAction) => {
@@ -14,6 +16,11 @@ export const commentReducer = (state = initialState, action: UnionedAction) => {
       return {
         ...state,
         commentDataList: action.payload.commentDataList,
+      };
+    case ActionTypes.INPUT_COMMENT_VALUE:
+      return {
+        ...state,
+        inputValue: action.payload.inputValue,
       };
     default: {
       return state;

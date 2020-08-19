@@ -21,23 +21,21 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     longitude,
     // commentList,
   } = route.params;
+
+  const selectInputCommentValue = (state: RootState) =>
+    state.commentReducer.inputValue;
   const selrctCommentDataList = (state: RootState) =>
     state.commentReducer.commentDataList;
+  const inputCommentValue = useSelector(selectInputCommentValue);
   const commentDataList = useSelector(selrctCommentDataList);
   const dispatch = useDispatch();
 
-  //   const inputValue = useInput("");
-  //   const commentCount = commentList.length;
-  const [c, setC] = useState<any>([]);
-
+  // コメント取得
   useEffect(() => {
     photoFireStore.getCommentList(photo_id).then((res) => {
-      //   res && setC(res.reverse());
       res && dispatch(setCommentDataList(res.reverse()));
     });
-  }, []);
-
-  //   console.log(commentDataList);
+  }, [photo_id, setCommentDataList]);
 
   return (
     <PostedImageDetail
