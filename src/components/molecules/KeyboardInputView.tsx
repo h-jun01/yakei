@@ -6,13 +6,22 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 type Props = {
   textInputRef: React.MutableRefObject<TextInput | null>;
+  inputValue: string;
   isInputForm: boolean;
   onSubmit: () => void;
   onBlur: () => void;
+  onChangeText: (value: string) => void;
 };
 
 const KeyboardInputView: FC<Props> = ({ ...props }) => {
-  const { textInputRef, isInputForm, onSubmit, onBlur } = props;
+  const {
+    textInputRef,
+    inputValue,
+    isInputForm,
+    onSubmit,
+    onBlur,
+    onChangeText,
+  } = props;
 
   return (
     <KeyboardStickyView
@@ -20,13 +29,14 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
     >
       <TextInput
         multiline
+        value={inputValue}
         ref={textInputRef}
         blurOnSubmit={false}
-        returnKeyType="send"
         placeholder="コメントを入力..."
         style={styles.input}
         onBlur={() => onBlur()}
-        onSubmitEditing={() => onSubmit()}
+        // onSubmitEditing={() => onSubmit()}
+        onChangeText={(value) => onChangeText(value)}
       />
       <Text style={styles.sendIcon}>
         <FontAwesome name="send" size={17} />

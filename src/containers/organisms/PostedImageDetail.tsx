@@ -1,10 +1,10 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { TextInput } from "react-native";
-import PostedImageDetail from "../../components/organisms/PostedImageDetail";
-import { photoFireStore } from "../../firebase/photoFireStore";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
+import { photoFireStore } from "../../firebase/photoFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
+import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 
 type Props = {
   route: any;
@@ -21,7 +21,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     longitude,
   } = route.params;
 
-  const textInputRef = React.useRef<null | TextInput>(null);
+  const textInputRef = useRef<null | TextInput>(null);
 
   const selrctCommentDataList = (state: RootState) =>
     state.postedDataReducer.commentDataList;

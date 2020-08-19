@@ -11,6 +11,7 @@ import { styles } from "../../styles/postedImageDetail";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
 import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
+import CommentInputField from "../../containers/molecules/CommentInputField";
 import CommentField from "../../containers/molecules/CommentField";
 
 type CommentDataList = {
@@ -59,11 +60,13 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             PlaceholderContent={<ActivityIndicator />}
           />
           <DetailPostedPageItems
-            // commentCount={commentCount}
+            favoriteNumber={favoriteNumber}
             latitude={latitude}
             longitude={longitude}
           />
         </View>
+        <CommentInputField focusOnInput={focusOnInput} />
+        {/* <Text onPress={() => focusOnInput()}>適当なボタン</Text> */}
         {commentDataList !== undefined &&
           commentDataList.map((item, index) => (
             <View key={index}>
@@ -74,7 +77,6 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
               />
             </View>
           ))}
-        <Text onPress={() => focusOnInput()}>適当なボタン</Text>
       </ScrollView>
       <KeyboardInputView textInputRef={textInputRef} />
     </View>
