@@ -22,10 +22,10 @@ const CommentField: FC<Props> = ({ ...props }) => {
         }}
         PlaceholderContent={<ActivityIndicator />}
       />
-      <View>
-        <Text>{postUserName}</Text>
-        <Text>{message}</Text>
-        <Text>{createTime}</Text>
+      <View style={styles.commentData}>
+        <Text style={styles.userName}>{postUserName}</Text>
+        <Text style={styles.message}>{message}</Text>
+        <Text style={styles.time}>{createTime}</Text>
       </View>
     </View>
   );

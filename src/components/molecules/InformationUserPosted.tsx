@@ -23,9 +23,9 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
         }}
         PlaceholderContent={<ActivityIndicator />}
       />
-      <View>
-        <Text>{postUserName}</Text>
-        <Text>{createTime}</Text>
+      <View style={styles.user}>
+        <Text style={styles.userName}>{postUserName}</Text>
+        <Text style={styles.time}>{createTime}</Text>
       </View>
       <Text style={styles.dotsVertical}>
         <MaterialCommunityIcons name="dots-vertical" size={20} />
