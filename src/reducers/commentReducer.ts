@@ -1,7 +1,13 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
 
+type CommentDataList = {
+  uid: string;
+  message: string;
+  createTime: string;
+};
+
 type State = {
-  commentDataList: any[];
+  commentDataList: CommentDataList[];
   inputValue: string;
 };
 

@@ -8,14 +8,11 @@ type Props = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-// const textInputRef = React.useRef<null | TextInput>(null);
-
 const KeyboardInputViewContainer: FC<Props> = ({
   textInputRef,
   show,
   setShow,
 }) => {
-  //   const [show, setShow] = React.useState(false);
   const onSubmit = () => {
     Keyboard.dismiss();
     setShow(false);

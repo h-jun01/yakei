@@ -1,7 +1,13 @@
 import { ActionTypes } from "./index";
 
+type CommentDataList = {
+  uid: string;
+  message: string;
+  createTime: string;
+};
+
 //コメント一覧をセット
-export const setCommentDataList = (commentDataList: any[]) =>
+export const setCommentDataList = (commentDataList: CommentDataList[]) =>
   ({
     type: ActionTypes.COMMENT_DATA_LIST,
     payload: {

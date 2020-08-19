@@ -1,10 +1,16 @@
 import firebase from "firebase";
 import { auth, db } from "./firebase";
 
+type CommentDataList = {
+  uid: string;
+  message: string;
+  createTime: string;
+};
+
 type PhotoFireStore = {
   getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
   getAllPhotoList: () => Promise<firebase.firestore.DocumentData[]>;
-  getCommentList;
+  getCommentList: (photo_id: string) => Promise<CommentDataList[]>;
 };
 
 const photo = db.collection("photos");

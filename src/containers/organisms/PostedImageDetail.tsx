@@ -1,5 +1,4 @@
 import React, { FC, useState, useEffect } from "react";
-import { useInput } from "../../utilities/hooks/input";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { RootState } from "../../reducers/index";
