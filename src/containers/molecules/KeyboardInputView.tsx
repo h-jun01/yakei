@@ -7,36 +7,29 @@ import { setIsInputForm } from "../../actions/postedData";
 
 type Props = {
   textInputRef: React.MutableRefObject<TextInput | null>;
-  //   show: boolean;
-  //   setShow: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const KeyboardInputViewContainer: FC<Props> = ({
-  textInputRef,
-  //   show,
-  //   setShow,
-}) => {
+const KeyboardInputViewContainer: FC<Props> = ({ textInputRef }) => {
   const selrctIsInputForm = (state: RootState) =>
     state.postedDataReducer.isInputForm;
-  const dispatch = useDispatch();
   const isInputForm = useSelector(selrctIsInputForm);
+
+  const dispatch = useDispatch();
+
+  //コメントを送信したとき
   const onSubmit = () => {
     Keyboard.dismiss();
-    // setShow(false);
     dispatch(setIsInputForm(false));
   };
 
+  //キーボードが消えたとき
   const onBlur = () => {
-    if (isInputForm) {
-      dispatch(setIsInputForm(false));
-    }
+    isInputForm && dispatch(setIsInputForm(false));
   };
 
   return (
     <KeyboardInputView
       textInputRef={textInputRef}
-      //   show={show}
-      //   setShow={setShow}
       isInputForm={isInputForm}
       onSubmit={onSubmit}
       onBlur={onBlur}

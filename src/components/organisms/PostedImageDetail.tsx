@@ -7,14 +7,11 @@ import {
   Text,
 } from "react-native";
 import { Image } from "react-native-elements";
-import { UseInputResult } from "../../utilities/hooks/input";
 import { styles } from "../../styles/postedImageDetail";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
 import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
 import CommentField from "../../containers/molecules/CommentField";
-
-import { Keyboard } from "react-native";
 
 type CommentDataList = {
   uid: string;
@@ -31,11 +28,8 @@ type Props = {
   latitude: number;
   longitude: number;
   commentDataList: CommentDataList[];
-  textInputRef;
+  textInputRef: React.MutableRefObject<TextInput | null>;
   focusOnInput: () => void;
-  //   commentList: any;
-  //   commentCount: number;
-  //   inputValue: UseInputResult;
 };
 
 const PostedImageDetail: FC<Props> = ({ ...props }) => {
@@ -50,17 +44,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     commentDataList,
     textInputRef,
     focusOnInput,
-    // commentList,
-    // commentCount,
-    // inputValue,
   } = props;
-
-  //   const textInputRef = React.useRef<null | TextInput>(null);
-  //   const [show, setShow] = React.useState(false);
-  //   const focusOnInput = () => {
-  //     textInputRef.current?.focus();
-  //     setShow(true);
-  //   };
 
   return (
     <View style={styles.container}>
@@ -92,11 +76,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
           ))}
         <Text onPress={() => focusOnInput()}>適当なボタン</Text>
       </ScrollView>
-      <KeyboardInputView
-        textInputRef={textInputRef}
-        // show={show}
-        // setShow={setShow}
-      />
+      <KeyboardInputView textInputRef={textInputRef} />
     </View>
   );
 };

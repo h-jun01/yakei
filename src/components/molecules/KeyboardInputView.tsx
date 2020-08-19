@@ -1,33 +1,19 @@
 import React, { FC } from "react";
-import { Text, TextInput, Alert } from "react-native";
-import { UseInputResult } from "../../utilities/hooks/input";
+import { Text, TextInput } from "react-native";
 import KeyboardStickyView from "rn-keyboard-sticky-view";
 import { styles } from "../../styles/postedImageDetail";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 type Props = {
-  // inputValue: UseInputResult;
   textInputRef: React.MutableRefObject<TextInput | null>;
-  // show: boolean;
-  // setShow: any;
   isInputForm: boolean;
   onSubmit: () => void;
   onBlur: () => void;
 };
 
-const KeyboardInputView: FC<Props> = ({
-  textInputRef,
-  // inputValue,
-  // show,
-  // setShow,
-  isInputForm,
-  onSubmit,
-  onBlur,
-}) => {
-  // const textInputRef = React.useRef<null | TextInput>(null);
-  // const focusOnInput = () => {
-  //   textInputRef.current?.focus();
-  // };
+const KeyboardInputView: FC<Props> = ({ ...props }) => {
+  const { textInputRef, isInputForm, onSubmit, onBlur } = props;
+
   return (
     <KeyboardStickyView
       style={isInputForm ? styles.keyboardView2 : styles.keyboardView}
@@ -39,10 +25,7 @@ const KeyboardInputView: FC<Props> = ({
         returnKeyType="send"
         placeholder="コメントを入力..."
         style={styles.input}
-        onBlur={
-          () => onBlur()
-          // if (show) setShow(false);
-        }
+        onBlur={() => onBlur()}
         onSubmitEditing={() => onSubmit()}
       />
       <Text style={styles.sendIcon}>

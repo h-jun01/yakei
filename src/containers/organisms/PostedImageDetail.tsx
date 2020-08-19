@@ -19,21 +19,14 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     favoriteNumber,
     latitude,
     longitude,
-    // commentList,
   } = route.params;
 
   const textInputRef = React.useRef<null | TextInput>(null);
-  //   const [show, setShow] = React.useState(false);
 
-  //   const selectInputCommentValue = (state: RootState) =>
-  //     state.commentReducer.inputValue;
-  const selrctIsInputForm = (state: RootState) =>
-    state.postedDataReducer.isInputForm;
   const selrctCommentDataList = (state: RootState) =>
     state.postedDataReducer.commentDataList;
-  //   const inputCommentValue = useSelector(selectInputCommentValue);
-  const isInputForm = useSelector(selrctIsInputForm);
   const commentDataList = useSelector(selrctCommentDataList);
+
   const dispatch = useDispatch();
 
   // コメント取得
@@ -46,7 +39,6 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
   // コメント入力時にフォーカスさせる
   const focusOnInput = () => {
     textInputRef.current?.focus();
-    //   setShow(true);
     dispatch(setIsInputForm(true));
   };
 
@@ -62,9 +54,6 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
       commentDataList={commentDataList}
       textInputRef={textInputRef}
       focusOnInput={focusOnInput}
-      //   commentList={commentList}
-      //   commentCount={commentCount}
-      //   inputValue={inputValue}
     />
   );
 };
