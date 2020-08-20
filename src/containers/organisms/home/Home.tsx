@@ -37,8 +37,8 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
   let region: Region = {
     latitude: 35.6340873,
     longitude: 139.525187,
-    latitudeDelta: 0.2,
-    longitudeDelta: 0.2,
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.1,
   };
   const selectAllPhotoDataList = (state: RootState) =>
     state.allPhotoReducer.allPhotoDataList;

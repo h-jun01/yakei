@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import geohash from "ngeohash";
 import { db, FieldValue } from "./firebase";
 
 type CommentDataList = {
@@ -11,6 +12,10 @@ type PhotoFireStore = {
   getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
   getAllPhotoList: () => Promise<firebase.firestore.DocumentData[]>;
   getCommentList: (photo_id: string) => Promise<CommentDataList[]>;
+  getAreaPhotoList: (
+    latitude: number,
+    longitude: number
+  ) => Promise<firebase.firestore.DocumentData[]>;
   upDateCommentList: (
     photo_id: string,
     uid: string,
@@ -49,6 +54,29 @@ export const photoFireStore: PhotoFireStore = {
         return await res.data()?.comment_list;
       });
   },
+  // 表示エリア付近の写真取得
+  getAreaPhotoList: async (latitude: number, longitude: number) => {
+    // 1マイル分の緯度経度(1マイル＝1.60934km)
+    const lat = 0.0144927536231884;
+    const lon = 0.0181818181818182;
+    const lowerLat = latitude - lat;
+    const lowerLon = longitude - lon;
+    const upperLat = latitude + lat;
+    const upperLon = longitude + lon;
+
+    const lower = geohash.encode(lowerLat, lowerLon);
+    const upper = geohash.encode(upperLat, upperLon);
+
+    const allPhotoLis: firebase.firestore.DocumentData[] = [];
+    const querySnapshot = await photo
+      .where("geohash", ">=", lower)
+      .where("geohash", "<=", upper)
+      .limit(5)
+      .get();
+    querySnapshot.forEach((doc) => {
+      allPhotoLis.push(doc.data());
+    });
+    return allPhotoLis;
   //コメントを投稿
   upDateCommentList: async (
     photo_id: string,
