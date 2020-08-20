@@ -32,10 +32,10 @@ const KeyboardInputViewContainer: FC<Props> = ({ textInputRef, photo_id }) => {
 
   //コメントを送信したとき
   const addComment = async () => {
-    photoFireStore
+    await photoFireStore
       .upDateCommentList(photo_id, uid, inputValue, "test")
-      .then(() => {
-        photoFireStore.getCommentList(photo_id).then((res) => {
+      .then(async () => {
+        await photoFireStore.getCommentList(photo_id).then((res) => {
           res && dispatch(setCommentDataList(res.reverse()));
         });
       });
