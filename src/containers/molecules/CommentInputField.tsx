@@ -1,7 +1,6 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC } from "react";
 import { RootState } from "../../reducers/index";
 import { useSelector } from "react-redux";
-import { accountFireStore } from "../../firebase/accountFireStore";
 import CommentInputField from "../../components/molecules/CommentInputField";
 
 type Props = {
@@ -9,16 +8,8 @@ type Props = {
 };
 
 const CommentInputFieldContainer: FC<Props> = ({ focusOnInput }) => {
-  const [userImage, setUserImage] = useState("exsample.com");
-  const selectUid = (state: RootState) => state.userReducer.uid;
-  const uid = useSelector(selectUid);
-
-  //自分のアイコン画像を取得
-  useEffect(() => {
-    accountFireStore.getUserImage(uid).then((res) => {
-      res && setUserImage(res);
-    });
-  }, []);
+  const selectUserImage = (state: RootState) => state.userReducer.userImg;
+  const userImage = useSelector(selectUserImage);
 
   return (
     <CommentInputField userImage={userImage} focusOnInput={focusOnInput} />

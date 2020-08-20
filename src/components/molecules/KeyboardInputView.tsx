@@ -8,7 +8,7 @@ type Props = {
   textInputRef: React.MutableRefObject<TextInput | null>;
   inputValue: string;
   isInputForm: boolean;
-  onSubmit: () => void;
+  addComment: () => void;
   onBlur: () => void;
   onChangeText: (value: string) => void;
 };
@@ -18,7 +18,7 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
     textInputRef,
     inputValue,
     isInputForm,
-    onSubmit,
+    addComment,
     onBlur,
     onChangeText,
   } = props;
@@ -35,11 +35,10 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
         placeholder="コメントを入力..."
         style={styles.input}
         onBlur={() => onBlur()}
-        // onSubmitEditing={() => onSubmit()}
         onChangeText={(value) => onChangeText(value)}
       />
-      <Text style={styles.sendIcon}>
-        <FontAwesome name="send" size={17} />
+      <Text style={styles.sendIcon} onPress={() => addComment()}>
+        <FontAwesome name="send" size={20} />
       </Text>
     </KeyboardStickyView>
   );
