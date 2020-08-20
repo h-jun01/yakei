@@ -66,7 +66,6 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
           />
         </View>
         <CommentInputField focusOnInput={focusOnInput} />
-        {/* <Text onPress={() => focusOnInput()}>適当なボタン</Text> */}
         {commentDataList !== undefined &&
           commentDataList.map((item, index) => (
             <View key={index}>
@@ -78,7 +77,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             </View>
           ))}
       </ScrollView>
-      <KeyboardInputView textInputRef={textInputRef} />
+      <KeyboardInputView textInputRef={textInputRef} photo_id={photo_id} />
     </View>
   );
 };

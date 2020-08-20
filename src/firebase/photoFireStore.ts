@@ -1,6 +1,6 @@
 import firebase from "firebase";
-import { db } from "./firebase";
 import geohash from "ngeohash";
+import { db, FieldValue } from "./firebase";
 
 type CommentDataList = {
   uid: string;
@@ -16,6 +16,12 @@ type PhotoFireStore = {
     latitude: number,
     longitude: number
   ) => Promise<firebase.firestore.DocumentData[]>;
+  upDateCommentList: (
+    photo_id: string,
+    uid: string,
+    message: string,
+    createTime: string
+  ) => Promise<void>;
 };
 
 const photo = db.collection("photos");
@@ -48,7 +54,6 @@ export const photoFireStore: PhotoFireStore = {
         return await res.data()?.comment_list;
       });
   },
-
   // 表示エリア付近の写真取得
   getAreaPhotoList: async (latitude: number, longitude: number) => {
     // 1マイル分の緯度経度(1マイル＝1.60934km)
@@ -72,5 +77,19 @@ export const photoFireStore: PhotoFireStore = {
       allPhotoLis.push(doc.data());
     });
     return allPhotoLis;
+  //コメントを投稿
+  upDateCommentList: async (
+    photo_id: string,
+    uid: string,
+    message: string,
+    createTime: string
+  ) => {
+    await photo.doc(photo_id).update({
+      comment_list: FieldValue.arrayUnion({
+        uid,
+        message,
+        createTime,
+      }),
+    });
   },
 };
