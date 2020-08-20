@@ -56,34 +56,36 @@ const Home: FC<Props> = ({ ...props }) => {
   useEffect(() => {
     mapAnimation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-      if (index >= photoSnapList.length) {
-        index = photoSnapList.length - 1;
-      }
-      if (index <= 0) {
-        index = 0;
-      }
-
-      clearTimeout(regionTimeout);
-
-      regionTimeout = setTimeout(() => {
-        if (mapIndex !== index) {
-          mapIndex = index;
-          const latitude = photoSnapList[index]["latitude"];
-          const longitude = photoSnapList[index]["longitude"];
-          const coordinate = {
-            latitude,
-            longitude,
-          };
-          _map.current.animateToRegion(
-            {
-              ...coordinate,
-              latitudeDelta: region.latitudeDelta,
-              longitudeDelta: region.longitudeDelta,
-            },
-            350
-          );
+      if (photoSnapList) {
+        if (index >= photoSnapList.length) {
+          index = photoSnapList.length - 1;
         }
-      }, 10);
+        if (index <= 0) {
+          index = 0;
+        }
+
+        clearTimeout(regionTimeout);
+
+        regionTimeout = setTimeout(() => {
+          if (mapIndex !== index) {
+            mapIndex = index;
+            const latitude = photoSnapList[index]["latitude"];
+            const longitude = photoSnapList[index]["longitude"];
+            const coordinate = {
+              latitude,
+              longitude,
+            };
+            _map.current.animateToRegion(
+              {
+                ...coordinate,
+                latitudeDelta: region.latitudeDelta,
+                longitudeDelta: region.longitudeDelta,
+              },
+              350
+            );
+          }
+        }, 10);
+      }
     });
   });
 
