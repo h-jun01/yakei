@@ -77,7 +77,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             </View>
           ))}
       </ScrollView>
-      <KeyboardInputView textInputRef={textInputRef} />
+      <KeyboardInputView textInputRef={textInputRef} photo_id={photo_id} />
     </View>
   );
 };

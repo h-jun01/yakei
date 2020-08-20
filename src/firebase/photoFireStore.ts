@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import { db } from "./firebase";
+import { db, FieldValue } from "./firebase";
 
 type CommentDataList = {
   uid: string;
@@ -11,6 +11,12 @@ type PhotoFireStore = {
   getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
   getAllPhotoList: () => Promise<firebase.firestore.DocumentData[]>;
   getCommentList: (photo_id: string) => Promise<CommentDataList[]>;
+  upDateCommentList: (
+    photo_id: string,
+    uid: string,
+    message: string,
+    createTime: string
+  ) => Promise<void>;
 };
 
 const photo = db.collection("photos");
@@ -42,5 +48,20 @@ export const photoFireStore: PhotoFireStore = {
       .then(async (res) => {
         return await res.data()?.comment_list;
       });
+  },
+  //コメントを投稿
+  upDateCommentList: async (
+    photo_id: string,
+    uid: string,
+    message: string,
+    createTime: string
+  ) => {
+    await photo.doc(photo_id).update({
+      comment_list: FieldValue.arrayUnion({
+        uid,
+        message,
+        createTime,
+      }),
+    });
   },
 };

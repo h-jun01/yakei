@@ -8,7 +8,7 @@ type Props = {
   textInputRef: React.MutableRefObject<TextInput | null>;
   inputValue: string;
   isInputForm: boolean;
-  onSubmit: () => void;
+  addComment: () => void;
   onBlur: () => void;
   onChangeText: (value: string) => void;
 };
@@ -18,7 +18,7 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
     textInputRef,
     inputValue,
     isInputForm,
-    onSubmit,
+    addComment,
     onBlur,
     onChangeText,
   } = props;
@@ -37,7 +37,7 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
         onBlur={() => onBlur()}
         onChangeText={(value) => onChangeText(value)}
       />
-      <Text style={styles.sendIcon} onPress={() => onSubmit()}>
+      <Text style={styles.sendIcon} onPress={() => addComment()}>
         <FontAwesome name="send" size={20} />
       </Text>
     </KeyboardStickyView>
