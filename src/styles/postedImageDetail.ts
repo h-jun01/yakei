@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { deviceWidth } from "../utilities/dimensions";
+import { deviceWidth, deviceHeight } from "../utilities/dimensions";
 import { baseColor } from "./thema/colors";
 
 export const styles = StyleSheet.create({
@@ -93,8 +93,8 @@ export const styles = StyleSheet.create({
   },
   sendIcon: {
     marginLeft: "auto",
-    marginRight: 15,
-    marginBottom: 5,
+    paddingRight: 15,
+    paddingBottom: 5,
     color: "#606060",
   },
   commentBox: {

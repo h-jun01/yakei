@@ -35,11 +35,10 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
         placeholder="コメントを入力..."
         style={styles.input}
         onBlur={() => onBlur()}
-        // onSubmitEditing={() => onSubmit()}
         onChangeText={(value) => onChangeText(value)}
       />
-      <Text style={styles.sendIcon}>
-        <FontAwesome name="send" size={17} />
+      <Text style={styles.sendIcon} onPress={() => onSubmit()}>
+        <FontAwesome name="send" size={20} />
       </Text>
     </KeyboardStickyView>
   );

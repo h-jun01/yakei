@@ -3,7 +3,11 @@ import { TextInput, Keyboard } from "react-native";
 import KeyboardInputView from "../../components/molecules/KeyboardInputView";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
-import { setInputCommentValue, setIsInputForm } from "../../actions/postedData";
+import {
+  setInputCommentValue,
+  setIsInputForm,
+  setCommentDataList,
+} from "../../actions/postedData";
 
 type Props = {
   textInputRef: React.MutableRefObject<TextInput | null>;
@@ -12,17 +16,21 @@ type Props = {
 const KeyboardInputViewContainer: FC<Props> = ({ textInputRef }) => {
   const selectInputValue = (state: RootState) =>
     state.postedDataReducer.inputValue;
-  const selrctIsInputForm = (state: RootState) =>
+  const selectIsInputForm = (state: RootState) =>
     state.postedDataReducer.isInputForm;
+  const selrctCommentDataList = (state: RootState) =>
+    state.postedDataReducer.commentDataList;
   const inputValue = useSelector(selectInputValue);
-  const isInputForm = useSelector(selrctIsInputForm);
+  const isInputForm = useSelector(selectIsInputForm);
+  const commentDataList = useSelector(selrctCommentDataList);
 
   const dispatch = useDispatch();
 
   //コメントを送信したとき
   const onSubmit = () => {
-    Keyboard.dismiss();
+    dispatch(setInputCommentValue(""));
     dispatch(setIsInputForm(false));
+    Keyboard.dismiss();
   };
 
   //キーボードが消えたとき
