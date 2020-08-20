@@ -77,6 +77,7 @@ export const photoFireStore: PhotoFireStore = {
       allPhotoLis.push(doc.data());
     });
     return allPhotoLis;
+  },
   //コメントを投稿
   upDateCommentList: async (
     photo_id: string,
