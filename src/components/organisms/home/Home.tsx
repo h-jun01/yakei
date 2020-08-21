@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useRef } from "react";
 import {
   AppRegistry,
   StyleSheet,
@@ -40,7 +40,6 @@ const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 let mapIndex = 0;
-let mapAnimation = new Animated.Value(0);
 let regionTimeout;
 let _map;
 
@@ -49,6 +48,7 @@ const Home: FC<Props> = ({ ...props }) => {
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
   const [photoSnapFlag, setPhotoSnapFlag] = useState(false);
   const [photoSnapList, setPhotoSnapList] = useState<any>();
+  const mapAnimation = useRef(new Animated.Value(0)).current;
 
   _map = React.useRef(null);
   const _scrollView = React.useRef(null);
@@ -91,7 +91,6 @@ const Home: FC<Props> = ({ ...props }) => {
 
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
-    console.log(region);
     if (region.longitudeDelta > 0.1) {
       await photoFireStore
         .getAreaPhotoList(region.latitude, region.longitude)
@@ -134,6 +133,7 @@ const Home: FC<Props> = ({ ...props }) => {
             allPhotoList.map((data) => {
               return (
                 <OriginMarker
+                  key={data.uid}
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
@@ -178,6 +178,7 @@ const Home: FC<Props> = ({ ...props }) => {
             myPhotoList.map((data) => {
               return (
                 <OriginMarker
+                  key={data.uid}
                   coordinate={{
                     latitude: data.latitude,
                     longitude: data.longitude,
@@ -216,20 +217,25 @@ const Home: FC<Props> = ({ ...props }) => {
             paddingHorizontal:
               Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
           }}
-          onScroll={Animated.event([
-            {
-              nativeEvent: {
-                contentOffset: {
-                  x: mapAnimation,
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    x: mapAnimation,
+                  },
                 },
               },
-            },
-          ])}
+            ],
+            {
+              useNativeDriver: true,
+            }
+          )}
         >
           {photoSnapList &&
             photoSnapList.map((data) => {
               return (
-                <View style={styles.card}>
+                <View key={data.photo_id} style={styles.card}>
                   <Image
                     source={{
                       uri: data.url,
