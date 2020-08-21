@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
-import { baseColor,utilityColor } from "../thema/colors"
-import { Size } from "../thema/fonts"
+import { baseColor, utilityColor } from "../thema/colors";
+import { Size } from "../thema/fonts";
 import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 
 export const styles = StyleSheet.create({
@@ -49,6 +49,8 @@ export const styles = StyleSheet.create({
   authInput: {
     marginBottom: 20,
     padding: 10,
+    // paddingTop: 10,
+    // paddingBottom:10,
     borderRadius: 5,
     borderBottomWidth: 1,
     borderBottomColor: utilityColor.border,

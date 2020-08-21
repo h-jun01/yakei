@@ -50,7 +50,9 @@ const Intro: FC<Props> = ({ navigation }) => {
     <AppIntroSlider
       renderItem={_renderItem}
       data={slides}
+      showSkipButton={true}
       onDone={() => navigation.navigate("signUp")}
+      onSkip={() => navigation.navigate("signUp")}
     />
   );
 };

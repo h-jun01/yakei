@@ -1,7 +1,5 @@
 import React, { FC } from "react";
-import User, {
-  UserScreenNavigationProp,
-} from "../../../components/organisms/user/User";
+import User from "../../../components/organisms/user/User";
 import { RootState } from "../../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -12,7 +10,7 @@ import { photoFireStore } from "../../../firebase/photoFireStore";
 import { setPhotoListData } from "../../../actions/photo";
 
 type Props = {
-  navigation: UserScreenNavigationProp;
+  navigation: any;
 };
 
 const ContainerUser: FC<Props> = ({ ...props }) => {
@@ -25,11 +23,14 @@ const ContainerUser: FC<Props> = ({ ...props }) => {
     state.userReducer.selfIntroduction;
   const selectPhotoDataList = (state: RootState) =>
     state.myPhotoReducer.photoDataList;
+  const selectFavoriteList = (state: RootState) =>
+    state.userReducer.favoriteList;
   const name = useSelector(selectName);
   const image = useSelector(selectImage);
   const headerImage = useSelector(selectHeaderImage);
   const selfIntroduction = useSelector(selectSelfIntroduction);
   const photoDataList = useSelector(selectPhotoDataList);
+  const favoriteList = useSelector(selectFavoriteList);
 
   const dispatch = useDispatch();
 
@@ -54,6 +55,7 @@ const ContainerUser: FC<Props> = ({ ...props }) => {
       headerImage={headerImage}
       selfIntroduction={selfIntroduction}
       photoDataList={photoDataList}
+      favoriteList={favoriteList}
     />
   );
 };
