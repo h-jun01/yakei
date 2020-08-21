@@ -4,6 +4,7 @@ export const Size = {
   Small: 12,
   NormalS: 13,
   Normal: 14,
+  NormalL: 15,
   Large: 16,
   Xlarge: 18,
   Xxlarge: 20,

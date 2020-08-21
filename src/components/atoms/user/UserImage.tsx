@@ -13,11 +13,9 @@ const UserImage: FC<Props> = ({ userImage, size }) => {
     <Image
       source={{ uri: userImage }}
       style={{
-        width: size + 10,
-        height: size + 10,
+        width: size,
+        height: size,
         borderRadius: 180,
-        borderWidth: 9,
-        borderColor: baseColor.base,
       }}
       PlaceholderContent={<ActivityIndicator />}
     />
