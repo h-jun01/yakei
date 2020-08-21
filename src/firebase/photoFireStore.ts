@@ -38,12 +38,12 @@ export const photoFireStore: PhotoFireStore = {
   },
   // 全てのユーザーの写真取得
   getAllPhotoList: async () => {
-    const allPhotoLis: firebase.firestore.DocumentData[] = [];
+    const allPhotoList: firebase.firestore.DocumentData[] = [];
     const querySnapshot = await photo.get();
     querySnapshot.forEach((doc) => {
-      allPhotoLis.push(doc.data());
+      allPhotoList.push(doc.data());
     });
-    return allPhotoLis;
+    return allPhotoList;
   },
   //コメントを取得
   getCommentList: async (photo_id: string) => {
@@ -67,16 +67,16 @@ export const photoFireStore: PhotoFireStore = {
     const lower = geohash.encode(lowerLat, lowerLon);
     const upper = geohash.encode(upperLat, upperLon);
 
-    const allPhotoLis: firebase.firestore.DocumentData[] = [];
+    const allPhotoList: firebase.firestore.DocumentData[] = [];
     const querySnapshot = await photo
       .where("geohash", ">=", lower)
       .where("geohash", "<=", upper)
       .limit(5)
       .get();
     querySnapshot.forEach((doc) => {
-      allPhotoLis.push(doc.data());
+      allPhotoList.push(doc.data());
     });
-    return allPhotoLis;
+    return allPhotoList;
   },
   //コメントを投稿
   upDateCommentList: async (
