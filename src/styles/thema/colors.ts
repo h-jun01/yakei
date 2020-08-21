@@ -21,6 +21,6 @@ export const utilityColor = {
   editBox: 'rgb(51, 124, 234)',
   placeholderText: 'rgba(204, 204, 204,0.7)',
   inputLabel: '#A7ABB1',
-  overlay: 'rgba(65,65,65,0.6)',
-  strongOverlay: 'rgba(0,0,0,0.4)',
+  overlay: 'rgba(65,65,65,0.4)',
+  strongOverlay: 'rgba(0,0,0,0.6)',
 }
