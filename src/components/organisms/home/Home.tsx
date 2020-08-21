@@ -1,10 +1,24 @@
-import React, { FC, useState } from "react";
-import { StyleSheet } from "react-native";
+import React, { FC, useState, useRef } from "react";
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Animated,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { Container } from "native-base";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 import MapView from "react-native-map-clustering";
 import LocationButtonView from "./PresentLocationButton";
 import OriginMarker from "../../atoms/home/OriginMarker";
+import { useEffect } from "react";
+import { useTheme } from "@react-navigation/native";
+import { photoFireStore } from "../../../firebase/photoFireStore";
 
 type Region = {
   latitude: number;
@@ -20,18 +34,90 @@ type Props = {
   myPhotoList: firebase.firestore.DocumentData[];
 };
 
+const { width, height } = Dimensions.get("window");
+const CARD_HEIGHT = 220;
+const CARD_WIDTH = width * 0.8;
+const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
+
+let mapIndex = 0;
+let regionTimeout;
+let _map;
+
 const Home: FC<Props> = ({ ...props }) => {
   const { navigation, region, allPhotoList, myPhotoList } = props;
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
+  const [photoSnapFlag, setPhotoSnapFlag] = useState(false);
+  const [photoSnapList, setPhotoSnapList] = useState<any>();
+  const mapAnimation = useRef(new Animated.Value(0)).current;
+
+  _map = React.useRef(null);
+  const _scrollView = React.useRef(null);
+
+  useEffect(() => {
+    mapAnimation.addListener(({ value }) => {
+      let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
+      if (photoSnapList) {
+        if (index >= photoSnapList.length) {
+          index = photoSnapList.length - 1;
+        }
+        if (index <= 0) {
+          index = 0;
+        }
+
+        clearTimeout(regionTimeout);
+
+        regionTimeout = setTimeout(() => {
+          if (mapIndex !== index) {
+            mapIndex = index;
+            const latitude = photoSnapList[index]["latitude"];
+            const longitude = photoSnapList[index]["longitude"];
+            const coordinate = {
+              latitude,
+              longitude,
+            };
+            _map.current.animateToRegion(
+              {
+                ...coordinate,
+                latitudeDelta: region.latitudeDelta,
+                longitudeDelta: region.longitudeDelta,
+              },
+              350
+            );
+          }
+        }, 10);
+      }
+    });
+  });
+
+  // 地図移動時付近1マイルの情報取得
+  const handleRegionChange = async (region: Region) => {
+    if (region.longitudeDelta > 0.1) {
+      await photoFireStore
+        .getAreaPhotoList(region.latitude, region.longitude)
+        .then((res) => {
+          if (res.length === 0) {
+            setPhotoSnapFlag(false);
+          } else {
+            setPhotoSnapFlag(true);
+            setPhotoSnapList(res);
+          }
+        });
+    } else {
+      setPhotoSnapFlag(false);
+    }
+  };
 
   return (
     <Container>
+      {/* 全員 */}
       {photoDisplayFlag && (
         <MapView
+          ref={_map}
           style={{ ...StyleSheet.absoluteFillObject }}
           provider={PROVIDER_GOOGLE}
           showsUserLocation
           initialRegion={region}
+          onRegionChangeComplete={handleRegionChange}
           onClusterPress={(cluster, markers) => {
             const photoDataList: firebase.firestore.DocumentData[] = [];
             markers?.forEach((value) => {
@@ -47,6 +133,7 @@ const Home: FC<Props> = ({ ...props }) => {
             allPhotoList.map((data) => {
               return (
                 <OriginMarker
+                  key={data.uid}
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
@@ -66,13 +153,16 @@ const Home: FC<Props> = ({ ...props }) => {
             })}
         </MapView>
       )}
+      {/* 利用ユーザー */}
       {!photoDisplayFlag && (
         <MapView
+          ref={_map}
           style={{ ...StyleSheet.absoluteFillObject }}
           clusterColor="#ff0000"
           provider={PROVIDER_GOOGLE}
           showsUserLocation
           initialRegion={region}
+          onRegionChangeComplete={handleRegionChange}
           onClusterPress={(cluster, markers) => {
             const photoDataList: firebase.firestore.DocumentData[] = [];
             markers?.forEach((value) => {
@@ -88,6 +178,7 @@ const Home: FC<Props> = ({ ...props }) => {
             myPhotoList.map((data) => {
               return (
                 <OriginMarker
+                  key={data.uid}
                   coordinate={{
                     latitude: data.latitude,
                     longitude: data.longitude,
@@ -107,6 +198,57 @@ const Home: FC<Props> = ({ ...props }) => {
             })}
         </MapView>
       )}
+      {photoSnapFlag && (
+        <Animated.ScrollView
+          horizontal
+          scrollEventThrottle={1}
+          showsHorizontalScrollIndicator={false}
+          style={styles.scrollView}
+          pagingEnabled
+          snapToInterval={CARD_WIDTH + 20}
+          snapToAlignment="center"
+          contentInset={{
+            top: 0,
+            left: SPACING_FOR_CARD_INSET,
+            bottom: 0,
+            right: SPACING_FOR_CARD_INSET,
+          }}
+          contentContainerStyle={{
+            paddingHorizontal:
+              Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
+          }}
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    x: mapAnimation,
+                  },
+                },
+              },
+            ],
+            {
+              useNativeDriver: true,
+            }
+          )}
+        >
+          {photoSnapList &&
+            photoSnapList.map((data) => {
+              return (
+                <View key={data.photo_id} style={styles.card}>
+                  <Image
+                    source={{
+                      uri: data.url,
+                    }}
+                    style={styles.cardImage}
+                    resizeMode="cover"
+                  />
+                  <Text>{data.photo_id}</Text>
+                </View>
+              );
+            })}
+        </Animated.ScrollView>
+      )}
       <LocationButtonView
         onPressIcon={() => {
           setPhotoDisplayFlag(!photoDisplayFlag);
@@ -116,4 +258,33 @@ const Home: FC<Props> = ({ ...props }) => {
   );
 };
 
+const styles = StyleSheet.create({
+  scrollView: {
+    position: "absolute",
+    bottom: 100,
+    left: 0,
+    right: 0,
+    paddingVertical: 10,
+  },
+  card: {
+    // padding: 10,
+    elevation: 2,
+    backgroundColor: "#FFF",
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    marginHorizontal: 10,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
+    height: CARD_HEIGHT - 50,
+    width: CARD_WIDTH,
+    overflow: "hidden",
+  },
+  cardImage: {
+    flex: 3,
+    width: "100%",
+    height: "100%",
+    alignSelf: "center",
+  },
+});
 export default Home;

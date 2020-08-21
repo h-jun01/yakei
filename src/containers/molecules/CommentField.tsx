@@ -25,7 +25,9 @@ const CommentFieldContainer: FC<Props> = ({ ...props }) => {
       .catch(() => {
         setPostUserName("Anonymous");
       });
-  }, []);
+
+    return setPostUserName("");
+  }, [uid]);
 
   //コメントを投稿したユーザのアイコン画像を取得
   useEffect(() => {
@@ -37,7 +39,9 @@ const CommentFieldContainer: FC<Props> = ({ ...props }) => {
       .catch(() => {
         setPostUserImage("https://example.com");
       });
-  }, []);
+
+    return setPostUserImage("https://example.com");
+  }, [uid]);
 
   return (
     <CommentField

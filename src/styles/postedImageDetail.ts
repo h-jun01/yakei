@@ -1,9 +1,11 @@
 import { StyleSheet } from "react-native";
-import { deviceWidth } from "../utilities/dimensions";
+import { deviceWidth, deviceHeight } from "../utilities/dimensions";
+import { baseColor } from "./thema/colors";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: baseColor.base,
   },
   userIcon: {
     width: 50,
@@ -17,9 +19,23 @@ export const styles = StyleSheet.create({
   postItem: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 10,
   },
-
-  keyboardView: {
+  favorite: {
+    color: "#fff",
+  },
+  favoriteNumber: {
+    color: "#fff",
+    fontSize: 15,
+  },
+  location: {
+    color: "#fff",
+    marginLeft: 7,
+  },
+  keyboardViewFalse: {
+    display: "none",
     flexDirection: "row",
     width: deviceWidth,
     height: "auto",
@@ -27,9 +43,41 @@ export const styles = StyleSheet.create({
     paddingLeft: 7,
     backgroundColor: "#fff",
   },
+  keyboardViewTrue: {
+    flexDirection: "row",
+    width: deviceWidth,
+    height: "auto",
+    paddingTop: 7,
+    paddingLeft: 7,
+    backgroundColor: "#fff",
+  },
+  commentInputField: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 20,
+    marginLeft: 10,
+  },
+  tapInputField: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: deviceWidth / 1.3,
+    minHeight: 30,
+    borderRadius: 15,
+    paddingTop: 11,
+    paddingBottom: 11,
+    paddingLeft: 10,
+    marginLeft: 15,
+    backgroundColor: "#fff",
+  },
+  tapInputText: {
+    width: deviceWidth,
+    color: "#505050",
+  },
   input: {
     width: deviceWidth / 1.15,
     minHeight: 30,
+    maxHeight: 150,
     height: "auto",
     marginBottom: 7,
     paddingTop: 10,
@@ -45,8 +93,36 @@ export const styles = StyleSheet.create({
   },
   sendIcon: {
     marginLeft: "auto",
-    marginRight: 15,
-    marginBottom: 5,
+    paddingRight: 15,
+    paddingBottom: 5,
     color: "#606060",
+  },
+  commentBox: {
+    flexDirection: "row",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#808080",
+    borderColor: "#000",
+    width: deviceWidth,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 10,
+  },
+  commentData: {
+    marginLeft: 15,
+    marginRight: 10,
+  },
+  userName: {
+    color: "#fff",
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  message: {
+    color: "#e0e0e0",
+    marginBottom: 10,
+    width: deviceWidth / 1.25,
+  },
+  time: {
+    fontSize: 12,
+    color: "#C0C0C0",
   },
 });

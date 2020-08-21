@@ -1,5 +1,9 @@
-import React, { FC } from "react";
-import { useInput } from "../../utilities/hooks/input";
+import React, { FC, useEffect, useRef } from "react";
+import { TextInput } from "react-native";
+import { RootState } from "../../reducers/index";
+import { useSelector, useDispatch } from "react-redux";
+import { photoFireStore } from "../../firebase/photoFireStore";
+import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 
 type Props = {
@@ -15,11 +19,28 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     favoriteNumber,
     latitude,
     longitude,
-    commentList,
   } = route.params;
 
-  const inputValue = useInput("");
-  const commentCount = commentList.length;
+  const textInputRef = useRef<null | TextInput>(null);
+
+  const selrctCommentDataList = (state: RootState) =>
+    state.postedDataReducer.commentDataList;
+  const commentDataList = useSelector(selrctCommentDataList);
+
+  const dispatch = useDispatch();
+
+  // コメント取得
+  useEffect(() => {
+    photoFireStore.getCommentList(photo_id).then((res) => {
+      res && dispatch(setCommentDataList(res.reverse()));
+    });
+  }, [photo_id, setCommentDataList]);
+
+  // コメント入力時にフォーカスさせる
+  const focusOnInput = () => {
+    textInputRef.current?.focus();
+    dispatch(setIsInputForm(true));
+  };
 
   return (
     <PostedImageDetail
@@ -30,9 +51,9 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
       favoriteNumber={favoriteNumber}
       latitude={latitude}
       longitude={longitude}
-      commentList={commentList}
-      commentCount={commentCount}
-      inputValue={inputValue}
+      commentDataList={commentDataList}
+      textInputRef={textInputRef}
+      focusOnInput={focusOnInput}
     />
   );
 };
