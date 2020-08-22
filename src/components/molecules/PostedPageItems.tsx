@@ -39,11 +39,12 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
 
   return (
     <View style={styles.postItem}>
-      <Text>
-        <EvilIcons name="heart" size={20} />
+      <Text style={styles.PostIcon}>
+        <EvilIcons name="heart" size={21} />
       </Text>
-      <Text>{favoriteNumber}</Text>
+      <Text style={styles.stateNum}>{favoriteNumber}</Text>
       <Text
+        style={styles.PostIcon}
         onPress={() =>
           navigation.navigate("post", {
             photo_id,
@@ -59,8 +60,8 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
       >
         <EvilIcons name="comment" size={20} />
       </Text>
-      <Text>{commentCount}</Text>
-      <Text>
+      <Text style={styles.stateNum}>{commentCount}</Text>
+      <Text style={styles.PostIcon}>
         <EvilIcons name="location" size={20} />
       </Text>
     </View>

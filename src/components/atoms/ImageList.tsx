@@ -33,10 +33,10 @@ const ImageList: FC<Props> = ({ ...props }) => {
   const { photoDataList, navigation } = props;
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <View>
         {photoDataList.map((item, index) => (
-          <View key={index}>
+          <View style={styles.allWrap} key={index}>
             <InformationUserPosted
               createTime={item.createTime}
               uid={item.uid}

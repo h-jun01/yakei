@@ -73,23 +73,23 @@ const User: FC<Props> = ({ ...props }) => {
               <Icon name="cog" size={23} color={"#fff"} />
             </Text>
           </View>
-          {/* お気に入り */}
-          <View style={styles.userInfo}>
-            {favoriteList !== undefined &&
-              favoriteList.map((item, index) => (
-                <View key={index}>
-                  <Image
-                    style={styles.imgItem}
-                    PlaceholderContent={<ActivityIndicator />}
-                    source={{
-                      uri: item.url,
-                    }}
-                  />
-                </View>
-              ))}
-          </View>
         </View>
 
+        {/* お気に入り */}
+        <View style={styles.imgItemWrap}>
+          {favoriteList !== undefined &&
+            favoriteList.map((item, index) => (
+              <View key={index}>
+                <Image
+                  style={styles.imgItem}
+                  PlaceholderContent={<ActivityIndicator />}
+                  source={{
+                    uri: item.url,
+                  }}
+                />
+              </View>
+            ))}
+        </View>
         <View style={styles.imgItemWrap}>
           {photoDataList !== undefined &&
             photoDataList.map((item, index) => (
