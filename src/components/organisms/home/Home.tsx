@@ -10,9 +10,10 @@ import {
   Dimensions,
   TouchableOpacity,
   Platform,
+  ImageBackground,
 } from "react-native";
 import { Container } from "native-base";
-import { PROVIDER_GOOGLE } from "react-native-maps";
+import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
 import LocationButtonView from "./PresentLocationButton";
 import OriginMarker from "../../atoms/home/OriginMarker";
@@ -91,7 +92,7 @@ const Home: FC<Props> = ({ ...props }) => {
 
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
-    if (region.longitudeDelta > 0.1) {
+    if (region.longitudeDelta < 0.2) {
       await photoFireStore
         .getAreaPhotoList(region.latitude, region.longitude)
         .then((res) => {
@@ -133,7 +134,7 @@ const Home: FC<Props> = ({ ...props }) => {
             allPhotoList.map((data) => {
               return (
                 <OriginMarker
-                  key={data.uid}
+                  key={data.photo_id}
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
@@ -148,6 +149,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}
+                  image={require("../../../../assets/pin02.png")}
                 ></OriginMarker>
               );
             })}

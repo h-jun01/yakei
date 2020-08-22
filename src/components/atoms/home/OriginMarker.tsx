@@ -1,5 +1,12 @@
 import React from "react";
 import { MarkerProps, Marker } from "react-native-maps";
+import {
+  Animated,
+  ImageRequireSource,
+  ImageURISource,
+  NativeSyntheticEvent,
+  ViewProperties,
+} from "react-native";
 
 type MarkerDate = {
   markerDate: {
@@ -16,6 +23,7 @@ type MarkerDate = {
     latitude: number;
     longitude: number;
   };
+  image?: ImageURISource | ImageRequireSource;
 } & MarkerProps;
 
 class OriginMarker extends React.Component<MarkerDate> {
@@ -30,6 +38,7 @@ class OriginMarker extends React.Component<MarkerDate> {
           latitude: this.props.coordinate.latitude,
           longitude: this.props.coordinate.longitude,
         }}
+        image={this.props.image}
       ></Marker>
     );
   }
