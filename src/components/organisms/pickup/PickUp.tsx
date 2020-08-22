@@ -11,7 +11,7 @@ import { styles } from "../../../styles/pickUp/pickUp";
 type PickUpItemList = {
   title: string;
   time: string;
-  url: string;
+  url: any;
   pickUpDataList: any[];
 };
 
@@ -34,9 +34,7 @@ const PickUp: FC<Props> = ({ navigation, pickUpItemList }) => {
         >
           <Image
             style={styles.image}
-            source={{
-              uri: item.url,
-            }}
+            source={item.url}
             PlaceholderContent={<ActivityIndicator />}
           />
           <Text>{item.title}</Text>
