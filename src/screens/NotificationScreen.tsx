@@ -13,7 +13,7 @@ const NotificationScreen: FC = () => {
         options={{
           headerTintColor: "#fff",
           headerStyle: {
-            backgroundColor: "#141D2C",
+            backgroundColor: "#181F32",
           },
         }}
       />

@@ -23,7 +23,7 @@ type CommentDataList = {
 type Props = {
   photo_id: string;
   uid: string;
-  createTime: string;
+  create_time: string;
   url: string;
   favoriteNumber: number;
   latitude: number;
@@ -37,7 +37,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
   const {
     photo_id,
     uid,
-    createTime,
+    create_time,
     url,
     favoriteNumber,
     latitude,
@@ -51,7 +51,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     <View style={styles.container}>
       <ScrollView>
         <View>
-          <InformationUserPosted createTime={createTime} uid={uid} />
+          <InformationUserPosted create_time={create_time} uid={uid} />
           <Image
             style={styles.image}
             source={{

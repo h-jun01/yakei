@@ -14,7 +14,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
   const {
     photo_id,
     uid,
-    createTime,
+    create_time,
     url,
     favoriteNumber,
     latitude,
@@ -46,7 +46,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     <PostedImageDetail
       photo_id={photo_id}
       uid={uid}
-      createTime={createTime}
+      create_time={create_time}
       url={url}
       favoriteNumber={favoriteNumber}
       latitude={latitude}

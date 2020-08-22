@@ -22,7 +22,7 @@ import PrivacyPolicy from "./components/organisms/user/PrivacyPolicy";
 import PasswordReset from "./components/organisms/user/PasswordReset";
 import LodingScreen from "./components/LoadingScreen";
 import HomeScreen from "./screens/HomeScreen";
-import SearchScreen from "./screens/SearchScreen";
+import PickUpScreen from "./screens/PickUpScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
 
@@ -69,7 +69,7 @@ const ScreenSwitcher: FC = () => {
         <Fragment>
           <Tab.Navigator tabBar={(props) => <BottomNav {...props} />}>
             <Tab.Screen name="スポット" component={HomeScreen} />
-            <Tab.Screen name="ギャラリー" component={SearchScreen} />
+            <Tab.Screen name="ギャラリー" component={PickUpScreen} />
             <Tab.Screen name="Plus" component={HomeScreen} />
             <Tab.Screen name="通知" component={NotificationScreen} />
             <Tab.Screen name="マイページ" component={UserScreen} />
@@ -121,7 +121,7 @@ const ScreenSwitcher: FC = () => {
               headerBackTitleVisible: false,
               headerTintColor: "#fff",
               headerStyle: {
-                backgroundColor: "#141D2C",
+                backgroundColor: "#181F32",
               },
             }}
           />

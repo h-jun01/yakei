@@ -4,11 +4,11 @@ import InformationUserPosted from "../../components/molecules/InformationUserPos
 
 type Props = {
   uid: string;
-  createTime: string;
+  create_time: string;
 };
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
-  const { uid, createTime } = props;
+  const { uid, create_time } = props;
   const [postUserName, setPostUserName] = useState<string>("");
   const [postUserImage, setPostUserImage] = useState<string>(
     "https://example.com"
@@ -42,7 +42,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
     <InformationUserPosted
       postUserName={postUserName}
       postUserImage={postUserImage}
-      createTime={createTime}
+      create_time={create_time}
     />
   );
 };

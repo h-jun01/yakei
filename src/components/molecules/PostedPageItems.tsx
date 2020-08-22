@@ -14,12 +14,12 @@ type Props = {
   navigation: any;
   photo_id: string;
   uid: string;
-  createTime: string;
+  create_time: string;
   url: string;
   favoriteNumber: number;
   latitude: number;
   longitude: number;
-  commentList: CommentData[];
+  comment_list: CommentData[];
 };
 
 const PostedPageItems: FC<Props> = ({ ...props }) => {
@@ -27,15 +27,15 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
     navigation,
     photo_id,
     uid,
-    createTime,
+    create_time,
     url,
     favoriteNumber,
     latitude,
     longitude,
-    commentList,
+    comment_list,
   } = props;
 
-  const commentCount: number = commentList.length;
+  const commentCount: number = comment_list.length;
 
   return (
     <View style={styles.postItem}>
@@ -49,12 +49,12 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
           navigation.navigate("post", {
             photo_id,
             uid,
-            createTime,
+            create_time,
             url,
             favoriteNumber,
             latitude,
             longitude,
-            // commentList,
+            comment_list,
           })
         }
       >

@@ -16,12 +16,12 @@ type CommentData = {
 type PhotoDataList = {
   photo_id: string;
   uid: string;
-  createTime: string;
+  create_time: string;
   url: string;
   favoriteNumber: number;
   latitude: number;
   longitude: number;
-  commentList: CommentData[];
+  comment_list: CommentData[];
 };
 
 type Props = {
@@ -38,7 +38,7 @@ const ImageList: FC<Props> = ({ ...props }) => {
         {photoDataList.map((item, index) => (
           <View style={styles.allWrap} key={index}>
             <InformationUserPosted
-              createTime={item.createTime}
+              create_time={item.create_time}
               uid={item.uid}
             />
             <Image
@@ -50,12 +50,12 @@ const ImageList: FC<Props> = ({ ...props }) => {
               navigation={navigation}
               photo_id={item.photo_id}
               uid={item.uid}
-              createTime={item.createTime}
+              create_time={item.create_time}
               url={item.url}
               favoriteNumber={item.favoriteNumber}
               latitude={item.latitude}
               longitude={item.longitude}
-              commentList={item.commentList}
+              comment_list={item.comment_list}
             />
           </View>
         ))}
