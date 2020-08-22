@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Text,
   ActivityIndicator,
+  ImageSourcePropType,
 } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../../styles/pickUp/pickUp";
@@ -11,7 +12,7 @@ import { styles } from "../../../styles/pickUp/pickUp";
 type PickUpItemList = {
   title: string;
   time: string;
-  url: any;
+  url: ImageSourcePropType;
   pickUpDataList: any[];
 };
 

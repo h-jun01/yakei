@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
+import { ImageSourcePropType } from "react-native";
 import { photoFireStore } from "../../../firebase/photoFireStore";
 import { squeezeSpot } from "../../../utilities/spot";
 import PickUp from "../../../components/organisms/pickup/PickUp";
@@ -7,7 +8,7 @@ import geohash from "ngeohash";
 type PickUpItemList = {
   title: string;
   time: string;
-  url: any;
+  url: ImageSourcePropType;
   pickUpDataList: firebase.firestore.DocumentData[];
 };
 
@@ -32,6 +33,7 @@ const PickUpContainer: FC<Props> = ({ navigation }) => {
   const shibuyaPhotoList = squeezeSpot(pickUpDataList, "shibuya");
   const rainbowBridgePhotoList = squeezeSpot(pickUpDataList, "rainbowBridge");
 
+  // Viewデータ
   const pickUpItemList: PickUpItemList[] = [
     {
       title: "渋谷周辺の夜景 9選",
