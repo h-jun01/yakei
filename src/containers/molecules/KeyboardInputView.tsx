@@ -34,8 +34,8 @@ const KeyboardInputViewContainer: FC<Props> = ({ textInputRef, photo_id }) => {
   const addComment = async () => {
     await photoFireStore
       .upDateCommentList(photo_id, uid, inputValue, "test")
-      .then(async () => {
-        await photoFireStore.getCommentList(photo_id).then((res) => {
+      .then(() => {
+        photoFireStore.getCommentList(photo_id).then((res) => {
           res && dispatch(setCommentDataList(res.reverse()));
         });
       });

@@ -13,11 +13,15 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
 import UserImage from "../../atoms/user/UserImage";
 
-type PhotoDataList = {
-  URL: string;
+type FavoriteList = {
   uid: string;
+  photo_id: string;
+  url: string;
+  createTime: string;
   latitude: number;
   longitude: number;
+  geohash: number;
+  favoriteNumber: number;
 };
 
 type Props = {
@@ -27,6 +31,7 @@ type Props = {
   headerImage: string;
   selfIntroduction: string;
   photoDataList: firebase.firestore.DocumentData[];
+  favoriteList: FavoriteList[];
 };
 
 const User: FC<Props> = ({ ...props }) => {
@@ -37,6 +42,7 @@ const User: FC<Props> = ({ ...props }) => {
     headerImage,
     selfIntroduction,
     photoDataList,
+    favoriteList,
   } = props;
 
   return (
@@ -66,6 +72,21 @@ const User: FC<Props> = ({ ...props }) => {
             >
               <Icon name="cog" size={23} color={"#fff"} />
             </Text>
+          </View>
+          {/* お気に入り */}
+          <View style={styles.userInfo}>
+            {favoriteList !== undefined &&
+              favoriteList.map((item, index) => (
+                <View key={index}>
+                  <Image
+                    style={styles.imgItem}
+                    PlaceholderContent={<ActivityIndicator />}
+                    source={{
+                      uri: item.url,
+                    }}
+                  />
+                </View>
+              ))}
           </View>
         </View>
 
