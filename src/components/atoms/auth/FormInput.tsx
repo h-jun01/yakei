@@ -23,6 +23,7 @@ const FormInput: FC<Props> = ({ ...props }) => {
       <TextInput
         style={styles.authInput}
         placeholder={placeholder}
+        autoCapitalize={"none"}
         keyboardType="default"
         returnKeyType="done"
         blurOnSubmit={true}

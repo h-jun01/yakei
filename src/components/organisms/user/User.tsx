@@ -5,9 +5,11 @@ import {
   Button,
   ActivityIndicator,
   ScrollView,
+
 } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../../styles/user/user";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
 import UserImage from "../../atoms/user/UserImage";
 
@@ -46,55 +48,61 @@ const User: FC<Props> = ({ ...props }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.allWrap}>
-        <Image
-          source={{ uri: headerImage }}
-          style={{ width: deviceWidth, height: deviceHeight / 5 }}
-          PlaceholderContent={<ActivityIndicator />}
-        />
         <View style={styles.userInfoWrap}>
-          <View style={styles.iconBox}>
-            <UserImage userImage={image} size={deviceWidth / 5} />
-          </View>
-          <View style={styles.baseLine}>
-            <Button
-              title="設定"
-              onPress={() => navigation.navigate("setting")}
-            />
-          </View>
-          <View style={styles.userInfo}>
+          <Image
+            source={{ uri: headerImage }}
+            style={{ width: deviceWidth, height: deviceHeight / 3 }}
+            PlaceholderContent={<ActivityIndicator />}
+          >
+            <View style={styles.overlay}></View>
+          </Image>
+          <View style={styles.infoWrap}>
+            <View style={styles.iconBox}>
+              <UserImage userImage={image} size={deviceWidth / 5} />
+            </View>
             <Text style={styles.userName}>{name}</Text>
             <Text style={styles.userIntro}>{selfIntroduction}</Text>
-            <Text style={styles.photoText}>写真一覧</Text>
+            <View style={styles.userState}>
+              <Text style={styles.stateText}>投稿数</Text>
+              <Text style={styles.stateText}>いいね数</Text>
+            </View>
+            <Text
+              style={styles.buttonItem}
+              onPress={() => navigation.navigate("setting")}
+            >
+              <Icon name="cog" size={23} color={"#fff"} />
+            </Text>
           </View>
-          <View style={styles.imgItemWrap}>
-            {photoDataList !== undefined &&
-              photoDataList.map((item, index) => (
-                <View key={index}>
-                  <Image
-                    style={styles.imgItem}
-                    PlaceholderContent={<ActivityIndicator />}
-                    source={{
-                      uri: item.url,
-                    }}
-                  />
-                </View>
-              ))}
-          </View>
-          {/* お気に入り */}
-          <View style={styles.userInfo}>
-            {favoriteList !== undefined &&
-              favoriteList.map((item, index) => (
-                <View key={index}>
-                  <Image
-                    style={styles.imgItem}
-                    PlaceholderContent={<ActivityIndicator />}
-                    source={{
-                      uri: item.url,
-                    }}
-                  />
-                </View>
-              ))}
-          </View>
+        </View>
+
+        {/* お気に入り */}
+        <View style={styles.imgItemWrap}>
+          {favoriteList !== undefined &&
+            favoriteList.map((item, index) => (
+              <View key={index}>
+                <Image
+                  style={styles.imgItem}
+                  PlaceholderContent={<ActivityIndicator />}
+                  source={{
+                    uri: item.url,
+                  }}
+                />
+              </View>
+            ))}
+        </View>
+        <View style={styles.imgItemWrap}>
+          {photoDataList !== undefined &&
+            photoDataList.map((item, index) => (
+              <View key={index}>
+                <Image
+                  style={styles.imgItem}
+                  PlaceholderContent={<ActivityIndicator />}
+                  source={{
+                    uri: item.url,
+                  }}
+                />
+              </View>
+            ))}
         </View>
       </View>
     </ScrollView>

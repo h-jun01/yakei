@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableWithoutFeedback,
-  SafeAreaView,
   KeyboardAvoidingView,
   Keyboard,
   Platform,
@@ -48,7 +47,7 @@ const EditProfile: FC<Props> = ({ ...props }) => {
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         keyboardVerticalOffset={deviceHeight / 3 + 24}
       >
-        <View style={styles.editProWrap}>
+        <View style={styles.allWrap}>
           {/* 画像系 */}
           <View style={styles.userImgWrap}>
             {/* ヘッダー画像 */}

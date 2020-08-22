@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
-import { baseColor } from "../thema/colors";
+import { baseColor,utilityColor } from "../thema/colors";
 import { Size } from "../thema/fonts"
 
 
@@ -13,61 +13,67 @@ export const styles = StyleSheet.create({
     width: deviceWidth,
     marginLeft: "auto",
     marginRight: "auto",
+    //フッターの高さ分あげる
     paddingBottom: 54,
   },
-  userInfoWrap: {
-    position: "relative",
-    top: "-5%",
+
+  overlay: {
     width: deviceWidth,
-    backgroundColor: baseColor.base,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    height: deviceHeight / 3,
+    backgroundColor: utilityColor.overlay,
+  },
+
+  //ユーザー情報
+  userInfoWrap: {
+    flex: 1,
+  },
+  infoWrap: {
+    width: deviceWidth,
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: '5%',
+    zIndex: 1,
   },
   iconBox: {
-    position: "relative",
-    top: "-5%",
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-  baseLine: {
-    position: "absolute",
-    top: "1%",
-    right: "10%"
-  },
-  iconImg: {
-    borderWidth: 9,
-    borderColor: baseColor.base,
-  },
-  userInfo: {
-    flex: 1,
-    marginLeft: "auto",
-    marginRight: "auto",
-    position: "relative",
-    top: "-3%",
+    alignSelf: 'center',
+    marginBottom: "2%"
   },
   userName: {
+    alignSelf: 'center',
     color: baseColor.text,
-    fontSize: Size.Xlarge,
+    fontSize: 24,
     fontWeight: "600",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginBottom: 5,
+    marginBottom: "2%"
   },
   userIntro: {
     width: deviceWidth / 1.5,
+    alignSelf: 'center',
     color: baseColor.text,
-    fontSize: Size.Normal,
+    fontSize: Size.NormalS,
+    fontWeight: "400",
     lineHeight: Size.lineHeight,
+    marginBottom: "5%"
   },
-  photoText: {
+  userState: {
+    flexDirection: "row",
+  },
+  stateText: {
     marginLeft: "auto",
     marginRight: "auto",
     color: baseColor.text,
-    fontSize: Size.Normal,
-    padding: 5,
-    borderWidth: 1,
+    fontSize: Size.NormalS,
+    fontWeight: "600",
     borderColor: "#fff",
   },
+
+  //設定への遷移
+  buttonItem: {
+    position: "absolute",
+    top: "0%",
+    right: "5%"
+  },
+
+  //画像等
   imgItemWrap: {
     flex: 3,
     flexDirection: 'row',
@@ -79,6 +85,5 @@ export const styles = StyleSheet.create({
     margin: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 5,
   }
 });

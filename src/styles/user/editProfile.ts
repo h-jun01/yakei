@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: baseColor.base,
   },
-  editProWrap: {
+  allWrap: {
     flex: 1,
     width: deviceWidth,
     height: deviceHeight,
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 180,
-    width: deviceWidth / 5,
+    width: deviceWidth / 5 + 1,
     height: deviceWidth / 5 + 1,
     backgroundColor: utilityColor.strongOverlay,
     zIndex: 2,
