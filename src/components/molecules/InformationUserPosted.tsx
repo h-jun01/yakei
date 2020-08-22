@@ -8,11 +8,11 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 type Props = {
   postUserName: string;
   postUserImage: string;
-  createTime: string;
+  create_time: string;
 };
 
 const InformationUserPosted: FC<Props> = ({ ...props }) => {
-  const { postUserName, postUserImage, createTime } = props;
+  const { postUserName, postUserImage, create_time } = props;
 
   return (
     <View style={styles.userData}>
@@ -25,7 +25,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
       />
       <View>
         <Text style={styles.userName}>{postUserName}</Text>
-        <Text style={styles.time}>{createTime}</Text>
+        <Text style={styles.time}>{create_time}</Text>
       </View>
       <Text style={styles.dotsVertical}>
         <MaterialCommunityIcons name="dots-vertical" size={20} />

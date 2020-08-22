@@ -5,12 +5,12 @@ type MarkerDate = {
   markerDate: {
     photo_id: string;
     uid: string;
-    createTime: string;
+    create_time: string;
     url: string;
     favoriteNumber: number;
     latitude: number;
     longitude: number;
-    commentList: firebase.firestore.DocumentData[];
+    comment_list: firebase.firestore.DocumentData[];
   };
   coordinate: {
     latitude: number;

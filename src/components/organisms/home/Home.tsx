@@ -137,12 +137,12 @@ const Home: FC<Props> = ({ ...props }) => {
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
-                    createTime: data.create_time,
+                    create_time: data.create_time,
                     url: data.url,
                     favoriteNumber: data.favoriteNumber,
                     latitude: data.latitude,
                     longitude: data.longitude,
-                    commentList: data.comment_list,
+                    comment_list: data.comment_list,
                   }}
                   coordinate={{
                     latitude: data.latitude,
@@ -186,12 +186,12 @@ const Home: FC<Props> = ({ ...props }) => {
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
-                    createTime: data.create_time,
+                    create_time: data.create_time,
                     url: data.url,
                     favoriteNumber: data.favoriteNumber,
                     latitude: data.latitude,
                     longitude: data.longitude,
-                    commentList: data.comment_list,
+                    comment_list: data.comment_list,
                   }}
                 ></OriginMarker>
               );

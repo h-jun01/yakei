@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-// import Detail from "../../../components/organisms/home/Detail";
 import ImageList from "../../../components/atoms/ImageList";
 
 type Props = {
