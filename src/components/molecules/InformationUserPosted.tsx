@@ -23,7 +23,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
         }}
         PlaceholderContent={<ActivityIndicator />}
       />
-      <View style={styles.user}>
+      <View>
         <Text style={styles.userName}>{postUserName}</Text>
         <Text style={styles.time}>{createTime}</Text>
       </View>

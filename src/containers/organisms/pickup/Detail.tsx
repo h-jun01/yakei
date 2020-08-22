@@ -1,5 +1,5 @@
 import React from "react";
-import Detail from "../../../components/organisms/search/Detail";
+import Detail from "../../../components/organisms/pickup/Detail";
 
 //主に処理に関する記述はこのファイル
 const ContainerDetail = () => {
