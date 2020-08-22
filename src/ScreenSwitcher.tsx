@@ -121,7 +121,7 @@ const ScreenSwitcher: FC = () => {
               headerBackTitleVisible: false,
               headerTintColor: "#fff",
               headerStyle: {
-                backgroundColor: "#141D2C",
+                backgroundColor: "#181F32",
               },
             }}
           />
