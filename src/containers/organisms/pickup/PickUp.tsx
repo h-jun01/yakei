@@ -7,7 +7,7 @@ import geohash from "ngeohash";
 type PickUpItemList = {
   title: string;
   time: string;
-  url: string;
+  url: any;
   pickUpDataList: firebase.firestore.DocumentData[];
 };
 
@@ -36,29 +36,25 @@ const PickUpContainer: FC<Props> = ({ navigation }) => {
     {
       title: "渋谷周辺の夜景 9選",
       time: "2020-09-01",
-      url:
-        "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/pickup%2Fshibuya%2Fshibuya01.jpg?alt=media&token=e59c6714-591e-4704-944a-1aad3b604222",
+      url: require("../../../../assets/images/shibuya.jpg"),
       pickUpDataList: shibuyaPhotoList,
     },
     {
       title: "レインボーブリッジ周辺の夜景 7選",
       time: "2020-09-01",
-      url:
-        "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/pickup%2FrainbowBridge%2Frainbow-bridge01.jpg?alt=media&token=1c9a4975-90ee-445a-ba97-1749a3615392",
+      url: require("../../../../assets/images/rainbowBridg.jpg"),
       pickUpDataList: rainbowBridgePhotoList,
     },
     {
       title: "日本全国の夜景 7選",
       time: "2020-09-01",
-      url:
-        "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/pickup%2Fjapan%2Fjapan06.jpg?alt=media&token=df4db95c-9c92-4907-a288-56353e2cf51a",
+      url: require("../../../../assets/images/japan.jpg"),
       pickUpDataList: shibuyaPhotoList,
     },
     {
       title: "スカイツリー周辺の夜景 7選",
       time: "2020-09-01",
-      url:
-        "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/pickup%2Fskytree%2Fskytree08.jpg?alt=media&token=0da1e79b-4da9-4ff2-b460-d51c34f211cb",
+      url: require("../../../../assets/images/skytree.jpg"),
       pickUpDataList: shibuyaPhotoList,
     },
   ];
