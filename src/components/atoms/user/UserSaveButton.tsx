@@ -10,7 +10,7 @@ type Props = {
 const UserSaveButton: FC<Props> = ({ saveData }) => {
   return (
     <TouchableWithoutFeedback onPress={() => saveData()}>
-      <Text style={styles.userButtonText}>プロフィールを更新する</Text>
+      <Text style={styles.userButtonText}>保存</Text>
     </TouchableWithoutFeedback>
   );
 };

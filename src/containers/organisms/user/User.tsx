@@ -1,7 +1,5 @@
 import React, { FC } from "react";
-import User, {
-  UserScreenNavigationProp,
-} from "../../../components/organisms/user/User";
+import User from "../../../components/organisms/user/User";
 import { RootState } from "../../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -12,11 +10,10 @@ import { photoFireStore } from "../../../firebase/photoFireStore";
 import { setPhotoListData } from "../../../actions/photo";
 
 type Props = {
-  navigation: UserScreenNavigationProp;
+  navigation: any;
 };
 
-const ContainerUser: FC<Props> = ({ ...props }) => {
-  const { navigation } = props;
+const ContainerUser: FC<Props> = ({ navigation }) => {
   const selectName = (state: RootState) => state.userReducer.name;
   const selectImage = (state: RootState) => state.userReducer.userImg;
   const selectHeaderImage = (state: RootState) =>
@@ -24,23 +21,24 @@ const ContainerUser: FC<Props> = ({ ...props }) => {
   const selectSelfIntroduction = (state: RootState) =>
     state.userReducer.selfIntroduction;
   const selectPhotoDataList = (state: RootState) =>
-    state.photoReducer.photoDataList;
+    state.myPhotoReducer.photoDataList;
+  const selectFavoriteList = (state: RootState) =>
+    state.userReducer.favoriteList;
   const name = useSelector(selectName);
   const image = useSelector(selectImage);
   const headerImage = useSelector(selectHeaderImage);
   const selfIntroduction = useSelector(selectSelfIntroduction);
-  const photoDataList = useSelector(selectPhotoDataList);
 
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
-        await accountFireStore.getUser(user.uid).then((documentSnapshot) => {
-          dispatch(setUserData(documentSnapshot.data()));
+        await accountFireStore.getUser(user.uid).then((res) => {
+          dispatch(setUserData(res.data()));
         });
-        await photoFireStore.getPhotoList(user.uid).then((documentSnapshot) => {
-          dispatch(setPhotoListData(documentSnapshot.data()));
+        await photoFireStore.getPhotoList(user.uid).then((res) => {
+          dispatch(setPhotoListData(res));
         });
       }
     });
@@ -53,7 +51,6 @@ const ContainerUser: FC<Props> = ({ ...props }) => {
       image={image}
       headerImage={headerImage}
       selfIntroduction={selfIntroduction}
-      photoDataList={photoDataList}
     />
   );
 };

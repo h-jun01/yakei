@@ -1,10 +1,10 @@
 import React, { FC, Fragment, useState } from "react";
 import * as Google from "expo-google-app-auth";
 import Spinner from "react-native-loading-spinner-overlay";
+import env from "../../../../env.json";
 import SignIn from "../../../components/organisms/auth/SignIn";
 import { accountFireStore } from "../../../firebase/accountFireStore";
 import { useInput } from "../../../utilities/hooks/input";
-import { StackParamList } from "../../../index";
 import { callingAlert } from "../../../utilities/alert";
 
 type UseInput = {
@@ -20,7 +20,7 @@ type ItemList = {
 };
 
 type Props = {
-  navigation: StackParamList;
+  navigation: any;
 };
 
 const ContainerAuth: FC<Props> = ({ navigation }) => {
@@ -42,8 +42,6 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
       signUpUserData: pass,
     },
   ];
-  //エンドポイント
-  const url = "https://asia-northeast1-hal-yakei.cloudfunctions.net/signUp";
 
   //ログイン処理
   const signInUser = async (email: string, password: string) => {
@@ -76,8 +74,8 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
   const signInWithGoogle = async () => {
     try {
       const result = await Google.logInAsync({
-        androidClientId: "",
-        iosClientId: "",
+        androidClientId: env.ANDROID_CLIENT_ID,
+        iosClientId: env.IOS_CLIENT_ID,
         scopes: ["profile", "email"],
       });
       setIsLoading(true);

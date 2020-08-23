@@ -11,6 +11,7 @@ import { RootState } from "./reducers/index";
 import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
+import { setAllPhotoListData } from "./actions/allPhoto";
 import { setNoticeListData } from "./actions/notice";
 import Intro from "./containers/Intro";
 import SignUp from "./containers/organisms/auth/SignUp";
@@ -21,34 +22,11 @@ import PrivacyPolicy from "./components/organisms/user/PrivacyPolicy";
 import PasswordReset from "./components/organisms/user/PasswordReset";
 import LodingScreen from "./components/LoadingScreen";
 import HomeScreen from "./screens/HomeScreen";
-import SearchScreen from "./screens/SearchScreen";
+import PickUpScreen from "./screens/PickUpScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
 
-export type TabParamList = {
-  Home: undefined;
-  Search: undefined;
-  Notification: undefined;
-  User: undefined;
-};
-
-export type StackParamList = {
-  新規登録: undefined;
-  ログイン: undefined;
-  Home: undefined;
-  Search: undefined;
-  Notification: undefined;
-  User: undefined;
-  Detail: undefined;
-  設定: undefined;
-  プロフィール編集: undefined;
-  パスワード再設定: undefined;
-  お知らせ: undefined;
-  利用規約: undefined;
-  プライバシーポリシー: undefined;
-};
-
-const Root: FC = () => {
+const ScreenSwitcher: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
   const selectIsLogin = (state: RootState) => state.authReducer.isLogin;
   const isLoading = useSelector(selectIsLoading);
@@ -60,14 +38,17 @@ const Root: FC = () => {
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
-        await accountFireStore.getUser(user.uid).then((documentSnapshot) => {
-          dispatch(setUserData(documentSnapshot.data()));
+        await accountFireStore.getUser(user.uid).then((res) => {
+          dispatch(setUserData(res.data()));
         });
-        await photoFireStore.getPhotoList(user.uid).then((documentSnapshot) => {
-          dispatch(setPhotoListData(documentSnapshot.data()));
+        // await photoFireStore.getAllPhotoList().then((res) => {
+        //   dispatch(setAllPhotoListData(res));
+        // });
+        await photoFireStore.getPhotoList(user.uid).then((res) => {
+          dispatch(setPhotoListData(res));
         });
-        await noticeFireStore.getNoticeList().then((documentSnapshot) => {
-          dispatch(setNoticeListData(documentSnapshot.data()));
+        await noticeFireStore.getNoticeList().then((res) => {
+          dispatch(setNoticeListData(res.data()));
         });
         dispatch(loadingStatusChange(true));
         dispatch(loginStatusChange(true));
@@ -88,7 +69,7 @@ const Root: FC = () => {
         <Fragment>
           <Tab.Navigator tabBar={(props) => <BottomNav {...props} />}>
             <Tab.Screen name="スポット" component={HomeScreen} />
-            <Tab.Screen name="ギャラリー" component={SearchScreen} />
+            <Tab.Screen name="ギャラリー" component={PickUpScreen} />
             <Tab.Screen name="Plus" component={HomeScreen} />
             <Tab.Screen name="通知" component={NotificationScreen} />
             <Tab.Screen name="マイページ" component={UserScreen} />
@@ -97,7 +78,7 @@ const Root: FC = () => {
       ) : (
         <Stack.Navigator>
           <Stack.Screen
-            name="イントロ"
+            name="intro"
             component={Intro}
             options={{
               headerShown: false,
@@ -105,7 +86,7 @@ const Root: FC = () => {
             }}
           />
           <Stack.Screen
-            name="新規登録"
+            name="signUp"
             component={SignUp}
             options={{
               headerShown: false,
@@ -113,30 +94,34 @@ const Root: FC = () => {
             }}
           />
           <Stack.Screen
-            name="ログイン"
+            name="signIn"
             component={SignIn}
             options={{
               headerShown: false,
             }}
           />
           <Stack.Screen
-            name="利用規約"
+            name="termsOfService"
             component={TermsOfService}
-            options={{ headerBackTitleVisible: false }}
+            options={{ title: "利用規約", headerBackTitleVisible: false }}
           />
           <Stack.Screen
-            name="プライバシーポリシー"
+            name="privacyPolicy"
             component={PrivacyPolicy}
-            options={{ headerBackTitleVisible: false }}
+            options={{
+              title: "プライバシーポリシー",
+              headerBackTitleVisible: false,
+            }}
           />
           <Stack.Screen
-            name="パスワード再設定"
+            name="passwordReset"
             component={PasswordReset}
             options={{
+              title: "パスワード再設定",
               headerBackTitleVisible: false,
               headerTintColor: "#fff",
               headerStyle: {
-                backgroundColor: "#141D2C",
+                backgroundColor: "#181F32",
               },
             }}
           />
@@ -146,4 +131,4 @@ const Root: FC = () => {
   );
 };
 
-export default Root;
+export default ScreenSwitcher;

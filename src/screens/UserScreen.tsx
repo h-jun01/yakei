@@ -20,58 +20,76 @@ const UserScreen: FC = () => {
         }}
       />
       <Stack.Screen
-        name="設定"
+        name="setting"
         component={Setting}
         options={{
+          title: "設定",
           headerBackTitleVisible: false,
           headerTintColor: "#fff",
           headerStyle: {
-            backgroundColor: "#141D2C",
+            backgroundColor: "#181F32",
           },
         }}
       />
       <Stack.Screen
-        name="プロフィール編集"
+        name="editProfile"
         component={EditProfile}
         options={{
+          title: "プロフィール編集",
           headerBackTitleVisible: false,
           headerTintColor: "#fff",
           headerStyle: {
-            backgroundColor: "#141D2C",
+            backgroundColor: "#181F32",
           },
         }}
       />
       <Stack.Screen
-        name="パスワード再設定"
+        name="passwordReset"
         component={PasswordReset}
         options={{
+          title: "パスワード再設定",
           headerBackTitleVisible: false,
           headerTintColor: "#fff",
           headerStyle: {
-            backgroundColor: "#141D2C",
+            backgroundColor: "#181F32",
           },
         }}
       />
       <Stack.Screen
-        name="お知らせ"
+        name="notice"
         component={Notice}
         options={{
+          title: "お知らせ",
           headerBackTitleVisible: false,
           headerTintColor: "#fff",
           headerStyle: {
-            backgroundColor: "#141D2C",
+            backgroundColor: "#181F32",
           },
         }}
       />
       <Stack.Screen
-        name="利用規約"
+        name="termsOfService"
         component={TermsOfService}
-        options={{ headerBackTitleVisible: false }}
+        options={{
+          title: "利用規約",
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#181F32",
+          },
+        }}
       />
       <Stack.Screen
-        name="プライバシーポリシー"
+        name="privacyPolicy"
         component={PrivacyPolicy}
-        options={{ headerBackTitleVisible: false }}
+        options={{
+          title: "プライバシーポリシー",
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#181F32",
+          },
+        }}
       />
     </Stack.Navigator>
   );

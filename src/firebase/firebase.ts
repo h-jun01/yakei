@@ -2,16 +2,17 @@ import firebase from "firebase";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/storage";
+import env from "../../env.json";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAb00UD1DkTptJejh92XaVLYROk34nICy4",
-  authDomain: "hal-yakei.firebaseapp.com",
-  databaseURL: "https://hal-yakei.firebaseio.com",
-  projectId: "hal-yakei",
-  storageBucket: "hal-yakei.appspot.com",
-  messagingSenderId: "655737634399",
-  appId: "1:655737634399:web:54120719f995fcdfb3e5ea",
-  measurementId: "G-B7TM18STEN",
+  apiKey: env.FIREBASE_API_KEY,
+  authDomain: env.FIREBASE_AUTH_DOMAIN,
+  databaseURL: env.FIREBASE_DB_URL,
+  projectId: env.FIREBASE_PROJECT_ID,
+  storageBucket: env.FIREBASE_STORAGE,
+  messagingSenderId: env.FIREBASE_SENDER_ID,
+  appId: env.FIREBASE_APP_ID,
+  measurementId: env.FIREBASE_MEASUREMENT_ID,
 };
 
 const firebaseApp = !firebase.apps.length

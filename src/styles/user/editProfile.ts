@@ -1,46 +1,60 @@
 import { StyleSheet } from "react-native";
 import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
-import { baseColor } from '../thema/colors'
+import { baseColor, utilityColor } from '../thema/colors'
 
 export const styles = StyleSheet.create({
-  editProWrap: {
-    width: deviceWidth,
-    height: "auto",
+  container: {
+    height: "100%",
     backgroundColor: baseColor.base,
-    flex: 1,
-    justifyContent: "space-between",
   },
-  userIconWrap: {
-    position: "relative",
-    top: "-8%",
+  allWrap: {
+    flex: 1,
     width: deviceWidth,
-    height: deviceWidth / 4.5,
-    backgroundColor: baseColor.base,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    height: deviceHeight,
+  },
+  userImgWrap: {
+    position: 'relative',
   },
   iconImg: {
-    position: "relative",
-    top: -30,
-    marginLeft: "auto",
-    marginRight: "auto",
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: '25%',
+    zIndex: 1,
   },
+  overlay: {
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: '26.1%',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 180,
+    width: deviceWidth / 5 + 1,
+    height: deviceWidth / 5 + 1,
+    backgroundColor: utilityColor.strongOverlay,
+    zIndex: 2,
+  },
+
+  //インプットエリア
   inputWrap: {
-    position: "relative",
-    top: -40,
+    width: "96%",
+    paddingTop: 10,
   },
   margin: {
     margin: 15,
   },
-  userButtonWrap: {
-    width: "90%",
+  userButton: {
+    width: "80%",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 50,
-    marginBottom: 30,
+    marginTop: "10%",
     backgroundColor: baseColor.accent,
     borderRadius: 5,
     paddingVertical: 15,
   },
+  headerIcon: {
+    position: 'absolute',
+    bottom: 15,
+    right: 15,
+  }
 });
-

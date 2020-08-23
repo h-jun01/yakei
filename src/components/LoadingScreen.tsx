@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 
 const LoadingScreen: FC = () => {

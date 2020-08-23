@@ -4,6 +4,7 @@ export const Size = {
   Small: 12,
   NormalS: 13,
   Normal: 14,
+  NormalL: 15,
   Large: 16,
   Xlarge: 18,
   Xxlarge: 20,
@@ -12,12 +13,10 @@ export const Size = {
 
 // export const Weights = {
 //   Thin: "100",
-//   UltraLight: "200",
 //   Light: "300",
 //   Regular: "400",
 //   Medium: "500",
-//   Semibold: "600",
-//   Bold: "700",
+//   Bold: "600",
 //   Heavy: "800",
 //   Black: "900"
 // };
