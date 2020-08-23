@@ -240,6 +240,9 @@ const Home: FC<Props> = ({ ...props }) => {
                     comment_list: data.comment_list,
                   }}
                   image={require("../../../../assets/pin02.png")}
+                  onPress={() => {
+                    onPressPin(data);
+                  }}
                 ></OriginMarker>
               );
             })}
