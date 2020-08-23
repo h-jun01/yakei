@@ -10,9 +10,10 @@ import {
   Dimensions,
   TouchableOpacity,
   Platform,
+  ImageBackground,
 } from "react-native";
 import { Container } from "native-base";
-import { PROVIDER_GOOGLE } from "react-native-maps";
+import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
 import LocationButtonView from "./PresentLocationButton";
 import OriginMarker from "../../atoms/home/OriginMarker";
@@ -42,17 +43,21 @@ const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 let mapIndex = 0;
 let regionTimeout;
 let _map;
+let nowLatitudeDelta;
+let nowLongitudeDelta;
 
 const Home: FC<Props> = ({ ...props }) => {
   const { navigation, region, allPhotoList, myPhotoList } = props;
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
   const [photoSnapFlag, setPhotoSnapFlag] = useState(false);
+  const [photoPinFlag, setPhotoPinFlag] = useState(false);
   const [photoSnapList, setPhotoSnapList] = useState<any>();
   const mapAnimation = useRef(new Animated.Value(0)).current;
 
   _map = React.useRef(null);
   const _scrollView = React.useRef(null);
 
+  // photoSnap参考資料　https://www.youtube.com/watch?v=2vILzRmEqGI
   useEffect(() => {
     mapAnimation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
@@ -78,8 +83,8 @@ const Home: FC<Props> = ({ ...props }) => {
             _map.current.animateToRegion(
               {
                 ...coordinate,
-                latitudeDelta: region.latitudeDelta,
-                longitudeDelta: region.longitudeDelta,
+                latitudeDelta: nowLatitudeDelta,
+                longitudeDelta: nowLongitudeDelta,
               },
               350
             );
@@ -91,20 +96,57 @@ const Home: FC<Props> = ({ ...props }) => {
 
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
-    if (region.longitudeDelta > 0.1) {
-      await photoFireStore
-        .getAreaPhotoList(region.latitude, region.longitude)
-        .then((res) => {
-          if (res.length === 0) {
-            setPhotoSnapFlag(false);
-          } else {
-            setPhotoSnapFlag(true);
-            setPhotoSnapList(res);
-          }
-        });
-    } else {
-      setPhotoSnapFlag(false);
+    if (photoPinFlag) {
+      nowLatitudeDelta = region.latitudeDelta;
+      nowLongitudeDelta = region.longitudeDelta;
+      if (region.longitudeDelta < 0.2) {
+        await photoFireStore
+          .getAreaPhotoList(region.latitude, region.longitude)
+          .then((res) => {
+            if (res.length === 0) {
+              setPhotoSnapFlag(false);
+            } else {
+              setPhotoSnapFlag(true);
+              setPhotoSnapList(res);
+            }
+          });
+      } else {
+        setPhotoSnapFlag(false);
+      }
     }
+    setPhotoPinFlag(true);
+  };
+
+  // ピンが押された時
+  const onPressPin = async (data) => {
+    setPhotoPinFlag(false);
+    const latitude = data.latitude;
+    const longitude = data.longitude;
+    const coordinate = {
+      latitude,
+      longitude,
+    };
+    if (nowLatitudeDelta > 0.2) {
+      _map.current.animateToRegion(
+        {
+          ...coordinate,
+          latitudeDelta: 0.15,
+          longitudeDelta: 0.15,
+        },
+        350
+      );
+    } else {
+      _map.current.animateToRegion(
+        {
+          ...coordinate,
+          latitudeDelta: nowLatitudeDelta,
+          longitudeDelta: nowLongitudeDelta,
+        },
+        350
+      );
+    }
+    setPhotoSnapList([data]);
+    setPhotoSnapFlag(true);
   };
 
   return (
@@ -133,7 +175,7 @@ const Home: FC<Props> = ({ ...props }) => {
             allPhotoList.map((data) => {
               return (
                 <OriginMarker
-                  key={data.uid}
+                  key={data.photo_id}
                   markerDate={{
                     photo_id: data.photo_id,
                     uid: data.uid,
@@ -147,6 +189,10 @@ const Home: FC<Props> = ({ ...props }) => {
                   coordinate={{
                     latitude: data.latitude,
                     longitude: data.longitude,
+                  }}
+                  image={require("../../../../assets/pin02.png")}
+                  onPress={() => {
+                    onPressPin(data);
                   }}
                 ></OriginMarker>
               );
@@ -178,7 +224,7 @@ const Home: FC<Props> = ({ ...props }) => {
             myPhotoList.map((data) => {
               return (
                 <OriginMarker
-                  key={data.uid}
+                  key={data.photo_id}
                   coordinate={{
                     latitude: data.latitude,
                     longitude: data.longitude,
@@ -193,6 +239,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     longitude: data.longitude,
                     comment_list: data.comment_list,
                   }}
+                  image={require("../../../../assets/pin02.png")}
                 ></OriginMarker>
               );
             })}

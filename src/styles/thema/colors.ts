@@ -1,4 +1,4 @@
-import { Overlay } from "react-native-maps"
+import { Overlay } from "react-native-maps";
 
 // Service Colors
 export const baseColor = {
