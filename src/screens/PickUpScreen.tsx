@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import PickUp from "../containers/organisms/pickup/PickUp";
 import Details from "../containers/organisms/home/Detail";
+import PostedImageDetail from "../containers/organisms/PostedImageDetail";
 
 const PickUpScreen: FC = () => {
   const Stack = createStackNavigator();
@@ -24,6 +25,18 @@ const PickUpScreen: FC = () => {
         component={Details}
         options={{
           title: "一覧",
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#181F32",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="post"
+        component={PostedImageDetail}
+        options={{
+          title: "投稿",
           headerBackTitleVisible: false,
           headerTintColor: "#fff",
           headerStyle: {
