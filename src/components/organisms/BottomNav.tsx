@@ -88,6 +88,13 @@ const styles = StyleSheet.create({
   footerSvg: {
     position: "absolute",
     bottom: 17,
+    shadowColor: "#aaaaaa",
+    shadowOffset: {
+      width: 0,
+      height: -1.5,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 1.5,
   },
   footerItem: {
     bottom: 15,
