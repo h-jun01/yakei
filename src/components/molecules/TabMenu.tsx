@@ -4,6 +4,7 @@ import { Tab, Tabs, TabHeading } from "native-base";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/user/user";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { baseColor, utilityColor } from "../../styles/thema/colors";
 
 type Props = {
   photoDataList: firebase.firestore.DocumentData[];
@@ -12,12 +13,17 @@ type Props = {
 
 const TabMenu: FC<Props> = ({ photoDataList, favoriteList }) => {
   return (
-    <Tabs>
+    <Tabs
+      tabBarUnderlineStyle={{
+        borderBottomWidth: 3,
+        borderBottomColor: "#fff",
+      }}
+    >
       {/* 投稿 */}
       <Tab
         heading={
-          <TabHeading>
-            <Icon name="camera" />
+          <TabHeading style={{ backgroundColor: baseColor.base }}>
+            <Icon name="th" style={{ color: "#fff", fontSize: 22 }} />
           </TabHeading>
         }
       >
@@ -38,8 +44,8 @@ const TabMenu: FC<Props> = ({ photoDataList, favoriteList }) => {
       {/* お気に入り */}
       <Tab
         heading={
-          <TabHeading>
-            <Icon name="camera" />
+          <TabHeading style={{ backgroundColor: baseColor.base }}>
+            <Icon name="heart-o" style={{ color: "#ffffff", fontSize: 22 }} />
           </TabHeading>
         }
       >
