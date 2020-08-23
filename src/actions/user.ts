@@ -14,6 +14,7 @@ export const setUserData = (
       imgIndex: account?.img_index as string,
       headerImgIndex: account?.header_img_index as string,
       selfIntroduction: account?.self_introduction as string,
+      favoriteList: account?.favotire_list as firebase.firestore.DocumentData[],
     },
   } as const);
 

@@ -6,6 +6,7 @@ import {
 } from "react-native";
 import { baseColor,utilityColor } from "../../../styles/thema/colors";
 import { Size } from "../../../styles/thema/fonts";
+import { Hoshi } from 'react-native-textinput-effects';
 
 type Props = {
   label: string;
@@ -18,20 +19,27 @@ const UserInput: FC<Props> = ({ ...props }) => {
   const { label, placeholder, value, setValue } = props;
   return (
     <Fragment>
-      {/* インプットの説明 */}
-      <Text style={styles.labelItem}>{label}</Text>
-      <TextInput
-        value={value}
-        placeholder={placeholder}
-        keyboardType="default"
-        returnKeyType="done"
-        multiline={true}
-        autoFocus={true}
-        blurOnSubmit={true}
-        editable={true}
-        placeholderTextColor={utilityColor.placeholderText}
+      < Hoshi
         onChangeText={(name) => setValue(name)}
-        style={styles.editInput}
+        //値
+        value={value}
+        label={label}
+        //先頭文字を大文字にしない
+        autoCapitalize={'none'}
+        //キーボードの設定
+        returnKeyType="done"
+        blurOnSubmit={true}
+        //改行
+        multiline={true}
+        //編集を可能に
+        editable={true}
+        //アクティブな境界線およびラベルの色
+        //どうしても赤線が出る。影響なし
+        borderHeight={1}
+        borderColor={utilityColor.border}
+        inputPadding={24}
+        inputStyle={styles.editInput}
+        labelStyle={styles.labelItem}
       />
     </Fragment>
   );
@@ -39,26 +47,18 @@ const UserInput: FC<Props> = ({ ...props }) => {
 
 
 const styles = StyleSheet.create({
-  //fontWeightを変数指定すると赤線が出る。影響はなし
   labelItem: {
-    color: baseColor.text,
-    fontSize: Size.Normal,
+    color: utilityColor.inputLabel,
+    fontSize: Size.Small,
     fontWeight: "600",
-    marginLeft: 10,
-    marginBottom: 15,
-    borderBottomWidth: 1,
-    borderColor: utilityColor.border,
-    paddingLeft: 10,
   },
   editInput: {
-    color: utilityColor.editBox,
-    fontSize: Size.Large,
+    color: baseColor.text,
+    fontSize: Size.NormalL,
     fontWeight: "600",
     lineHeight: Size.lineHeight,
-    paddingBottom: 10,
-    paddingHorizontal: 30,
-    borderBottomWidth: 1,
-    borderColor: utilityColor.border,
+    paddingLeft: 5,
+    paddingRight: 15,
   },
 });
 

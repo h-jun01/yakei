@@ -1,13 +1,15 @@
-import React from "react";
-import { View, Text } from "react-native";
-import Detail from "../../../components/organisms/home/Detail";
+import React, { FC } from "react";
+import ImageList from "../../../components/atoms/ImageList";
 
-//主に処理に関する記述はこのファイル
-const ContainerDetail = () => {
-  //例）このファイルで作った処理をcomponents側に渡す
-  const title = "詳細";
+type Props = {
+  route: any;
+  navigation: any;
+};
 
-  return <Detail title={title} />;
+const ContainerDetail: FC<Props> = ({ route, navigation }) => {
+  const { photoDataList } = route.params;
+
+  return <ImageList photoDataList={photoDataList} navigation={navigation} />;
 };
 
 export default ContainerDetail;

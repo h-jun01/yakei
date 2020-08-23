@@ -1,17 +1,25 @@
 import { StyleSheet } from "react-native";
 import { baseColor, utilityColor } from "../thema/colors";
 import { Size } from "../thema/fonts";
+import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 
 export const styles = StyleSheet.create({
   container: {
+    width: deviceWidth,
+    height: "100%",
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#1C3952",
+    backgroundColor: baseColor.base,
   },
   authBack: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
+  },
+  allWrap: {
+    width: deviceWidth,
+    position: "absolute",
+    top: "15%",
   },
   authWrap: {
     width: "90%",
@@ -33,19 +41,22 @@ export const styles = StyleSheet.create({
   },
 
   //input
-  inputItemName: {
+  authInputItemName: {
     color: baseColor.text,
     fontSize: Size.Small,
+    fontWeight: "600",
   },
-  input: {
+  authInput: {
     marginBottom: 20,
     padding: 10,
+    // paddingTop: 10,
+    // paddingBottom:10,
     borderRadius: 5,
     borderBottomWidth: 1,
     borderBottomColor: utilityColor.border,
     fontSize: Size.Large,
+    color: baseColor.text,
   },
-
   //authBtn
   buttonBack: {
     backgroundColor: baseColor.accent,

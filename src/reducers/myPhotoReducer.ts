@@ -1,20 +1,14 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
 
-type PhotoDataList = {
-  URL: string;
-  latitude: number;
-  longitude: number;
-};
-
 type State = {
-  photoDataList: PhotoDataList[];
+  photoDataList: firebase.firestore.DocumentData[];
 };
 
 const initialState: State = {
   photoDataList: [],
 };
 
-export const photoReducer = (state = initialState, action: UnionedAction) => {
+export const myPhotoReducer = (state = initialState, action: UnionedAction) => {
   switch (action.type) {
     case ActionTypes.PHOTO_DATA_LIST:
       return {

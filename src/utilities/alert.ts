@@ -1,4 +1,5 @@
 import { Alert } from "react-native";
+import { auth } from "../firebase/firebase";
 
 export const callingAlert = (alertMessage: string): void => {
   Alert.alert(
@@ -21,6 +22,25 @@ export const callingDoneAlert = (alertMessage: string): void => {
     [
       {
         text: "OK",
+        style: "default",
+      },
+    ],
+    { cancelable: false }
+  );
+};
+
+export const callingLogoutAlert = (): void => {
+  Alert.alert(
+    "確認",
+    "ログアウトしますか？",
+    [
+      {
+        text: "キャンセル",
+        style: "default",
+      },
+      {
+        text: "ログアウト",
+        onPress: () => auth.signOut(),
         style: "default",
       },
     ],

@@ -1,13 +1,17 @@
 import { combineReducers } from "redux";
 import { authReducer } from "./authReducer";
 import { userReducer } from "./userReducer";
-import { photoReducer } from "./photoReducer";
+import { myPhotoReducer } from "./myPhotoReducer";
+import { allPhotoReducer } from "./allPhotoReducer";
+import { postedDataReducer } from "./postedDataReducer";
 import { noticeReducer } from "./noticeReducer";
 
 export const rootReducer = combineReducers({
   authReducer,
   userReducer,
-  photoReducer,
+  allPhotoReducer,
+  myPhotoReducer,
+  postedDataReducer,
   noticeReducer,
 });
 

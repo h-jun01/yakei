@@ -1,6 +1,16 @@
+import React from "react";
 import firebase from "firebase";
 import { auth, db, storage, FieldValue } from "./firebase";
-import { callingAlert, callingDoneAlert } from "../utilities/alert";
+import {
+  callingAlert,
+  callingDoneAlert,
+  callingLogoutAlert,
+} from "../utilities/alert";
+
+type LoginUser = {
+  email: string;
+  password: string;
+};
 
 type AccountFireStore = {
   getUser: (
@@ -8,8 +18,10 @@ type AccountFireStore = {
   ) => Promise<
     firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
   >;
+  getUserName: (uid: string) => Promise<React.SetStateAction<string>>;
+  getUserImage: (uid: string) => Promise<React.SetStateAction<string>>;
   loginUser: (
-    account: LginUser
+    account: LoginUser
   ) => Promise<void | firebase.auth.UserCredential>;
   loginGoogleUser: (
     idToken: string,
@@ -33,11 +45,6 @@ type AccountFireStore = {
   authenticationName: string;
 };
 
-type LginUser = {
-  email: string;
-  password: string;
-};
-
 const user = db.collection("users");
 
 export const accountFireStore: AccountFireStore = {
@@ -45,8 +52,20 @@ export const accountFireStore: AccountFireStore = {
   getUser: (uid: string) => {
     return user.doc(uid).get();
   },
+  //ユーザ名を取得
+  getUserName: async (uid: string) => {
+    return await accountFireStore.getUser(uid).then(async (res) => {
+      return (await res.data()?.name) as string;
+    });
+  },
+  //ユーザのアイコン画像を取得
+  getUserImage: async (uid: string) => {
+    return await accountFireStore.getUser(uid).then(async (res) => {
+      return (await res.data()?.user_img) as string;
+    });
+  },
   //ログイン処理
-  loginUser: async (account: LginUser) => {
+  loginUser: async (account: LoginUser) => {
     return await auth
       .signInWithEmailAndPassword(account.email, account.password)
       .catch(() => {
@@ -64,7 +83,7 @@ export const accountFireStore: AccountFireStore = {
   },
   //ログアウト処理
   signOutUser: () => {
-    auth.signOut();
+    callingLogoutAlert();
   },
   //名前の更新
   updateName: async (name: string) => {

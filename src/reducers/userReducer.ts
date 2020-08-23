@@ -8,6 +8,7 @@ type State = {
   imgIndex: string;
   headerImgIndex: string;
   selfIntroduction: string;
+  favoriteList: firebase.firestore.DocumentData[];
 };
 
 const initialState: State = {
@@ -18,6 +19,7 @@ const initialState: State = {
   imgIndex: "",
   headerImgIndex: "",
   selfIntroduction: "",
+  favoriteList: [],
 };
 
 export const userReducer = (state = initialState, action: UnionedAction) => {
@@ -32,6 +34,7 @@ export const userReducer = (state = initialState, action: UnionedAction) => {
         imgIndex: action.payload.imgIndex,
         headerImgIndex: action.payload.headerImgIndex,
         selfIntroduction: action.payload.selfIntroduction,
+        favoriteList: action.payload.favoriteList,
       };
     case ActionTypes.UPDATE_USER_NAME:
       return {

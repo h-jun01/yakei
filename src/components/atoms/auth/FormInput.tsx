@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { View, Text, TextInput } from "react-native";
+import { utilityColor } from "../../../styles/thema/colors";
 import { styles } from "../../../styles/auth/auth";
 
 type UseInput = {
@@ -18,12 +19,17 @@ const FormInput: FC<Props> = ({ ...props }) => {
   const { item, placeholder, secureTextEntry, signUpUserData } = props;
   return (
     <View>
-      <Text style={styles.inputItemName}>{item}</Text>
+      <Text style={styles.authInputItemName}>{item}</Text>
       <TextInput
-        style={styles.input}
+        style={styles.authInput}
         placeholder={placeholder}
+        autoCapitalize={"none"}
+        keyboardType="default"
+        returnKeyType="done"
+        blurOnSubmit={true}
+        editable={true}
         secureTextEntry={secureTextEntry}
-        placeholderTextColor="#8C9197"
+        placeholderTextColor={utilityColor.placeholderText}
         {...signUpUserData}
       />
     </View>
