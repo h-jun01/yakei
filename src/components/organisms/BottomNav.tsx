@@ -16,11 +16,10 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   const [safeAreaInsetHeighet, setSafeAreaInsetHeihgt] = useState(0);
   const onLayout = (e) => {
     setSafeAreaInsetHeihgt(e.nativeEvent.layout.height);
-    console.log(safeAreaInsetHeighet);
   };
 
-  const style = StyleSheet.create({
-    footerSvg: {
+  const footerSvgStyle = StyleSheet.create({
+    style: {
       position: "absolute",
       bottom: -safeAreaInsetHeighet,
       shadowColor: "#aaaaaa",
@@ -38,7 +37,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
       <View style={styles.container}>
         <View style={styles.footerSvgWrap}>
           <FooterBackgroundSvg
-            style={style.footerSvg}
+            style={footerSvgStyle.style}
             backColor={baseColor.darkNavy}
           />
         </View>
@@ -95,6 +94,10 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   );
 };
 
+const displayWidth = Dimensions.get("window").width;
+const itemsFloatingRatio = 0.03623;
+const viewboxRatio = 4.4588; // FooterBackgroundSvgのviewbox.width / viewbox.height
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -105,17 +108,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     flexDirection: "row",
     justifyContent: "space-evenly",
-    bottom: Dimensions.get("window").width * 0.03623, // 15 / 414
-    width: Dimensions.get("window").width,
+    bottom: displayWidth * itemsFloatingRatio,
+    width: displayWidth,
   },
   footerSvgWrap: {
     position: "absolute",
     bottom: -1.3,
     left: -1.8,
-    width: Dimensions.get("window").width + 6,
-    // FooterBackgroundSvgのviewbox.width / viewbox.height (379 / 85)
-    // これがないと画面サイズぴったりのフッターナビにならない
-    aspectRatio: 4.4588,
+    width: displayWidth + 6,
+    aspectRatio: viewboxRatio, // これがないと画面サイズぴったりのボトムナビにならない
   },
   footerItem: {
     bottom: 15,
