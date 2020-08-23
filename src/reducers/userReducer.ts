@@ -1,16 +1,5 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
 
-type FavoriteList = {
-  uid: string;
-  photo_id: string;
-  url: string;
-  createTime: string;
-  latitude: number;
-  longitude: number;
-  geohash: number;
-  favoriteNumber: number;
-};
-
 type State = {
   uid: string;
   name: string;
@@ -19,7 +8,7 @@ type State = {
   imgIndex: string;
   headerImgIndex: string;
   selfIntroduction: string;
-  favoriteList: FavoriteList[];
+  favoriteList: firebase.firestore.DocumentData[];
 };
 
 const initialState: State = {

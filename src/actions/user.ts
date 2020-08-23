@@ -1,16 +1,5 @@
 import { ActionTypes } from "./index";
 
-type FavoriteList = {
-  uid: string;
-  photo_id: string;
-  url: string;
-  createTime: string;
-  latitude: number;
-  longitude: number;
-  geohash: number;
-  favoriteNumber: number;
-};
-
 //ユーザ情報をセット
 export const setUserData = (
   account: firebase.firestore.DocumentData | undefined
@@ -25,7 +14,7 @@ export const setUserData = (
       imgIndex: account?.img_index as string,
       headerImgIndex: account?.header_img_index as string,
       selfIntroduction: account?.self_introduction as string,
-      favoriteList: account?.favotire_list as FavoriteList[],
+      favoriteList: account?.favotire_list as firebase.firestore.DocumentData[],
     },
   } as const);
 
