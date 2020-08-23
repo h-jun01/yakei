@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Text, StyleSheet } from "react-native";
+import { baseColor } from "../../styles/thema/colors";
 
 import MapButtonTintedSvg from "../atoms/svg/MapButtonTintedSvg";
 import CollectionButtonTintedSvg from "../atoms/svg/CollectionButtonTintedSvg";
@@ -20,13 +21,13 @@ type Props = {
 
 const BottomNavItem: FC<Props> = (props) => {
   const { index, isFocused, label, style, changeStyle } = props;
-  const activeColor = "#FC2E7E";
-  const normalColor = "#838692";
-  const backColor = "#272E45";
+  const activeColor = baseColor.primaryRed;
+  const normalColor = baseColor.iconGray;
+  const backColor = baseColor.darkNavy;
 
   const styles = StyleSheet.create({
     label: {
-      color: isFocused ? "#fff" : "#838692",
+      color: isFocused ? "#fff" : baseColor.iconTextGray,
       fontSize: 10,
       marginTop: 5,
     },
@@ -59,7 +60,14 @@ const BottomNavItem: FC<Props> = (props) => {
         </>
       );
     case 2:
-      return <PlusButtonSvg style={style} changeStyle={changeStyle} />;
+      return (
+        <PlusButtonSvg
+          style={style}
+          baseColor={activeColor}
+          strokeColor={backColor}
+          changeStyle={changeStyle}
+        />
+      );
     case 3:
       return (
         <>

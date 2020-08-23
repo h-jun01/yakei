@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
+import { baseColor } from "../../styles/thema/colors";
 
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavItem from "../../containers/molecules/BottomNavItem";
@@ -9,7 +10,10 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.footerSvgWrap}>
-        <FooterBackgroundSvg style={styles.footerSvg} />
+        <FooterBackgroundSvg
+          style={styles.footerSvg}
+          backColor={baseColor.darkNavy}
+        />
       </View>
       <View style={styles.footerWrap}>
         {state.routes.map((route, index) => {
@@ -77,7 +81,9 @@ const styles = StyleSheet.create({
     bottom: 75,
     left: -3,
     width: Dimensions.get("window").width + 6,
-    aspectRatio: 4.4588, // viewbox.width / viewbox.height
+    // FooterBackgroundSvgのviewbox.width / viewbox.height (379 / 85)
+    // これがないと画面サイズぴったりのフッターナビにならない
+    aspectRatio: 4.4588,
   },
   footerSvg: {
     position: "absolute",

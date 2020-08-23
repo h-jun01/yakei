@@ -5,10 +5,16 @@ import Svg, { G, Circle, Rect, Defs } from "react-native-svg";
 type Props = {
   style?: Object;
   changeStyle: () => void;
+  baseColor: string;
+  strokeColor: string;
 };
 
-const PlusButtonSvg: FC<Props> = ({ ...props }) => {
-  const { style, changeStyle } = props;
+const PlusButtonSvg: FC<Props> = ({
+  style = undefined,
+  changeStyle = undefined,
+  baseColor = "#EC3B80",
+  strokeColor = "#181F32",
+}) => {
   const AnimatedSvg = Animated.createAnimatedComponent(Svg);
   return (
     <AnimatedSvg
@@ -20,31 +26,30 @@ const PlusButtonSvg: FC<Props> = ({ ...props }) => {
       fill="none"
     >
       <G>
-        <Circle cx={36} cy={36} r={35} fill="#272E45" />
         <Circle
-          cx={36.412}
-          cy={36.411}
+          cx={37}
+          cy={35}
+          r={34.75}
+          fill={strokeColor}
+          stroke="#505E83"
+          strokeWidth={0.5}
+        />
+        <Circle
+          cx={37.412}
+          cy={35.412}
           r={29}
-          stroke="#FC2E7E"
+          stroke={baseColor}
           strokeWidth={2}
         />
-        <Circle cx={36.411} cy={36.411} r={24.302} fill="#FC2E7E" />
+        <Circle cx={37.411} cy={35.411} r={24.302} fill={baseColor} />
+        <Rect x={27} y={34} width={21} height={3} rx={1.5} fill="#fff" />
         <Rect
-          x={25.846}
-          y={34.42}
-          width={20.83}
-          height={3.17}
-          rx={1.585}
-          transform="rotate(-.333 25.846 34.42)"
-          fill="#fff"
-        />
-        <Rect
-          x={37.996}
-          y={25.846}
-          width={20.83}
-          height={3.17}
-          rx={1.585}
-          transform="rotate(89.43 37.996 25.846)"
+          x={36}
+          y={46}
+          width={21}
+          height={3}
+          rx={1.5}
+          transform="rotate(-90 36 46)"
           fill="#fff"
         />
       </G>
