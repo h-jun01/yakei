@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/imageList";
@@ -34,9 +34,9 @@ const ImageList: FC<Props> = ({ ...props }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <View>
+      <View style={styles.allWrap}>
         {photoDataList.map((item, index) => (
-          <View style={styles.allWrap} key={index}>
+          <View style={styles.itemWrap} key={index}>
             <InformationUserPosted
               create_time={item.create_time}
               uid={item.uid}
