@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     //フッターの高さ分あげる
-    paddingBottom: 54,
+    paddingBottom: 101,
   },
 
   overlay: {
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     color: baseColor.text,
     fontSize: Size.NormalS,
-    fontWeight: "400",
+    fontWeight: "500",
     lineHeight: Size.lineHeight,
     marginBottom: "5%"
   },
@@ -77,7 +77,8 @@ export const styles = StyleSheet.create({
   imgItemWrap: {
     flex: 3,
     flexDirection: 'row',
-    flexWrap:　"wrap",
+    flexWrap: "wrap",
+    backgroundColor: baseColor.base,
   },
   imgItem: {
     width: deviceWidth / 3.1,
