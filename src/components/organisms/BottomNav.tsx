@@ -18,26 +18,17 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
     setSafeAreaInsetHeihgt(e.nativeEvent.layout.height);
   };
 
-  const footerSvgStyle = StyleSheet.create({
-    style: {
-      position: "absolute",
-      bottom: -safeAreaInsetHeighet,
-      shadowColor: "#aaaaaa",
-      shadowOffset: {
-        width: 0,
-        height: -1.5,
-      },
-      shadowOpacity: 0.8,
-      shadowRadius: 1.5,
-    },
+  const footerSvg = StyleSheet.create({
+    bottom: { bottom: -safeAreaInsetHeighet },
   });
+  const footerSvgStyle = { ...styles.footerSvg, ...footerSvg.bottom };
 
   return (
     <>
       <View style={styles.container}>
         <View style={styles.footerSvgWrap}>
           <FooterBackgroundSvg
-            style={footerSvgStyle.style}
+            style={footerSvgStyle}
             backColor={baseColor.darkNavy}
           />
         </View>
@@ -117,6 +108,16 @@ const styles = StyleSheet.create({
     left: -1.8,
     width: displayWidth + 6,
     aspectRatio: viewboxRatio, // これがないと画面サイズぴったりのボトムナビにならない
+  },
+  footerSvg: {
+    position: "absolute",
+    shadowColor: "#aaaaaa",
+    shadowOffset: {
+      width: 0,
+      height: -1.5,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 1.5,
   },
   footerItem: {
     bottom: 15,
