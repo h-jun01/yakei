@@ -15,6 +15,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
   const { postUserName, postUserImage, create_time } = props;
 
   return (
+    //一覧の1層目
     <View style={styles.userData}>
       <Image
         style={styles.userIcon}
@@ -23,9 +24,9 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
         }}
         PlaceholderContent={<ActivityIndicator />}
       />
-      <View>
+      <View style={styles.userName}>
         <Text style={styles.userName}>{postUserName}</Text>
-        <Text style={styles.time}>{create_time}</Text>
+        <Text style={styles.timeStamp}>{create_time}</Text>
       </View>
       <Text style={styles.dotsVertical}>
         <MaterialCommunityIcons name="dots-vertical" size={20} />

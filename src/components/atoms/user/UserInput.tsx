@@ -34,6 +34,7 @@ const UserInput: FC<Props> = ({ ...props }) => {
         //編集を可能に
         editable={true}
         //アクティブな境界線およびラベルの色
+        //どうしても赤線が出る。影響なし
         borderHeight={1}
         borderColor={utilityColor.border}
         inputPadding={24}
