@@ -22,20 +22,20 @@ const TabMenuContainer: FC<Props> = ({ navigation }) => {
   const photoDataList = useSelector(selectPhotoDataList);
   const favoriteList = useSelector(selectFavoriteList);
 
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
 
-  useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        await accountFireStore.getUser(uid).then((res) => {
-          dispatch(setUserData(res.data()));
-        });
-        await photoFireStore.getPhotoList(uid).then((res) => {
-          dispatch(setPhotoListData(res));
-        });
-      }
-    });
-  }, []);
+  //   useEffect(() => {
+  //     auth.onAuthStateChanged(async (user) => {
+  //       if (user) {
+  //         await accountFireStore.getUser(uid).then((res) => {
+  //           dispatch(setUserData(res.data()));
+  //         });
+  //         await photoFireStore.getPhotoList(uid).then((res) => {
+  //           dispatch(setPhotoListData(res));
+  //         });
+  //       }
+  //     });
+  //   }, []);
 
   return <TabMenu photoDataList={photoDataList} favoriteList={favoriteList} />;
 };
