@@ -1,28 +1,11 @@
 import React, { FC } from "react";
-import {
-  View,
-  Text,
-  Button,
-  ActivityIndicator,
-  ScrollView,
-
-} from "react-native";
+import { View, Text, ActivityIndicator, ScrollView } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../../styles/user/user";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
 import UserImage from "../../atoms/user/UserImage";
-
-type FavoriteList = {
-  uid: string;
-  photo_id: string;
-  url: string;
-  createTime: string;
-  latitude: number;
-  longitude: number;
-  geohash: number;
-  favoriteNumber: number;
-};
+import TabMenu from "../../../containers/molecules/TabMenu";
 
 type Props = {
   navigation: any;
@@ -30,20 +13,10 @@ type Props = {
   image: string;
   headerImage: string;
   selfIntroduction: string;
-  photoDataList: firebase.firestore.DocumentData[];
-  favoriteList: FavoriteList[];
 };
 
 const User: FC<Props> = ({ ...props }) => {
-  const {
-    navigation,
-    name,
-    image,
-    headerImage,
-    selfIntroduction,
-    photoDataList,
-    favoriteList,
-  } = props;
+  const { navigation, name, image, headerImage, selfIntroduction } = props;
 
   return (
     <ScrollView style={styles.container}>
@@ -74,36 +47,7 @@ const User: FC<Props> = ({ ...props }) => {
             </Text>
           </View>
         </View>
-
-        {/* お気に入り */}
-        <View style={styles.imgItemWrap}>
-          {favoriteList !== undefined &&
-            favoriteList.map((item, index) => (
-              <View key={index}>
-                <Image
-                  style={styles.imgItem}
-                  PlaceholderContent={<ActivityIndicator />}
-                  source={{
-                    uri: item.url,
-                  }}
-                />
-              </View>
-            ))}
-        </View>
-        <View style={styles.imgItemWrap}>
-          {photoDataList !== undefined &&
-            photoDataList.map((item, index) => (
-              <View key={index}>
-                <Image
-                  style={styles.imgItem}
-                  PlaceholderContent={<ActivityIndicator />}
-                  source={{
-                    uri: item.url,
-                  }}
-                />
-              </View>
-            ))}
-        </View>
+        <TabMenu navigation={navigation} />
       </View>
     </ScrollView>
   );
