@@ -100,14 +100,15 @@ const styles = StyleSheet.create({
   footerItem: {
     bottom: 15,
     width: 0,
-    height: 79,
+    height:
+      displayWidth / viewboxRatio - displayWidth * itemsFloatingRatio - 15,
     flexGrow: 1,
     flexDirection: "column",
     justifyContent: "flex-end",
     alignItems: "center",
   },
   plusButton: {
-    bottom: 0,
+    bottom: 17,
     paddingHorizontal: 10,
   },
 });

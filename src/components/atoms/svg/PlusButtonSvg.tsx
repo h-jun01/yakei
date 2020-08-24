@@ -18,7 +18,7 @@ const PlusButtonSvg: FC<Props> = ({
   const AnimatedSvg = Animated.createAnimatedComponent(Svg);
   return (
     <AnimatedSvg
-      style={[{ bottom: 17 }, style]}
+      style={style}
       onPress={changeStyle}
       width={"100%"}
       height={"100%"}
