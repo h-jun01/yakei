@@ -37,7 +37,7 @@ const BottomNavItem: FC<Props> = (props) => {
   });
 
   switch (index) {
-    case 0:
+    case 0: {
       const widthRatio = 22 / iPhone11width;
       const width = displayWidth * widthRatio;
       const viewBoxRatio = 22 / 28;
@@ -56,17 +56,24 @@ const BottomNavItem: FC<Props> = (props) => {
           <Text style={styles.label}>{label}</Text>
         </>
       );
-    case 1:
+    }
+    case 1: {
+      const widthRatio = (isFocused ? 28 : 24) / iPhone11width;
+      const width = displayWidth * widthRatio;
+      const viewBoxRatio = (isFocused ? 28 : 24) / 24;
       return (
         <>
-          {isFocused ? (
-            <CollectionButtonTintedSvg color={activeColor} />
-          ) : (
-            <CollectionButtonStrokedSvg color={normalColor} />
-          )}
+          <View style={{ width: width, aspectRatio: viewBoxRatio }}>
+            {isFocused ? (
+              <CollectionButtonTintedSvg color={activeColor} />
+            ) : (
+              <CollectionButtonStrokedSvg color={normalColor} />
+            )}
+          </View>
           <Text style={styles.label}>{label}</Text>
         </>
       );
+    }
     case 2:
       return (
         <PlusButtonSvg
