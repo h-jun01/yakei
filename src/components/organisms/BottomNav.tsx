@@ -65,7 +65,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
 
 const displayWidth = Dimensions.get("window").width;
 const itemsFloatingRatio = 0.03623;
-const viewboxRatio = 4.4588; // FooterBackgroundSvgのviewbox.width / viewbox.height
+const viewboxRatio = 4.4588; // viewbox.width / viewbox.height
 
 const styles = StyleSheet.create({
   container: {
@@ -82,9 +82,9 @@ const styles = StyleSheet.create({
   },
   footerSvgWrap: {
     position: "absolute",
-    bottom: -1.3,
-    left: -1.8,
-    width: displayWidth + 6,
+    bottom: -2.25,
+    left: -2.75,
+    width: displayWidth + 10,
     aspectRatio: viewboxRatio, // これがないと画面サイズぴったりのボトムナビにならない
   },
   footerSvg: {
