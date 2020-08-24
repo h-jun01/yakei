@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Text, StyleSheet } from "react-native";
+import { View, Text, Dimensions, StyleSheet } from "react-native";
 import { baseColor } from "../../styles/thema/colors";
 
 import MapButtonTintedSvg from "../atoms/svg/MapButtonTintedSvg";
@@ -24,27 +24,35 @@ const BottomNavItem: FC<Props> = (props) => {
   const activeColor = baseColor.primaryRed;
   const normalColor = baseColor.iconGray;
   const backColor = baseColor.darkNavy;
+  const displayWidth = Dimensions.get("window").width;
+  const iPhone11width = 414;
+  const fontSizeRatio = 10 / iPhone11width;
 
   const styles = StyleSheet.create({
     label: {
       color: isFocused ? "#fff" : baseColor.iconTextGray,
-      fontSize: 10,
+      fontSize: displayWidth * fontSizeRatio,
       marginTop: 5,
     },
   });
 
   switch (index) {
     case 0:
+      const widthRatio = 22 / iPhone11width;
+      const width = displayWidth * widthRatio;
+      const viewBoxRatio = 22 / 28;
       return (
         <>
-          {isFocused ? (
-            <MapButtonTintedSvg color={activeColor} />
-          ) : (
-            <MapButtonStrokedSvg
-              strokeColor={normalColor}
-              backColor={backColor}
-            />
-          )}
+          <View style={{ width: width, aspectRatio: viewBoxRatio }}>
+            {isFocused ? (
+              <MapButtonTintedSvg color={activeColor} />
+            ) : (
+              <MapButtonStrokedSvg
+                strokeColor={normalColor}
+                backColor={backColor}
+              />
+            )}
+          </View>
           <Text style={styles.label}>{label}</Text>
         </>
       );

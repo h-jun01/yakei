@@ -65,7 +65,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
 
 const displayWidth = Dimensions.get("window").width;
 const itemsFloatingRatio = 0.03623;
-const viewboxRatio = 4.4588; // FooterBackgroundSvgのviewbox.width / viewbox.height
+const viewboxRatio = 4.4588; // viewbox.width / viewbox.height
 
 const styles = StyleSheet.create({
   container: {
