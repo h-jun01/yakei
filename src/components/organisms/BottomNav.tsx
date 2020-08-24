@@ -82,9 +82,9 @@ const styles = StyleSheet.create({
   },
   footerSvgWrap: {
     position: "absolute",
-    bottom: -1.3,
-    left: -1.8,
-    width: displayWidth + 6,
+    bottom: -2.25,
+    left: -2.75,
+    width: displayWidth + 10,
     aspectRatio: viewboxRatio, // これがないと画面サイズぴったりのボトムナビにならない
   },
   footerSvg: {
