@@ -106,13 +106,23 @@ const BottomNavItem: FC<Props> = (props) => {
         </>
       );
     }
-    default:
+    default: {
+      const widthRatio = 28 / iPhone11width;
+      const aspect = displayWidth * widthRatio;
+      const borderRatio = 2 / iPhone11width;
+      const borderWidth = displayWidth * borderRatio;
+
       return (
         <>
-          <RoundedUserImage color={isFocused ? activeColor : normalColor} />
+          <RoundedUserImage
+            aspect={aspect}
+            borderWidth={borderWidth}
+            color={isFocused ? activeColor : normalColor}
+          />
           <Text style={styles.label}>{label}</Text>
         </>
       );
+    }
   }
 };
 
