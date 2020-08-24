@@ -3,9 +3,9 @@ import { View, Text, Dimensions, StyleSheet } from "react-native";
 import { baseColor } from "../../styles/thema/colors";
 
 import MapButtonTintedSvg from "../atoms/svg/MapButtonTintedSvg";
-import CollectionButtonTintedSvg from "../atoms/svg/CollectionButtonTintedSvg";
+import PickUpButtonTintedSvg from "../atoms/svg/CollectionButtonTintedSvg";
 import NotificationButtonTintedSvg from "../atoms/svg/NotificationButtonTintedSvg";
-import CollectionButtonStrokedSvg from "../atoms/svg/CollectionButtonStrokedSvg";
+import PickUpButtonStrokedSvg from "../atoms/svg/CollectionButtonStrokedSvg";
 import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
 import NotificationButtonStrokedSvg from "../atoms/svg/NotificationButtonStrokedSvg";
 import RoundedUserImage from "../atoms/RoundedUserImage";
@@ -65,9 +65,9 @@ const BottomNavItem: FC<Props> = (props) => {
         <>
           <View style={{ width: width, aspectRatio: viewBoxRatio }}>
             {isFocused ? (
-              <CollectionButtonTintedSvg color={activeColor} />
+              <PickUpButtonTintedSvg color={activeColor} />
             ) : (
-              <CollectionButtonStrokedSvg color={normalColor} />
+              <PickUpButtonStrokedSvg color={normalColor} />
             )}
           </View>
           <Text style={styles.label}>{label}</Text>

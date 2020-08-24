@@ -5,7 +5,7 @@ type Props = {
   color?: string;
 };
 
-const ActiveCollectionButtonSvg: FC<Props> = ({ color = "#FC2E7E" }) => {
+const PickUpButtonTintedSvg: FC<Props> = ({ color = "#FC2E7E" }) => {
   return (
     <Svg width={"100%"} height={"100%"} viewBox="0 0 28 24" fill="none">
       <Path
@@ -18,4 +18,4 @@ const ActiveCollectionButtonSvg: FC<Props> = ({ color = "#FC2E7E" }) => {
   );
 };
 
-export default ActiveCollectionButtonSvg;
+export default PickUpButtonTintedSvg;
