@@ -74,7 +74,7 @@ const BottomNavItem: FC<Props> = (props) => {
         </>
       );
     }
-    case 2:
+    case 2: {
       const widthRatio = 72 / iPhone11width;
       const width = displayWidth * widthRatio;
       const viewBoxRatio = 72 / 72;
@@ -88,17 +88,24 @@ const BottomNavItem: FC<Props> = (props) => {
           />
         </View>
       );
-    case 3:
+    }
+    case 3: {
+      const widthRatio = (isFocused ? 24 : 22) / iPhone11width;
+      const width = displayWidth * widthRatio;
+      const viewBoxRatio = isFocused ? 24 / 25 : 22 / 24;
       return (
         <>
-          {isFocused ? (
-            <NotificationButtonTintedSvg color={activeColor} />
-          ) : (
-            <NotificationButtonStrokedSvg color={normalColor} />
-          )}
+          <View style={{ width: width, aspectRatio: viewBoxRatio }}>
+            {isFocused ? (
+              <NotificationButtonTintedSvg color={activeColor} />
+            ) : (
+              <NotificationButtonStrokedSvg color={normalColor} />
+            )}
+          </View>
           <Text style={styles.label}>{label}</Text>
         </>
       );
+    }
     default:
       return (
         <>
