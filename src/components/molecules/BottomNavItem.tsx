@@ -3,9 +3,9 @@ import { View, Text, Dimensions, StyleSheet } from "react-native";
 import { baseColor } from "../../styles/thema/colors";
 
 import MapButtonTintedSvg from "../atoms/svg/MapButtonTintedSvg";
-import PickUpButtonTintedSvg from "../atoms/svg/CollectionButtonTintedSvg";
+import PickUpButtonTintedSvg from "../atoms/svg/PickUpButtonTintedSvg";
 import NotificationButtonTintedSvg from "../atoms/svg/NotificationButtonTintedSvg";
-import PickUpButtonStrokedSvg from "../atoms/svg/CollectionButtonStrokedSvg";
+import PickUpButtonStrokedSvg from "../atoms/svg/PickUpButtonStrokedSvg";
 import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
 import NotificationButtonStrokedSvg from "../atoms/svg/NotificationButtonStrokedSvg";
 import RoundedUserImage from "../atoms/RoundedUserImage";
