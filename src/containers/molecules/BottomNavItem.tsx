@@ -1,5 +1,5 @@
 import React, { FC, useState, useRef } from "react";
-import { Animated } from "react-native";
+import { Animated, Dimensions } from "react-native";
 
 import BottomNavItemComponent from "../../components/molecules/BottomNavItem";
 
@@ -24,26 +24,45 @@ const BottomNavItem: FC<Props> = (props) => {
       Animated.timing(plusToCrossAnim, {
         toValue: 1,
         duration: 200,
-        useNativeDriver: true,
+        useNativeDriver: false, // trueにするとbottomのアニメーションが効かなくなる
       }).start();
     } else if (buttonState == "45deg") {
       Animated.timing(plusToCrossAnim, {
         toValue: 2,
         duration: 200,
-        useNativeDriver: true,
+        useNativeDriver: false,
       }).start(resetAnimValue);
     }
     setStateIndex(newIndex);
   };
 
   // フレーム値0から1、1から2にかけて0degから45deg、45degから90degに変化
-  const interPolateRotate = plusToCrossAnim.interpolate({
+  const interpolateRotate = plusToCrossAnim.interpolate({
     inputRange: [0, 1, 2],
     outputRange: ["0deg", "45deg", "90deg"],
   });
 
+  const displayWidth = Dimensions.get("window").width;
+  const iPhone11width = 414;
+  const bottomMoveRatio = 1 / iPhone11width;
+  const bottomOutputRange = displayWidth * bottomMoveRatio;
+  const leftMoveRatio = 0.15 / iPhone11width;
+  const leftOutputRange = displayWidth * leftMoveRatio;
+
+  const interpolateBottom = plusToCrossAnim.interpolate({
+    inputRange: [0, 1, 2],
+    outputRange: [0, bottomOutputRange, bottomOutputRange * 2],
+  });
+
+  const interpolateLeft = plusToCrossAnim.interpolate({
+    inputRange: [0, 1, 2],
+    outputRange: [0, leftOutputRange, leftOutputRange * 2],
+  });
+
   const animatedRotateStyle = {
-    transform: [{ rotate: interPolateRotate }],
+    transform: [{ rotate: interpolateRotate }],
+    bottom: interpolateBottom,
+    left: interpolateLeft,
   };
 
   return (

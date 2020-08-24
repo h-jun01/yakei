@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
+import { baseColor } from "../../styles/thema/colors";
 
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavItem from "../../containers/molecules/BottomNavItem";
@@ -9,7 +10,10 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.footerSvgWrap}>
-        <FooterBackgroundSvg style={styles.footerSvg} />
+        <FooterBackgroundSvg
+          style={styles.footerSvg}
+          backColor={baseColor.darkNavy}
+        />
       </View>
       <View style={styles.footerWrap}>
         {state.routes.map((route, index) => {
@@ -59,6 +63,10 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   );
 };
 
+const displayWidth = Dimensions.get("window").width;
+const itemsFloatingRatio = 0.03623;
+const viewboxRatio = 4.4588; // viewbox.width / viewbox.height
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -69,31 +77,38 @@ const styles = StyleSheet.create({
     position: "absolute",
     flexDirection: "row",
     justifyContent: "space-evenly",
-    bottom: 17,
-    width: Dimensions.get("window").width,
+    bottom: displayWidth * itemsFloatingRatio,
+    width: displayWidth,
   },
   footerSvgWrap: {
-    position: "relative",
-    bottom: 75,
-    left: -3,
-    width: Dimensions.get("window").width + 6,
-    aspectRatio: 4.4588, // viewbox.width / viewbox.height
+    position: "absolute",
+    bottom: -2.25,
+    left: -2.75,
+    width: displayWidth + 10,
+    aspectRatio: viewboxRatio, // これがないと画面サイズぴったりのボトムナビにならない
   },
   footerSvg: {
     position: "absolute",
-    bottom: 17,
+    shadowColor: "#aaaaaa",
+    shadowOffset: {
+      width: 0,
+      height: -1.5,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 1.5,
   },
   footerItem: {
     bottom: 15,
     width: 0,
-    height: 79,
+    height:
+      displayWidth / viewboxRatio - displayWidth * itemsFloatingRatio - 15,
     flexGrow: 1,
     flexDirection: "column",
     justifyContent: "flex-end",
     alignItems: "center",
   },
   plusButton: {
-    bottom: 0,
+    bottom: 17,
     paddingHorizontal: 10,
   },
 });
