@@ -69,7 +69,7 @@ const ScreenSwitcher: FC = () => {
         <Fragment>
           <Tab.Navigator tabBar={(props) => <BottomNav {...props} />}>
             <Tab.Screen name="スポット" component={HomeScreen} />
-            <Tab.Screen name="ギャラリー" component={PickUpScreen} />
+            <Tab.Screen name="ピックアップ" component={PickUpScreen} />
             <Tab.Screen name="Plus" component={HomeScreen} />
             <Tab.Screen name="通知" component={NotificationScreen} />
             <Tab.Screen name="マイページ" component={UserScreen} />
