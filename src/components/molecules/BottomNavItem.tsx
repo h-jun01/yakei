@@ -75,13 +75,18 @@ const BottomNavItem: FC<Props> = (props) => {
       );
     }
     case 2:
+      const widthRatio = 72 / iPhone11width;
+      const width = displayWidth * widthRatio;
+      const viewBoxRatio = 72 / 72;
       return (
-        <PlusButtonSvg
-          style={style}
-          baseColor={activeColor}
-          strokeColor={backColor}
-          changeStyle={changeStyle}
-        />
+        <View style={{ width: width, aspectRatio: viewBoxRatio }}>
+          <PlusButtonSvg
+            style={style}
+            baseColor={activeColor}
+            strokeColor={backColor}
+            changeStyle={changeStyle}
+          />
+        </View>
       );
     case 3:
       return (
