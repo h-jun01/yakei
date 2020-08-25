@@ -20,6 +20,7 @@ import OriginMarker from "../../atoms/home/OriginMarker";
 import { useEffect } from "react";
 import { useTheme } from "@react-navigation/native";
 import { photoFireStore } from "../../../firebase/photoFireStore";
+import { accountFireStore } from "../../../firebase/accountFireStore";
 
 type Region = {
   latitude: number;
@@ -51,6 +52,7 @@ const Home: FC<Props> = ({ ...props }) => {
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
   const [photoSnapFlag, setPhotoSnapFlag] = useState(false);
   const [photoPinFlag, setPhotoPinFlag] = useState(false);
+  const [postUserName, setPostUserName] = useState<string>("");
   const [photoSnapList, setPhotoSnapList] = useState<any>();
   const mapAnimation = useRef(new Animated.Value(0)).current;
 
@@ -284,6 +286,14 @@ const Home: FC<Props> = ({ ...props }) => {
         >
           {photoSnapList &&
             photoSnapList.map((data) => {
+              accountFireStore
+                .getUserName(data.uid)
+                .then((res: React.SetStateAction<string>) => {
+                  res && setPostUserName(res);
+                })
+                .catch(() => {
+                  setPostUserName("Anonymous");
+                });
               return (
                 <View key={data.photo_id} style={styles.card}>
                   <Image
@@ -293,7 +303,10 @@ const Home: FC<Props> = ({ ...props }) => {
                     style={styles.cardImage}
                     resizeMode="cover"
                   />
-                  <Text>{data.photo_id}</Text>
+                  <Text style={styles.cardText}>
+                    {postUserName}
+                    <Text style={styles.cardTextSub}>さんの投稿</Text>
+                  </Text>
                 </View>
               );
             })}
@@ -317,11 +330,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   card: {
-    // padding: 10,
     elevation: 2,
-    backgroundColor: "#FFF",
+    backgroundColor: "#181F32",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
     marginHorizontal: 10,
     shadowColor: "#000",
     shadowRadius: 5,
@@ -333,8 +347,17 @@ const styles = StyleSheet.create({
   cardImage: {
     flex: 3,
     width: "100%",
-    height: "100%",
+    height: "80%",
     alignSelf: "center",
+  },
+  cardText: {
+    fontSize: 17,
+    color: "#fff",
+    fontWeight: "bold",
+    padding: 15,
+  },
+  cardTextSub: {
+    fontWeight: "normal",
   },
 });
 export default Home;
