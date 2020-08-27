@@ -36,20 +36,24 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
   //     photoFireStore.getCommentList(photo_id).then((res) => {
   //       res && dispatch(setCommentDataList(res.reverse()));
   //     });
-  //   }, [photo_id, setCommentDataList]);
-
-  // コメント取得
-  //   useEffect(() => {
-  //     commentFireStore.getCommentDataList(photo_id).then((res) => {
-  //       dispatch(setCommentDataList(res));
-  //     });
-
-  //     const test = () => {
+  //     const emptyCommentDataList = () => {
   //       dispatch(setCommentDataList([]));
   //     };
 
-  //     return () => test();
+  //     return () => emptyCommentDataList();
   //   }, [photo_id, setCommentDataList]);
+
+  // コメント取得
+  useEffect(() => {
+    commentFireStore.getCommentDataList(photo_id).then((res) => {
+      dispatch(setCommentDataList(res));
+    });
+    const emptyCommentDataList = () => {
+      dispatch(setCommentDataList([]));
+    };
+
+    return () => emptyCommentDataList();
+  }, [photo_id, setCommentDataList]);
 
   // コメント入力時にフォーカスさせる
   const focusOnInput = () => {

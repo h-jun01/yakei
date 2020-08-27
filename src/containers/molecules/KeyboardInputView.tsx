@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { TextInput, Keyboard } from "react-native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
-import { photoFireStore } from "../../firebase/photoFireStore";
+import { commentFireStore } from "../../firebase/commentFireStore";
 import {
   setInputCommentValue,
   setIsInputForm,
@@ -32,11 +32,11 @@ const KeyboardInputViewContainer: FC<Props> = ({ textInputRef, photo_id }) => {
 
   //コメントを送信したとき
   const addComment = async () => {
-    await photoFireStore
-      .upDateCommentList(photo_id, uid, inputValue, "test")
+    await commentFireStore
+      .upDateCommentList(photo_id, uid, inputValue, "2020-09-27 22:00")
       .then(() => {
-        photoFireStore.getCommentList(photo_id).then((res) => {
-          res && dispatch(setCommentDataList(res.reverse()));
+        commentFireStore.getCommentDataList(photo_id).then((res) => {
+          dispatch(setCommentDataList(res));
         });
       });
     dispatch(setInputCommentValue(""));

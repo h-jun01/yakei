@@ -18,12 +18,6 @@ type PhotoFireStore = {
     latitude: number,
     longitude: number
   ) => Promise<firebase.firestore.DocumentData[]>;
-  upDateCommentList: (
-    photo_id: string,
-    uid: string,
-    message: string,
-    createTime: string
-  ) => Promise<void>;
 };
 
 const photo = db.collection("photos");
@@ -79,20 +73,5 @@ export const photoFireStore: PhotoFireStore = {
       allPhotoList.push(doc.data());
     });
     return allPhotoList;
-  },
-  //コメントを投稿
-  upDateCommentList: async (
-    photo_id: string,
-    uid: string,
-    message: string,
-    createTime: string
-  ) => {
-    await photo.doc(photo_id).update({
-      comment_list: FieldValue.arrayUnion({
-        uid,
-        message,
-        createTime,
-      }),
-    });
   },
 };
