@@ -5,23 +5,19 @@ import { db, FieldValue } from "./firebase";
 type CommentDataList = {
   uid: string;
   message: string;
-  createTime: string;
+  create_time: string;
 };
 
 type PhotoFireStore = {
   getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
   getAllPhotoList: () => Promise<firebase.firestore.DocumentData[]>;
-  getCommentList: (photo_id: string) => Promise<CommentDataList[]>;
+  getCommentList: (
+    photo_id: string
+  ) => Promise<CommentDataList[] | firebase.firestore.DocumentData[]>;
   getAreaPhotoList: (
     latitude: number,
     longitude: number
   ) => Promise<firebase.firestore.DocumentData[]>;
-  upDateCommentList: (
-    photo_id: string,
-    uid: string,
-    message: string,
-    createTime: string
-  ) => Promise<void>;
 };
 
 const photo = db.collection("photos");
@@ -77,20 +73,5 @@ export const photoFireStore: PhotoFireStore = {
       allPhotoList.push(doc.data());
     });
     return allPhotoList;
-  },
-  //コメントを投稿
-  upDateCommentList: async (
-    photo_id: string,
-    uid: string,
-    message: string,
-    createTime: string
-  ) => {
-    await photo.doc(photo_id).update({
-      comment_list: FieldValue.arrayUnion({
-        uid,
-        message,
-        createTime,
-      }),
-    });
   },
 };

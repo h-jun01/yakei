@@ -1,16 +1,19 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
+import { Reducer } from "redux";
 
 type CommentDataList = {
   uid: string;
   message: string;
-  createTime: string;
+  create_time: string;
 };
 
 type State = {
-  commentDataList: CommentDataList[];
+  commentDataList: CommentDataList[] | firebase.firestore.DocumentData[];
   inputValue: string;
   isInputForm: boolean;
 };
+
+type PostedDataReducer = Reducer<State, UnionedAction>;
 
 const initialState: State = {
   commentDataList: [],
@@ -18,7 +21,7 @@ const initialState: State = {
   isInputForm: false,
 };
 
-export const postedDataReducer = (
+export const postedDataReducer: PostedDataReducer = (
   state = initialState,
   action: UnionedAction
 ) => {

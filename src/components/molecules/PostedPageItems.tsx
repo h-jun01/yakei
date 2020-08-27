@@ -1,14 +1,9 @@
 import React, { FC } from "react";
 import { View, Text } from "react-native";
+import { commentFireStore } from "../../firebase/commentFireStore";
+import { setCommentDataList } from "../../actions/postedData";
 import { styles } from "../../styles/imageList";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
-
-type CommentData = {
-  name: string;
-  image: string;
-  comment: string;
-  createTime: string;
-};
 
 type Props = {
   navigation: any;
@@ -19,7 +14,6 @@ type Props = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
-  comment_list: CommentData[];
 };
 
 const PostedPageItems: FC<Props> = ({ ...props }) => {
@@ -32,10 +26,15 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
     favoriteNumber,
     latitude,
     longitude,
-    comment_list,
   } = props;
 
-  const commentCount: number = comment_list.length;
+  // コメント数取得・修正すること
+  const [a, b] = React.useState<number>(0);
+  React.useEffect(() => {
+    commentFireStore.getCommentDataList(photo_id).then((res) => {
+      b(res.length);
+    });
+  }, [setCommentDataList]);
 
   return (
     <View style={styles.postItem}>
@@ -54,13 +53,12 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
             favoriteNumber,
             latitude,
             longitude,
-            comment_list,
           })
         }
       >
         <EvilIcons name="comment" size={20} />
       </Text>
-      <Text style={styles.stateNum}>{commentCount}</Text>
+      <Text style={styles.stateNum}>{a}</Text>
       <Text style={styles.PostIcon}>
         <EvilIcons name="location" size={20} />
       </Text>

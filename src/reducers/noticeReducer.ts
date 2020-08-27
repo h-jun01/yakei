@@ -1,4 +1,5 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
+import { Reducer } from "redux";
 
 type NoticeDataList = {
   message: string;
@@ -9,11 +10,16 @@ type State = {
   noticeDataList: NoticeDataList[];
 };
 
+type NoticeReducer = Reducer<State, UnionedAction>;
+
 const initialState: State = {
   noticeDataList: [],
 };
 
-export const noticeReducer = (state = initialState, action: UnionedAction) => {
+export const noticeReducer: NoticeReducer = (
+  state = initialState,
+  action: UnionedAction
+) => {
   switch (action.type) {
     case ActionTypes.NOTICE_DATA_LIST:
       return {
