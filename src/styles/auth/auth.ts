@@ -109,7 +109,7 @@ export const styles = StyleSheet.create({
   },
 
   //連携ログイン
-  twitterBack: {
+  googleBack: {
     backgroundColor: "#DC4E42",
     borderRadius: 5,
     paddingVertical: 15,

@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import { Text, SafeAreaView, GestureResponderEvent } from "react-native";
+import { Text, GestureResponderEvent, TouchableHighlight } from "react-native";
 import { styles } from "../../../styles/auth/auth";
+import { utilityColor } from "../../../styles/thema/colors";
 
 type Props = {
   text: string;
@@ -10,11 +11,13 @@ type Props = {
 const AuthStatusChange: FC<Props> = ({ ...props }) => {
   const { text, navigation } = props;
   return (
-    <SafeAreaView style={styles.authChangeWrap}>
-      <Text style={styles.authChangeText} onPress={navigation}>
-        {text}
-      </Text>
-    </SafeAreaView>
+    <TouchableHighlight
+      style={styles.authChangeWrap}
+      underlayColor={utilityColor.authNav}
+      onPress={navigation}
+    >
+      <Text style={styles.authChangeText}>{text}</Text>
+    </TouchableHighlight>
   );
 };
 
