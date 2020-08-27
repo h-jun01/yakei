@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { ScrollView, View } from "react-native";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/imageList";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
-import PostedPageItems from "../../components/molecules/PostedPageItems";
+import PostedPageItems from "./PostedPageItems";
 
 type CommentData = {
   name: string;
@@ -41,11 +41,27 @@ const ImageList: FC<Props> = ({ ...props }) => {
               create_time={item.create_time}
               uid={item.uid}
             />
-            <Image
-              style={styles.imageSize}
-              source={{ uri: item.url }}
-              PlaceholderContent={<ActivityIndicator />}
-            />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() =>
+                navigation.navigate("post", {
+                  photo_id: item.photo_id,
+                  uid: item.uid,
+                  create_time: item.create_time,
+                  url: item.url,
+                  favoriteNumber: item.favoriteNumber,
+                  latitude: item.latitude,
+                  longitude: item.longitude,
+                  comment_list: item.comment_list,
+                })
+              }
+            >
+              <Image
+                style={styles.imageSize}
+                source={{ uri: item.url }}
+                PlaceholderContent={<ActivityIndicator />}
+              />
+            </TouchableOpacity>
             <PostedPageItems
               navigation={navigation}
               photo_id={item.photo_id}

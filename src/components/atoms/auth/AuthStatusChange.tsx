@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Text, SafeAreaView, GestureResponderEvent } from "react-native";
+import { Text, GestureResponderEvent, TouchableOpacity } from "react-native";
 import { styles } from "../../../styles/auth/auth";
 
 type Props = {
@@ -10,11 +10,13 @@ type Props = {
 const AuthStatusChange: FC<Props> = ({ ...props }) => {
   const { text, navigation } = props;
   return (
-    <SafeAreaView style={styles.authChangeWrap}>
-      <Text style={styles.authChangeText} onPress={navigation}>
-        {text}
-      </Text>
-    </SafeAreaView>
+    <TouchableOpacity
+      style={styles.authChangeWrap}
+      activeOpacity={0.8}
+      onPress={navigation}
+    >
+      <Text style={styles.authChangeText}>{text}</Text>
+    </TouchableOpacity>
   );
 };
 
