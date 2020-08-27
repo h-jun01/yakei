@@ -58,11 +58,11 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
           })
         }
       >
-        <EvilIcons name="comment" size={20} />
+        <EvilIcons name="comment" size={21} />
       </Text>
       <Text style={styles.stateNum}>{commentCount}</Text>
       <Text style={styles.PostIcon}>
-        <EvilIcons name="location" size={20} />
+        <EvilIcons name="location" size={21} />
       </Text>
     </View>
   );

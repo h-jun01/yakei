@@ -7,6 +7,11 @@ import {
 import { baseColor,utilityColor } from "../../../styles/thema/colors";
 import { Size } from "../../../styles/thema/fonts";
 import { Hoshi } from 'react-native-textinput-effects';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 
 type Props = {
   label: string;
@@ -57,8 +62,8 @@ const styles = StyleSheet.create({
     fontSize: Size.NormalL,
     fontWeight: "600",
     lineHeight: Size.lineHeight,
-    paddingLeft: 5,
-    paddingRight: 15,
+    paddingLeft: wp('2.5%'),
+    paddingRight: wp('5%'),
   },
 });
 

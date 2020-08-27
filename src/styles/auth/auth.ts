@@ -2,13 +2,16 @@ import { StyleSheet } from "react-native";
 import { baseColor, utilityColor } from "../thema/colors";
 import { Size } from "../thema/fonts";
 import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 export const styles = StyleSheet.create({
   container: {
-    width: deviceWidth,
-    height: "100%",
     flex: 1,
-    justifyContent: "center",
+    width: deviceWidth,
+    height: hp('100%'),
     backgroundColor: baseColor.base,
   },
   authBack: {
@@ -19,25 +22,29 @@ export const styles = StyleSheet.create({
   allWrap: {
     width: deviceWidth,
     position: "absolute",
-    top: "15%",
+    top: hp('13%'),
   },
   authWrap: {
-    width: "90%",
+    width: wp('90%'),
     marginLeft: "auto",
     marginRight: "auto",
-    padding: 25,
+    padding: hp('3%'),
     backgroundColor: utilityColor.inputBack,
     borderRadius: 10,
   },
 
   //アプリ名
   titleWrap: {
-    marginBottom: 50,
+    alignItems: "center",
+    marginBottom: hp('4%'),
+    marginLeft: "auto",
+    marginRight: "auto",
   },
-  titleText: {
-    color: baseColor.text,
-    textAlign: "center",
-    fontSize: 40,
+  yakeiLogo: {
+    color: "#fff",
+    width: wp('57%'),
+    height: hp('8%'),
+    zIndex: 1,
   },
 
   //input
@@ -47,10 +54,8 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
   },
   authInput: {
-    marginBottom: 20,
-    padding: 10,
-    // paddingTop: 10,
-    // paddingBottom:10,
+    marginBottom: hp('2.5%'),
+    padding: wp('2%'),
     borderRadius: 5,
     borderBottomWidth: 1,
     borderBottomColor: utilityColor.border,
@@ -61,8 +66,8 @@ export const styles = StyleSheet.create({
   buttonBack: {
     backgroundColor: baseColor.accent,
     borderRadius: 5,
-    paddingVertical: 15,
-    marginBottom: 15,
+    paddingVertical: hp('1.5%'),
+    marginBottom: hp('1%'),
   },
   buttonText: {
     color: baseColor.text,
@@ -73,7 +78,7 @@ export const styles = StyleSheet.create({
 
   // 利用規約
   text: {
-    marginTop: 15,
+    marginTop: hp('1%'),
   },
   textColor: {
     color: baseColor.text,
@@ -93,18 +98,18 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    marginVertical: 15,
+    marginVertical: hp('1.6%'),
   },
   orText: {
     color: baseColor.text,
-    paddingHorizontal: 30,
+    paddingHorizontal: wp('8%'),
     fontSize: Size.Small,
   },
   borderItem: {
+    width: wp('25%'),
+    height: 1,
     borderWidth: 0.3,
     borderColor: utilityColor.border,
-    width: 100,
-    height: 1,
     opacity: 0.5,
   },
 
@@ -112,12 +117,12 @@ export const styles = StyleSheet.create({
   twitterBack: {
     backgroundColor: "#DC4E42",
     borderRadius: 5,
-    paddingVertical: 15,
-    marginBottom: 15,
+    paddingVertical: hp('1.5%'),
+    marginBottom: hp('1.5%'),
   },
 
   authChangeWrap: {
-    height: 58,
+    height: hp('7%'),
     width: "100%",
     position: "absolute",
     bottom: 0,

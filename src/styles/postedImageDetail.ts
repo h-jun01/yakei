@@ -6,16 +6,20 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: baseColor.base,
-    paddingBottom: 90,
+  },
+  allWrap: {
+    width: deviceWidth,
+    //フッターの高さ+タイトルの高さ分あげる
+    paddingBottom: 101,
   },
   userIcon: {
-    width: 50,
-    height: 50,
+    width: 42,
+    height: 42,
     borderRadius: 180,
   },
   image: {
     width: deviceWidth,
-    height: 250,
+    height: deviceHeight / 3,
   },
   postItem: {
     flexDirection: "row",
@@ -33,7 +37,7 @@ export const styles = StyleSheet.create({
   },
   location: {
     color: "#fff",
-    marginLeft: 7,
+    marginLeft: 15,
   },
   keyboardViewFalse: {
     display: "none",
