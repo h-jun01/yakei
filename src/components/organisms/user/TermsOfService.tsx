@@ -1,8 +1,18 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setBottomNavStatus } from "../../../actions/bottomNav";
 import { ScrollView, View, Text } from "react-native";
 import { styles } from "../../../styles/user/terms";
 
 const TermsOfService: FC = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setBottomNavStatus(false));
+    return () => {
+      dispatch(setBottomNavStatus(true));
+    };
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View>
