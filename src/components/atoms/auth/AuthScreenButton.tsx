@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View, Text, TouchableWithoutFeedback } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { styles } from "../../../styles/auth/auth";
 
 type Props = {
@@ -10,11 +10,13 @@ type Props = {
 const AuthScreenButton: FC<Props> = ({ ...props }) => {
   const { label, authFunction } = props;
   return (
-    <View style={styles.buttonBack}>
-      <TouchableWithoutFeedback onPress={authFunction}>
-        <Text style={styles.buttonText}>{label}</Text>
-      </TouchableWithoutFeedback>
-    </View>
+    <TouchableOpacity
+      style={styles.buttonBack}
+      activeOpacity={0.8}
+      onPress={authFunction}
+    >
+      <Text style={styles.buttonText}>{label}</Text>
+    </TouchableOpacity>
   );
 };
 

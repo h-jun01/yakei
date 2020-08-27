@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../containers/organisms/home/Home";
-import Details from "../containers/organisms/home/Detail";
+import ImageList from "../containers/molecules/ImageList";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
 
 const HomeScreen: FC = () => {
@@ -17,7 +17,7 @@ const HomeScreen: FC = () => {
       />
       <Stack.Screen
         name="detail"
-        component={Details}
+        component={ImageList}
         options={{
           title: "一覧",
           headerBackTitleVisible: false,
