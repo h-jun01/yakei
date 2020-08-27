@@ -1,7 +1,6 @@
 import React, { FC } from "react";
-import { Text, GestureResponderEvent, TouchableHighlight } from "react-native";
+import { Text, GestureResponderEvent, TouchableOpacity } from "react-native";
 import { styles } from "../../../styles/auth/auth";
-import { utilityColor } from "../../../styles/thema/colors";
 
 type Props = {
   text: string;
@@ -11,13 +10,13 @@ type Props = {
 const AuthStatusChange: FC<Props> = ({ ...props }) => {
   const { text, navigation } = props;
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       style={styles.authChangeWrap}
-      underlayColor={utilityColor.authNav}
+      activeOpacity={0.8}
       onPress={navigation}
     >
       <Text style={styles.authChangeText}>{text}</Text>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Text, TouchableHighlight } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { styles } from "../../../styles/auth/auth";
 
 type Props = {
@@ -19,13 +19,13 @@ type Props = {
 const AuthButton: FC<Props> = ({ ...props }) => {
   const { signInWithGoogle } = props;
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       style={styles.googleBack}
-      underlayColor={"#CC4E42"}
+      activeOpacity={0.8}
       onPress={() => signInWithGoogle()}
     >
       <Text style={styles.buttonText}>Googleアカウントでログイン</Text>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 

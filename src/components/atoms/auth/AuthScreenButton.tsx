@@ -1,7 +1,6 @@
 import React, { FC } from "react";
-import { Text, TouchableHighlight } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { styles } from "../../../styles/auth/auth";
-import { baseColor } from "../../../styles/thema/colors";
 
 type Props = {
   label: string;
@@ -11,13 +10,13 @@ type Props = {
 const AuthScreenButton: FC<Props> = ({ ...props }) => {
   const { label, authFunction } = props;
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       style={styles.buttonBack}
-      underlayColor={baseColor.accent}
+      activeOpacity={0.8}
       onPress={authFunction}
     >
       <Text style={styles.buttonText}>{label}</Text>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../containers/organisms/home/Home";
-import Details from "../containers/organisms/home/Detail";
+import Details from "../containers/molecules/Detail";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
 
 const HomeScreen: FC = () => {
