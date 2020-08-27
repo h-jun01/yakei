@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
 import { ActionTypes, UnionedAction } from "../actions/index";
 
-type State = {
+export type State = {
   shouldDisplay: boolean;
 };
 

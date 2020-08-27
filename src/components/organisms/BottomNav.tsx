@@ -5,10 +5,16 @@ import { baseColor } from "../../styles/thema/colors";
 
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavItem from "../../containers/molecules/BottomNavItem";
+import { RootState } from "../../reducers/index";
+import { useSelector } from "react-redux";
 
 const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
+  const shouldDisplay = useSelector(
+    (state: RootState) => state.bottomNavReducer.shouldDisplay
+  );
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
       <View style={styles.footerSvgWrap}>
         <FooterBackgroundSvg
           style={styles.footerSvg}
