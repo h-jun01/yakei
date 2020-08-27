@@ -1,8 +1,9 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useCallback } from "react";
 import { TextInput } from "react-native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 import { photoFireStore } from "../../firebase/photoFireStore";
+import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 
@@ -31,15 +32,24 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
   const dispatch = useDispatch();
 
   // コメント取得
-  useEffect(() => {
-    photoFireStore.getCommentList(photo_id).then((res) => {
-      res && dispatch(setCommentDataList(res.reverse()));
-    });
-  }, [photo_id, setCommentDataList]);
+  //   useEffect(() => {
+  //     photoFireStore.getCommentList(photo_id).then((res) => {
+  //       res && dispatch(setCommentDataList(res.reverse()));
+  //     });
+  //   }, [photo_id, setCommentDataList]);
 
-  // useEffect(() => {
-  //    return dispatch(setCommentDataList([]))
-  // },[])
+  // コメント取得
+  //   useEffect(() => {
+  //     commentFireStore.getCommentDataList(photo_id).then((res) => {
+  //       dispatch(setCommentDataList(res));
+  //     });
+
+  //     const test = () => {
+  //       dispatch(setCommentDataList([]));
+  //     };
+
+  //     return () => test();
+  //   }, [photo_id, setCommentDataList]);
 
   // コメント入力時にフォーカスさせる
   const focusOnInput = () => {

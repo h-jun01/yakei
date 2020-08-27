@@ -3,11 +3,13 @@ import { ActionTypes } from "./index";
 type CommentDataList = {
   uid: string;
   message: string;
-  createTime: string;
+  create_time: string;
 };
 
 //コメント一覧をセット
-export const setCommentDataList = (commentDataList: CommentDataList[]) =>
+export const setCommentDataList = (
+  commentDataList: CommentDataList[] | firebase.firestore.DocumentData[]
+) =>
   ({
     type: ActionTypes.COMMENT_DATA_LIST,
     payload: {

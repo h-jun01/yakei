@@ -17,7 +17,7 @@ import CommentField from "../../containers/molecules/CommentField";
 type CommentDataList = {
   uid: string;
   message: string;
-  createTime: string;
+  create_time: string;
 };
 
 type Props = {
@@ -28,7 +28,7 @@ type Props = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
-  commentDataList: CommentDataList[];
+  commentDataList: firebase.firestore.DocumentData[];
   textInputRef: React.MutableRefObject<TextInput | null>;
   focusOnInput: () => void;
 };
@@ -72,7 +72,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
               <CommentField
                 uid={item.uid}
                 message={item.message}
-                createTime={item.createTime}
+                createTime={item.create_time}
               />
             </View>
           ))}

@@ -5,13 +5,15 @@ import { db, FieldValue } from "./firebase";
 type CommentDataList = {
   uid: string;
   message: string;
-  createTime: string;
+  create_time: string;
 };
 
 type PhotoFireStore = {
   getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
   getAllPhotoList: () => Promise<firebase.firestore.DocumentData[]>;
-  getCommentList: (photo_id: string) => Promise<CommentDataList[]>;
+  getCommentList: (
+    photo_id: string
+  ) => Promise<CommentDataList[] | firebase.firestore.DocumentData[]>;
   getAreaPhotoList: (
     latitude: number,
     longitude: number

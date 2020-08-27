@@ -4,11 +4,11 @@ import { Reducer } from "redux";
 type CommentDataList = {
   uid: string;
   message: string;
-  createTime: string;
+  create_time: string;
 };
 
 type State = {
-  commentDataList: CommentDataList[];
+  commentDataList: CommentDataList[] | firebase.firestore.DocumentData[];
   inputValue: string;
   isInputForm: boolean;
 };
