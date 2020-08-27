@@ -103,7 +103,14 @@ const ScreenSwitcher: FC = () => {
           <Stack.Screen
             name="termsOfService"
             component={TermsOfService}
-            options={{ title: "利用規約", headerBackTitleVisible: false }}
+            options={{
+              title: "利用規約",
+              headerBackTitleVisible: false,
+              headerTintColor: "#fff",
+              headerStyle: {
+                backgroundColor: "#181F32",
+              },
+            }}
           />
           <Stack.Screen
             name="privacyPolicy"
@@ -111,6 +118,10 @@ const ScreenSwitcher: FC = () => {
             options={{
               title: "プライバシーポリシー",
               headerBackTitleVisible: false,
+              headerTintColor: "#fff",
+              headerStyle: {
+                backgroundColor: "#181F32",
+              },
             }}
           />
           <Stack.Screen
