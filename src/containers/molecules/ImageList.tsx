@@ -6,10 +6,10 @@ type Props = {
   navigation: any;
 };
 
-const ContainerDetail: FC<Props> = ({ route, navigation }) => {
+const ImageListContainer: FC<Props> = ({ route, navigation }) => {
   const { photoDataList } = route.params;
 
   return <ImageList photoDataList={photoDataList} navigation={navigation} />;
 };
 
-export default ContainerDetail;
+export default ImageListContainer;
