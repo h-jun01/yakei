@@ -1,14 +1,17 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
+import { Reducer } from "redux";
 
 type State = {
   allPhotoDataList: firebase.firestore.DocumentData[];
 };
 
+type AllPhotoReducer = Reducer<State, UnionedAction>;
+
 const initialState: State = {
   allPhotoDataList: [],
 };
 
-export const allPhotoReducer = (
+export const allPhotoReducer: AllPhotoReducer = (
   state = initialState,
   action: UnionedAction
 ) => {

@@ -1,4 +1,5 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
+import { Reducer } from "redux";
 
 type CommentDataList = {
   uid: string;
@@ -12,13 +13,15 @@ type State = {
   isInputForm: boolean;
 };
 
+type PostedDataReducer = Reducer<State, UnionedAction>;
+
 const initialState: State = {
   commentDataList: [],
   inputValue: "",
   isInputForm: false,
 };
 
-export const postedDataReducer = (
+export const postedDataReducer: PostedDataReducer = (
   state = initialState,
   action: UnionedAction
 ) => {

@@ -19,6 +19,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     favoriteNumber,
     latitude,
     longitude,
+    comment_list,
   } = route.params;
 
   const textInputRef = useRef<null | TextInput>(null);
@@ -35,6 +36,10 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
       res && dispatch(setCommentDataList(res.reverse()));
     });
   }, [photo_id, setCommentDataList]);
+
+  // useEffect(() => {
+  //    return dispatch(setCommentDataList([]))
+  // },[])
 
   // コメント入力時にフォーカスさせる
   const focusOnInput = () => {
