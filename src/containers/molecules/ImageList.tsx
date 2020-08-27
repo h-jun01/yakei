@@ -9,7 +9,6 @@ type Props = {
 const ImageListContainer: FC<Props> = ({ route, navigation }) => {
   const { photoDataList } = route.params;
 
-  React.useEffect(() => {}, []);
   return <ImageList photoDataList={photoDataList} navigation={navigation} />;
 };
 

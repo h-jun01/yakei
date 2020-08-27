@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import { db, FieldValue } from "./firebase";
+import { db } from "./firebase";
 
 const comment = db.collection("comments");
 

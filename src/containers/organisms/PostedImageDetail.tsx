@@ -20,7 +20,6 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     favoriteNumber,
     latitude,
     longitude,
-    comment_list,
   } = route.params;
 
   const textInputRef = useRef<null | TextInput>(null);
@@ -42,14 +41,18 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
 
   //     return () => emptyCommentDataList();
   //   }, [photo_id, setCommentDataList]);
+  //   const [commentDataList, set] = React.useState<any>([]);
 
   // コメント取得
+  // コメント欄開いた状態で他のコメント欄も開くと少しバグる（早めに修正）
   useEffect(() => {
     commentFireStore.getCommentDataList(photo_id).then((res) => {
       dispatch(setCommentDataList(res));
+      //   set(res);
     });
     const emptyCommentDataList = () => {
       dispatch(setCommentDataList([]));
+      //   set([]);
     };
 
     return () => emptyCommentDataList();
