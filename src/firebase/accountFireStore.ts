@@ -7,10 +7,10 @@ import {
   callingLogoutAlert,
 } from "../utilities/alert";
 
-type LoginUser = {
-  email: string;
-  password: string;
-};
+// type LoginUser = {
+//   email: string;
+//   password: string;
+// };
 
 type AccountFireStore = {
   getUser: (
@@ -21,7 +21,8 @@ type AccountFireStore = {
   getUserName: (uid: string) => Promise<React.SetStateAction<string>>;
   getUserImage: (uid: string) => Promise<React.SetStateAction<string>>;
   loginUser: (
-    account: LoginUser
+    email: string,
+    password: string
   ) => Promise<void | firebase.auth.UserCredential>;
   loginGoogleUser: (
     idToken: string,
@@ -65,13 +66,11 @@ export const accountFireStore: AccountFireStore = {
     });
   },
   //ログイン処理
-  loginUser: async (account: LoginUser) => {
-    return await auth
-      .signInWithEmailAndPassword(account.email, account.password)
-      .catch(() => {
-        callingAlert("メールアドレスまたはパスワードが違います。");
-        return;
-      });
+  loginUser: async (email: string, password: string) => {
+    return await auth.signInWithEmailAndPassword(email, password).catch(() => {
+      callingAlert("メールアドレスまたはパスワードが違います。");
+      return;
+    });
   },
   //Googleログイン処理
   loginGoogleUser: async (idToken: string, accessToken: string) => {

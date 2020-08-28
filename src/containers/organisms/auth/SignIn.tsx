@@ -60,10 +60,7 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
       }
       setIsLoading(true);
 
-      await accountFireStore.loginUser({
-        email,
-        password,
-      });
+      await accountFireStore.loginUser(email, password);
     } catch (error) {
       setIsLoading(false);
       console.log(error.toString());
