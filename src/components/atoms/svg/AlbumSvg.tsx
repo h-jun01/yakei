@@ -1,17 +1,26 @@
 import React, { FC } from "react";
 import Svg, { G, Circle, Path } from "react-native-svg";
+import { ViewStyle, TextStyle, ImageStyle } from "react-native";
 
 type Props = {
   textColor?: string;
   backColor?: string;
+  style?: ViewStyle | TextStyle | ImageStyle;
 };
 
 const AlbumSvg: FC<Props> = ({
   textColor = "#E3EAF4",
   backColor = "#181F32",
+  style,
 }) => {
   return (
-    <Svg width={54} height={54} viewBox="0 0 54 54" fill="none">
+    <Svg
+      width={"100%"}
+      height={"100%"}
+      viewBox="0 0 54 54"
+      fill="none"
+      style={style}
+    >
       <G>
         <Circle cx={27} cy={23} r={23} fill={backColor} />
         <G>

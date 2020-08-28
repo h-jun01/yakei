@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
-
+import CameraAlbumWrap from "../molecules/CameraAlbumWrap";
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavItem from "../../containers/molecules/BottomNavItem";
 import { RootState } from "../../reducers/index";
@@ -20,6 +20,9 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
           style={styles.footerBackground}
           backColor={baseColor.darkNavy}
         />
+      </View>
+      <View style={styles.cameraAndAlbumWrap}>
+        <CameraAlbumWrap />
       </View>
       <View style={styles.footerItemsWrap}>
         {state.routes.map((route, index) => {
@@ -90,10 +93,18 @@ const styles = StyleSheet.create({
     shadowColor: "#aaaaaa",
     shadowOffset: {
       width: 0,
-      height: -1.5,
+      height: -0.5,
     },
     shadowOpacity: 0.8,
     shadowRadius: 1.5,
+  },
+  cameraAndAlbumWrap: {
+    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "center",
+    bottom: displayWidth * itemsFloatingRatio,
+    left: -2.75,
+    width: displayWidth + 10,
   },
   footerItemsWrap: {
     zIndex: 0,
