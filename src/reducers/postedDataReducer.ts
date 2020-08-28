@@ -1,14 +1,8 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
 import { Reducer } from "redux";
 
-type CommentDataList = {
-  uid: string;
-  message: string;
-  create_time: string;
-};
-
 type State = {
-  commentDataList: CommentDataList[] | firebase.firestore.DocumentData[];
+  commentDataList: firebase.firestore.DocumentData[];
   inputValue: string;
   isInputForm: boolean;
 };

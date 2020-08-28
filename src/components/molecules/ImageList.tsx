@@ -4,7 +4,7 @@ import { ActivityIndicator, TouchableOpacity } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/imageList";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
-import PostedPageItems from "./PostedPageItems";
+import PostedPageItems from "../../containers/molecules/PostedPageItems";
 
 type PhotoDataList = {
   photo_id: string;

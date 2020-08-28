@@ -2,18 +2,12 @@ import firebase from "firebase";
 import geohash from "ngeohash";
 import { db, FieldValue } from "./firebase";
 
-type CommentDataList = {
-  uid: string;
-  message: string;
-  create_time: string;
-};
-
 type PhotoFireStore = {
   getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
   getAllPhotoList: () => Promise<firebase.firestore.DocumentData[]>;
   getCommentList: (
     photo_id: string
-  ) => Promise<CommentDataList[] | firebase.firestore.DocumentData[]>;
+  ) => Promise<firebase.firestore.DocumentData[]>;
   getAreaPhotoList: (
     latitude: number,
     longitude: number

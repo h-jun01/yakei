@@ -2,7 +2,6 @@ import React, { FC, useEffect, useRef, useCallback } from "react";
 import { TextInput } from "react-native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
-import { photoFireStore } from "../../firebase/photoFireStore";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
@@ -22,38 +21,20 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     longitude,
   } = route.params;
 
-  const textInputRef = useRef<null | TextInput>(null);
-
   const selrctCommentDataList = (state: RootState) =>
     state.postedDataReducer.commentDataList;
   const commentDataList = useSelector(selrctCommentDataList);
-
+  const textInputRef = useRef<null | TextInput>(null);
   const dispatch = useDispatch();
 
   // コメント取得
-  //   useEffect(() => {
-  //     photoFireStore.getCommentList(photo_id).then((res) => {
-  //       res && dispatch(setCommentDataList(res.reverse()));
-  //     });
-  //     const emptyCommentDataList = () => {
-  //       dispatch(setCommentDataList([]));
-  //     };
-
-  //     return () => emptyCommentDataList();
-  //   }, [photo_id, setCommentDataList]);
-  //   const [commentDataList, set] = React.useState<any>([]);
-
-  // コメント取得
-  // コメント欄開いた状態で他のコメント欄も開くと少しバグる（早めに修正）
   useEffect(() => {
-    commentFireStore.getCommentDataList(photo_id).then((res) => {
-      dispatch(setCommentDataList(res));
-      //   set(res);
-    });
     const emptyCommentDataList = () => {
       dispatch(setCommentDataList([]));
-      //   set([]);
     };
+    commentFireStore.getCommentDataList(photo_id).then((res) => {
+      dispatch(setCommentDataList(res));
+    });
 
     return () => emptyCommentDataList();
   }, [photo_id, setCommentDataList]);
