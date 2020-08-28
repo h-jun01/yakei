@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Animated } from "react-native";
-import Svg, { G, Circle, Rect, Defs } from "react-native-svg";
+import Svg, { G, Circle, Rect } from "react-native-svg";
 
 type Props = {
   style?: Object;
@@ -53,7 +53,6 @@ const PlusButtonSvg: FC<Props> = ({
           fill="#fff"
         />
       </G>
-      <Defs></Defs>
     </AnimatedSvg>
   );
 };

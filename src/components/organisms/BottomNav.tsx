@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
-
+import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavItem from "../../containers/molecules/BottomNavItem";
 import { RootState } from "../../reducers/index";
@@ -15,13 +15,16 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
 
   return (
     <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
-      <View style={styles.footerSvgWrap}>
+      <View style={styles.footerBackgroundWrap}>
         <FooterBackgroundSvg
-          style={styles.footerSvg}
+          style={styles.footerBackground}
           backColor={baseColor.darkNavy}
         />
       </View>
-      <View style={styles.footerWrap}>
+      <View style={styles.cameraAndAlbumWrap}>
+        <CameraAlbumWrap />
+      </View>
+      <View style={styles.footerItemsWrap}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           const label = route.name;
@@ -78,30 +81,38 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 0,
   },
-  footerWrap: {
-    zIndex: 0,
-    position: "absolute",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    bottom: displayWidth * itemsFloatingRatio,
-    width: displayWidth,
-  },
-  footerSvgWrap: {
+  footerBackgroundWrap: {
     position: "absolute",
     bottom: -2.25,
     left: -2.75,
     width: displayWidth + 10,
     aspectRatio: viewboxRatio, // これがないと画面サイズぴったりのボトムナビにならない
   },
-  footerSvg: {
+  footerBackground: {
     position: "absolute",
     shadowColor: "#aaaaaa",
     shadowOffset: {
       width: 0,
-      height: -1.5,
+      height: -0.5,
     },
     shadowOpacity: 0.8,
     shadowRadius: 1.5,
+  },
+  cameraAndAlbumWrap: {
+    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "center",
+    bottom: displayWidth * itemsFloatingRatio,
+    left: -2.75,
+    width: displayWidth + 10,
+  },
+  footerItemsWrap: {
+    zIndex: 0,
+    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    bottom: displayWidth * itemsFloatingRatio,
+    width: displayWidth,
   },
   footerItem: {
     bottom: 15,
