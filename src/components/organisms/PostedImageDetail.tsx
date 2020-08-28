@@ -37,7 +37,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView style={styles.allWrap}>
         <View>
           <InformationUserPosted create_time={create_time} uid={uid} />
           <Image

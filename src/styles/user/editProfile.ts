@@ -1,16 +1,21 @@
 import { StyleSheet } from "react-native";
 import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
-import { baseColor, utilityColor } from '../thema/colors'
+import { baseColor, utilityColor } from '../thema/colors';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 
 export const styles = StyleSheet.create({
   container: {
-    height: "100%",
+    height: hp('100%'),
     backgroundColor: baseColor.base,
   },
   allWrap: {
     flex: 1,
-    width: deviceWidth,
-    height: deviceHeight,
+    width: wp('100%'),
+    height: hp('100%'),
   },
   userImgWrap: {
     position: 'relative',
@@ -18,43 +23,43 @@ export const styles = StyleSheet.create({
   iconImg: {
     position: 'absolute',
     alignSelf: 'center',
-    bottom: '25%',
+    bottom: hp('8%'),
     zIndex: 1,
   },
   overlay: {
+    width: wp('20.3%'),
+    height: wp('20.3%'),
     position: 'absolute',
+    bottom: hp('8.2%'),
     alignSelf: 'center',
-    bottom: '26.1%',
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 180,
-    width: deviceWidth / 5 + 1,
-    height: deviceWidth / 5 + 1,
     backgroundColor: utilityColor.strongOverlay,
     zIndex: 2,
   },
 
   //インプットエリア
   inputWrap: {
-    width: "96%",
+    width: wp('95%'),
+    alignSelf: 'center',
     paddingTop: 10,
   },
   margin: {
-    margin: 15,
+    marginVertical: hp('1.5%'),
   },
   userButton: {
-    width: "80%",
+    width: wp('85%'),
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: "10%",
+    marginTop: hp('15%'),
+    paddingVertical: hp('1.5%'),
     backgroundColor: baseColor.accent,
     borderRadius: 5,
-    paddingVertical: 15,
   },
   headerIcon: {
     position: 'absolute',
-    bottom: 15,
-    right: 15,
+    bottom: hp('2%'),
+    right: wp('2%'),
   }
 });

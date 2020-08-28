@@ -1,42 +1,47 @@
 import { StyleSheet } from "react-native";
 import { deviceWidth, deviceHeight } from "../utilities/dimensions";
-import { baseColor, utilityColor } from "./thema/colors";
+import { baseColor } from "./thema/colors";
 import { Size } from "./thema/fonts";
 import NormalMapButtonSvg from "../components/atoms/svg/MapButtonStrokedSvg";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: "100%",
+    height: hp('100%'),
     backgroundColor: baseColor.base,
   },
   allWrap: {
-    width: deviceWidth,
+    width: wp('100%'),
     //フッターの高さ+余剰高さ分あげる
     paddingBottom: 101,
   },
   itemWrap: {
-    marginBottom: 15,
+    marginBottom: hp('1.5%'),
   },
   //1層目
   userIcon: {
-    width: 42,
-    height: 42,
+    width: wp('10%'),
+    height: wp('10%'),
     borderRadius: 180,
-    marginRight: 15,
+    marginRight: wp('3%'),
   },
   userData: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
+    marginTop: hp('1.5%'),
+    marginBottom: hp('1%'),
+    marginLeft: wp('2.5%'),
   },
   userName: {
     color: baseColor.text,
     fontSize: Size.Normal,
     fontWeight: "600",
-    marginBottom: 3,
+    marginBottom: hp('.3%'),
   },
   timeStamp: {
     color: baseColor.grayText,
@@ -45,30 +50,30 @@ export const styles = StyleSheet.create({
   },
   dotsVertical: {
     color: baseColor.text,
-    marginTop: 5,
+    marginTop: hp('.5%'),
     marginLeft: "auto",
-    marginRight: 10,
+    marginRight: wp('2.5%'),
   },
   //2層目
   imageSize: {
-    width: deviceWidth,
-    height: deviceHeight / 3.5,
+    width: wp('100%'),
+    height: hp('25%'),
   },
   //3層目
   postItem: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
+    padding: hp('1%'),
     marginRight: "auto",
   },
   PostIcon: {
     color: baseColor.text,
     fontWeight: "500",
-    marginRight: 5,
+    marginRight: wp('.5%'),
   },
   stateNum: {
     color: baseColor.text,
     fontWeight: "400",
-    marginRight: 10,
+    marginRight: wp('3%'),
   },
 });

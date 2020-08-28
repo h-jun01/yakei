@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from "react";
-import { View, ImageBackground } from "react-native";
+import { View, ImageBackground, Image } from "react-native";
 import { UseInputResult } from "../../../utilities/hooks/input";
 import { styles } from "../../../styles/auth/auth";
 import FormInput from "../../atoms/auth/FormInput";

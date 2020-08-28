@@ -15,7 +15,7 @@ const TabMenu: FC<Props> = ({ photoDataList, favoriteList }) => {
   return (
     <Tabs
       tabBarUnderlineStyle={{
-        borderBottomWidth: 3,
+        borderBottomWidth: 4,
         borderBottomColor: "#fff",
       }}
     >
