@@ -3,13 +3,6 @@ import { View, Text } from "react-native";
 import { styles } from "../../styles/imageList";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 
-type CommentData = {
-  name: string;
-  image: string;
-  comment: string;
-  createTime: string;
-};
-
 type Props = {
   navigation: any;
   photo_id: string;
@@ -19,7 +12,7 @@ type Props = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
-  comment_list: CommentData[];
+  commentCount: number;
 };
 
 const PostedPageItems: FC<Props> = ({ ...props }) => {
@@ -32,10 +25,8 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
     favoriteNumber,
     latitude,
     longitude,
-    comment_list,
+    commentCount,
   } = props;
-
-  const commentCount: number = comment_list.length;
 
   return (
     <View style={styles.postItem}>
@@ -54,7 +45,6 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
             favoriteNumber,
             latitude,
             longitude,
-            comment_list,
           })
         }
       >

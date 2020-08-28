@@ -1,15 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setBottomNavStatus } from "../../../actions/bottomNav";
 import { ScrollView, View, Text } from "react-native";
 import { styles } from "../../../styles/user/terms";
 
 const TermsOfService: FC = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setBottomNavStatus(false));
+    return () => {
+      dispatch(setBottomNavStatus(true));
+    };
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Text style={styles.title}>サービス名利用規約</Text>
+        <Text style={styles.title}>YAKEI利用規約</Text>
         <Text style={styles.explanation}>
           この利用規約（以下，「本規約」といいます。）は，
-          ＿＿＿＿＿＿＿＿（以下，「当社」といいます。）が提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。
+          YAKEI（以下，「当社」といいます。）が提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。
         </Text>
       </View>
       {/* 第一条 */}
@@ -63,7 +73,7 @@ const TermsOfService: FC = () => {
       <View>
         <Text style={styles.item}>第4条（利用料金および支払方法）</Text>
         <Text style={styles.contents}>
-          1.ユーザーは，本サービスの有料部分の対価として，当社が別途定め，本ウェブサイトに表示する利用料金を，当社が指定する方法により支払うものとします。
+          1.ユーザーは，本サービスの有料部分の対価として，当社が別途定め，本アプリに表示する利用料金を，当社が指定する方法により支払うものとします。
         </Text>
         <Text style={styles.contents}>
           2.ユーザーが利用料金の支払を遅滞した場合には，ユーザーは年14．6％の割合による遅延損害金を支払うものとします。

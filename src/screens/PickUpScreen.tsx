@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import PickUp from "../containers/organisms/pickup/PickUp";
-import Details from "../containers/organisms/home/Detail";
+import ImageList from "../containers/molecules/ImageList";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
 
 const PickUpScreen: FC = () => {
@@ -22,7 +22,7 @@ const PickUpScreen: FC = () => {
       />
       <Stack.Screen
         name="detail"
-        component={Details}
+        component={ImageList}
         options={{
           title: "一覧",
           headerBackTitleVisible: false,

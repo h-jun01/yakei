@@ -1,14 +1,24 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setBottomNavStatus } from "../../../actions/bottomNav";
 import { ScrollView, View, Text } from "react-native";
 import { styles } from "../../../styles/user/terms";
 
 const PrivacyPolicy: FC = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setBottomNavStatus(false));
+    return () => {
+      dispatch(setBottomNavStatus(true));
+    };
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View>
         <Text style={styles.title}>プライバシーポリシー</Text>
         <Text style={styles.explanation}>
-          ＿＿＿＿＿＿＿＿（以下，「当社」といいます。）は，本アプリ上で提供するサービス（以下,「本サービス」といいます。）における，ユーザーの個人情報の取扱いについて，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。
+          YAKEI（以下，「当社」といいます。）は，本アプリ上で提供するサービス（以下,「本サービス」といいます。）における，ユーザーの個人情報の取扱いについて，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。
         </Text>
       </View>
       {/* 第一条 */}
