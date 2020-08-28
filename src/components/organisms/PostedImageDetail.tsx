@@ -1,6 +1,7 @@
 import React, { FC, MutableRefObject } from "react";
 import { ScrollView, View, ActivityIndicator, TextInput } from "react-native";
 import { Image } from "react-native-elements";
+import { Timestamp } from "@google-cloud/firestore";
 import { styles } from "../../styles/postedImageDetail";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
@@ -11,7 +12,7 @@ import CommentField from "../../containers/molecules/CommentField";
 type Props = {
   photo_id: string;
   uid: string;
-  create_time: string;
+  create_time: Timestamp;
   url: string;
   favoriteNumber: number;
   latitude: number;

@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import { db } from "./firebase";
+import { db, FieldValue } from "./firebase";
 
 type CommentFireStore = {
   getCommentDataList: (
@@ -8,8 +8,8 @@ type CommentFireStore = {
   postedComment: (
     photo_id: string,
     uid: string,
-    message: string,
-    create_time: string
+    message: string
+    // create_time: string
   ) => Promise<void>;
 };
 
@@ -32,14 +32,14 @@ export const commentFireStore: CommentFireStore = {
   postedComment: async (
     photo_id: string,
     uid: string,
-    message: string,
-    create_time: string
+    message: string
+    // create_time: string
   ) => {
     await comment.add({
       photo_id,
       uid,
       message,
-      create_time,
+      create_time: FieldValue.serverTimestamp(),
     });
   },
 };

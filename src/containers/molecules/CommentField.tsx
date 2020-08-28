@@ -1,13 +1,15 @@
 import React, { FC, useState, useEffect } from "react";
-import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
+import { Timestamp } from "@google-cloud/firestore";
+import { useDisplayTime } from "../../utilities/hooks/date";
+import { RootState } from "../../reducers/index";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import CommentField from "../../components/molecules/CommentField";
 
 type Props = {
   uid: string;
   message: string;
-  create_time: string;
+  create_time: Timestamp;
 };
 
 const CommentFieldContainer: FC<Props> = ({ ...props }) => {
@@ -16,6 +18,7 @@ const CommentFieldContainer: FC<Props> = ({ ...props }) => {
   const [postUserImage, setPostUserImage] = useState<string>(
     "https://example.com"
   );
+  const date = useDisplayTime(create_time.toDate());
 
   //投稿したユーザ名の取得
   useEffect(() => {
@@ -50,7 +53,7 @@ const CommentFieldContainer: FC<Props> = ({ ...props }) => {
       postUserName={postUserName}
       postUserImage={postUserImage}
       message={message}
-      create_time={create_time}
+      date={date}
     />
   );
 };
