@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { View, Text } from "react-native";
+import { Timestamp } from "@google-cloud/firestore";
 import { styles } from "../../styles/imageList";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 
@@ -7,7 +8,7 @@ type Props = {
   navigation: any;
   photo_id: string;
   uid: string;
-  create_time: string;
+  create_time: Timestamp;
   url: string;
   favoriteNumber: number;
   latitude: number;
