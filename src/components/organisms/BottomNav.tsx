@@ -1,5 +1,11 @@
-import React, { FC } from "react";
-import { View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
+import React, { FC, useRef } from "react";
+import {
+  View,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet,
+  Animated,
+} from "react-native";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
@@ -12,9 +18,33 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   const shouldDisplay = useSelector(
     (state: RootState) => state.bottomNavReducer.shouldDisplay
   );
+  const shouldAppear = useSelector(
+    (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
+  );
+  const whiteWrapAnim = useRef(new Animated.Value(0)).current;
+  if (shouldAppear) {
+    Animated.timing(whiteWrapAnim, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  } else {
+    Animated.timing(whiteWrapAnim, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  }
+  const opacityInterpolate = whiteWrapAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
+  });
 
   return (
     <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
+      <Animated.View
+        style={[styles.whiteWrap, { opacity: opacityInterpolate }]}
+      />
       <View style={styles.footerBackgroundWrap}>
         <FooterBackgroundSvg
           style={styles.footerBackground}
@@ -73,6 +103,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
 };
 
 const displayWidth = Dimensions.get("window").width;
+const displayHeight = Dimensions.get("window").height;
 const itemsFloatingRatio = 0.03623;
 const viewboxRatio = 4.4588; // viewbox.width / viewbox.height
 
@@ -80,6 +111,13 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: 0,
+  },
+  whiteWrap: {
+    position: "absolute",
+    bottom: 0,
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    width: "100%",
+    height: displayHeight,
   },
   footerBackgroundWrap: {
     position: "absolute",

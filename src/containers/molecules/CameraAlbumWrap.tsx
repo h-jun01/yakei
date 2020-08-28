@@ -25,13 +25,13 @@ const animateStart = (anim, toValue) => {
 };
 
 const CameraAlbumWrapContainer: FC = () => {
-  const shoulappear = useSelector(
+  const shouldAppear = useSelector(
     (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
   );
   const moveUpperLeftAnim = useRef(new Animated.Value(0)).current;
   const moveUpperRightAnim = useRef(new Animated.Value(0)).current;
 
-  if (shoulappear) {
+  if (shouldAppear) {
     animateStart(moveUpperLeftAnim, 1);
     animateStart(moveUpperRightAnim, 1);
   } else {
