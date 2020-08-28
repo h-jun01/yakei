@@ -17,7 +17,6 @@
     "@types/react-native-snap-carousel": "^3.8.2",
     "@types/react-redux": "^7.1.9",
     "base-64": "^0.1.0",
-    "date-fns": "^2.16.0",
     "expo": "^38.0.9",
     "expo-google-app-auth": "^8.1.2",
     "expo-image-manipulator": "^8.2.1",

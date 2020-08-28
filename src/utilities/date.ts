@@ -1,7 +1,3 @@
-import { format } from "date-fns";
-import ja from "date-fns/locale/ja";
-import closestIndexTo from "date-fns/closestIndexTo";
-
 // const test = () => {
 //     const testDate = '2020/08/27 21:20'
 

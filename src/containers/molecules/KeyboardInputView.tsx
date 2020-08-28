@@ -10,9 +10,6 @@ import {
 } from "../../actions/postedData";
 import KeyboardInputView from "../../components/molecules/KeyboardInputView";
 
-import { format } from "date-fns";
-import ja from "date-fns/locale/ja";
-
 type Props = {
   textInputRef: React.MutableRefObject<TextInput | null>;
   photo_id: string;
@@ -36,12 +33,7 @@ const KeyboardInputViewContainer: FC<Props> = ({ textInputRef, photo_id }) => {
   //コメントを送信
   const addComment = async () => {
     await commentFireStore
-      .postedComment(
-        photo_id,
-        uid,
-        inputValue
-        // format(new Date(), "Pp", { locale: ja })
-      )
+      .postedComment(photo_id, uid, inputValue, "2020-09-27 22:00")
       .then(() => {
         commentFireStore.getCommentDataList(photo_id).then((res) => {
           dispatch(setCommentDataList(res));
