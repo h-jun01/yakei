@@ -1,7 +1,8 @@
 import React, { FC, useState, useRef } from "react";
 import { Animated, Dimensions } from "react-native";
-
-import BottomNavItemComponent from "../../components/molecules/BottomNavItem";
+import { useDispatch } from "react-redux";
+import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
+import BottomNavItem from "../../components/molecules/BottomNavItem";
 
 type Props = {
   index: number;
@@ -9,8 +10,9 @@ type Props = {
   label: string;
 };
 
-const BottomNavItem: FC<Props> = (props) => {
+const BottomNavItemContainer: FC<Props> = (props) => {
   const { index, isFocused, label } = props;
+  const dispatch = useDispatch();
 
   const stateArray = ["0deg", "45deg"];
   const [stateIndex, setStateIndex] = useState(0);
@@ -26,12 +28,14 @@ const BottomNavItem: FC<Props> = (props) => {
         duration: 200,
         useNativeDriver: false, // trueにするとbottomのアニメーションが効かなくなる
       }).start();
+      dispatch(setCameraAndAlbumStatus(true));
     } else if (buttonState == "45deg") {
       Animated.timing(plusToCrossAnim, {
         toValue: 2,
         duration: 200,
         useNativeDriver: false,
       }).start(resetAnimValue);
+      dispatch(setCameraAndAlbumStatus(false));
     }
     setStateIndex(newIndex);
   };
@@ -66,7 +70,7 @@ const BottomNavItem: FC<Props> = (props) => {
   };
 
   return (
-    <BottomNavItemComponent
+    <BottomNavItem
       index={index}
       isFocused={isFocused}
       label={label}
@@ -76,4 +80,4 @@ const BottomNavItem: FC<Props> = (props) => {
   );
 };
 
-export default BottomNavItem;
+export default BottomNavItemContainer;

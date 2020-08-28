@@ -4,7 +4,12 @@ import CameraSvg from "../atoms/svg/CameraSvg";
 import AlbumSvg from "../atoms/svg/AlbumSvg";
 import { baseColor } from "../../styles/thema/colors";
 
-const CameraAlbumWrap: FC = () => {
+type Props = {
+  shouldAppear: boolean;
+};
+
+const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
+  const { shouldAppear } = props;
   const displayWidth = Dimensions.get("window").width;
   const iPhone11width = 414;
   const wrapHeightRatio = 72 / iPhone11width;

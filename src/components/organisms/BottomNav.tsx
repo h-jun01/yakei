@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
-import CameraAlbumWrap from "../molecules/CameraAlbumWrap";
+import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavItem from "../../containers/molecules/BottomNavItem";
 import { RootState } from "../../reducers/index";

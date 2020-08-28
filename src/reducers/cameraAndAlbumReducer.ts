@@ -11,7 +11,7 @@ const initialState: State = {
 
 type CameraAndAlbumReducer = Reducer<State, UnionedAction>;
 
-export const bottomNavReducer: CameraAndAlbumReducer = (
+export const cameraAndAlbumReducer: CameraAndAlbumReducer = (
   state = initialState,
   action: UnionedAction
 ): State => {
