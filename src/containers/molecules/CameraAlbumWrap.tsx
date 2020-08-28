@@ -1,5 +1,5 @@
 import React, { FC, useRef } from "react";
-import { Animated } from "react-native";
+import { View, Animated } from "react-native";
 import CameraAlbumWrap from "../../components/molecules/CameraAlbumWrap";
 import { RootState } from "../../reducers/index";
 import { useSelector } from "react-redux";
@@ -25,6 +25,7 @@ const animateStart = (anim, toValue) => {
 };
 
 const CameraAlbumWrapContainer: FC = () => {
+  const viewRef = useRef<null | View>(null);
   const shouldAppear = useSelector(
     (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
   );
@@ -34,13 +35,13 @@ const CameraAlbumWrapContainer: FC = () => {
   if (shouldAppear) {
     animateStart(moveUpperLeftAnim, 1);
     animateStart(moveUpperRightAnim, 1);
+    viewRef.current?.focus();
   } else {
     animateStart(moveUpperLeftAnim, 0);
     animateStart(moveUpperRightAnim, 0);
   }
 
   const horizonInterpolate = generateHorizonInterpolate(moveUpperRightAnim);
-
   const bottomInterpolate = generateBottomInterpolate(moveUpperLeftAnim);
 
   const animStyle = {
@@ -54,7 +55,7 @@ const CameraAlbumWrapContainer: FC = () => {
     },
   };
 
-  return <CameraAlbumWrap animStyle={animStyle} />;
+  return <CameraAlbumWrap animStyle={animStyle} viewRef={viewRef} />;
 };
 
 export default CameraAlbumWrapContainer;

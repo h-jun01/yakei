@@ -18,11 +18,11 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   const shouldDisplay = useSelector(
     (state: RootState) => state.bottomNavReducer.shouldDisplay
   );
-  const shouldAppear = useSelector(
+  const shouldAppearBtns = useSelector(
     (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
   );
   const whiteWrapAnim = useRef(new Animated.Value(0)).current;
-  if (shouldAppear) {
+  if (shouldAppearBtns) {
     Animated.timing(whiteWrapAnim, {
       toValue: 1,
       duration: 200,
@@ -43,7 +43,11 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   return (
     <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
       <Animated.View
-        style={[styles.whiteWrap, { opacity: opacityInterpolate }]}
+        style={[
+          styles.whiteWrap,
+          shouldAppearBtns ? {} : { display: "none" },
+          { opacity: opacityInterpolate },
+        ]}
       />
       <View style={styles.footerBackgroundWrap}>
         <FooterBackgroundSvg
@@ -61,6 +65,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
           const isFocused = state.index === index;
 
           const onPress = () => {
+            if (shouldAppearBtns) return;
             const event = navigation.emit({
               type: "tabPress",
               target: route.key,
