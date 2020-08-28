@@ -85,12 +85,12 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: "wrap",
     backgroundColor: baseColor.base,
-    alignSelf: 'center',
-    justifyContent: 'center',
   },
   imgItem: {
-    width: wp('32%'),
-    height: wp('32%'),
+    width: wp('32.4%'),
+    height: wp('32.4%'),
     margin: wp('0.5%'),
+    alignSelf: 'center',
+    justifyContent: 'center',
   }
 });
