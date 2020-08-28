@@ -7,11 +7,11 @@ type Props = {
   postUserName: string;
   postUserImage: string;
   message: string;
-  createTime: string;
+  create_time: string;
 };
 
 const CommentField: FC<Props> = ({ ...props }) => {
-  const { postUserName, postUserImage, message, createTime } = props;
+  const { postUserName, postUserImage, message, create_time } = props;
 
   return (
     <View style={styles.commentBox}>
@@ -25,7 +25,7 @@ const CommentField: FC<Props> = ({ ...props }) => {
       <View style={styles.commentData}>
         <Text style={styles.userName}>{postUserName}</Text>
         <Text style={styles.message}>{message}</Text>
-        <Text style={styles.time}>{createTime}</Text>
+        <Text style={styles.time}>{create_time}</Text>
       </View>
     </View>
   );

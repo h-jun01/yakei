@@ -1,11 +1,5 @@
-import React, { FC } from "react";
-import {
-  ScrollView,
-  View,
-  ActivityIndicator,
-  TextInput,
-  Text,
-} from "react-native";
+import React, { FC, MutableRefObject } from "react";
+import { ScrollView, View, ActivityIndicator, TextInput } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/postedImageDetail";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
@@ -13,12 +7,6 @@ import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
 import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
 import CommentInputField from "../../containers/molecules/CommentInputField";
 import CommentField from "../../containers/molecules/CommentField";
-
-type CommentDataList = {
-  uid: string;
-  message: string;
-  create_time: string;
-};
 
 type Props = {
   photo_id: string;
@@ -29,7 +17,7 @@ type Props = {
   latitude: number;
   longitude: number;
   commentDataList: firebase.firestore.DocumentData[];
-  textInputRef: React.MutableRefObject<TextInput | null>;
+  textInputRef: MutableRefObject<TextInput | null>;
   focusOnInput: () => void;
 };
 
@@ -72,7 +60,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
               <CommentField
                 uid={item.uid}
                 message={item.message}
-                createTime={item.create_time}
+                create_time={item.create_time}
               />
             </View>
           ))}

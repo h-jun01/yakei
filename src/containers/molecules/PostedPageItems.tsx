@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { RootState } from "../../reducers/index";
 import { useSelector } from "react-redux";
 import { commentFireStore } from "../../firebase/commentFireStore";
@@ -30,14 +30,14 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
   const selrctCommentDataList = (state: RootState) =>
     state.postedDataReducer.commentDataList;
   const commentDataList = useSelector(selrctCommentDataList);
+  const [commentCount, setCommentCount] = useState<number>(0);
 
-  // コメント数取得・修正すること
-  const [commentCount, setCommentCount] = React.useState<number>(0);
-  React.useEffect(() => {
+  // コメント数取得
+  useEffect(() => {
     commentFireStore.getCommentDataList(photo_id).then((res) => {
       setCommentCount(res.length);
     });
-  }, [commentDataList, setCommentCount]);
+  }, [commentDataList]);
 
   return (
     <PostedPageItems
