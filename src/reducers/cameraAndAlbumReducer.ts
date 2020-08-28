@@ -6,7 +6,7 @@ export type State = {
 };
 
 const initialState: State = {
-  shouldAppear: true,
+  shouldAppear: false,
 };
 
 type CameraAndAlbumReducer = Reducer<State, UnionedAction>;

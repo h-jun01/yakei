@@ -5,11 +5,13 @@ import AlbumSvg from "../atoms/svg/AlbumSvg";
 import { baseColor } from "../../styles/thema/colors";
 
 type Props = {
-  shouldAppear: boolean;
+  animStyle: {
+    UpperLeft: Object;
+  };
 };
 
 const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
-  const { shouldAppear } = props;
+  const { animStyle } = props;
   const displayWidth = Dimensions.get("window").width;
   const iPhone11width = 414;
   const wrapHeightRatio = 72 / iPhone11width;
@@ -42,7 +44,7 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
         <CameraSvg
           textColor={textColor}
           backColor={backColor}
-          style={styles.camera}
+          style={animStyle.UpperLeft}
         />
       </View>
       <View style={{ width: iconAspect, aspectRatio: 1 }}>

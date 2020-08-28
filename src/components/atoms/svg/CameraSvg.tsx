@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import Svg, { G, Circle, Path } from "react-native-svg";
-import { ViewStyle, TextStyle, ImageStyle } from "react-native";
+import { Animated } from "react-native";
 
 type Props = {
   textColor?: string;
   backColor?: string;
-  style?: ViewStyle | TextStyle | ImageStyle;
+  style?: Object;
 };
 
 const CameraSvg: FC<Props> = ({
@@ -13,8 +13,9 @@ const CameraSvg: FC<Props> = ({
   backColor = "#181F32",
   style,
 }) => {
+  const AnimatedSvg = Animated.createAnimatedComponent(Svg);
   return (
-    <Svg
+    <AnimatedSvg
       width={"100%"}
       height={"100%"}
       viewBox="0 0 54 54"
@@ -28,7 +29,7 @@ const CameraSvg: FC<Props> = ({
           fill={textColor}
         />
       </G>
-    </Svg>
+    </AnimatedSvg>
   );
 };
 
