@@ -1,12 +1,7 @@
-import React, { FC } from "react";
-import {
-  ScrollView,
-  View,
-  ActivityIndicator,
-  TextInput,
-  Text,
-} from "react-native";
+import React, { FC, MutableRefObject } from "react";
+import { ScrollView, View, ActivityIndicator, TextInput } from "react-native";
 import { Image } from "react-native-elements";
+import { Timestamp } from "@google-cloud/firestore";
 import { styles } from "../../styles/postedImageDetail";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
@@ -14,22 +9,16 @@ import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
 import CommentInputField from "../../containers/molecules/CommentInputField";
 import CommentField from "../../containers/molecules/CommentField";
 
-type CommentDataList = {
-  uid: string;
-  message: string;
-  createTime: string;
-};
-
 type Props = {
   photo_id: string;
   uid: string;
-  create_time: string;
+  create_time: Timestamp;
   url: string;
   favoriteNumber: number;
   latitude: number;
   longitude: number;
-  commentDataList: CommentDataList[];
-  textInputRef: React.MutableRefObject<TextInput | null>;
+  commentDataList: firebase.firestore.DocumentData[];
+  textInputRef: MutableRefObject<TextInput | null>;
   focusOnInput: () => void;
 };
 
@@ -49,7 +38,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView style={styles.allWrap}>
         <View>
           <InformationUserPosted create_time={create_time} uid={uid} />
           <Image
@@ -72,7 +61,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
               <CommentField
                 uid={item.uid}
                 message={item.message}
-                createTime={item.createTime}
+                create_time={item.create_time}
               />
             </View>
           ))}

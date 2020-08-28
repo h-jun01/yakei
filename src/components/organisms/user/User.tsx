@@ -13,10 +13,18 @@ type Props = {
   image: string;
   headerImage: string;
   selfIntroduction: string;
+  myPhotoDataListCount: number;
 };
 
 const User: FC<Props> = ({ ...props }) => {
-  const { navigation, name, image, headerImage, selfIntroduction } = props;
+  const {
+    navigation,
+    name,
+    image,
+    headerImage,
+    selfIntroduction,
+    myPhotoDataListCount,
+  } = props;
 
   return (
     <ScrollView style={styles.container}>
@@ -36,7 +44,7 @@ const User: FC<Props> = ({ ...props }) => {
             <Text style={styles.userName}>{name}</Text>
             <Text style={styles.userIntro}>{selfIntroduction}</Text>
             <View style={styles.userState}>
-              <Text style={styles.stateText}>投稿数</Text>
+              <Text style={styles.stateText}>{myPhotoDataListCount}投稿</Text>
               <Text style={styles.stateText}>いいね数</Text>
             </View>
             <Text

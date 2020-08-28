@@ -14,7 +14,7 @@ type PickUpItemList = {
   title: string;
   time: string;
   url: ImageSourcePropType;
-  pickUpDataList: any[];
+  pickUpDataList: firebase.firestore.DocumentData[];
 };
 
 type Props = {
@@ -29,6 +29,7 @@ const PickUp: FC<Props> = ({ navigation, pickUpItemList }) => {
         {pickUpItemList.map((item, index) => (
           <TouchableOpacity
             key={index}
+            activeOpacity={0.8}
             onPress={() =>
               navigation.navigate("detail", {
                 photoDataList: item.pickUpDataList,

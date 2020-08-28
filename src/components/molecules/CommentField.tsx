@@ -2,16 +2,17 @@ import React, { FC } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/postedImageDetail";
+import { useDisplayTime } from "../../utilities/hooks/date";
 
 type Props = {
   postUserName: string;
   postUserImage: string;
   message: string;
-  createTime: string;
+  date: string;
 };
 
 const CommentField: FC<Props> = ({ ...props }) => {
-  const { postUserName, postUserImage, message, createTime } = props;
+  const { postUserName, postUserImage, message, date } = props;
 
   return (
     <View style={styles.commentBox}>
@@ -25,7 +26,7 @@ const CommentField: FC<Props> = ({ ...props }) => {
       <View style={styles.commentData}>
         <Text style={styles.userName}>{postUserName}</Text>
         <Text style={styles.message}>{message}</Text>
-        <Text style={styles.time}>{createTime}</Text>
+        <Text style={styles.time}>{date}</Text>
       </View>
     </View>
   );

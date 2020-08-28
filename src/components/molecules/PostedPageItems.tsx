@@ -1,25 +1,19 @@
 import React, { FC } from "react";
 import { View, Text } from "react-native";
+import { Timestamp } from "@google-cloud/firestore";
 import { styles } from "../../styles/imageList";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
-
-type CommentData = {
-  name: string;
-  image: string;
-  comment: string;
-  createTime: string;
-};
 
 type Props = {
   navigation: any;
   photo_id: string;
   uid: string;
-  create_time: string;
+  create_time: Timestamp;
   url: string;
   favoriteNumber: number;
   latitude: number;
   longitude: number;
-  comment_list: CommentData[];
+  commentCount: number;
 };
 
 const PostedPageItems: FC<Props> = ({ ...props }) => {
@@ -32,10 +26,8 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
     favoriteNumber,
     latitude,
     longitude,
-    comment_list,
+    commentCount,
   } = props;
-
-  const commentCount: number = comment_list.length;
 
   return (
     <View style={styles.postItem}>
@@ -54,15 +46,14 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
             favoriteNumber,
             latitude,
             longitude,
-            comment_list,
           })
         }
       >
-        <EvilIcons name="comment" size={20} />
+        <EvilIcons name="comment" size={21} />
       </Text>
       <Text style={styles.stateNum}>{commentCount}</Text>
       <Text style={styles.PostIcon}>
-        <EvilIcons name="location" size={20} />
+        <EvilIcons name="location" size={21} />
       </Text>
     </View>
   );

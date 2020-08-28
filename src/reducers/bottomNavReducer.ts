@@ -5,11 +5,11 @@ export type State = {
   shouldDisplay: boolean;
 };
 
+type BottomNavReducer = Reducer<State, UnionedAction>;
+
 const initialState: State = {
   shouldDisplay: true,
 };
-
-type BottomNavReducer = Reducer<State, UnionedAction>;
 
 export const bottomNavReducer: BottomNavReducer = (
   state = initialState,

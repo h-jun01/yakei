@@ -2,11 +2,16 @@ import { StyleSheet } from "react-native";
 import { Size } from '../thema/fonts'
 import { baseColor, utilityColor } from '../thema/colors'
 import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 
 export const styles = StyleSheet.create({
   container: {
-    width: deviceWidth,
     flex: 1,
+    width: wp('100%'),
     backgroundColor: baseColor.base,
   },
   itemWrap: {
@@ -15,13 +20,13 @@ export const styles = StyleSheet.create({
   settingItem: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 25,
-    paddingVertical: 20,
+    paddingHorizontal: wp('3%'),
+    paddingVertical: hp('2.8%'),
   },
   leftIcon: {
     fontSize: Size.Large,
     color: baseColor.text,
-    marginRight: 10,
+    marginRight: wp('3%'),
   },
   itemLabel: {
     fontSize: Size.Normal,
@@ -34,20 +39,20 @@ export const styles = StyleSheet.create({
     marginLeft: "auto",
   },
   borderItem: {
+    width: wp('100%'),
+    height: 1,
     borderWidth: 0.3,
     borderColor: utilityColor.border,
-    width: deviceWidth,
-    height: 1,
     opacity: 0.5,
   },
 
   //中身
   //パスワード再設定
   passwdChangeWrap: {
-    width: "95%",
+    width: wp('95%'),
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: "10%",
+    marginTop: hp('15%'),
   },
   intro: {
     color: baseColor.text,
@@ -55,7 +60,7 @@ export const styles = StyleSheet.create({
     fontWeight: "400",
   },
   jiro: {
-    marginTop: "5%",
+    marginTop: hp('2%'),
   },
   passwdLabel: {
     color: utilityColor.inputLabel,
@@ -68,16 +73,16 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
   },
   submitButton: {
-    width: "80%",
+    width: wp('80%'),
     backgroundColor: baseColor.accent,
-    paddingVertical: 15,
+    paddingVertical: hp('1.5%'),
     color: baseColor.text,
     fontSize: Size.Large,
     fontWeight: "700",
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: "10%",
+    marginTop: hp('25%'),
     borderRadius: 5,
   },
 });

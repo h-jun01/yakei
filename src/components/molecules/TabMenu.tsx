@@ -15,11 +15,10 @@ const TabMenu: FC<Props> = ({ photoDataList, favoriteList }) => {
   return (
     <Tabs
       tabBarUnderlineStyle={{
-        borderBottomWidth: 3,
+        borderBottomWidth: 4,
         borderBottomColor: "#fff",
       }}
     >
-      {/* 投稿 */}
       <Tab
         heading={
           <TabHeading style={{ backgroundColor: baseColor.base }}>
@@ -41,7 +40,6 @@ const TabMenu: FC<Props> = ({ photoDataList, favoriteList }) => {
             ))}
         </View>
       </Tab>
-      {/* お気に入り */}
       <Tab
         heading={
           <TabHeading style={{ backgroundColor: baseColor.base }}>

@@ -1,4 +1,5 @@
 import { ActionTypes, UnionedAction } from "../actions/index";
+import { Reducer } from "redux";
 
 type State = {
   uid: string;
@@ -11,6 +12,8 @@ type State = {
   favoriteList: firebase.firestore.DocumentData[];
 };
 
+type UserReducer = Reducer<State, UnionedAction>;
+
 const initialState: State = {
   uid: "",
   name: "",
@@ -22,7 +25,10 @@ const initialState: State = {
   favoriteList: [],
 };
 
-export const userReducer = (state = initialState, action: UnionedAction) => {
+export const userReducer: UserReducer = (
+  state = initialState,
+  action: UnionedAction
+) => {
   switch (action.type) {
     case ActionTypes.USER_DATA:
       return {
