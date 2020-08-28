@@ -1,13 +1,14 @@
 import React, { FC, useState, useEffect } from "react";
-import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
+import { Timestamp } from "@google-cloud/firestore";
+import { RootState } from "../../reducers/index";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import CommentField from "../../components/molecules/CommentField";
 
 type Props = {
   uid: string;
   message: string;
-  create_time: any;
+  create_time: Timestamp;
 };
 
 const CommentFieldContainer: FC<Props> = ({ ...props }) => {

@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
-import { RootState } from "../../reducers/index";
+import { Timestamp } from "@google-cloud/firestore";
 import { useSelector } from "react-redux";
+import { RootState } from "../../reducers/index";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import PostedPageItems from "../../components/molecules/PostedPageItems";
 
@@ -8,7 +9,7 @@ type Props = {
   navigation: any;
   photo_id: string;
   uid: string;
-  create_time: string;
+  create_time: Timestamp;
   url: string;
   favoriteNumber: number;
   latitude: number;

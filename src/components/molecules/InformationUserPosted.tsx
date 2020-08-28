@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
-import { ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
+import { Timestamp } from "@google-cloud/firestore";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/imageList";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -8,7 +8,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 type Props = {
   postUserName: string;
   postUserImage: string;
-  create_time: string;
+  create_time: Timestamp;
 };
 
 const InformationUserPosted: FC<Props> = ({ ...props }) => {

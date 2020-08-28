@@ -1,10 +1,11 @@
 import React, { FC, useState, useEffect } from "react";
+import { Timestamp } from "@google-cloud/firestore";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 
 type Props = {
   uid: string;
-  create_time: string;
+  create_time: Timestamp;
 };
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {

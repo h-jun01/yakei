@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
+import { Timestamp } from "@google-cloud/firestore";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/postedImageDetail";
 import { displayTime } from "../../utilities/date";
-import { Timestamp } from "@google-cloud/firestore";
 
 type Props = {
   postUserName: string;

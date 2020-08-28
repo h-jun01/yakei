@@ -1,4 +1,5 @@
 import React from "react";
+import { Timestamp } from "@google-cloud/firestore";
 import { MarkerProps, Marker, MapEvent } from "react-native-maps";
 import {
   Animated,
@@ -12,7 +13,7 @@ type MarkerDate = {
   markerDate: {
     photo_id: string;
     uid: string;
-    create_time: string;
+    create_time: Timestamp;
     url: string;
     favoriteNumber: number;
     latitude: number;

@@ -32,13 +32,11 @@ const KeyboardInputViewContainer: FC<Props> = ({ textInputRef, photo_id }) => {
 
   //コメントを送信
   const addComment = async () => {
-    await commentFireStore
-      .postedComment(photo_id, uid, inputValue, "2020-09-27 22:00")
-      .then(() => {
-        commentFireStore.getCommentDataList(photo_id).then((res) => {
-          dispatch(setCommentDataList(res));
-        });
+    await commentFireStore.postedComment(photo_id, uid, inputValue).then(() => {
+      commentFireStore.getCommentDataList(photo_id).then((res) => {
+        dispatch(setCommentDataList(res));
       });
+    });
     dispatch(setInputCommentValue(""));
     dispatch(setIsInputForm(false));
     Keyboard.dismiss();
