@@ -1,9 +1,21 @@
 import firebase from "firebase";
 import { db } from "./firebase";
 
+type CommentFireStore = {
+  getCommentDataList: (
+    photo_id: string
+  ) => Promise<firebase.firestore.DocumentData[]>;
+  postedComment: (
+    photo_id: string,
+    uid: string,
+    message: string,
+    create_time: string
+  ) => Promise<void>;
+};
+
 const comment = db.collection("comments");
 
-export const commentFireStore = {
+export const commentFireStore: CommentFireStore = {
   // コメント取得
   getCommentDataList: async (photo_id: string) => {
     const commentDataList: firebase.firestore.DocumentData[] = [];
@@ -17,7 +29,7 @@ export const commentFireStore = {
     return commentDataList;
   },
   //コメントを投稿
-  upDateCommentList: async (
+  postedComment: async (
     photo_id: string,
     uid: string,
     message: string,
