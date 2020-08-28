@@ -7,7 +7,7 @@ import CommentField from "../../components/molecules/CommentField";
 type Props = {
   uid: string;
   message: string;
-  create_time: string;
+  create_time: any;
 };
 
 const CommentFieldContainer: FC<Props> = ({ ...props }) => {

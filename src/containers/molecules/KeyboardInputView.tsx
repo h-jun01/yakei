@@ -39,8 +39,8 @@ const KeyboardInputViewContainer: FC<Props> = ({ textInputRef, photo_id }) => {
       .postedComment(
         photo_id,
         uid,
-        inputValue,
-        format(new Date(), "Pp", { locale: ja })
+        inputValue
+        // format(new Date(), "Pp", { locale: ja })
       )
       .then(() => {
         commentFireStore.getCommentDataList(photo_id).then((res) => {

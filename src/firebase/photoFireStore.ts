@@ -1,13 +1,10 @@
 import firebase from "firebase";
 import geohash from "ngeohash";
-import { db, FieldValue } from "./firebase";
+import { db } from "./firebase";
 
 type PhotoFireStore = {
   getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
   getAllPhotoList: () => Promise<firebase.firestore.DocumentData[]>;
-  getCommentList: (
-    photo_id: string
-  ) => Promise<firebase.firestore.DocumentData[]>;
   getAreaPhotoList: (
     latitude: number,
     longitude: number
@@ -34,15 +31,6 @@ export const photoFireStore: PhotoFireStore = {
       allPhotoList.push(doc.data());
     });
     return allPhotoList;
-  },
-  //コメントを取得
-  getCommentList: async (photo_id: string) => {
-    return await photo
-      .doc(photo_id)
-      .get()
-      .then(async (res) => {
-        return await res.data()?.comment_list;
-      });
   },
   // 表示エリア付近の写真取得
   getAreaPhotoList: async (latitude: number, longitude: number) => {
