@@ -1,14 +1,33 @@
+import { Platform, PixelRatio } from "react-native";
+import { deviceWidth, } from "../../utilities/dimensions";
+
+
+// based on iphone 11 pro/ MAX scale
+const scale = deviceWidth / 414;
+
+//fontSizeを可変的にしてます
+const normalize = (size) => {
+  const newSize = size * scale;
+  if (Platform.OS === "ios") {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize));
+  } else {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
+  }
+};
+
 export const Size = {
-  Xxsmall: 8,
-  Xsmall: 10,
-  Small: 12,
-  NormalS: 13,
-  Normal: 14,
-  NormalL: 15,
-  Large: 16,
-  Xlarge: 18,
-  Xxlarge: 20,
-  lineHeight: 15,
+  Xxsmall: normalize(8),
+  Xsmall: normalize(10),
+  Small: normalize(12),
+  NormalS: normalize(13),
+  Normal: normalize(14),
+  NormalL: normalize(15),
+  Large: normalize(16),
+  Xlarge: normalize(18),
+  Xxlarge: normalize(20),
+  userNameSize: normalize(24),
+  titleSize: normalize(40),
+  lineHeight: normalize(15),
 };
 
 // export const Weights = {

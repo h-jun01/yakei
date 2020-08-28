@@ -1,27 +1,24 @@
 import React, { FC } from "react";
-import { ScrollView, View } from "react-native";
-import { ActivityIndicator, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  View,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import { Image } from "react-native-elements";
+import { Timestamp } from "@google-cloud/firestore";
 import { styles } from "../../styles/imageList";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
-import PostedPageItems from "./PostedPageItems";
-
-type CommentData = {
-  name: string;
-  image: string;
-  comment: string;
-  createTime: string;
-};
+import PostedPageItems from "../../containers/molecules/PostedPageItems";
 
 type PhotoDataList = {
   photo_id: string;
   uid: string;
-  create_time: string;
+  create_time: Timestamp;
   url: string;
   favoriteNumber: number;
   latitude: number;
   longitude: number;
-  comment_list: CommentData[];
 };
 
 type Props = {
@@ -52,7 +49,6 @@ const ImageList: FC<Props> = ({ ...props }) => {
                   favoriteNumber: item.favoriteNumber,
                   latitude: item.latitude,
                   longitude: item.longitude,
-                  comment_list: item.comment_list,
                 })
               }
             >
@@ -71,7 +67,6 @@ const ImageList: FC<Props> = ({ ...props }) => {
               favoriteNumber={item.favoriteNumber}
               latitude={item.latitude}
               longitude={item.longitude}
-              comment_list={item.comment_list}
             />
           </View>
         ))}

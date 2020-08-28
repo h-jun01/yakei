@@ -18,6 +18,7 @@ import {
   upDateUserSelfIntroduction,
 } from "../../../actions/user";
 
+
 type StorageImageData = {
   imgUrl: string;
   postIndex: string;

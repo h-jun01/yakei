@@ -11,6 +11,7 @@ export const baseColor = {
   accent: "#21A6B8",
   base: "#202840",
   text: "#fff",
+  catskillWhite: "#E3EAF4",
   grayText: "#c0c0c0",
   main: "#4CAF7C",
 };
