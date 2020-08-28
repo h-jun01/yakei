@@ -53,20 +53,20 @@ const BottomNavItemContainer: FC<Props> = (props) => {
   const leftMoveRatio = 0.15 / iPhone11width;
   const leftOutputRange = displayWidth * leftMoveRatio;
 
-  const interpolateBottom = plusToCrossAnim.interpolate({
+  const bottomInterpolate = plusToCrossAnim.interpolate({
     inputRange: [0, 1, 2],
     outputRange: [0, bottomOutputRange, bottomOutputRange * 2],
   });
 
-  const interpolateLeft = plusToCrossAnim.interpolate({
+  const leftInterpolate = plusToCrossAnim.interpolate({
     inputRange: [0, 1, 2],
     outputRange: [0, leftOutputRange, leftOutputRange * 2],
   });
 
   const animatedRotateStyle = {
     transform: [{ rotate: interpolateRotate }],
-    bottom: interpolateBottom,
-    left: interpolateLeft,
+    bottom: bottomInterpolate,
+    left: leftInterpolate,
   };
 
   return (

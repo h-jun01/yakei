@@ -7,6 +7,7 @@ import { baseColor } from "../../styles/thema/colors";
 type Props = {
   animStyle: {
     UpperLeft: Object;
+    UpperRight: Object;
   };
 };
 
@@ -29,14 +30,6 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
       paddingTop: paddingToCenter,
       flexDirection: "row",
     },
-    camera: {
-      position: "relative",
-      left: "50%",
-    },
-    album: {
-      position: "relative",
-      right: "50%",
-    },
   });
   return (
     <View style={styles.wrap}>
@@ -51,7 +44,7 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
         <AlbumSvg
           textColor={textColor}
           backColor={backColor}
-          style={styles.album}
+          style={animStyle.UpperRight}
         />
       </View>
     </View>

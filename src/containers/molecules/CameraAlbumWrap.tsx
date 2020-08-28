@@ -3,7 +3,26 @@ import { Animated } from "react-native";
 import CameraAlbumWrap from "../../components/molecules/CameraAlbumWrap";
 import { RootState } from "../../reducers/index";
 import { useSelector } from "react-redux";
-import { app } from "firebase";
+
+const generateBottomInterpolate = (anim) =>
+  anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0%", "100%"],
+  });
+
+const generateHorizonInterpolate = (anim) =>
+  anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["50%", "-30%"],
+  });
+
+const animateStart = (anim, toValue) => {
+  Animated.timing(anim, {
+    toValue: toValue,
+    duration: 200,
+    useNativeDriver: false,
+  }).start();
+};
 
 const CameraAlbumWrapContainer: FC = () => {
   const shoulappear = useSelector(
@@ -13,33 +32,25 @@ const CameraAlbumWrapContainer: FC = () => {
   const moveUpperRightAnim = useRef(new Animated.Value(0)).current;
 
   if (shoulappear) {
-    Animated.timing(moveUpperLeftAnim, {
-      toValue: 1,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
+    animateStart(moveUpperLeftAnim, 1);
+    animateStart(moveUpperRightAnim, 1);
   } else {
-    Animated.timing(moveUpperLeftAnim, {
-      toValue: 0,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
+    animateStart(moveUpperLeftAnim, 0);
+    animateStart(moveUpperRightAnim, 0);
   }
 
-  const interpolateLeft = moveUpperLeftAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["50%", "-45%"],
-  });
+  const horizonInterpolate = generateHorizonInterpolate(moveUpperRightAnim);
 
-  const interpolateBottom = moveUpperLeftAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0%", "110%"],
-  });
+  const bottomInterpolate = generateBottomInterpolate(moveUpperLeftAnim);
 
   const animStyle = {
     UpperLeft: {
-      bottom: interpolateBottom,
-      left: interpolateLeft,
+      bottom: bottomInterpolate,
+      left: horizonInterpolate,
+    },
+    UpperRight: {
+      bottom: bottomInterpolate,
+      right: horizonInterpolate,
     },
   };
 
