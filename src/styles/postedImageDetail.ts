@@ -1,6 +1,12 @@
 import { StyleSheet } from "react-native";
 import { deviceWidth, deviceHeight } from "../utilities/dimensions";
 import { baseColor } from "./thema/colors";
+import { Size } from "./thema/fonts";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 
 export const styles = StyleSheet.create({
   container: {
@@ -8,41 +14,46 @@ export const styles = StyleSheet.create({
     backgroundColor: baseColor.base,
   },
   allWrap: {
-    width: deviceWidth,
+    width: wp('100%'),
     //フッターの高さ+タイトルの高さ分あげる
     paddingBottom: 101,
   },
+  //一層目
   userIcon: {
-    width: 42,
-    height: 42,
+    width: wp('10%'),
+    height: wp('10%'),
     borderRadius: 180,
   },
+  //2層目
   image: {
-    width: deviceWidth,
-    height: deviceHeight / 3,
+    width: wp('100%'),
+    height: hp('25%'),
   },
+  //3層目
   postItem: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
+    padding: hp('1%'),
+    marginRight: "auto",
   },
   favorite: {
-    color: "#fff",
+    color: baseColor.text,
+    fontWeight: "500",
+    marginRight: wp('.5%'),
   },
   favoriteNumber: {
-    color: "#fff",
-    fontSize: 15,
+    color: baseColor.text,
+    fontWeight: "400",
+    marginRight: wp('5%'),
   },
   location: {
-    color: "#fff",
-    marginLeft: 15,
+    color: baseColor.text,
   },
+  //キーボード
   keyboardViewFalse: {
     display: "none",
     flexDirection: "row",
-    width: deviceWidth,
+    width: wp('100%'),
     height: "auto",
     paddingTop: 7,
     paddingLeft: 7,
@@ -56,29 +67,31 @@ export const styles = StyleSheet.create({
     paddingLeft: 7,
     backgroundColor: "#fff",
   },
+  //コメント
   commentInputField: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
-    marginBottom: 20,
-    marginLeft: 10,
+    marginTop: hp('1%'),
+    marginBottom: hp('1%'),
+    marginLeft: wp('3%'),
   },
   tapInputField: {
     flexDirection: "row",
     alignItems: "center",
-    width: deviceWidth / 1.3,
+    width: wp('80%'),
     minHeight: 30,
     borderRadius: 15,
-    paddingTop: 11,
-    paddingBottom: 11,
-    paddingLeft: 10,
-    marginLeft: 15,
+    paddingVertical: hp('1.3%'),
+    paddingLeft: wp('3%'),
+    marginLeft: wp('3%'),
     backgroundColor: "#fff",
   },
   tapInputText: {
-    width: deviceWidth,
+    width: wp('100%'),
     color: "#505050",
   },
+
+  //何ここ
   input: {
     width: deviceWidth / 1.15,
     minHeight: 30,
@@ -102,32 +115,32 @@ export const styles = StyleSheet.create({
     paddingBottom: 5,
     color: "#606060",
   },
+
+  //コメント覧
   commentBox: {
     flexDirection: "row",
+    width: wp('100%'),
+    paddingVertical: hp('1.5%'),
+    paddingLeft: wp('3%'),
     borderBottomWidth: 0.5,
     borderBottomColor: "#808080",
-    borderColor: "#000",
-    width: deviceWidth,
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 10,
   },
   commentData: {
-    marginLeft: 15,
-    marginRight: 10,
+    marginLeft: wp('3%'),
+    // marginRight: wp('1%'),
   },
   userName: {
-    color: "#fff",
-    fontWeight: "bold",
-    marginBottom: 10,
+    color: baseColor.text,
+    fontWeight: "600",
+    marginBottom: hp('1%'),
   },
   message: {
     color: "#e0e0e0",
-    marginBottom: 10,
-    width: deviceWidth / 1.25,
+    marginBottom: hp('.8%'),
+    width: wp('80%'),
   },
   time: {
-    fontSize: 12,
+    fontSize: Size.Small,
     color: "#C0C0C0",
   },
 });
