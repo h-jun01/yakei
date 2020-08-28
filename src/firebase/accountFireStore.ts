@@ -7,11 +7,6 @@ import {
   callingLogoutAlert,
 } from "../utilities/alert";
 
-// type LoginUser = {
-//   email: string;
-//   password: string;
-// };
-
 type AccountFireStore = {
   getUser: (
     uid: string

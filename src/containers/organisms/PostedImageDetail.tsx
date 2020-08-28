@@ -31,28 +31,12 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
   const dispatch = useDispatch();
 
   // コメント取得
-  //   useEffect(() => {
-  //     photoFireStore.getCommentList(photo_id).then((res) => {
-  //       res && dispatch(setCommentDataList(res.reverse()));
-  //     });
-  //     const emptyCommentDataList = () => {
-  //       dispatch(setCommentDataList([]));
-  //     };
-
-  //     return () => emptyCommentDataList();
-  //   }, [photo_id, setCommentDataList]);
-  //   const [commentDataList, set] = React.useState<any>([]);
-
-  // コメント取得
-  // コメント欄開いた状態で他のコメント欄も開くと少しバグる（早めに修正）
   useEffect(() => {
     commentFireStore.getCommentDataList(photo_id).then((res) => {
       dispatch(setCommentDataList(res));
-      //   set(res);
     });
     const emptyCommentDataList = () => {
       dispatch(setCommentDataList([]));
-      //   set([]);
     };
 
     return () => emptyCommentDataList();
