@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { View, Dimensions, StyleSheet } from "react-native";
 import CameraSvg from "../atoms/svg/CameraSvg";
 import AlbumSvg from "../atoms/svg/AlbumSvg";
+import { baseColor } from "../../styles/thema/colors";
 
 const CameraAlbumWrap: FC = () => {
   const displayWidth = Dimensions.get("window").width;
@@ -11,6 +12,8 @@ const CameraAlbumWrap: FC = () => {
   const wrapHeight = displayWidth * wrapHeightRatio;
   const iconAspect = displayWidth * iconAspectRatio;
   const paddingToCenter = (wrapHeight - iconAspect) / 2;
+  const textColor = baseColor.catskillWhite;
+  const backColor = baseColor.darkNavy;
 
   const styles = StyleSheet.create({
     wrap: {
@@ -31,10 +34,18 @@ const CameraAlbumWrap: FC = () => {
   return (
     <View style={styles.wrap}>
       <View style={{ width: iconAspect, aspectRatio: 1 }}>
-        <CameraSvg style={styles.camera} />
+        <CameraSvg
+          textColor={textColor}
+          backColor={backColor}
+          style={styles.camera}
+        />
       </View>
       <View style={{ width: iconAspect, aspectRatio: 1 }}>
-        <AlbumSvg style={styles.album} />
+        <AlbumSvg
+          textColor={textColor}
+          backColor={backColor}
+          style={styles.album}
+        />
       </View>
     </View>
   );
