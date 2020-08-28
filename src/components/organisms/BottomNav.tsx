@@ -15,13 +15,13 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
 
   return (
     <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
-      <View style={styles.footerSvgWrap}>
+      <View style={styles.footerBackgroundWrap}>
         <FooterBackgroundSvg
-          style={styles.footerSvg}
+          style={styles.footerBackground}
           backColor={baseColor.darkNavy}
         />
       </View>
-      <View style={styles.footerWrap}>
+      <View style={styles.footerItemsWrap}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           const label = route.name;
@@ -78,22 +78,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 0,
   },
-  footerWrap: {
-    zIndex: 0,
-    position: "absolute",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    bottom: displayWidth * itemsFloatingRatio,
-    width: displayWidth,
-  },
-  footerSvgWrap: {
+  footerBackgroundWrap: {
     position: "absolute",
     bottom: -2.25,
     left: -2.75,
     width: displayWidth + 10,
     aspectRatio: viewboxRatio, // これがないと画面サイズぴったりのボトムナビにならない
   },
-  footerSvg: {
+  footerBackground: {
     position: "absolute",
     shadowColor: "#aaaaaa",
     shadowOffset: {
@@ -102,6 +94,14 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.8,
     shadowRadius: 1.5,
+  },
+  footerItemsWrap: {
+    zIndex: 0,
+    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    bottom: displayWidth * itemsFloatingRatio,
+    width: displayWidth,
   },
   footerItem: {
     bottom: 15,
