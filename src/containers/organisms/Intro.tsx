@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { View, SafeAreaView, Text } from "react-native";
-import { deviceHeight } from "../utilities/dimensions";
+import { deviceHeight } from "../../utilities/dimensions";
 
 type Props = {
   navigation: any;
