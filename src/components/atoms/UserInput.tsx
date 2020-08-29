@@ -12,11 +12,12 @@ type Props = {
   label: string;
   placeholder: string;
   value: string;
+  inputLength: number;
   setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const UserInput: FC<Props> = ({ ...props }) => {
-  const { label, placeholder, value, setValue } = props;
+  const { label, placeholder, value, setValue, inputLength } = props;
   return (
     <Fragment>
       <Hoshi
@@ -31,13 +32,14 @@ const UserInput: FC<Props> = ({ ...props }) => {
         blurOnSubmit={true}
         //改行
         multiline={true}
+        maxLength={inputLength}
         //編集を可能に
         editable={true}
         //アクティブな境界線およびラベルの色
         //どうしても赤線が出る。影響なし
         // borderHeight={1}
-        borderColor={utilityColor.border}
         inputPadding={24}
+        borderColor={utilityColor.border}
         inputStyle={styles.editInput}
         labelStyle={styles.labelItem}
       />

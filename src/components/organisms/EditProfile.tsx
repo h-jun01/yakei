@@ -10,7 +10,6 @@ import {
 import UserImage from "../atoms/UserImage";
 import UserInput from "../atoms/UserInput";
 import HeaderImage from "../atoms/HeaderImage";
-import UserSaveButton from "../atoms/UserSaveButton";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 import { styles } from "../../styles/user/editProfile";
@@ -74,6 +73,7 @@ const EditProfile: FC<Props> = ({ ...props }) => {
             <UserInput
               label="ユーザ名"
               placeholder="ユーザ名を入力"
+              inputLength={6}
               value={userName}
               setValue={setUserName}
             />
@@ -81,14 +81,10 @@ const EditProfile: FC<Props> = ({ ...props }) => {
             <UserInput
               label="自己紹介"
               placeholder="自己紹介を入力"
+              inputLength={40}
               value={userSelfIntroduction}
               setValue={setUserSelfIntroduction}
             />
-          </View>
-
-          {/* 更新ボタン */}
-          <View style={styles.userButton}>
-            <UserSaveButton saveData={saveData} />
           </View>
         </View>
       </KeyboardAvoidingView>
