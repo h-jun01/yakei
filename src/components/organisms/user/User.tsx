@@ -4,7 +4,7 @@ import { Image } from "react-native-elements";
 import { styles } from "../../../styles/user/user";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
-import UserImage from "../../atoms/user/UserImage";
+import UserImage from "../../atoms/UserImage";
 import TabMenu from "../../../containers/molecules/TabMenu";
 
 type Props = {

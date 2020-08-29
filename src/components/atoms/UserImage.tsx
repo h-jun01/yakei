@@ -1,8 +1,7 @@
 import React, { FC } from "react";
 import { Image } from "react-native-elements";
 import { ActivityIndicator } from "react-native";
-import { baseColor } from "../../../styles/thema/colors";
-
+import { baseColor } from "../../styles/thema/colors";
 
 type Props = {
   userImage: string;

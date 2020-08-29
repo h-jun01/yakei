@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
-import { baseColor, utilityColor } from "../../../styles/thema/colors";
-import { Size } from "../../../styles/thema/fonts";
+import { baseColor, utilityColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
 
 type Props = {
   saveData: () => Promise<void>;
