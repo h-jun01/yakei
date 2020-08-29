@@ -19,6 +19,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     favoriteNumber,
     latitude,
     longitude,
+    photogenic_subjec,
   } = route.params;
 
   const selrctCommentDataList = (state: RootState) =>
@@ -54,6 +55,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
       favoriteNumber={favoriteNumber}
       latitude={latitude}
       longitude={longitude}
+      photogenic_subjec={photogenic_subjec}
       commentDataList={commentDataList}
       textInputRef={textInputRef}
       focusOnInput={focusOnInput}

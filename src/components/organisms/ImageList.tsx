@@ -19,6 +19,7 @@ type PhotoDataList = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
+  photogenic_subjec: string;
 };
 
 type Props = {
@@ -35,8 +36,8 @@ const ImageList: FC<Props> = ({ ...props }) => {
         {photoDataList.map((item, index) => (
           <View style={styles.itemWrap} key={index}>
             <InformationUserPosted
-              create_time={item.create_time}
               uid={item.uid}
+              photogenic_subjec={item.photogenic_subjec}
             />
             <TouchableOpacity
               activeOpacity={0.8}
@@ -49,6 +50,7 @@ const ImageList: FC<Props> = ({ ...props }) => {
                   favoriteNumber: item.favoriteNumber,
                   latitude: item.latitude,
                   longitude: item.longitude,
+                  photogenic_subjec: item.photogenic_subjec,
                 })
               }
             >
