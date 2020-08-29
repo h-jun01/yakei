@@ -52,7 +52,7 @@ const SignUp: FC<Props> = ({ ...props }) => {
     <Fragment>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../../../../assets/authBackImg.jpg")}
+          source={require("../../../assets/authBackImg.jpg")}
           style={styles.authBack}
         >
           <View style={styles.allWrap}>

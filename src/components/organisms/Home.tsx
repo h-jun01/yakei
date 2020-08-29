@@ -191,7 +191,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}
-                  image={require("../../../../assets/pin02.png")}
+                  image={require("../../../assets/pin02.png")}
                   onPress={() => {
                     onPressPin(data);
                   }}
@@ -239,7 +239,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     latitude: data.latitude,
                     longitude: data.longitude,
                   }}
-                  image={require("../../../../assets/pin02.png")}
+                  image={require("../../../assets/pin02.png")}
                   onPress={() => {
                     onPressPin(data);
                   }}

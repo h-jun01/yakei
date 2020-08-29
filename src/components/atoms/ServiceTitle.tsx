@@ -7,7 +7,7 @@ const ServiceTitle: FC = () => {
     <View style={styles.titleWrap}>
       <Image
         style={styles.yakeiLogo}
-        source={require("../../../../assets/yakei-logo.png")}
+        source={require("../../../assets/yakei-logo.png")}
       />
     </View>
   );

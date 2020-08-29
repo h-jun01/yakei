@@ -20,7 +20,7 @@ import BottomNav from "./components/organisms/BottomNav";
 import TermsOfService from "./components/organisms/TermsOfService";
 import PrivacyPolicy from "./components/organisms/PrivacyPolicy";
 import PasswordReset from "./components/organisms/PasswordReset";
-import LodingScreen from "./components/LoadingScreen";
+import LodingScreen from "./components/organisms/LoadingScreen";
 import HomeScreen from "./screens/HomeScreen";
 import PickUpScreen from "./screens/PickUpScreen";
 import NotificationScreen from "./screens/NotificationScreen";
