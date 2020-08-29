@@ -2,7 +2,7 @@ import React, { FC, Fragment, useState } from "react";
 import * as Google from "expo-google-app-auth";
 import Spinner from "react-native-loading-spinner-overlay";
 import env from "../../../../env.json";
-import Auth from "../../../components/organisms/auth/SignUp";
+import Auth from "../../../components/organisms/SignUp";
 import { accountFireStore } from "../../../firebase/accountFireStore";
 import { callingAlert } from "../../../utilities/alert";
 import { useInput, UseInputResult } from "../../../utilities/hooks/input";
@@ -92,10 +92,7 @@ const ContainerSignUp: FC<Props> = ({ navigation }) => {
         }),
       })
         .then(async () => {
-          await accountFireStore.loginUser({
-            email: email,
-            password: password,
-          });
+          await accountFireStore.loginUser(email, password);
         })
         .catch((err) => {
           setIsLoading(false);
