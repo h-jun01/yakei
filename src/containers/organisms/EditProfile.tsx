@@ -1,14 +1,16 @@
-import React, { FC, Fragment, useState } from "react";
+import React, { FC, Fragment, useState, useEffect } from "react";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import EditProfile from "../../components/organisms/EditProfile";
 import Spinner from "react-native-loading-spinner-overlay";
+import { TouchableOpacity, Text } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { callingAlert } from "../../utilities/alert";
 import { RootState } from "../../reducers/index";
-import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
+import { styles } from "../../styles/user/editProfile";
+import { deviceWidth } from "../../utilities/dimensions";
 import {
   upDateUserName,
   upDateUserProfileImage,
@@ -44,6 +46,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
   const imgIndex = useSelector(selectImgIndex);
   const headerImgIndex = useSelector(selectHeaderImgIndex);
   const selfIntroduction = useSelector(selectSelfIntroduction);
+  const dispatch = useDispatch();
   const [userName, setUserName] = useState<string>(name);
   const [userImage, setUserImage] = useState<string>(image);
   const [userHeaderImage, setUserHeaderImage] = useState<string>(headerImage);
@@ -66,7 +69,15 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     postIndex: "",
   });
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity activeOpacity={0.6} onPress={() => saveData()}>
+          <Text style={styles.saveButton}>保存</Text>
+        </TouchableOpacity>
+      ),
+    });
+  });
 
   //リサイズしてアイコンをstorageImageDataに一時保存
   const onAddImagePressed = async () => {
