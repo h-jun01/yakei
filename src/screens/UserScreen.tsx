@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import User from "../containers/organisms/user/User";
-import Setting from "../containers/organisms/user/Setting";
-import EditProfile from "../containers/organisms/user/EditProfile";
+import User from "../containers/organisms/User";
+import Setting from "../containers/organisms/Setting";
+import EditProfile from "../containers/organisms/EditProfile";
 import PasswordReset from "../components/organisms/PasswordReset";
-import Notice from "../containers/organisms/user/Notice";
+import Notice from "../containers/organisms/Notice";
 import TermsOfService from "../components/organisms/TermsOfService";
 import PrivacyPolicy from "../components/organisms/PrivacyPolicy";
 

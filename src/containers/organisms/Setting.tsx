@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Setting from "../../../components/organisms/Setting";
+import Setting from "../../components/organisms/Setting";
 
 type Props = {
   navigation: any;

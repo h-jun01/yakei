@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import Notice from "../../../components/organisms/Notice";
+import Notice from "../../components/organisms/Notice";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../reducers/index";
+import { RootState } from "../../reducers/index";
 
 const NoticeContainer: FC = () => {
   const noticeDataList = useSelector(

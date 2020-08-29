@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../containers/organisms/home/Home";
+import Home from "../containers/organisms/Home";
 import ImageList from "../containers/molecules/ImageList";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
 

@@ -2,13 +2,13 @@ import React, { FC, Fragment, useState } from "react";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
-import EditProfile from "../../../components/organisms/EditProfile";
+import EditProfile from "../../components/organisms/EditProfile";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useSelector, useDispatch } from "react-redux";
-import { accountFireStore } from "../../../firebase/accountFireStore";
-import { callingAlert } from "../../../utilities/alert";
-import { RootState } from "../../../reducers/index";
-import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
+import { accountFireStore } from "../../firebase/accountFireStore";
+import { callingAlert } from "../../utilities/alert";
+import { RootState } from "../../reducers/index";
+import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 import {
   upDateUserName,
   upDateUserProfileImage,
@@ -16,7 +16,7 @@ import {
   upDateUserImgIndex,
   upDateUserHeaderImgIndex,
   upDateUserSelfIntroduction,
-} from "../../../actions/user";
+} from "../../actions/user";
 
 type StorageImageData = {
   imgUrl: string;

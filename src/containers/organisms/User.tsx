@@ -1,12 +1,12 @@
 import React, { FC, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../reducers/index";
-import { auth } from "../../../firebase/firebase";
-import { accountFireStore } from "../../../firebase/accountFireStore";
-import { setUserData } from "../../../actions/user";
-import { photoFireStore } from "../../../firebase/photoFireStore";
-import { setPhotoListData } from "../../../actions/photo";
-import User from "../../../components/organisms/User";
+import { RootState } from "../../reducers/index";
+import { auth } from "../../firebase/firebase";
+import { accountFireStore } from "../../firebase/accountFireStore";
+import { setUserData } from "../../actions/user";
+import { photoFireStore } from "../../firebase/photoFireStore";
+import { setPhotoListData } from "../../actions/photo";
+import User from "../../components/organisms/User";
 
 type Props = {
   navigation: any;

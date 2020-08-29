@@ -1,11 +1,11 @@
 import React, { FC, useEffect } from "react";
-import Home from "../../../components/organisms/Home";
+import Home from "../../components/organisms/Home";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
-import { photoFireStore } from "../../../firebase/photoFireStore";
+import { photoFireStore } from "../../firebase/photoFireStore";
 import { useSelector, useDispatch } from "react-redux";
-import { setAllPhotoListData } from "../../../actions/allPhoto";
-import { RootState } from "../../../reducers/index";
+import { setAllPhotoListData } from "../../actions/allPhoto";
+import { RootState } from "../../reducers/index";
 
 // const getLocationAsync = async () => {
 //   const { status } = await Permissions.askAsync(Permissions.LOCATION);

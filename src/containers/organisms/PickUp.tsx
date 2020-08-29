@@ -1,8 +1,8 @@
 import React, { FC, useState, useEffect } from "react";
 import { ImageSourcePropType } from "react-native";
-import { photoFireStore } from "../../../firebase/photoFireStore";
-import { squeezeSpot } from "../../../utilities/spot";
-import PickUp from "../../../components/organisms/PickUp";
+import { photoFireStore } from "../../firebase/photoFireStore";
+import { squeezeSpot } from "../../utilities/spot";
+import PickUp from "../../components/organisms/PickUp";
 import geohash from "ngeohash";
 
 type PickUpItemList = {
@@ -38,25 +38,25 @@ const PickUpContainer: FC<Props> = ({ navigation }) => {
     {
       title: "渋谷周辺の夜景 9選",
       time: "2020/09/01",
-      url: require("../../../../assets/images/shibuya.jpg"),
+      url: require("../../../assets/images/shibuya.jpg"),
       pickUpDataList: shibuyaPhotoList,
     },
     {
       title: "レインボーブリッジ周辺の夜景 7選",
       time: "2020/09/01",
-      url: require("../../../../assets/images/rainbowBridg.jpg"),
+      url: require("../../../assets/images/rainbowBridg.jpg"),
       pickUpDataList: rainbowBridgePhotoList,
     },
     {
       title: "日本全国の夜景 7選",
       time: "2020/09/01",
-      url: require("../../../../assets/images/japan.jpg"),
+      url: require("../../../assets/images/japan.jpg"),
       pickUpDataList: shibuyaPhotoList,
     },
     {
       title: "スカイツリー周辺の夜景 7選",
       time: "2020/09/01",
-      url: require("../../../../assets/images/skytree.jpg"),
+      url: require("../../../assets/images/skytree.jpg"),
       pickUpDataList: shibuyaPhotoList,
     },
   ];
