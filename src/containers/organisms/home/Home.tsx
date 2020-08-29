@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from "react";
-import Home from "../../../components/organisms/home/Home";
+import Home from "../../../components/organisms/Home";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import { photoFireStore } from "../../../firebase/photoFireStore";

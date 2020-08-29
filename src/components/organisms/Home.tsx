@@ -16,11 +16,11 @@ import { Container } from "native-base";
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
 import LocationButtonView from "./PresentLocationButton";
-import OriginMarker from "../../atoms/OriginMarker";
+import OriginMarker from "../atoms/OriginMarker";
 import { useEffect } from "react";
 import { useTheme } from "@react-navigation/native";
-import { photoFireStore } from "../../../firebase/photoFireStore";
-import { accountFireStore } from "../../../firebase/accountFireStore";
+import { photoFireStore } from "../../firebase/photoFireStore";
+import { accountFireStore } from "../../firebase/accountFireStore";
 
 type Region = {
   latitude: number;
