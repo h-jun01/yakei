@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { View, Text } from "react-native";
-import { styles } from "../../../styles/auth/auth";
+import { styles } from "../../styles/auth/auth";
 
 const AuthChoiceText: FC = () => {
   return (

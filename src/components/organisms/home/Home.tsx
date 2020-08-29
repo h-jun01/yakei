@@ -16,7 +16,7 @@ import { Container } from "native-base";
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
 import LocationButtonView from "./PresentLocationButton";
-import OriginMarker from "../../atoms/home/OriginMarker";
+import OriginMarker from "../../atoms/OriginMarker";
 import { useEffect } from "react";
 import { useTheme } from "@react-navigation/native";
 import { photoFireStore } from "../../../firebase/photoFireStore";

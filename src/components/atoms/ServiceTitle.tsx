@@ -1,7 +1,6 @@
 import React, { FC } from "react";
-import { View, Image, } from "react-native";
-import { styles } from "../../../styles/auth/auth";
-
+import { View, Image } from "react-native";
+import { styles } from "../../styles/auth/auth";
 
 const ServiceTitle: FC = () => {
   return (

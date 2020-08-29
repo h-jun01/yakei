@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { View, Text, TextInput } from "react-native";
-import { utilityColor } from "../../../styles/thema/colors";
-import { styles } from "../../../styles/auth/auth";
+import { utilityColor } from "../../styles/thema/colors";
+import { styles } from "../../styles/auth/auth";
 
 type UseInput = {
   value: string;

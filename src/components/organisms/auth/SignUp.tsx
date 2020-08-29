@@ -2,13 +2,13 @@ import React, { FC, Fragment } from "react";
 import { View, ImageBackground } from "react-native";
 import { UseInputResult } from "../../../utilities/hooks/input";
 import { styles } from "../../../styles/auth/auth";
-import FormInput from "../../atoms/auth/FormInput";
-import ServiceTitle from "../../atoms/auth/ServiceTitle";
-import GoogleAuthButton from "../../atoms/auth/GoogleAuthButton";
-import AuthChoiceText from "../../atoms/auth/AuthChoiceText";
-import AuthStatusChange from "../../atoms/auth/AuthStatusChange";
-import SginUpScreenText from "../../atoms/auth/SginUpScreenText";
-import AuthScreenButton from "../../atoms/auth/AuthScreenButton";
+import FormInput from "../../atoms/FormInput";
+import ServiceTitle from "../../atoms/ServiceTitle";
+import GoogleAuthButton from "../../atoms/GoogleAuthButton";
+import AuthChoiceText from "../../atoms/AuthChoiceText";
+import AuthStatusChange from "../../atoms/AuthStatusChange";
+import SginUpScreenText from "../../atoms/SginUpScreenText";
+import AuthScreenButton from "../../atoms/AuthScreenButton";
 
 type ItemList = {
   item: string;
