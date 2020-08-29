@@ -25,7 +25,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
       />
       <View style={styles.userName}>
         <Text style={styles.userName}>{postUserName}</Text>
-        <Text style={styles.timeStamp}>{photogenic_subjec}</Text>
+        <Text style={styles.photogenicSubjec}>{photogenic_subjec}</Text>
       </View>
       <Text style={styles.dotsVertical}>
         <MaterialCommunityIcons name="dots-vertical" size={20} />

@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: hp(".3%"),
   },
-  timeStamp: {
+  photogenicSubjec: {
     color: baseColor.grayText,
     fontSize: Size.Small,
     fontWeight: "400",
@@ -74,5 +74,11 @@ export const styles = StyleSheet.create({
     color: baseColor.text,
     fontWeight: "400",
     marginRight: wp("3%"),
+  },
+  timeStamp: {
+    paddingLeft: hp("1.4%"),
+    color: baseColor.grayText,
+    fontSize: Size.Small,
+    fontWeight: "400",
   },
 });

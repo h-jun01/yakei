@@ -60,7 +60,7 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
           <EvilIcons name="location" size={21} />
         </Text>
       </View>
-      <Text>{date}</Text>
+      <Text style={styles.timeStamp}>{date}</Text>
     </Fragment>
   );
 };
