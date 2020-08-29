@@ -57,6 +57,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             favoriteNumber={favoriteNumber}
             latitude={latitude}
             longitude={longitude}
+            create_time={create_time}
           />
         </View>
         <CommentInputField focusOnInput={focusOnInput} />
