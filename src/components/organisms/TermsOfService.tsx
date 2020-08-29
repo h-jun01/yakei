@@ -1,8 +1,8 @@
 import React, { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setBottomNavStatus } from "../../../actions/bottomNav";
+import { setBottomNavStatus } from "../../actions/bottomNav";
 import { ScrollView, View, Text } from "react-native";
-import { styles } from "../../../styles/user/terms";
+import { styles } from "../../styles/user/terms";
 
 const TermsOfService: FC = () => {
   const dispatch = useDispatch();

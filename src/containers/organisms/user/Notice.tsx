@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Notice from "../../../components/organisms/user/Notice";
+import Notice from "../../../components/organisms/Notice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../reducers/index";
 

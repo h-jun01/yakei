@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { View, Text } from "react-native";
-import { styles } from "../../../styles/user/setting";
-import { accountFireStore } from "../../../firebase/accountFireStore";
-import { useInput } from "../../../utilities/hooks/input";
+import { styles } from "../../styles/user/setting";
+import { accountFireStore } from "../../firebase/accountFireStore";
+import { useInput } from "../../utilities/hooks/input";
 import { Jiro } from "react-native-textinput-effects";
 
 const PasswordReset: FC = () => {

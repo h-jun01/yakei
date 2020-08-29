@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import { View, Text, ActivityIndicator, ScrollView } from "react-native";
 import { Image } from "react-native-elements";
-import { styles } from "../../../styles/user/user";
+import { styles } from "../../styles/user/user";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
-import UserImage from "../../atoms/UserImage";
-import TabMenu from "../../../containers/molecules/TabMenu";
+import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
+import UserImage from "../atoms/UserImage";
+import TabMenu from "../../containers/molecules/TabMenu";
 
 type Props = {
   navigation: any;

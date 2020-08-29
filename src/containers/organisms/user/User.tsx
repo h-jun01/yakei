@@ -6,7 +6,7 @@ import { accountFireStore } from "../../../firebase/accountFireStore";
 import { setUserData } from "../../../actions/user";
 import { photoFireStore } from "../../../firebase/photoFireStore";
 import { setPhotoListData } from "../../../actions/photo";
-import User from "../../../components/organisms/user/User";
+import User from "../../../components/organisms/User";
 
 type Props = {
   navigation: any;

@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from "react";
 import { View, Text } from "react-native";
-import { styles } from "../../../styles/user/notice";
+import { styles } from "../../styles/user/notice";
 
 type NoticeDataList = {
   message: string;

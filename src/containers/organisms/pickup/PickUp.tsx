@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { ImageSourcePropType } from "react-native";
 import { photoFireStore } from "../../../firebase/photoFireStore";
 import { squeezeSpot } from "../../../utilities/spot";
-import PickUp from "../../../components/organisms/pickup/PickUp";
+import PickUp from "../../../components/organisms/PickUp";
 import geohash from "ngeohash";
 
 type PickUpItemList = {

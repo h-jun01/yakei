@@ -1,9 +1,8 @@
 import React, { FC } from "react";
-import Setting from "../../../components/organisms/user/Setting";
-import { UserScreenNavigationProp } from "../../../components/organisms/user/User";
+import Setting from "../../../components/organisms/Setting";
 
 type Props = {
-  navigation: UserScreenNavigationProp;
+  navigation: any;
 };
 
 const ContainerSetting: FC<Props> = ({ ...props }) => {

@@ -7,13 +7,13 @@ import {
   Keyboard,
   Platform,
 } from "react-native";
-import UserImage from "../../atoms/UserImage";
-import UserInput from "../../atoms/UserInput";
-import HeaderImage from "../../atoms/HeaderImage";
-import UserSaveButton from "../../atoms/UserSaveButton";
+import UserImage from "../atoms/UserImage";
+import UserInput from "../atoms/UserInput";
+import HeaderImage from "../atoms/HeaderImage";
+import UserSaveButton from "../atoms/UserSaveButton";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { deviceWidth, deviceHeight } from "../../../utilities/dimensions";
-import { styles } from "../../../styles/user/editProfile";
+import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
+import { styles } from "../../styles/user/editProfile";
 
 type Props = {
   userName: string;
