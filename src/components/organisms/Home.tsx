@@ -314,6 +314,8 @@ const Home: FC<Props> = ({ ...props }) => {
         onPressIcon={() => {
           setPhotoDisplayFlag(!photoDisplayFlag);
         }}
+        photoDisplayFlag={photoDisplayFlag}
+        photoSnapFlag={photoSnapFlag}
       />
     </Container>
   );
