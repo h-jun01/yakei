@@ -17,6 +17,7 @@ type Props = {
   favoriteNumber: number;
   latitude: number;
   longitude: number;
+  photogenic_subjec: string;
   commentDataList: firebase.firestore.DocumentData[];
   textInputRef: MutableRefObject<TextInput | null>;
   focusOnInput: () => void;
@@ -31,6 +32,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     favoriteNumber,
     latitude,
     longitude,
+    photogenic_subjec,
     commentDataList,
     textInputRef,
     focusOnInput,
@@ -40,7 +42,10 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     <View style={styles.container}>
       <ScrollView style={styles.allWrap}>
         <View>
-          <InformationUserPosted create_time={create_time} uid={uid} />
+          <InformationUserPosted
+            uid={uid}
+            photogenic_subjec={photogenic_subjec}
+          />
           <Image
             style={styles.image}
             source={{

@@ -26,36 +26,30 @@ const PickUpContainer: FC<Props> = ({ navigation }) => {
     });
   }, []);
 
-  // スポット毎に抽出
-  const shibuyaPhotoList = squeezeSpot(pickUpDataList, "shibuya");
-  const rainbowBridgePhotoList = squeezeSpot(pickUpDataList, "rainbowBridge");
-  const japanPhotoList = squeezeSpot(pickUpDataList, "japan");
-  const skytreePhotoList = squeezeSpot(pickUpDataList, "skytree");
-
   const pickUpItemList: PickUpItemList[] = [
     {
       title: "渋谷周辺の夜景 9選",
       time: "2020/09/01",
       url: require("../../../assets/images/shibuya.jpg"),
-      pickUpDataList: shibuyaPhotoList,
+      pickUpDataList: squeezeSpot(pickUpDataList, "shibuya"),
     },
     {
       title: "レインボーブリッジ周辺の夜景 7選",
       time: "2020/09/01",
       url: require("../../../assets/images/rainbowBridg.jpg"),
-      pickUpDataList: rainbowBridgePhotoList,
+      pickUpDataList: squeezeSpot(pickUpDataList, "rainbowBridge"),
     },
     {
       title: "日本全国の夜景 7選",
       time: "2020/09/01",
       url: require("../../../assets/images/japan.jpg"),
-      pickUpDataList: japanPhotoList,
+      pickUpDataList: squeezeSpot(pickUpDataList, "japan"),
     },
     {
       title: "スカイツリー周辺の夜景 7選",
       time: "2020/09/01",
       url: require("../../../assets/images/skytree.jpg"),
-      pickUpDataList: skytreePhotoList,
+      pickUpDataList: squeezeSpot(pickUpDataList, "skytree"),
     },
   ];
 
