@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import ImageList from "../../components/molecules/ImageList";
+import ImageList from "../../components/organisms/ImageList";
 
 type Props = {
   route: any;
