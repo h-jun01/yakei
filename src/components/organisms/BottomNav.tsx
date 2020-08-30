@@ -20,11 +20,11 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   const shouldDisplay = useSelector(
     (state: RootState) => state.bottomNavReducer.shouldDisplay
   );
-  const shouldAppearBtns = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
+  const isAppearedBtns = useSelector(
+    (state: RootState) => state.cameraAndAlbumReducer.isAppeared
   );
   const whiteWrapAnim = useRef(new Animated.Value(0)).current;
-  if (shouldAppearBtns) {
+  if (isAppearedBtns) {
     Animated.timing(whiteWrapAnim, {
       toValue: 1,
       duration: 200,
@@ -53,7 +53,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
         onPressOut={() => dispatch(setCameraAndAlbumStatus(false))}
         style={[
           styles.whiteWrap,
-          shouldAppearBtns ? {} : { display: "none" },
+          isAppearedBtns ? {} : { display: "none" },
           { opacity: opacityInterpolate },
         ]}
       />
@@ -73,7 +73,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
           const isFocused = state.index === index;
 
           const onPress = () => {
-            if (shouldAppearBtns) {
+            if (isAppearedBtns) {
               dispatch(setCameraAndAlbumStatus(false));
               return;
             }

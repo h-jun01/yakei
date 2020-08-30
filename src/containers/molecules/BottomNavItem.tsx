@@ -48,11 +48,11 @@ const BottomNavItemContainer: FC<Props> = (props) => {
   const plusToCrossAnim = useRef(new Animated.Value(0)).current;
 
   const animateStart = (anim, buttonState) => {
-    const { toValue, shouldAppearBtns, asyncFunc } = (() => {
+    const { toValue, isAppearedBtns, asyncFunc } = (() => {
       if (buttonState === "0deg") {
         return {
           toValue: 1,
-          shouldAppearBtns: true,
+          isAppearedBtns: true,
           asyncFunc: () => {},
         };
       } else {
@@ -60,7 +60,7 @@ const BottomNavItemContainer: FC<Props> = (props) => {
         const resetAnimValue = () => plusToCrossAnim.setValue(0);
         return {
           toValue: 2,
-          shouldAppearBtns: false,
+          isAppearedBtns: false,
           asyncFunc: resetAnimValue,
         };
       }
@@ -71,16 +71,16 @@ const BottomNavItemContainer: FC<Props> = (props) => {
       useNativeDriver: false,
     }).start(asyncFunc);
 
-    dispatch(setCameraAndAlbumStatus(shouldAppearBtns));
+    dispatch(setCameraAndAlbumStatus(isAppearedBtns));
     const newIndex = (stateIndex + 1) % 2;
     setStateIndex(newIndex);
   };
 
-  const shouldAppearBtns = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
+  const isAppearedBtns = useSelector(
+    (state: RootState) => state.cameraAndAlbumReducer.isAppeared
   );
   const isPushedOuterBtns =
-    !shouldAppearBtns && stateArray[stateIndex] == "45deg";
+    !isAppearedBtns && stateArray[stateIndex] == "45deg";
   if (isPushedOuterBtns) animateStart(plusToCrossAnim, "45deg");
 
   const changeStyle = () => {
