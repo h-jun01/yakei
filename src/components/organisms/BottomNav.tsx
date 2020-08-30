@@ -1,20 +1,52 @@
 import React, { FC } from "react";
-import { View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
-import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
+import {
+  View,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet,
+  Animated,
+} from "react-native";
+import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
-import BottomNavItem from "../../containers/molecules/BottomNavItem";
-import { RootState } from "../../reducers/index";
-import { useSelector } from "react-redux";
+import BottomNavTouchableOpacity from "../../containers/molecules/BottomNavTouchableOpacity";
 
-const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
-  const shouldDisplay = useSelector(
-    (state: RootState) => state.bottomNavReducer.shouldDisplay
+type Props = {
+  state: BottomTabBarProps["state"];
+  descriptors: BottomTabBarProps["descriptors"];
+  navigation: BottomTabBarProps["navigation"];
+  isDisplayed: boolean;
+  isAppearedBtns: boolean;
+  opacityAnim: Object;
+  onPressOut: () => void;
+};
+
+const BottomNav: FC<Props> = ({ ...props }) => {
+  const {
+    state,
+    descriptors,
+    navigation,
+    isDisplayed,
+    isAppearedBtns,
+    opacityAnim,
+    onPressOut,
+  } = props;
+  const AnimatedTouchableOpacity = Animated.createAnimatedComponent(
+    TouchableOpacity
   );
 
   return (
-    <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
+    <View style={[styles.container, isDisplayed ? {} : { display: "none" }]}>
+      <AnimatedTouchableOpacity
+        activeOpacity={1.0}
+        onPressOut={onPressOut}
+        style={[
+          styles.whiteWrap,
+          opacityAnim,
+          isAppearedBtns ? {} : { display: "none" },
+        ]}
+      />
       <View style={styles.footerBackgroundWrap}>
         <FooterBackgroundSvg
           style={styles.footerBackground}
@@ -26,45 +58,15 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
       </View>
       <View style={styles.footerItemsWrap}>
         {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key];
-          const label = route.name;
-          const isFocused = state.index === index;
-
-          const onPress = () => {
-            const event = navigation.emit({
-              type: "tabPress",
-              target: route.key,
-              canPreventDefault: true,
-            });
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name);
-            }
-          };
-
-          const onLongPress = () => {
-            navigation.emit({
-              type: "tabLongPress",
-              target: route.key,
-            });
-          };
-
           return (
-            <TouchableOpacity
+            <BottomNavTouchableOpacity
               key={index}
-              accessibilityRole="button"
-              accessibilityState={isFocused ? { selected: true } : {}}
-              accessibilityLabel={options.tabBarAccessibilityLabel}
-              onPress={index !== 2 ? onPress : () => {}}
-              onLongPress={onLongPress}
-              activeOpacity={1}
-              style={[styles.footerItem, index === 2 ? styles.plusButton : {}]}
-            >
-              <BottomNavItem
-                index={index}
-                isFocused={isFocused}
-                label={label}
-              />
-            </TouchableOpacity>
+              state={state}
+              route={route}
+              descriptors={descriptors}
+              navigation={navigation}
+              index={index}
+            />
           );
         })}
       </View>
@@ -73,6 +75,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
 };
 
 const displayWidth = Dimensions.get("window").width;
+const displayHeight = Dimensions.get("window").height;
 const itemsFloatingRatio = 0.03623;
 const viewboxRatio = 4.4588; // viewbox.width / viewbox.height
 
@@ -80,6 +83,13 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: 0,
+  },
+  whiteWrap: {
+    position: "absolute",
+    bottom: 0,
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    width: "100%",
+    height: displayHeight,
   },
   footerBackgroundWrap: {
     position: "absolute",
@@ -103,8 +113,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     bottom: displayWidth * itemsFloatingRatio,
-    left: -2.75,
-    width: displayWidth + 10,
+    width: displayWidth,
   },
   footerItemsWrap: {
     zIndex: 0,
@@ -113,20 +122,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     bottom: displayWidth * itemsFloatingRatio,
     width: displayWidth,
-  },
-  footerItem: {
-    bottom: 15,
-    width: 0,
-    height:
-      displayWidth / viewboxRatio - displayWidth * itemsFloatingRatio - 15,
-    flexGrow: 1,
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  plusButton: {
-    bottom: 17,
-    paddingHorizontal: 10,
   },
 });
 

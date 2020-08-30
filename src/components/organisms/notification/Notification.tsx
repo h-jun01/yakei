@@ -1,18 +1,8 @@
 import React, { FC } from "react";
 import { View, Text, Button } from "react-native";
-import { CompositeNavigationProp } from "@react-navigation/native";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { TabParamList } from "../../../index";
-import { StackParamList } from "../../../index";
-
-export type NotificationScreenNavigationProp = CompositeNavigationProp<
-  BottomTabNavigationProp<TabParamList, "Notification">,
-  StackNavigationProp<StackParamList>
->;
 
 type Props = {
-  navigation: NotificationScreenNavigationProp;
+  navigation: any;
   title: string;
 };
 
