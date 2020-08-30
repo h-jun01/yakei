@@ -17,8 +17,8 @@ import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
 
 const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   const dispatch = useDispatch();
-  const shouldDisplay = useSelector(
-    (state: RootState) => state.bottomNavReducer.shouldDisplay
+  const isDisplayed = useSelector(
+    (state: RootState) => state.bottomNavReducer.isDisplayed
   );
   const isAppearedBtns = useSelector(
     (state: RootState) => state.cameraAndAlbumReducer.isAppeared
@@ -47,7 +47,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
   );
 
   return (
-    <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
+    <View style={[styles.container, isDisplayed ? {} : { display: "none" }]}>
       <AnimatedTouchableOpacity
         activeOpacity={1.0}
         onPressOut={() => dispatch(setCameraAndAlbumStatus(false))}
