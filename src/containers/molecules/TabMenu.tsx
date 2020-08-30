@@ -37,7 +37,13 @@ const TabMenuContainer: FC<Props> = ({ navigation }) => {
   //     });
   //   }, []);
 
-  return <TabMenu photoDataList={photoDataList} favoriteList={favoriteList} />;
+  return (
+    <TabMenu
+      navigation={navigation}
+      photoDataList={photoDataList}
+      favoriteList={favoriteList}
+    />
+  );
 };
 
 export default TabMenuContainer;
