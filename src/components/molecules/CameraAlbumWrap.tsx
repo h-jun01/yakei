@@ -1,5 +1,5 @@
-import React, { FC, MutableRefObject } from "react";
-import { View, Dimensions, StyleSheet } from "react-native";
+import React, { FC } from "react";
+import { TouchableOpacity, View, Dimensions, StyleSheet } from "react-native";
 import CameraSvg from "../atoms/svg/CameraSvg";
 import AlbumSvg from "../atoms/svg/AlbumSvg";
 import { baseColor } from "../../styles/thema/colors";
@@ -9,11 +9,10 @@ type Props = {
     UpperLeft: Object;
     UpperRight: Object;
   };
-  viewRef: MutableRefObject<View | null>;
 };
 
 const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
-  const { animStyle, viewRef } = props;
+  const { animStyle } = props;
   const displayWidth = Dimensions.get("window").width;
   const iPhone11width = 414;
   const wrapHeightRatio = 72 / iPhone11width;
@@ -33,7 +32,7 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
     },
   });
   return (
-    <View style={styles.wrap} ref={viewRef}>
+    <TouchableOpacity activeOpacity={1.0} style={styles.wrap}>
       <View style={{ width: iconAspect, aspectRatio: 1 }}>
         <CameraSvg
           textColor={textColor}
@@ -48,7 +47,7 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
           style={animStyle.UpperRight}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

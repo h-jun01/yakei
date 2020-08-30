@@ -6,15 +6,17 @@ import {
   StyleSheet,
   Animated,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavItem from "../../containers/molecules/BottomNavItem";
 import { RootState } from "../../reducers/index";
-import { useSelector } from "react-redux";
+import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
 
 const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
+  const dispatch = useDispatch();
   const shouldDisplay = useSelector(
     (state: RootState) => state.bottomNavReducer.shouldDisplay
   );
@@ -40,9 +42,15 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
     outputRange: [0, 1],
   });
 
+  const AnimatedTouchableOpacity = Animated.createAnimatedComponent(
+    TouchableOpacity
+  );
+
   return (
     <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
-      <Animated.View
+      <AnimatedTouchableOpacity
+        activeOpacity={1.0}
+        onPressOut={() => dispatch(setCameraAndAlbumStatus(false))}
         style={[
           styles.whiteWrap,
           shouldAppearBtns ? {} : { display: "none" },
@@ -65,7 +73,10 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
           const isFocused = state.index === index;
 
           const onPress = () => {
-            if (shouldAppearBtns) return;
+            if (shouldAppearBtns) {
+              dispatch(setCameraAndAlbumStatus(false));
+              return;
+            }
             const event = navigation.emit({
               type: "tabPress",
               target: route.key,
@@ -146,8 +157,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     bottom: displayWidth * itemsFloatingRatio,
-    left: -2.75,
-    width: displayWidth + 10,
+    width: displayWidth,
   },
   footerItemsWrap: {
     zIndex: 0,

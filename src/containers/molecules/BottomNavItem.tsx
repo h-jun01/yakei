@@ -1,8 +1,9 @@
 import React, { FC, useState, useRef } from "react";
 import { Animated, Dimensions } from "react-native";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
 import BottomNavItem from "../../components/molecules/BottomNavItem";
+import { RootState } from "../../reducers/index";
 
 type Props = {
   index: number;
@@ -39,6 +40,23 @@ const BottomNavItemContainer: FC<Props> = (props) => {
     }
     setStateIndex(newIndex);
   };
+
+  const shouldAppearBtns = useSelector(
+    (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
+  );
+
+  const isPushedOuterBtns =
+    !shouldAppearBtns && stateArray[stateIndex] == "45deg";
+
+  if (isPushedOuterBtns) {
+    Animated.timing(plusToCrossAnim, {
+      toValue: 2,
+      duration: 200,
+      useNativeDriver: false,
+    }).start(resetAnimValue);
+    const newIndex = (stateIndex + 1) % 2;
+    setStateIndex(newIndex);
+  }
 
   // フレーム値0から1、1から2にかけて0degから45deg、45degから90degに変化
   const interpolateRotate = plusToCrossAnim.interpolate({
