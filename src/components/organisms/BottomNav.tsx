@@ -6,42 +6,34 @@ import {
   StyleSheet,
   Animated,
 } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
+import { useDispatch } from "react-redux";
+import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavItem from "../../containers/molecules/BottomNavItem";
-import { RootState } from "../../reducers/index";
 import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
 
-const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
-  const dispatch = useDispatch();
-  const isDisplayed = useSelector(
-    (state: RootState) => state.bottomNavReducer.isDisplayed
-  );
-  const isAppearedBtns = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.isAppeared
-  );
-  const whiteWrapAnim = useRef(new Animated.Value(0)).current;
-  if (isAppearedBtns) {
-    Animated.timing(whiteWrapAnim, {
-      toValue: 1,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
-  } else {
-    Animated.timing(whiteWrapAnim, {
-      toValue: 0,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
-  }
-  const opacityInterpolate = whiteWrapAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 1],
-  });
+type Props = {
+  state: BottomTabBarProps["state"];
+  descriptors: BottomTabBarProps["descriptors"];
+  navigation: BottomTabBarProps["navigation"];
+  isDisplayed: boolean;
+  isAppearedBtns: boolean;
+  opacityAnim: Object;
+  onPressOut: () => void;
+};
 
+const BottomNav: FC<Props> = ({ ...props }) => {
+  const {
+    state,
+    descriptors,
+    navigation,
+    isDisplayed,
+    isAppearedBtns,
+    opacityAnim,
+    onPressOut,
+  } = props;
   const AnimatedTouchableOpacity = Animated.createAnimatedComponent(
     TouchableOpacity
   );
@@ -50,11 +42,11 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
     <View style={[styles.container, isDisplayed ? {} : { display: "none" }]}>
       <AnimatedTouchableOpacity
         activeOpacity={1.0}
-        onPressOut={() => dispatch(setCameraAndAlbumStatus(false))}
+        onPressOut={onPressOut}
         style={[
           styles.whiteWrap,
+          opacityAnim,
           isAppearedBtns ? {} : { display: "none" },
-          { opacity: opacityInterpolate },
         ]}
       />
       <View style={styles.footerBackgroundWrap}>
@@ -68,6 +60,7 @@ const BottomNav: FC<Props> = ({ state, descriptors, navigation }) => {
       </View>
       <View style={styles.footerItemsWrap}>
         {state.routes.map((route, index) => {
+          const dispatch = useDispatch();
           const { options } = descriptors[route.key];
           const label = route.name;
           const isFocused = state.index === index;
