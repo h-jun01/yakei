@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 import {
   View,
   TouchableOpacity,
@@ -6,13 +6,11 @@ import {
   StyleSheet,
   Animated,
 } from "react-native";
-import { useDispatch } from "react-redux";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
-import BottomNavItem from "../../containers/molecules/BottomNavItem";
-import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
+import BottomNavTouchableOpacity from "../../containers/molecules/BottomNavTouchableOpacity";
 
 type Props = {
   state: BottomTabBarProps["state"];
@@ -60,50 +58,15 @@ const BottomNav: FC<Props> = ({ ...props }) => {
       </View>
       <View style={styles.footerItemsWrap}>
         {state.routes.map((route, index) => {
-          const dispatch = useDispatch();
-          const { options } = descriptors[route.key];
-          const label = route.name;
-          const isFocused = state.index === index;
-
-          const onPress = () => {
-            if (isAppearedBtns) {
-              dispatch(setCameraAndAlbumStatus(false));
-              return;
-            }
-            const event = navigation.emit({
-              type: "tabPress",
-              target: route.key,
-              canPreventDefault: true,
-            });
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name);
-            }
-          };
-
-          const onLongPress = () => {
-            navigation.emit({
-              type: "tabLongPress",
-              target: route.key,
-            });
-          };
-
           return (
-            <TouchableOpacity
+            <BottomNavTouchableOpacity
               key={index}
-              accessibilityRole="button"
-              accessibilityState={isFocused ? { selected: true } : {}}
-              accessibilityLabel={options.tabBarAccessibilityLabel}
-              onPress={index !== 2 ? onPress : () => {}}
-              onLongPress={onLongPress}
-              activeOpacity={1}
-              style={[styles.footerItem, index === 2 ? styles.plusButton : {}]}
-            >
-              <BottomNavItem
-                index={index}
-                isFocused={isFocused}
-                label={label}
-              />
-            </TouchableOpacity>
+              state={state}
+              route={route}
+              descriptors={descriptors}
+              navigation={navigation}
+              index={index}
+            />
           );
         })}
       </View>
@@ -159,20 +122,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     bottom: displayWidth * itemsFloatingRatio,
     width: displayWidth,
-  },
-  footerItem: {
-    bottom: 15,
-    width: 0,
-    height:
-      displayWidth / viewboxRatio - displayWidth * itemsFloatingRatio - 15,
-    flexGrow: 1,
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  plusButton: {
-    bottom: 17,
-    paddingHorizontal: 10,
   },
 });
 

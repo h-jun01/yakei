@@ -5,12 +5,6 @@ import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
 import BottomNavItem from "../../components/molecules/BottomNavItem";
 import { RootState } from "../../reducers/index";
 
-type Props = {
-  index: number;
-  isFocused: boolean;
-  label: string;
-};
-
 const generateAnimatedStyle = (anim) => {
   const displayWidth = Dimensions.get("window").width;
   const iPhone11width = 414;
@@ -38,6 +32,12 @@ const generateAnimatedStyle = (anim) => {
     bottom: bottomInterpolate,
     left: leftInterpolate,
   };
+};
+
+type Props = {
+  index: number;
+  isFocused: boolean;
+  label: string;
 };
 
 const BottomNavItemContainer: FC<Props> = (props) => {
