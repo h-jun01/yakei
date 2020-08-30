@@ -1,12 +1,13 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import User from "../containers/organisms/user/User";
-import Setting from "../containers/organisms/user/Setting";
-import EditProfile from "../containers/organisms/user/EditProfile";
-import PasswordReset from "../components/organisms/user/PasswordReset";
-import Notice from "../containers/organisms/user/Notice";
-import TermsOfService from "../components/organisms/user/TermsOfService";
-import PrivacyPolicy from "../components/organisms/user/PrivacyPolicy";
+import User from "../containers/organisms/User";
+import Setting from "../containers/organisms/Setting";
+import EditProfile from "../containers/organisms/EditProfile";
+import PasswordReset from "../components/organisms/PasswordReset";
+import Notice from "../containers/organisms/Notice";
+import TermsOfService from "../components/organisms/TermsOfService";
+import PrivacyPolicy from "../components/organisms/PrivacyPolicy";
+import PostedImageDetail from "../containers/organisms/PostedImageDetail";
 
 const UserScreen: FC = () => {
   const Stack = createStackNavigator();
@@ -84,6 +85,18 @@ const UserScreen: FC = () => {
         component={PrivacyPolicy}
         options={{
           title: "プライバシーポリシー",
+          headerBackTitleVisible: false,
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#181F32",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="post"
+        component={PostedImageDetail}
+        options={{
+          title: "投稿",
           headerBackTitleVisible: false,
           headerTintColor: "#fff",
           headerStyle: {

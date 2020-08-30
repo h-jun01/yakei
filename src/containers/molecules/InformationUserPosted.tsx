@@ -1,21 +1,18 @@
 import React, { FC, useState, useEffect } from "react";
-import { Timestamp } from "@google-cloud/firestore";
-import { useDisplayTime } from "../../utilities/hooks/date";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 
 type Props = {
   uid: string;
-  create_time: Timestamp;
+  photogenic_subjec: string;
 };
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
-  const { uid, create_time } = props;
+  const { uid, photogenic_subjec } = props;
   const [postUserName, setPostUserName] = useState<string>("");
   const [postUserImage, setPostUserImage] = useState<string>(
     "https://example.com"
   );
-  const date = useDisplayTime(create_time.toDate());
 
   //投稿したユーザ名の取得
   useEffect(() => {
@@ -45,7 +42,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
     <InformationUserPosted
       postUserName={postUserName}
       postUserImage={postUserImage}
-      date={date}
+      photogenic_subjec={photogenic_subjec}
     />
   );
 };

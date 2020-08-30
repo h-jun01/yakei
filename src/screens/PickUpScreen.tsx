@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import PickUp from "../containers/organisms/pickup/PickUp";
-import ImageList from "../containers/molecules/ImageList";
+import PickUp from "../containers/organisms/PickUp";
+import ImageList from "../containers/organisms/ImageList";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
 
 const PickUpScreen: FC = () => {
