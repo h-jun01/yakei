@@ -16,7 +16,7 @@ import { setNoticeListData } from "./actions/notice";
 import Intro from "./containers/organisms/Intro";
 import SignUp from "./containers/organisms/SignUp";
 import SignIn from "./containers/organisms/SignIn";
-import BottomNav from "./components/organisms/BottomNav";
+import BottomNav from "./containers/organisms/BottomNav";
 import TermsOfService from "./components/organisms/TermsOfService";
 import PrivacyPolicy from "./components/organisms/PrivacyPolicy";
 import PasswordReset from "./components/organisms/PasswordReset";

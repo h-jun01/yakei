@@ -25,13 +25,13 @@ const animateStart = (anim, toValue) => {
 };
 
 const CameraAlbumWrapContainer: FC = () => {
-  const shoulappear = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
+  const isAppeared = useSelector(
+    (state: RootState) => state.cameraAndAlbumReducer.isAppeared
   );
   const moveUpperLeftAnim = useRef(new Animated.Value(0)).current;
   const moveUpperRightAnim = useRef(new Animated.Value(0)).current;
 
-  if (shoulappear) {
+  if (isAppeared) {
     animateStart(moveUpperLeftAnim, 1);
     animateStart(moveUpperRightAnim, 1);
   } else {
@@ -40,7 +40,6 @@ const CameraAlbumWrapContainer: FC = () => {
   }
 
   const horizonInterpolate = generateHorizonInterpolate(moveUpperRightAnim);
-
   const bottomInterpolate = generateBottomInterpolate(moveUpperLeftAnim);
 
   const animStyle = {
