@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View, Dimensions, StyleSheet } from "react-native";
+import { TouchableOpacity, View, Dimensions, StyleSheet } from "react-native";
 import CameraSvg from "../atoms/svg/CameraSvg";
 import AlbumSvg from "../atoms/svg/AlbumSvg";
 import { baseColor } from "../../styles/thema/colors";
@@ -32,7 +32,7 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
     },
   });
   return (
-    <View style={styles.wrap}>
+    <TouchableOpacity activeOpacity={1.0} style={styles.wrap}>
       <View style={{ width: iconAspect, aspectRatio: 1 }}>
         <CameraSvg
           textColor={textColor}
@@ -47,7 +47,7 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
           style={animStyle.UpperRight}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

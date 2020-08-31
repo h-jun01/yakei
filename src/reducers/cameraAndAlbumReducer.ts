@@ -2,11 +2,11 @@ import { Reducer } from "redux";
 import { ActionTypes, UnionedAction } from "../actions/index";
 
 export type State = {
-  shouldAppear: boolean;
+  isAppeared: boolean;
 };
 
 const initialState: State = {
-  shouldAppear: false,
+  isAppeared: false,
 };
 
 type CameraAndAlbumReducer = Reducer<State, UnionedAction>;
@@ -19,7 +19,7 @@ export const cameraAndAlbumReducer: CameraAndAlbumReducer = (
     case ActionTypes.SET_CAMERA_AND_ALBUM_STATUS:
       return {
         ...state,
-        shouldAppear: action.payload.shouldAppear,
+        isAppeared: action.payload.isAppeared,
       };
     default: {
       return state;
