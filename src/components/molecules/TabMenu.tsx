@@ -10,9 +10,15 @@ type Props = {
   navigation: any;
   photoDataList: firebase.firestore.DocumentData[];
   favoriteList: firebase.firestore.DocumentData[];
+  favoriteItems: any;
 };
 
-const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteList }) => {
+const TabMenu: FC<Props> = ({
+  navigation,
+  photoDataList,
+  favoriteList,
+  favoriteItems,
+}) => {
   return (
     <Tabs
       tabBarUnderlineStyle={{
@@ -65,8 +71,8 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteList }) => {
         }
       >
         <View style={styles.imgItemWrap}>
-          {favoriteList !== undefined &&
-            favoriteList.map((item, index) => (
+          {favoriteItems !== undefined &&
+            favoriteItems.map((item, index) => (
               <Image
                 key={index}
                 style={styles.imgItem}

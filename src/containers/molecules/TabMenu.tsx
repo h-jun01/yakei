@@ -14,13 +14,49 @@ type Props = {
 
 const TabMenuContainer: FC<Props> = ({ navigation }) => {
   const selectUid = (state: RootState) => state.userReducer.uid;
+  const selectAll = (state: RootState) =>
+    state.allPhotoReducer.allPhotoDataList;
   const selectPhotoDataList = (state: RootState) =>
     state.myPhotoReducer.photoDataList;
   const selectFavoriteList = (state: RootState) =>
     state.userReducer.favoriteList;
   const uid = useSelector(selectUid);
+  const all = useSelector(selectAll);
   const photoDataList = useSelector(selectPhotoDataList);
   const favoriteList = useSelector(selectFavoriteList);
+
+  const [favoriteItems, setFavoriteItems] = React.useState<any>([]);
+
+  // useEffect(() => {
+  //   setFavoriteItems(
+  //     favoriteList.map((item) =>  all.filter((res) => res.photo_id === item)
+  //     )
+  //   );
+  // }, []);
+
+  // useEffect(() => {
+  //   setFavoriteItems(
+  //     all.filter((res) => {
+  //       for (let i = 0; i < favoriteList.length; i++) {
+  //         return res.photo_id === favoriteList[i];
+  //       }
+  //     })
+  //   );
+  // }, []);
+
+  useEffect(() => {
+    const array: any = [];
+    for (let i = 0; i < favoriteList.length; i++) {
+      photoFireStore.getFavoriteItem(favoriteList[i]).then(async (res) => {
+        array.push(await res);
+      });
+    }
+    setFavoriteItems(array);
+  }, []);
+
+  useEffect(() => {
+    console.log(favoriteItems);
+  }, []);
 
   //   const dispatch = useDispatch();
 
@@ -42,6 +78,7 @@ const TabMenuContainer: FC<Props> = ({ navigation }) => {
       navigation={navigation}
       photoDataList={photoDataList}
       favoriteList={favoriteList}
+      favoriteItems={favoriteItems}
     />
   );
 };
