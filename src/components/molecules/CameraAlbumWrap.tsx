@@ -32,22 +32,22 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
     },
   });
   return (
-    <TouchableOpacity activeOpacity={1.0} style={styles.wrap}>
-      <View style={{ width: iconAspect, aspectRatio: 1 }}>
+    <View style={styles.wrap}>
+      <TouchableOpacity style={{ width: iconAspect, aspectRatio: 1 }}>
         <CameraSvg
           textColor={textColor}
           backColor={backColor}
           style={animStyle.UpperLeft}
         />
-      </View>
-      <View style={{ width: iconAspect, aspectRatio: 1 }}>
+      </TouchableOpacity>
+      <TouchableOpacity style={{ width: iconAspect, aspectRatio: 1 }}>
         <AlbumSvg
           textColor={textColor}
           backColor={backColor}
           style={animStyle.UpperRight}
         />
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 
