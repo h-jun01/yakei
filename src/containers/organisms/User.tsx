@@ -28,6 +28,7 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
   const headerImage = useSelector(selectHeaderImage);
   const selfIntroduction = useSelector(selectSelfIntroduction);
   const myPhotoDataListCount = useSelector(selectMyPhotoDataList).length;
+  const favoriteListCount = useSelector(selectFavoriteList).length;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
       headerImage={headerImage}
       selfIntroduction={selfIntroduction}
       myPhotoDataListCount={myPhotoDataListCount}
+      favoriteListCount={favoriteListCount}
     />
   );
 };

@@ -67,14 +67,30 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
         <View style={styles.imgItemWrap}>
           {favoriteItems !== undefined &&
             favoriteItems.map((item, index) => (
-              <Image
+              <TouchableOpacity
                 key={index}
-                style={styles.imgItem}
-                PlaceholderContent={<ActivityIndicator />}
-                source={{
-                  uri: item.url,
-                }}
-              />
+                activeOpacity={0.8}
+                onPress={() =>
+                  navigation.navigate("post", {
+                    photo_id: item.photo_id,
+                    uid: item.uid,
+                    create_time: item.create_time,
+                    url: item.url,
+                    favoriteNumber: item.favoriteNumber,
+                    latitude: item.latitude,
+                    longitude: item.longitude,
+                    photogenic_subjec: item.photogenic_subjec,
+                  })
+                }
+              >
+                <Image
+                  style={styles.imgItem}
+                  PlaceholderContent={<ActivityIndicator />}
+                  source={{
+                    uri: item.url,
+                  }}
+                />
+              </TouchableOpacity>
             ))}
         </View>
       </Tab>

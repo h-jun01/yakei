@@ -26,13 +26,13 @@ const TabMenuContainer: FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const array: firebase.firestore.DocumentData[] = [];
+    const fechDataList: firebase.firestore.DocumentData[] = [];
     favoriteList.forEach((photo_id) => {
-      array.push(
+      fechDataList.push(
         ...allPhotoDataList.filter((res) => res.photo_id === photo_id)
       );
     });
-    dispatch(setFavoriteItems(array));
+    dispatch(setFavoriteItems(fechDataList));
   }, []);
 
   return (
