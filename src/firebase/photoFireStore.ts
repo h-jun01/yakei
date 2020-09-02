@@ -9,7 +9,6 @@ type PhotoFireStore = {
     latitude: number,
     longitude: number
   ) => Promise<firebase.firestore.DocumentData[]>;
-  getFavoriteItem;
 };
 
 const photo = db.collection("photos");
@@ -56,13 +55,5 @@ export const photoFireStore: PhotoFireStore = {
       allPhotoList.push(doc.data());
     });
     return allPhotoList;
-  },
-  getFavoriteItem: async (photo_id: string) => {
-    return await photo
-      .doc(photo_id)
-      .get()
-      .then((doc) => {
-        return doc.data();
-      });
   },
 };

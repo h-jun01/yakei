@@ -5,11 +5,11 @@ export type State = {
   isAppeared: boolean;
 };
 
+type CameraAndAlbumReducer = Reducer<State, UnionedAction>;
+
 const initialState: State = {
   isAppeared: false,
 };
-
-type CameraAndAlbumReducer = Reducer<State, UnionedAction>;
 
 export const cameraAndAlbumReducer: CameraAndAlbumReducer = (
   state = initialState,
