@@ -9,16 +9,10 @@ import { baseColor, utilityColor } from "../../styles/thema/colors";
 type Props = {
   navigation: any;
   photoDataList: firebase.firestore.DocumentData[];
-  favoriteList: firebase.firestore.DocumentData[];
-  favoriteItems: any;
+  favoriteItems: firebase.firestore.DocumentData[];
 };
 
-const TabMenu: FC<Props> = ({
-  navigation,
-  photoDataList,
-  favoriteList,
-  favoriteItems,
-}) => {
+const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
   return (
     <Tabs
       tabBarUnderlineStyle={{

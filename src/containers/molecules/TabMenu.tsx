@@ -1,11 +1,7 @@
 import React, { FC, useEffect } from "react";
-import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
-import { auth } from "../../firebase/firebase";
-import { accountFireStore } from "../../firebase/accountFireStore";
-import { setUserData } from "../../actions/user";
-import { photoFireStore } from "../../firebase/photoFireStore";
-import { setPhotoListData } from "../../actions/photo";
+import { RootState } from "../../reducers/index";
+import { setFavoriteItems } from "../../actions/favorite";
 import TabMenu from "../../components/molecules/TabMenu";
 
 type Props = {
@@ -19,11 +15,15 @@ const TabMenuContainer: FC<Props> = ({ navigation }) => {
     state.myPhotoReducer.photoDataList;
   const selectFavoriteList = (state: RootState) =>
     state.userReducer.favoriteList;
+  const selectFavoriteItems = (state: RootState) =>
+    state.favoriteReducer.favoriteItems;
+
   const allPhotoDataList = useSelector(selectAllPhotoDataList);
   const photoDataList = useSelector(selectPhotoDataList);
   const favoriteList = useSelector(selectFavoriteList);
+  const favoriteItems = useSelector(selectFavoriteItems);
 
-  const [favoriteItems, setFavoriteItems] = React.useState<any>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const array: firebase.firestore.DocumentData[] = [];
@@ -32,14 +32,13 @@ const TabMenuContainer: FC<Props> = ({ navigation }) => {
         ...allPhotoDataList.filter((res) => res.photo_id === photo_id)
       );
     });
-    setFavoriteItems(array);
+    dispatch(setFavoriteItems(array));
   }, []);
 
   return (
     <TabMenu
       navigation={navigation}
       photoDataList={photoDataList}
-      favoriteList={favoriteList}
       favoriteItems={favoriteItems}
     />
   );
