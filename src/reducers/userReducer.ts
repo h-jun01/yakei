@@ -1,5 +1,5 @@
-import { ActionTypes, UnionedAction } from "../actions/index";
 import { Reducer } from "redux";
+import { ActionTypes, UnionedAction } from "../actions/index";
 
 type State = {
   uid: string;
@@ -28,7 +28,7 @@ const initialState: State = {
 export const userReducer: UserReducer = (
   state = initialState,
   action: UnionedAction
-) => {
+): State => {
   switch (action.type) {
     case ActionTypes.USER_DATA:
       return {
