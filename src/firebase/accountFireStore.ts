@@ -32,6 +32,7 @@ type AccountFireStore = {
   updateProfileHeaderImage: (user_header_img: string) => Promise<void>;
   updateImgIndex: (img_index: string) => Promise<void>;
   updateHeaderImgIndex: (header_img_index: string) => Promise<void>;
+  updateFavoriteList: (photo_id: string) => Promise<void>;
   deleteStorageImage: (imgIndex: string) => Promise<void> | undefined;
   deleteStorageHeaderImage: (
     headerImgIndex: string
@@ -160,6 +161,16 @@ export const accountFireStore: AccountFireStore = {
   uploadStorageHeaderImage: (postIndex: string) => {
     const userData = auth.currentUser;
     return storage.ref(`users/${userData?.uid}/header`).child(postIndex);
+  },
+  // お気に入りに追加
+  updateFavoriteList: async (photo_id: string) => {
+    const userData = auth.currentUser;
+    if (userData) {
+      return await user.doc(userData.uid).update({
+        favorite_list: FieldValue.arrayUnion(photo_id),
+        update_time: FieldValue.serverTimestamp(),
+      });
+    }
   },
   //storageからアイコン画像を削除
   deleteStorageImage: (imgIndex: string) => {
