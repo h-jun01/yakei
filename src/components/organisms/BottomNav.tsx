@@ -54,10 +54,15 @@ const BottomNav: FC<Props> = ({ ...props }) => {
         />
       </View>
       <View style={styles.cameraAndAlbumWrap}>
-        <CameraAlbumWrap />
+        <CameraAlbumWrap
+          state={state}
+          routes={state.routes}
+          navigation={navigation}
+        />
       </View>
       <View style={styles.footerItemsWrap}>
         {state.routes.map((route, index) => {
+          if (index > 4) return;
           return (
             <BottomNavTouchableOpacity
               key={index}

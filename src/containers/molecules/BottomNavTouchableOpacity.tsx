@@ -21,7 +21,7 @@ const BottomNavTouchableOpacityContainer: FC<Props> = ({ ...props }) => {
   const isAppearedBtns = useSelector(
     (state: RootState) => state.cameraAndAlbumReducer.isAppeared
   );
-  const { options } = descriptors[route["key"]];
+  const { options } = descriptors[route.key];
   const label = route["name"];
   const isFocused = state.index === index;
 

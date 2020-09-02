@@ -1,8 +1,16 @@
-import React, { FC, useRef, useEffect } from "react";
+import React, { FC, useRef } from "react";
 import { Animated } from "react-native";
 import CameraAlbumWrap from "../../components/molecules/CameraAlbumWrap";
 import { RootState } from "../../reducers/index";
 import { useSelector } from "react-redux";
+import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
+import type { NavigationState } from "@react-navigation/routers/lib/typescript/src/types";
+
+type Props = {
+  state: BottomTabBarProps["state"];
+  routes: NavigationState["routes"];
+  navigation: BottomTabBarProps["navigation"];
+};
 
 const animateStart = (anim, toValue) => {
   Animated.timing(anim, {
@@ -49,10 +57,34 @@ const useAnimation = () => {
   return animStyle;
 };
 
-const CameraAlbumWrapContainer: FC = () => {
+const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
+  const { state, routes, navigation } = props;
   const animStyle = useAnimation();
 
-  return <CameraAlbumWrap animStyle={animStyle} />;
+  const getOnPressFunc = (index: number): (() => void) => {
+    const isFocused = state.index === index;
+    const route = routes[index];
+
+    const onPress = () => {
+      const event = navigation.emit({
+        type: "tabPress",
+        target: route["key"],
+        canPreventDefault: true,
+      });
+      if (!isFocused && !event.defaultPrevented) {
+        navigation.navigate(route["name"]);
+      }
+    };
+
+    return onPress;
+  };
+
+  const onPressOfCamera = getOnPressFunc(5);
+  const onPressOfAlbum = getOnPressFunc(6);
+
+  return (
+    <CameraAlbumWrap animStyle={animStyle} onPressOfCamera={onPressOfCamera} />
+  );
 };
 
 export default CameraAlbumWrapContainer;
