@@ -25,6 +25,7 @@ const TabMenuContainer: FC<Props> = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
+  // お気に入り抽出
   useEffect(() => {
     const fechDataList: firebase.firestore.DocumentData[] = [];
     favoriteList.forEach((photo_id) => {
@@ -33,7 +34,7 @@ const TabMenuContainer: FC<Props> = ({ navigation }) => {
       );
     });
     dispatch(setFavoriteItems(fechDataList));
-  }, []);
+  }, [favoriteList]);
 
   return (
     <TabMenu

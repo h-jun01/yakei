@@ -7,6 +7,7 @@ import { setUserData } from "../../actions/user";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { setPhotoListData } from "../../actions/photo";
 import User from "../../components/organisms/User";
+import { useState } from "react";
 
 type Props = {
   navigation: any;
@@ -23,12 +24,17 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
     state.myPhotoReducer.photoDataList;
   const selectFavoriteList = (state: RootState) =>
     state.userReducer.favoriteList;
+
   const name = useSelector(selectName);
   const image = useSelector(selectImage);
   const headerImage = useSelector(selectHeaderImage);
   const selfIntroduction = useSelector(selectSelfIntroduction);
-  const myPhotoDataListCount = useSelector(selectMyPhotoDataList).length;
-  const favoriteListCount = useSelector(selectFavoriteList).length;
+  const myPhotoDataList = useSelector(selectMyPhotoDataList);
+  const favoriteList = useSelector(selectFavoriteList);
+
+  const [myPhotoDataListCount, setMyPhotoDataListCount] = useState<number>(0);
+  const [favoriteListCount, setFavoriteListCount] = useState<number>(0);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,6 +49,14 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    setMyPhotoDataListCount(myPhotoDataList.length);
+  });
+
+  useEffect(() => {
+    setFavoriteListCount(favoriteList.length);
+  });
 
   return (
     <User

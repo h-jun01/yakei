@@ -34,13 +34,10 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   const selectCommentDataList = (state: RootState) =>
     state.postedDataReducer.commentDataList;
-  const selectAllPhotoDataList = (state: RootState) =>
-    state.allPhotoReducer.allPhotoDataList;
   const selectFavoriteList = (state: RootState) =>
     state.userReducer.favoriteList;
 
   const commentDataList = useSelector(selectCommentDataList);
-  const allPhotoDataList = useSelector(selectAllPhotoDataList);
   const favoriteList: any = useSelector(selectFavoriteList);
   const [commentCount, setCommentCount] = useState<number>(0);
   const [favoriteNumber, setFavoriteNumber] = useState<number>(0);
