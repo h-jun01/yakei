@@ -54,6 +54,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             PlaceholderContent={<ActivityIndicator />}
           />
           <DetailPostedPageItems
+            photo_id={photo_id}
             favoriteNumber={favoriteNumber}
             latitude={latitude}
             longitude={longitude}

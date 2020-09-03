@@ -39,6 +39,7 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   const commentDataList = useSelector(selectCommentDataList);
   const favoriteList = useSelector(selectFavoriteList);
+
   const [commentCount, setCommentCount] = useState<number>(0);
   const [favoriteNumber, setFavoriteNumber] = useState<number>(0);
   const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(false);
@@ -52,14 +53,14 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
     photoFireStore.getFavoriteNumber(photo_id).then((res) => {
       setFavoriteNumber(res);
     });
-  }, []);
+  }, [favoriteList]);
 
   // コメント数取得
   useEffect(() => {
     commentFireStore.getCommentDataList(photo_id).then((res) => {
       setCommentCount(res.length);
     });
-  }, [commentDataList]);
+  }, []);
 
   // お気に入りチェック
   useEffect(() => {
@@ -71,18 +72,32 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
   });
 
   // お気に入り押下時
-  const pressedFavorite = async (photo_id: string, favoriteNumber: number) => {
-    await accountFireStore.updateFavoriteList(photo_id);
-    await photoFireStore.updateFavoriteNumber(photo_id, favoriteNumber);
-    await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
-      setFavoriteNumber(res);
-    });
+  const pressedFavorite = async () => {
+    if (!isFavoriteStatus) {
+      await accountFireStore.updateFavoriteList(photo_id);
+      await photoFireStore.IncrementFavoriteNumber(photo_id, favoriteNumber);
+      await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
+        setFavoriteNumber(res);
+      });
 
-    const newFavoriteList = favoriteList.slice();
-    newFavoriteList.push(photo_id);
-    dispach(upDateFavoriteList(newFavoriteList));
+      const newFavoriteList = favoriteList.slice();
+      newFavoriteList.push(photo_id);
+      dispach(upDateFavoriteList(newFavoriteList));
 
-    setIsFavoriteStatus(true);
+      setIsFavoriteStatus(true);
+    } else {
+      await accountFireStore.deleteFavoriteItem(photo_id);
+      await photoFireStore.DecrementFavoriteNumber(photo_id, favoriteNumber);
+      await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
+        setFavoriteNumber(res);
+      });
+
+      const newFavoriteList = favoriteList.slice();
+      newFavoriteList.splice(newFavoriteList.indexOf(photo_id), 1);
+      dispach(upDateFavoriteList(newFavoriteList));
+
+      setIsFavoriteStatus(false);
+    }
   };
 
   return (
