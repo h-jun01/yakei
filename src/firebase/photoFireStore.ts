@@ -9,6 +9,11 @@ type PhotoFireStore = {
     latitude: number,
     longitude: number
   ) => Promise<firebase.firestore.DocumentData[]>;
+  getFavoriteNumber: (photo_id: string) => Promise<number>;
+  updateFavoriteNumber: (
+    photo_id: string,
+    favoriteNumber: number
+  ) => Promise<void>;
 };
 
 const photo = db.collection("photos");
@@ -55,5 +60,20 @@ export const photoFireStore: PhotoFireStore = {
       allPhotoList.push(doc.data());
     });
     return allPhotoList;
+  },
+  // お気に入り数の取得
+  getFavoriteNumber: async (photo_id: string) => {
+    return await photo
+      .doc(photo_id)
+      .get()
+      .then(async (res) => {
+        return (await res.data()?.favoriteNumber) as number;
+      });
+  },
+  // お気に入り数の更新
+  updateFavoriteNumber: async (photo_id: string, favoriteNumber: number) => {
+    photo.doc(photo_id).update({
+      favoriteNumber: favoriteNumber + 1,
+    });
   },
 };

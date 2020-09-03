@@ -1,11 +1,7 @@
 import React, { FC, useEffect } from "react";
-import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
-import { auth } from "../../firebase/firebase";
-import { accountFireStore } from "../../firebase/accountFireStore";
-import { setUserData } from "../../actions/user";
-import { photoFireStore } from "../../firebase/photoFireStore";
-import { setPhotoListData } from "../../actions/photo";
+import { RootState } from "../../reducers/index";
+import { setFavoriteItems } from "../../actions/favorite";
 import TabMenu from "../../components/molecules/TabMenu";
 
 type Props = {
@@ -13,35 +9,38 @@ type Props = {
 };
 
 const TabMenuContainer: FC<Props> = ({ navigation }) => {
-  const selectUid = (state: RootState) => state.userReducer.uid;
+  const selectAllPhotoDataList = (state: RootState) =>
+    state.allPhotoReducer.allPhotoDataList;
   const selectPhotoDataList = (state: RootState) =>
     state.myPhotoReducer.photoDataList;
   const selectFavoriteList = (state: RootState) =>
     state.userReducer.favoriteList;
-  const uid = useSelector(selectUid);
+  const selectFavoriteItems = (state: RootState) =>
+    state.favoriteReducer.favoriteItems;
+
+  const allPhotoDataList = useSelector(selectAllPhotoDataList);
   const photoDataList = useSelector(selectPhotoDataList);
   const favoriteList = useSelector(selectFavoriteList);
+  const favoriteItems = useSelector(selectFavoriteItems);
 
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  //   useEffect(() => {
-  //     auth.onAuthStateChanged(async (user) => {
-  //       if (user) {
-  //         await accountFireStore.getUser(uid).then((res) => {
-  //           dispatch(setUserData(res.data()));
-  //         });
-  //         await photoFireStore.getPhotoList(uid).then((res) => {
-  //           dispatch(setPhotoListData(res));
-  //         });
-  //       }
-  //     });
-  //   }, []);
+  // お気に入り抽出
+  useEffect(() => {
+    const fechDataList: firebase.firestore.DocumentData[] = [];
+    favoriteList.forEach((photo_id) => {
+      fechDataList.push(
+        ...allPhotoDataList.filter((res) => res.photo_id === photo_id)
+      );
+    });
+    dispatch(setFavoriteItems(fechDataList));
+  }, [favoriteList]);
 
   return (
     <TabMenu
       navigation={navigation}
       photoDataList={photoDataList}
-      favoriteList={favoriteList}
+      favoriteItems={favoriteItems}
     />
   );
 };
