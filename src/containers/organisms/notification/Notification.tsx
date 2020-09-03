@@ -1,10 +1,8 @@
 import React, { FC } from "react";
-import Notification, {
-  NotificationScreenNavigationProp,
-} from "../../../components/organisms/notification/Notification";
+import Notification from "../../../components/organisms/notification/Notification";
 
 type Props = {
-  navigation: NotificationScreenNavigationProp;
+  navigation: any;
 };
 
 //主に処理に関する記述はこのファイル

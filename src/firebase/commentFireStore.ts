@@ -9,7 +9,6 @@ type CommentFireStore = {
     photo_id: string,
     uid: string,
     message: string
-    // create_time: string
   ) => Promise<void>;
 };
 
@@ -29,12 +28,7 @@ export const commentFireStore: CommentFireStore = {
     return commentDataList;
   },
   //コメントを投稿
-  postedComment: async (
-    photo_id: string,
-    uid: string,
-    message: string
-    // create_time: string
-  ) => {
+  postedComment: async (photo_id: string, uid: string, message: string) => {
     await comment.add({
       photo_id,
       uid,

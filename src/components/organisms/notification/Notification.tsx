@@ -12,10 +12,6 @@ const Notification: FC<Props> = ({ ...props }) => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>{title}画面</Text>
-      <Button
-        title="通知の詳細"
-        onPress={() => navigation.navigate("Detail")}
-      />
     </View>
   );
 };

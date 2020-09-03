@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Notification from "../containers/organisms/notification/Notification";
-import Details from "../containers/organisms/notification/Detail";
 
 const NotificationScreen: FC = () => {
   const Stack = createStackNavigator();
@@ -17,7 +16,6 @@ const NotificationScreen: FC = () => {
           },
         }}
       />
-      <Stack.Screen name="Detail" component={Details} />
     </Stack.Navigator>
   );
 };

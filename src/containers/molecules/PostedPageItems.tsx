@@ -7,6 +7,7 @@ import { commentFireStore } from "../../firebase/commentFireStore";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { useDisplayTime } from "../../utilities/hooks/date";
 import { upDateFavoriteList } from "../../actions/user";
+import { setCommentDataList } from "../../actions/postedData";
 import PostedPageItems from "../../components/molecules/PostedPageItems";
 
 type Props = {

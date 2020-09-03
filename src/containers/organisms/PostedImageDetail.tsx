@@ -27,6 +27,8 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
   const textInputRef = useRef<null | TextInput>(null);
   const dispatch = useDispatch();
 
+  // const [commentDataList, setCommentDataList] = React.useState();
+
   // コメント取得
   useEffect(() => {
     const emptyCommentDataList = () => {
