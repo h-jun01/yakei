@@ -21,7 +21,6 @@ const KeyboardInputViewContainer: FC<Props> = ({ textInputRef, photo_id }) => {
   const isInputForm = useSelector(selectIsInputForm);
 
   const inputValue = useInput("");
-
   const dispatch = useDispatch();
 
   //コメントを送信

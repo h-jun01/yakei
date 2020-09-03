@@ -23,11 +23,10 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
 
   const selrctCommentDataList = (state: RootState) =>
     state.postedDataReducer.commentDataList;
+
   const commentDataList = useSelector(selrctCommentDataList);
   const textInputRef = useRef<null | TextInput>(null);
   const dispatch = useDispatch();
-
-  // const [commentDataList, setCommentDataList] = React.useState();
 
   // コメント取得
   useEffect(() => {

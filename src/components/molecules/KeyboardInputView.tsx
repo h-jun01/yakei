@@ -11,18 +11,10 @@ type Props = {
   isInputForm: boolean;
   addComment: () => void;
   onBlur: () => void;
-  onChangeText: (value: string) => void;
 };
 
 const KeyboardInputView: FC<Props> = ({ ...props }) => {
-  const {
-    textInputRef,
-    inputValue,
-    isInputForm,
-    addComment,
-    onBlur,
-    onChangeText,
-  } = props;
+  const { textInputRef, inputValue, isInputForm, addComment, onBlur } = props;
 
   return (
     <KeyboardStickyView
@@ -30,13 +22,11 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
     >
       <TextInput
         multiline
-        // value={inputValue}
         ref={textInputRef}
         blurOnSubmit={false}
         placeholder="コメントを入力..."
         style={styles.input}
         onBlur={() => onBlur()}
-        // onChangeText={(value) => onChangeText(value)}
         {...inputValue}
       />
       <Text style={styles.sendIcon} onPress={() => addComment()}>
