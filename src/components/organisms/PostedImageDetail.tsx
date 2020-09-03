@@ -4,7 +4,7 @@ import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
 import { styles } from "../../styles/postedImageDetail";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
-import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
+import DetailPostedPageItems from "../../containers/molecules/DetailPostedPageItems";
 import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
 import CommentInputField from "../../containers/molecules/CommentInputField";
 import CommentField from "../../containers/molecules/CommentField";

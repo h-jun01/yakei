@@ -6,16 +6,12 @@ import { styles } from "../../styles/postedImageDetail";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 
 type Props = {
+  date: string;
   favoriteNumber: number;
-  latitude: number;
-  longitude: number;
-  create_time: Timestamp;
 };
 
 const DetailPostedPageItems: FC<Props> = ({ ...props }) => {
-  const { favoriteNumber, create_time } = props;
-
-  const date = useDisplayTime(create_time.toDate());
+  const { favoriteNumber, date } = props;
 
   return (
     <Fragment>
