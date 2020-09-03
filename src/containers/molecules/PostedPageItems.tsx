@@ -1,10 +1,12 @@
 import React, { FC, useState, useEffect } from "react";
 import { Timestamp } from "@google-cloud/firestore";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../reducers/index";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { commentFireStore } from "../../firebase/commentFireStore";
+import { photoFireStore } from "../../firebase/photoFireStore";
 import { useDisplayTime } from "../../utilities/hooks/date";
+import { upDateFavoriteList } from "../../actions/user";
 import PostedPageItems from "../../components/molecules/PostedPageItems";
 
 type Props = {
@@ -25,19 +27,35 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
     uid,
     create_time,
     url,
-    favoriteNumber,
+    // favoriteNumber,
     latitude,
     longitude,
   } = props;
 
-  const selrctCommentDataList = (state: RootState) =>
+  const selectCommentDataList = (state: RootState) =>
     state.postedDataReducer.commentDataList;
+  const selectAllPhotoDataList = (state: RootState) =>
+    state.allPhotoReducer.allPhotoDataList;
+  const selectFavoriteList = (state: RootState) =>
+    state.userReducer.favoriteList;
 
-  const commentDataList = useSelector(selrctCommentDataList);
+  const commentDataList = useSelector(selectCommentDataList);
+  const allPhotoDataList = useSelector(selectAllPhotoDataList);
+  const favoriteList: any = useSelector(selectFavoriteList);
   const [commentCount, setCommentCount] = useState<number>(0);
+  const [favoriteNumber, setFavoriteNumber] = useState<number>(0);
   const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(false);
 
+  const dispach = useDispatch();
+
   const date = useDisplayTime(create_time.toDate());
+
+  // お気に入り数取得
+  useEffect(() => {
+    photoFireStore.getFavoriteNumber(photo_id).then((res) => {
+      setFavoriteNumber(res);
+    });
+  }, []);
 
   // コメント数取得
   useEffect(() => {
@@ -46,9 +64,27 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
     });
   }, [commentDataList]);
 
+  // お気に入りチェック
+  useEffect(() => {
+    if (favoriteList.indexOf(photo_id) !== -1) {
+      setIsFavoriteStatus(true);
+    } else {
+      setIsFavoriteStatus(false);
+    }
+  });
+
   // お気に入り押下時
-  const pressedFavorite = async (photo_id: string) => {
+  const pressedFavorite = async (photo_id: string, favoriteNumber: number) => {
     await accountFireStore.updateFavoriteList(photo_id);
+    await photoFireStore.updateFavoriteNumber(photo_id, favoriteNumber);
+    await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
+      setFavoriteNumber(res);
+    });
+
+    const newFavoriteList = favoriteList.slice();
+    newFavoriteList.push(photo_id);
+    dispach(upDateFavoriteList(newFavoriteList));
+
     setIsFavoriteStatus(true);
   };
 

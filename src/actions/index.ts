@@ -18,6 +18,7 @@ import {
   upDateUserProfileHeaderImage,
   upDateUserImgIndex,
   upDateUserHeaderImgIndex,
+  upDateFavoriteList,
 } from "./user";
 
 export enum ActionTypes {
@@ -36,6 +37,7 @@ export enum ActionTypes {
   UPDATE_PROFILE_HEADER_IMAGE = "UPDATE_PROFILE_HEADER_IMAGE",
   UPDATE_IMG_INDEX = "UPDATE_IMG_INDEX",
   UPDATE_HEADER_IMG_INDEX = "UPDATE_HEADER_IMG_INDEX",
+  UPDATE_FAVORITE_LIST = "UPDATE_FAVORITE_LIST",
   SET_BOTTOM_NAVI_STATUS = "SET_BOTTOM_NAVI_STATUS",
   SET_CAMERA_AND_ALBUM_STATUS = "SET_CAMERA_AND_ALBUM_STATUS",
   SET_FAVORITE_ITEMS = "SET_FAVORITE_ITEMS",
@@ -57,6 +59,7 @@ export type UnionedAction =
   | ReturnType<typeof upDateUserProfileHeaderImage>
   | ReturnType<typeof upDateUserImgIndex>
   | ReturnType<typeof upDateUserHeaderImgIndex>
+  | ReturnType<typeof upDateFavoriteList>
   | ReturnType<typeof setBottomNavStatus>
   | ReturnType<typeof setCameraAndAlbumStatus>
   | ReturnType<typeof setFavoriteItems>;

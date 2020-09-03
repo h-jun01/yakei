@@ -71,3 +71,12 @@ export const upDateUserHeaderImgIndex = (headerImgIndex: string) =>
       headerImgIndex,
     },
   } as const);
+
+// お気に入りの更新
+export const upDateFavoriteList = (favoriteList) =>
+  ({
+    type: ActionTypes.UPDATE_FAVORITE_LIST,
+    payload: {
+      favoriteList,
+    },
+  } as const);

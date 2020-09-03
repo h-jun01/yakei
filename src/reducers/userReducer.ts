@@ -72,6 +72,11 @@ export const userReducer: UserReducer = (
         ...state,
         selfIntroduction: action.payload.selfIntroduction,
       };
+    case ActionTypes.UPDATE_FAVORITE_LIST:
+      return {
+        ...state,
+        favoriteList: action.payload.favoriteList,
+      };
     default: {
       return state;
     }

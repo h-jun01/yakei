@@ -18,7 +18,7 @@ type Props = {
   longitude: number;
   commentCount: number;
   isFavoriteStatus: boolean;
-  pressedFavorite: (photo_id: string) => Promise<void>;
+  pressedFavorite: (photo_id: string, favoriteNumber: number) => Promise<void>;
 };
 
 const PostedPageItems: FC<Props> = ({ ...props }) => {
@@ -40,9 +40,12 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
   return (
     <Fragment>
       <View style={styles.postItem}>
-        <Text style={styles.PostIcon} onPress={() => pressedFavorite(photo_id)}>
+        <Text
+          style={styles.PostIcon}
+          onPress={() => pressedFavorite(photo_id, favoriteNumber)}
+        >
           {isFavoriteStatus ? (
-            <AntDesign name="heart" size={15} />
+            <AntDesign name="heart" size={15} color="#E0245E" />
           ) : (
             <AntDesign name="hearto" size={15} />
           )}
