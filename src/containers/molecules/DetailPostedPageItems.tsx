@@ -10,7 +10,6 @@ import DetailPostedPageItems from "../../components/molecules/DetailPostedPageIt
 
 type Props = {
   photo_id: string;
-  favoriteNumber: number;
   latitude: number;
   longitude: number;
   create_time: Timestamp;

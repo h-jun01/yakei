@@ -15,7 +15,6 @@ type Props = {
   uid: string;
   create_time: Timestamp;
   url: string;
-  favoriteNumber: number;
   latitude: number;
   longitude: number;
 };
@@ -27,17 +26,13 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
     uid,
     create_time,
     url,
-    // favoriteNumber,
     latitude,
     longitude,
   } = props;
 
-  const selectCommentDataList = (state: RootState) =>
-    state.postedDataReducer.commentDataList;
   const selectFavoriteList = (state: RootState) =>
     state.userReducer.favoriteList;
 
-  const commentDataList = useSelector(selectCommentDataList);
   const favoriteList = useSelector(selectFavoriteList);
 
   const [commentCount, setCommentCount] = useState<number>(0);

@@ -14,7 +14,7 @@ type Props = {
   uid: string;
   create_time: Timestamp;
   url: string;
-  favoriteNumber: number;
+  // favoriteNumber: number;
   latitude: number;
   longitude: number;
   photogenic_subjec: string;
@@ -29,7 +29,6 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     uid,
     create_time,
     url,
-    favoriteNumber,
     latitude,
     longitude,
     photogenic_subjec,
@@ -55,7 +54,6 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
           />
           <DetailPostedPageItems
             photo_id={photo_id}
-            favoriteNumber={favoriteNumber}
             latitude={latitude}
             longitude={longitude}
             create_time={create_time}
