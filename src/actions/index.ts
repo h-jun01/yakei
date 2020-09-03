@@ -5,6 +5,7 @@ import { setAllPhotoListData } from "./allPhoto";
 import { setBottomNavStatus } from "./bottomNav";
 import { setCameraAndAlbumStatus } from "./cameraAndAlbum";
 import { setFavoriteItems } from "./favorite";
+import { setNotificationDataList } from "./notification";
 import { setCommentDataList, setIsInputForm } from "./postedData";
 import {
   setUserData,
@@ -36,6 +37,7 @@ export enum ActionTypes {
   SET_BOTTOM_NAVI_STATUS = "SET_BOTTOM_NAVI_STATUS",
   SET_CAMERA_AND_ALBUM_STATUS = "SET_CAMERA_AND_ALBUM_STATUS",
   SET_FAVORITE_ITEMS = "SET_FAVORITE_ITEMS",
+  SET_NOTIFICATION_DATA_LIST = "SET_NOTIFICATION_DATA_LIST",
 }
 
 export type UnionedAction =
@@ -56,4 +58,5 @@ export type UnionedAction =
   | ReturnType<typeof upDateFavoriteList>
   | ReturnType<typeof setBottomNavStatus>
   | ReturnType<typeof setCameraAndAlbumStatus>
-  | ReturnType<typeof setFavoriteItems>;
+  | ReturnType<typeof setFavoriteItems>
+  | ReturnType<typeof setNotificationDataList>;

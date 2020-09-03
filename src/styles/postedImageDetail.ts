@@ -91,7 +91,6 @@ export const styles = StyleSheet.create({
     color: "#505050",
   },
 
-  //何ここ
   input: {
     width: deviceWidth / 1.15,
     minHeight: 30,

@@ -8,6 +8,7 @@ import { noticeReducer } from "./noticeReducer";
 import { bottomNavReducer } from "./bottomNavReducer";
 import { cameraAndAlbumReducer } from "./cameraAndAlbumReducer";
 import { favoriteReducer } from "./favoriteReducer";
+import { notificationReducer } from "./notificationReducer";
 
 export const rootReducer = combineReducers({
   authReducer,
@@ -19,6 +20,7 @@ export const rootReducer = combineReducers({
   bottomNavReducer,
   cameraAndAlbumReducer,
   favoriteReducer,
+  notificationReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
