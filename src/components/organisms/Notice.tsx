@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { styles } from "../../styles/user/notice";
 
 type NoticeDataList = {
+  title: string;
   message: string;
   time: string;
 };
@@ -16,6 +17,7 @@ const Notice: FC<Props> = ({ noticeDataList }) => {
     <View style={styles.container}>
       {noticeDataList.map((item, index) => (
         <Fragment key={index}>
+          <Text>{item.title}</Text>
           <Text>{item.message}</Text>
           <Text>{item.time}</Text>
           <View style={styles.borderItem} />

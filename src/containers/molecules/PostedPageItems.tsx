@@ -38,7 +38,7 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
     state.userReducer.favoriteList;
 
   const commentDataList = useSelector(selectCommentDataList);
-  const favoriteList: any = useSelector(selectFavoriteList);
+  const favoriteList = useSelector(selectFavoriteList);
   const [commentCount, setCommentCount] = useState<number>(0);
   const [favoriteNumber, setFavoriteNumber] = useState<number>(0);
   const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(false);

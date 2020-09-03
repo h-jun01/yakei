@@ -2,6 +2,7 @@ import { Reducer } from "redux";
 import { ActionTypes, UnionedAction } from "../actions/index";
 
 type NoticeDataList = {
+  title: string;
   message: string;
   time: string;
 };

@@ -14,7 +14,7 @@ export const setUserData = (
       imgIndex: account?.img_index as string,
       headerImgIndex: account?.header_img_index as string,
       selfIntroduction: account?.self_introduction as string,
-      favoriteList: account?.favorite_list as firebase.firestore.DocumentData[],
+      favoriteList: account?.favorite_list as string[],
     },
   } as const);
 
@@ -73,7 +73,7 @@ export const upDateUserHeaderImgIndex = (headerImgIndex: string) =>
   } as const);
 
 // お気に入りの更新
-export const upDateFavoriteList = (favoriteList) =>
+export const upDateFavoriteList = (favoriteList: string[]) =>
   ({
     type: ActionTypes.UPDATE_FAVORITE_LIST,
     payload: {

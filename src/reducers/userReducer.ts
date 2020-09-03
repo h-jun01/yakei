@@ -9,7 +9,7 @@ type State = {
   imgIndex: string;
   headerImgIndex: string;
   selfIntroduction: string;
-  favoriteList: firebase.firestore.DocumentData[];
+  favoriteList: string[];
 };
 
 type UserReducer = Reducer<State, UnionedAction>;
