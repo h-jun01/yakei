@@ -80,6 +80,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
   };
 
   const onPressOfCamera = async () => {
+    // カメラへのアクセス許可を申請
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     if (status !== "granted") {
       Alert.alert(
@@ -89,19 +90,44 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
       return;
     }
     // カメラの起動
-    let result = await ImagePicker.launchCameraAsync({
+    const result = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
     });
 
     if (!result.cancelled) {
-      console.log(result.uri);
+      dispatch(setPostData(result.uri));
+      navigateToPostScreen();
+    }
+  };
+
+  const onPressOfAlbum = async () => {
+    // アルバムへのアクセス許可を申請
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status !== "granted") {
+      Alert.alert(
+        "",
+        "端末の[設定]＞[YAKEI]で、写真へのアクセスを許可してください。"
+      );
+      return;
+    }
+    // アルバムの起動
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
       dispatch(setPostData(result.uri));
       navigateToPostScreen();
     }
   };
 
   return (
-    <CameraAlbumWrap animStyle={animStyle} onPressOfCamera={onPressOfCamera} />
+    <CameraAlbumWrap
+      animStyle={animStyle}
+      onPressOfCamera={onPressOfCamera}
+      onPressOfAlbum={onPressOfAlbum}
+    />
   );
 };
 
