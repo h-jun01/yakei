@@ -8,6 +8,16 @@ type Props = {
 
 const Post: FC<Props> = ({ ...props }) => {
   const { uri } = props;
+
+  Image.getSize(
+    uri,
+    (width, height) => {
+      console.log(`width: ${width}, height: ${height}`);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
   return (
     <View style={styles.container}>
       <Image
