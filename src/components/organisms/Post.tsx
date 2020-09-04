@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { View, Image } from "react-native";
+import React, { FC, useState } from "react";
+import { ScrollView, Image, Dimensions } from "react-native";
 import { styles } from "../../styles/user/setting";
 
 type Props = {
@@ -8,26 +8,31 @@ type Props = {
 
 const Post: FC<Props> = ({ ...props }) => {
   const { uri } = props;
+  const [aspectRatio, setAspectRatio] = useState(0);
 
   Image.getSize(
     uri,
     (width, height) => {
-      console.log(`width: ${width}, height: ${height}`);
+      setAspectRatio(height / width);
     },
     (error) => {
       console.log(error);
     }
   );
+
+  const width = Dimensions.get("window").width;
+  const height = width * aspectRatio;
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Image
         style={{
-          width: 100,
-          height: 100,
+          width: width,
+          height: height,
         }}
         source={{ uri }}
       />
-    </View>
+    </ScrollView>
   );
 };
 
