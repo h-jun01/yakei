@@ -16,7 +16,6 @@ type PhotoDataList = {
   uid: string;
   create_time: Timestamp;
   url: string;
-  // favoriteNumber: number;
   latitude: number;
   longitude: number;
   photogenic_subjec: string;

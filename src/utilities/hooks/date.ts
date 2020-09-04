@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const useDisplayTime = (unixTime: Date): string => {
+export const useDisplayTime = (unixTime: number): string => {
   const [dateValue, setDateValue] = useState<string>("");
   let date = new Date(unixTime);
   let diff = new Date().getTime() - date.getTime();

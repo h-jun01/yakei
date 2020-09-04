@@ -32,6 +32,7 @@ export const styles = StyleSheet.create({
     borderBottomColor: "#808080",
   },
   text: {
+    width: 230,
     color: "#fff",
     letterSpacing: 0.8,
     lineHeight: 16,

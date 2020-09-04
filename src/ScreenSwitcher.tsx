@@ -52,9 +52,11 @@ const ScreenSwitcher: FC = () => {
         await noticeFireStore.getNoticeList().then((res) => {
           dispatch(setNoticeListData(res.data()));
         });
-        notificationFireStore.getUserNotification(user.uid).then((res) => {
-          dispatch(setNotificationDataList(res));
-        });
+        await notificationFireStore
+          .getUserNotification(user.uid)
+          .then((res) => {
+            dispatch(setNotificationDataList(res));
+          });
         dispatch(loadingStatusChange(true));
         dispatch(loginStatusChange(true));
       } else {

@@ -21,7 +21,7 @@ const PickUpContainer: FC<Props> = ({ navigation }) => {
   >([]);
 
   useEffect(() => {
-    photoFireStore.getPhotoList("H1SPCQRDWKTYzoO1ceIVxkwaSR52").then((res) => {
+    photoFireStore.getPhotoList("ZTrOCwegHXOYUrPa2OfRXxlOXpt2").then((res) => {
       res && setPickUpDataList(res);
     });
   }, []);

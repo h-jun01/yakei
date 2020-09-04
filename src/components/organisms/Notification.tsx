@@ -1,8 +1,8 @@
 import React, { FC, Fragment } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
-import { useDisplayTime } from "../../utilities/hooks/date";
 import { styles } from "../../styles/notification";
+import NotificationText from "../atoms/NotificationText";
 
 type Props = {
   navigation: any;
@@ -12,28 +12,22 @@ type Props = {
 const Notification: FC<Props> = ({ notification }) => {
   return (
     <View style={styles.container}>
-      {notification.length !== 0 ? (
+      {notification.length !== 0 && notification !== undefined ? (
         notification.map((item, index) => (
           <Fragment key={index}>
             <View style={styles.wrapper}>
               <Image
                 style={styles.userImage}
                 source={{
-                  uri: item.partner_url,
+                  uri: item.opponent_url,
                 }}
                 PlaceholderContent={<ActivityIndicator />}
               />
-              <View>
-                <Text style={styles.text}>
-                  <Text style={styles.nameSize}>{item.partner_name}</Text>
-                  さんがあなたの{"\n"}写真に
-                  {item.content}
-                  しました。
-                </Text>
-                <Text style={styles.timeStamp}>
-                  {useDisplayTime(item.create_time.toDate())}
-                </Text>
-              </View>
+              <NotificationText
+                opponent_name={item.opponent_name}
+                content={item.content}
+                create_time={item.create_time}
+              />
               <Image
                 style={styles.photoImage}
                 source={{
@@ -51,7 +45,7 @@ const Notification: FC<Props> = ({ notification }) => {
             通知はまだ届いていません。
           </Text>
           <Text style={styles.supplement}>
-            あなたの写真にコメントやいいねされたときにお知らせがこちらの表示されます。
+            あなたの写真にコメントやいいねされたときにお知らせがこちらに表示されます。
           </Text>
         </View>
       )}

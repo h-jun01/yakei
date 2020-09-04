@@ -2,11 +2,14 @@ import React, { FC, useState, useEffect } from "react";
 import { Timestamp } from "@google-cloud/firestore";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../reducers/index";
+import { FieldValue } from "../../firebase/firebase";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { photoFireStore } from "../../firebase/photoFireStore";
+import { notificationFireStore } from "../../firebase/notificationFireStore";
 import { useDisplayTime } from "../../utilities/hooks/date";
 import { upDateFavoriteList } from "../../actions/user";
+import { setNotificationDataList } from "../../actions/notification";
 import PostedPageItems from "../../components/molecules/PostedPageItems";
 
 type Props = {
@@ -32,16 +35,24 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   const selectFavoriteList = (state: RootState) =>
     state.userReducer.favoriteList;
+  const selectNotificationDataList = (state: RootState) =>
+    state.notificationReducer.notificationDataList;
+  const selectOpponentUid = (state: RootState) => state.userReducer.uid;
+  const selectOpponentUrl = (state: RootState) => state.userReducer.userImg;
+  const selectOpponentName = (state: RootState) => state.userReducer.name;
 
   const favoriteList = useSelector(selectFavoriteList);
+  const notificationDataList = useSelector(selectNotificationDataList);
+  const opponentUid = useSelector(selectOpponentUid);
+  const opponentUrl = useSelector(selectOpponentUrl);
+  const opponentName = useSelector(selectOpponentName);
 
   const [commentCount, setCommentCount] = useState<number>(0);
   const [favoriteNumber, setFavoriteNumber] = useState<number>(0);
   const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(false);
 
   const dispach = useDispatch();
-
-  const date = useDisplayTime(create_time.toDate());
+  const date = useDisplayTime(create_time.toMillis());
 
   // お気に入り数取得
   useEffect(() => {
@@ -80,6 +91,24 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       dispach(upDateFavoriteList(newFavoriteList));
 
       setIsFavoriteStatus(true);
+
+      const notificationItems = {
+        uid,
+        opponent_uid: opponentUid,
+        opponent_url: opponentUrl,
+        opponent_name: opponentName,
+        photo_url: url,
+        content: "いいね",
+        create_time: FieldValue.serverTimestamp() as Timestamp,
+      };
+
+      await notificationFireStore.notificationOpponentFavorite(
+        notificationItems
+      );
+
+      // const newNotificationDataList = notificationDataList.slice();
+      // newNotificationDataList.push(notificationItems);
+      // dispach(setNotificationDataList(newNotificationDataList));
     } else {
       await accountFireStore.deleteFavoriteItem(photo_id);
       await photoFireStore.DecrementFavoriteNumber(photo_id, favoriteNumber);

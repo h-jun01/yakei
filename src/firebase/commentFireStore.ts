@@ -12,14 +12,15 @@ type CommentFireStore = {
   ) => Promise<void>;
 };
 
-const comment = db.collection("comments");
+const photo = db.collection("photos");
 
 export const commentFireStore: CommentFireStore = {
   // コメント取得
   getCommentDataList: async (photo_id: string) => {
     const commentDataList: firebase.firestore.DocumentData[] = [];
-    const querySnapshot = await comment
-      .where("photo_id", "==", photo_id)
+    const querySnapshot = await photo
+      .doc(photo_id)
+      .collection("comment")
       .orderBy("create_time", "desc")
       .get();
     querySnapshot.forEach((doc) => {
@@ -29,7 +30,7 @@ export const commentFireStore: CommentFireStore = {
   },
   //コメントを投稿
   postedComment: async (photo_id: string, uid: string, message: string) => {
-    await comment.add({
+    await photo.doc(photo_id).collection("comment").add({
       photo_id,
       uid,
       message,

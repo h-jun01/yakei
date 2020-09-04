@@ -28,7 +28,7 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   const dispach = useDispatch();
 
-  const date = useDisplayTime(create_time.toDate());
+  const date = useDisplayTime(create_time.toMillis());
 
   // お気に入り数取得
   useEffect(() => {
