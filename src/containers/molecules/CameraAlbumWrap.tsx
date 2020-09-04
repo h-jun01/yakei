@@ -63,25 +63,24 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
   const { state, routes, navigation } = props;
   const animStyle = useAnimation();
 
-  // const getOnPressFunc = (index: number): (() => void) => {
-  //   const isFocused = state.index === index;
-  //   const route = routes[index];
+  const getOnPressFunc = (index: number): (() => void) => {
+    const isFocused = state.index === index;
+    const route = routes[index];
 
-  //   const onPress = () => {
-  //     const event = navigation.emit({
-  //       type: "tabPress",
-  //       target: route["key"],
-  //       canPreventDefault: true,
-  //     });
-  //     if (!isFocused && !event.defaultPrevented) {
-  //       navigation.navigate(route["name"]);
-  //     }
-  //   };
+    const onPress = () => {
+      const event = navigation.emit({
+        type: "tabPress",
+        target: route["key"],
+        canPreventDefault: true,
+      });
+      if (!isFocused && !event.defaultPrevented) {
+        navigation.navigate(route["name"]);
+      }
+    };
 
-  //   return onPress;
-  // };
+    return onPress;
+  };
 
-  // const onPressOfCamera = getOnPressFunc(5);
   // const onPressOfAlbum = getOnPressFunc(6);
 
   const dispatch = useDispatch();
@@ -94,6 +93,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
     if (!result.cancelled) {
       console.log(result.uri);
       dispatch(setPostData(result.uri));
+      getOnPressFunc(5)();
     }
   };
 
