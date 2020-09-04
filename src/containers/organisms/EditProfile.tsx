@@ -4,7 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import EditProfile from "../../components/organisms/EditProfile";
 import Spinner from "react-native-loading-spinner-overlay";
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { callingAlert } from "../../utilities/alert";
@@ -82,68 +82,78 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
   //リサイズしてアイコンをstorageImageDataに一時保存
   const onAddImagePressed = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    if (status === "granted") {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        allowsEditing: true,
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        quality: 1,
-      });
+    if (status !== "granted") {
+      Alert.alert(
+        "",
+        "端末の[設定]＞[YAKEI]で、写真へのアクセスを許可してください。"
+      );
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+    });
 
-      //リサイズ処理
-      if (!result.cancelled) {
-        const actions: any = [];
-        actions.push({ resize: { width: 350 } });
-        const manipulatorResult = await ImageManipulator.manipulateAsync(
-          result.uri,
-          actions,
-          {
-            compress: 1,
-          }
-        );
-        //リサイズしたデータを保存
-        setStorageImageData((prevState) => ({
-          ...prevState,
-          imgUrl: manipulatorResult.uri,
-        }));
-        setUserImage(manipulatorResult.uri);
-        setIsSelectImage(true);
-      }
+    //リサイズ処理
+    if (!result.cancelled) {
+      const actions: any = [];
+      actions.push({ resize: { width: 350 } });
+      const manipulatorResult = await ImageManipulator.manipulateAsync(
+        result.uri,
+        actions,
+        {
+          compress: 1,
+        }
+      );
+      //リサイズしたデータを保存
+      setStorageImageData((prevState) => ({
+        ...prevState,
+        imgUrl: manipulatorResult.uri,
+      }));
+      setUserImage(manipulatorResult.uri);
+      setIsSelectImage(true);
     }
   };
 
   //リサイズしてヘッダーをstorageHeaderImageDataに一時保存
   const onAddHeaderImagePressed = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    if (status === "granted") {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        allowsEditing: true,
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        // aspect: [4, 1],
-        quality: 1,
+    if (status !== "granted") {
+      Alert.alert(
+        "",
+        "端末の[設定]＞[YAKEI]で、写真へのアクセスを許可してください。"
+      );
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      // aspect: [4, 1],
+      quality: 1,
+    });
+
+    //リサイズ処理
+    if (!result.cancelled) {
+      const actions: any = [];
+      actions.push({
+        resize: { width: deviceWidth },
       });
+      const manipulatorResult = await ImageManipulator.manipulateAsync(
+        result.uri,
+        actions,
+        {
+          compress: 1,
+        }
+      );
 
-      //リサイズ処理
-      if (!result.cancelled) {
-        const actions: any = [];
-        actions.push({
-          resize: { width: deviceWidth },
-        });
-        const manipulatorResult = await ImageManipulator.manipulateAsync(
-          result.uri,
-          actions,
-          {
-            compress: 1,
-          }
-        );
-
-        //リサイズしたデータを保存
-        setStorageHeaderImageData((prevState) => ({
-          ...prevState,
-          imgUrl: manipulatorResult.uri,
-        }));
-        setUserHeaderImage(manipulatorResult.uri);
-        setIsSelectHeaderImage(true);
-      }
+      //リサイズしたデータを保存
+      setStorageHeaderImageData((prevState) => ({
+        ...prevState,
+        imgUrl: manipulatorResult.uri,
+      }));
+      setUserHeaderImage(manipulatorResult.uri);
+      setIsSelectHeaderImage(true);
     }
   };
 

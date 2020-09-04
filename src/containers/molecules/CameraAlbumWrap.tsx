@@ -1,11 +1,12 @@
 import React, { FC, useRef, useState } from "react";
-import { Animated } from "react-native";
+import { Animated, Alert } from "react-native";
 import CameraAlbumWrap from "../../components/molecules/CameraAlbumWrap";
 import { RootState } from "../../reducers/index";
 import { useDispatch, useSelector } from "react-redux";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import type { NavigationState } from "@react-navigation/routers/lib/typescript/src/types";
 import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
 import { setPostData } from "../../actions/post";
 
 type Props = {
@@ -61,6 +62,7 @@ const useAnimation = () => {
 
 const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
   const { state, routes, navigation } = props;
+  const dispatch = useDispatch();
   const animStyle = useAnimation();
 
   const navigateToPostScreen = () => {
@@ -77,11 +79,15 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
     }
   };
 
-  // const onPressOfAlbum = getOnPressFunc(6);
-
-  const dispatch = useDispatch();
-
   const onPressOfCamera = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    if (status !== "granted") {
+      Alert.alert(
+        "",
+        "端末の[設定]＞[YAKEI]で、カメラへのアクセスを許可してください。"
+      );
+      return;
+    }
     // カメラの起動
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
