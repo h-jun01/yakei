@@ -4,6 +4,7 @@ import { setNoticeListData } from "./notice";
 import { setAllPhotoListData } from "./allPhoto";
 import { setBottomNavStatus } from "./bottomNav";
 import { setCameraAndAlbumStatus } from "./cameraAndAlbum";
+import { setPostData } from "./post";
 import {
   setCommentDataList,
   setInputCommentValue,
@@ -37,6 +38,7 @@ export enum ActionTypes {
   UPDATE_HEADER_IMG_INDEX = "UPDATE_HEADER_IMG_INDEX",
   SET_BOTTOM_NAVI_STATUS = "SET_BOTTOM_NAVI_STATUS",
   SET_CAMERA_AND_ALBUM_STATUS = "SET_CAMERA_AND_ALBUM_STATUS",
+  SET_POST_DATA = "SET_POST_DATA",
 }
 
 export type UnionedAction =
@@ -56,4 +58,5 @@ export type UnionedAction =
   | ReturnType<typeof upDateUserImgIndex>
   | ReturnType<typeof upDateUserHeaderImgIndex>
   | ReturnType<typeof setBottomNavStatus>
-  | ReturnType<typeof setCameraAndAlbumStatus>;
+  | ReturnType<typeof setCameraAndAlbumStatus>
+  | ReturnType<typeof setPostData>;

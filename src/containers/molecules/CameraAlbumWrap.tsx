@@ -2,10 +2,11 @@ import React, { FC, useRef } from "react";
 import { Animated } from "react-native";
 import CameraAlbumWrap from "../../components/molecules/CameraAlbumWrap";
 import { RootState } from "../../reducers/index";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import type { NavigationState } from "@react-navigation/routers/lib/typescript/src/types";
 import * as ImagePicker from "expo-image-picker";
+import { setPostData } from "../../actions/post";
 
 type Props = {
   state: BottomTabBarProps["state"];
@@ -83,6 +84,8 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
   // const onPressOfCamera = getOnPressFunc(5);
   // const onPressOfAlbum = getOnPressFunc(6);
 
+  const dispatch = useDispatch();
+
   const onPressOfCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
@@ -90,6 +93,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
 
     if (!result.cancelled) {
       console.log(result.uri);
+      dispatch(setPostData(result.uri));
     }
   };
 
