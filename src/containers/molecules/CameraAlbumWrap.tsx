@@ -88,8 +88,6 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
       allowsEditing: false,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       console.log(result.uri);
     }

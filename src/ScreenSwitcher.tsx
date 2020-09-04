@@ -25,7 +25,6 @@ import HomeScreen from "./screens/HomeScreen";
 import PickUpScreen from "./screens/PickUpScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
-import CameraScreen from "./screens/CameraScreen";
 
 const ScreenSwitcher: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
@@ -74,7 +73,6 @@ const ScreenSwitcher: FC = () => {
             <Tab.Screen name="Plus" component={HomeScreen} />
             <Tab.Screen name="通知" component={NotificationScreen} />
             <Tab.Screen name="マイページ" component={UserScreen} />
-            <Tab.Screen name="カメラ" component={CameraScreen} />
           </Tab.Navigator>
         </Fragment>
       ) : (
