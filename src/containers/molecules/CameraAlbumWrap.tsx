@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC, useRef, useState } from "react";
 import { Animated } from "react-native";
 import CameraAlbumWrap from "../../components/molecules/CameraAlbumWrap";
 import { RootState } from "../../reducers/index";
@@ -62,23 +62,20 @@ const useAnimation = () => {
 const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
   const { state, routes, navigation } = props;
   const animStyle = useAnimation();
+  const [] = useState();
 
-  const getOnPressFunc = (index: number): (() => void) => {
-    const isFocused = state.index === index;
-    const route = routes[index];
+  const navigateToPostScreen = () => {
+    const isFocused = state.index === 5;
+    const route = routes[5];
 
-    const onPress = () => {
-      const event = navigation.emit({
-        type: "tabPress",
-        target: route["key"],
-        canPreventDefault: true,
-      });
-      if (!isFocused && !event.defaultPrevented) {
-        navigation.navigate(route["name"]);
-      }
-    };
-
-    return onPress;
+    const event = navigation.emit({
+      type: "tabPress",
+      target: route["key"],
+      canPreventDefault: true,
+    });
+    if (!isFocused && !event.defaultPrevented) {
+      navigation.navigate(route["name"]);
+    }
   };
 
   // const onPressOfAlbum = getOnPressFunc(6);
@@ -86,6 +83,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
   const dispatch = useDispatch();
 
   const onPressOfCamera = async () => {
+    // カメラの起動
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
     });
@@ -93,7 +91,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
     if (!result.cancelled) {
       console.log(result.uri);
       dispatch(setPostData(result.uri));
-      getOnPressFunc(5)();
+      navigateToPostScreen();
     }
   };
 
