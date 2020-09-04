@@ -35,7 +35,10 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       allowsEditing: false,
     });
 
-    if (!result.cancelled) {
+    if (result.cancelled) {
+      navigation.navigate("home", {});
+      dispatch(setBottomNavStatus(true));
+    } else {
       dispatch(setPostData(result.uri, "camera"));
     }
   };
@@ -56,7 +59,10 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       quality: 1,
     });
 
-    if (!result.cancelled) {
+    if (result.cancelled) {
+      navigation.navigate("home", {});
+      dispatch(setBottomNavStatus(true));
+    } else {
       dispatch(setPostData(result.uri, "album"));
     }
   };
@@ -73,10 +79,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
         </TouchableOpacity>
       ),
     });
-    return () => {
-      dispatch(setBottomNavStatus(true));
-    };
-  }, []);
+  }, [type]);
 
   return <Post uri={uri} />;
 };

@@ -8,6 +8,7 @@ import type { NavigationState } from "@react-navigation/routers/lib/typescript/s
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { setPostData } from "../../actions/post";
+import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
 
 type Props = {
   state: BottomTabBarProps["state"];
@@ -97,6 +98,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
     if (!result.cancelled) {
       dispatch(setPostData(result.uri, "camera"));
       navigateToPostScreen();
+      dispatch(setCameraAndAlbumStatus(false));
     }
   };
 
@@ -119,6 +121,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
     if (!result.cancelled) {
       dispatch(setPostData(result.uri, "album"));
       navigateToPostScreen();
+      dispatch(setCameraAndAlbumStatus(false));
     }
   };
 
