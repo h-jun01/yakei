@@ -8,6 +8,7 @@ import { noticeReducer } from "./noticeReducer";
 import { bottomNavReducer } from "./bottomNavReducer";
 import { cameraAndAlbumReducer } from "./cameraAndAlbumReducer";
 import { postReducer } from "./postReducer";
+import { mapNavigateReducer } from "./mapNavigateReducer";
 
 export const rootReducer = combineReducers({
   authReducer,
@@ -19,6 +20,7 @@ export const rootReducer = combineReducers({
   bottomNavReducer,
   cameraAndAlbumReducer,
   postReducer,
+  mapNavigateReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

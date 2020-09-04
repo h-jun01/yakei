@@ -4,6 +4,7 @@ import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typesc
 import type { Route } from "@react-navigation/routers/lib/typescript/src/types";
 import { RootState } from "../../reducers/index";
 import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
+import { setshouldNavigateMap } from "../../actions/mapNavigate";
 import BottomNavTouchableOpacity from "../../components/molecules/BottomNavTouchableOpacity";
 
 type Props = {
@@ -46,6 +47,17 @@ const BottomNavTouchableOpacityContainer: FC<Props> = ({ ...props }) => {
       target: route["key"],
     });
   };
+
+  const navigateMap = (() => {
+    const mapIndex = 0;
+    if (index !== mapIndex) return;
+    const shouldNavigateMap = useSelector(
+      (state: RootState) => state.mapNavigateReducer.shouldNavigateMap
+    );
+    if (!shouldNavigateMap) return;
+    navigation.navigate(route["name"]);
+    dispatch(setshouldNavigateMap(false));
+  })();
 
   return (
     <BottomNavTouchableOpacity

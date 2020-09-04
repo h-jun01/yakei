@@ -35,6 +35,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
   const AnimatedTouchableOpacity = Animated.createAnimatedComponent(
     TouchableOpacity
   );
+  const postScreenIndex = 4;
 
   return (
     <View style={[styles.container, isDisplayed ? {} : { display: "none" }]}>
@@ -62,7 +63,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
       </View>
       <View style={styles.footerItemsWrap}>
         {state.routes.map((route, index) => {
-          if (index > 4) return;
+          if (index > postScreenIndex) return;
           return (
             <BottomNavTouchableOpacity
               key={index}

@@ -2,14 +2,15 @@ import React, { FC, useEffect } from "react";
 import { TouchableOpacity, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
-import Post from "../../components/organisms/Post";
-import { RootState } from "../../reducers/index";
-import { setBottomNavStatus } from "../../actions/bottomNav";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { styles } from "../../styles/post";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { RootState } from "../../reducers/index";
 import { setPostData } from "../../actions/post";
+import { setBottomNavStatus } from "../../actions/bottomNav";
+import { setshouldNavigateMap } from "../../actions/mapNavigate";
+import { styles } from "../../styles/post";
+import Post from "../../components/organisms/Post";
 
 type Props = {
   navigation: NavigationProp<Record<string, object>>;
@@ -36,8 +37,8 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     });
 
     if (result.cancelled) {
-      navigation.navigate("home", {});
       dispatch(setBottomNavStatus(true));
+      dispatch(setshouldNavigateMap(true));
     } else {
       dispatch(setPostData(result.uri, "camera"));
     }
@@ -60,8 +61,8 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     });
 
     if (result.cancelled) {
-      navigation.navigate("home", {});
       dispatch(setBottomNavStatus(true));
+      dispatch(setshouldNavigateMap(true));
     } else {
       dispatch(setPostData(result.uri, "album"));
     }

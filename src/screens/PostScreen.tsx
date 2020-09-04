@@ -20,13 +20,6 @@ const PostScreen: FC = () => {
           },
         }}
       />
-      <Stack.Screen
-        name="home"
-        component={Home}
-        options={{
-          headerShown: false,
-        }}
-      />
     </Stack.Navigator>
   );
 };
