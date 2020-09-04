@@ -62,7 +62,6 @@ const useAnimation = () => {
 const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
   const { state, routes, navigation } = props;
   const animStyle = useAnimation();
-  const [] = useState();
 
   const navigateToPostScreen = () => {
     const isFocused = state.index === 5;
