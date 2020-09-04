@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import Post from "../../components/organisms/Post";
@@ -7,6 +7,9 @@ import { RootState } from "../../reducers/index";
 import { setBottomNavStatus } from "../../actions/bottomNav";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { styles } from "../../styles/post";
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
+import { setPostData } from "../../actions/post";
 
 type Props = {
   navigation: NavigationProp<Record<string, object>>;
@@ -15,12 +18,57 @@ type Props = {
 const PostContainer: FC<Props> = ({ ...props }) => {
   const dispatch = useDispatch();
   const { navigation } = props;
+  const { uri, type } = useSelector((state: RootState) => state.postReducer);
+
+  const onPressOfCamera = async () => {
+    // カメラへのアクセス許可を申請
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    if (status !== "granted") {
+      Alert.alert(
+        "",
+        "端末の[設定]＞[YAKEI]で、カメラへのアクセスを許可してください。"
+      );
+      return;
+    }
+    // カメラの起動
+    const result = await ImagePicker.launchCameraAsync({
+      allowsEditing: false,
+    });
+
+    if (!result.cancelled) {
+      dispatch(setPostData(result.uri, "camera"));
+    }
+  };
+
+  const onPressOfAlbum = async () => {
+    // アルバムへのアクセス許可を申請
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status !== "granted") {
+      Alert.alert(
+        "",
+        "端末の[設定]＞[YAKEI]で、写真へのアクセスを許可してください。"
+      );
+      return;
+    }
+    // アルバムの起動
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      dispatch(setPostData(result.uri, "album"));
+    }
+  };
 
   useEffect(() => {
     dispatch(setBottomNavStatus(false));
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity activeOpacity={0.6} onPress={() => {}}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={type === "camera" ? onPressOfCamera : onPressOfAlbum}
+        >
           <FontAwesome name="times" style={styles.crossButton} />
         </TouchableOpacity>
       ),
@@ -30,7 +78,6 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     };
   }, []);
 
-  const uri = useSelector((state: RootState) => state.postReducer.uri);
   return <Post uri={uri} />;
 };
 

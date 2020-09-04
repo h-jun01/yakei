@@ -95,7 +95,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
     });
 
     if (!result.cancelled) {
-      dispatch(setPostData(result.uri));
+      dispatch(setPostData(result.uri, "camera"));
       navigateToPostScreen();
     }
   };
@@ -117,7 +117,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
     });
 
     if (!result.cancelled) {
-      dispatch(setPostData(result.uri));
+      dispatch(setPostData(result.uri, "album"));
       navigateToPostScreen();
     }
   };
