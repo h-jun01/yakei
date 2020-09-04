@@ -1,7 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
 import { Camera } from "expo-camera";
+import { setBottomNavStatus } from "../../actions/bottomNav";
 
 type Props = {
   type: string;
@@ -11,6 +13,14 @@ type Props = {
 
 const CameraComponent: FC<Props> = ({ ...props }) => {
   const { type, setType, hasPermission } = props;
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setBottomNavStatus(false));
+    return () => {
+      dispatch(setBottomNavStatus(true));
+    };
+  }, []);
 
   // if (hasPermission === null) {
   //   return <View />;

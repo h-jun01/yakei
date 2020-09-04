@@ -5,6 +5,7 @@ import { RootState } from "../../reducers/index";
 import { useSelector } from "react-redux";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import type { NavigationState } from "@react-navigation/routers/lib/typescript/src/types";
+import * as ImagePicker from "expo-image-picker";
 
 type Props = {
   state: BottomTabBarProps["state"];
@@ -61,26 +62,38 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
   const { state, routes, navigation } = props;
   const animStyle = useAnimation();
 
-  const getOnPressFunc = (index: number): (() => void) => {
-    const isFocused = state.index === index;
-    const route = routes[index];
+  // const getOnPressFunc = (index: number): (() => void) => {
+  //   const isFocused = state.index === index;
+  //   const route = routes[index];
 
-    const onPress = () => {
-      const event = navigation.emit({
-        type: "tabPress",
-        target: route["key"],
-        canPreventDefault: true,
-      });
-      if (!isFocused && !event.defaultPrevented) {
-        navigation.navigate(route["name"]);
-      }
-    };
+  //   const onPress = () => {
+  //     const event = navigation.emit({
+  //       type: "tabPress",
+  //       target: route["key"],
+  //       canPreventDefault: true,
+  //     });
+  //     if (!isFocused && !event.defaultPrevented) {
+  //       navigation.navigate(route["name"]);
+  //     }
+  //   };
 
-    return onPress;
+  //   return onPress;
+  // };
+
+  // const onPressOfCamera = getOnPressFunc(5);
+  // const onPressOfAlbum = getOnPressFunc(6);
+
+  const onPressOfCamera = async () => {
+    let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: false,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      console.log(result.uri);
+    }
   };
-
-  const onPressOfCamera = getOnPressFunc(5);
-  const onPressOfAlbum = getOnPressFunc(6);
 
   return (
     <CameraAlbumWrap animStyle={animStyle} onPressOfCamera={onPressOfCamera} />
