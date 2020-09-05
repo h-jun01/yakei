@@ -5,10 +5,11 @@ import { StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 import { baseColor } from "../../styles/thema/colors";
 import NotificationText from "../atoms/NotificationText";
+import NoNotificationTex from "../atoms/NoNotificationText";
 
 type Props = {
   navigation: any;
-  notificationDataList: any[];
+  notificationDataList: firebase.firestore.DocumentData[];
 };
 
 const Notification: FC<Props> = ({ notificationDataList }) => {
@@ -44,14 +45,7 @@ const Notification: FC<Props> = ({ notificationDataList }) => {
             </Fragment>
           ))
         ) : (
-          <View style={styles.noNotification}>
-            <Text style={styles.noNotificationText}>
-              通知はまだ届いていません。
-            </Text>
-            <Text style={styles.supplement}>
-              あなたの写真にコメントやいいねされたときにお知らせがこちらに表示されます。
-            </Text>
-          </View>
+          <NoNotificationTex />
         )}
       </View>
     </ScrollView>
@@ -83,21 +77,6 @@ const styles = StyleSheet.create({
     width: deviceWidth,
     borderBottomWidth: 0.5,
     borderBottomColor: "#808080",
-  },
-  noNotification: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width: deviceWidth / 1.3,
-    paddingBottom: 30,
-  },
-  noNotificationText: {
-    fontSize: 22,
-    color: "#fff",
-  },
-  supplement: {
-    marginTop: 30,
-    color: "#ddd",
   },
 });
 

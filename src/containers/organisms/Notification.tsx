@@ -1,18 +1,15 @@
 import React, { FC, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../reducers/index";
-import { notificationFireStore } from "../../firebase/notificationFireStore";
 import { setNotificationDataList } from "../../actions/notification";
-import { auth, db } from "../../firebase/firebase";
+import { db } from "../../firebase/firebase";
 import Notification from "../../components/organisms/Notification";
 
 type Props = {
   navigation: any;
 };
 
-const ContainerNotification: FC<Props> = ({ ...props }) => {
-  const { navigation } = props;
-
+const ContainerNotification: FC<Props> = ({ navigation }) => {
   const selectNotificationDataList = (state: RootState) =>
     state.notificationReducer.notificationDataList;
   const selectUid = (state: RootState) => state.userReducer.uid;
@@ -21,10 +18,7 @@ const ContainerNotification: FC<Props> = ({ ...props }) => {
   const uid = useSelector(selectUid);
 
   const dispatch = useDispatch();
-
-  const [temporaryArray, setTemporaryArray] = React.useState(
-    notificationDataList
-  );
+  const [temporaryArray, setTemporaryArray] = useState(notificationDataList);
 
   useEffect(() => {
     const unsubscribe = db
