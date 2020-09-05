@@ -2,8 +2,8 @@ import { loadingStatusChange, loginStatusChange } from "./auth";
 import { setPhotoListData } from "./photo";
 import { setNoticeListData } from "./notice";
 import { setAllPhotoListData } from "./allPhoto";
-import { setBottomNavStatus } from "./bottomNav";
-import { setCameraAndAlbumStatus } from "./cameraAndAlbum";
+import { setShouldDisplayBottomNav } from "./bottomNav";
+import { setShouldAppearPostBtns } from "./cameraAndAlbum";
 import { setPostData } from "./post";
 import { setshouldNavigateMap } from "./mapNavigate";
 import {
@@ -37,8 +37,8 @@ export enum ActionTypes {
   UPDATE_PROFILE_HEADER_IMAGE = "UPDATE_PROFILE_HEADER_IMAGE",
   UPDATE_IMG_INDEX = "UPDATE_IMG_INDEX",
   UPDATE_HEADER_IMG_INDEX = "UPDATE_HEADER_IMG_INDEX",
-  SET_BOTTOM_NAVI_STATUS = "SET_BOTTOM_NAVI_STATUS",
-  SET_CAMERA_AND_ALBUM_STATUS = "SET_CAMERA_AND_ALBUM_STATUS",
+  SET_SHOULD_DISPLAY_BOTTOM_NAV = "SET_SHOULD_DISPLAY_BOTTOM_NAV",
+  SET_SHOULD_APPEAR_POST_BTNS = "SET_SHOULD_APPEAR_POST_BTNS",
   SET_POST_DATA = "SET_POST_DATA",
   SET_SHOULD_NAVIGATE = "SET_SHOULD_NAVIGATE",
 }
@@ -59,7 +59,7 @@ export type UnionedAction =
   | ReturnType<typeof upDateUserProfileHeaderImage>
   | ReturnType<typeof upDateUserImgIndex>
   | ReturnType<typeof upDateUserHeaderImgIndex>
-  | ReturnType<typeof setBottomNavStatus>
-  | ReturnType<typeof setCameraAndAlbumStatus>
+  | ReturnType<typeof setShouldDisplayBottomNav>
+  | ReturnType<typeof setShouldAppearPostBtns>
   | ReturnType<typeof setPostData>
   | ReturnType<typeof setshouldNavigateMap>;

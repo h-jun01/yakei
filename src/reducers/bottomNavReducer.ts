@@ -2,13 +2,13 @@ import { Reducer } from "redux";
 import { ActionTypes, UnionedAction } from "../actions/index";
 
 export type State = {
-  isDisplayed: boolean;
+  shouldDisplay: boolean;
 };
 
 type BottomNavReducer = Reducer<State, UnionedAction>;
 
 const initialState: State = {
-  isDisplayed: true,
+  shouldDisplay: true,
 };
 
 export const bottomNavReducer: BottomNavReducer = (
@@ -16,10 +16,10 @@ export const bottomNavReducer: BottomNavReducer = (
   action: UnionedAction
 ): State => {
   switch (action.type) {
-    case ActionTypes.SET_BOTTOM_NAVI_STATUS:
+    case ActionTypes.SET_SHOULD_DISPLAY_BOTTOM_NAV:
       return {
         ...state,
-        isDisplayed: action.payload.isDisplayed,
+        shouldDisplay: action.payload.shouldDisplay,
       };
     default: {
       return state;

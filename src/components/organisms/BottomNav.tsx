@@ -16,8 +16,8 @@ type Props = {
   state: BottomTabBarProps["state"];
   descriptors: BottomTabBarProps["descriptors"];
   navigation: BottomTabBarProps["navigation"];
-  isDisplayed: boolean;
-  isAppearedBtns: boolean;
+  shouldDisplay: boolean;
+  shouldAppearBtns: boolean;
   opacityAnim: Object;
   onPressOut: () => void;
 };
@@ -27,8 +27,8 @@ const BottomNav: FC<Props> = ({ ...props }) => {
     state,
     descriptors,
     navigation,
-    isDisplayed,
-    isAppearedBtns,
+    shouldDisplay,
+    shouldAppearBtns,
     opacityAnim,
     onPressOut,
   } = props;
@@ -38,14 +38,14 @@ const BottomNav: FC<Props> = ({ ...props }) => {
   const postScreenIndex = 4;
 
   return (
-    <View style={[styles.container, isDisplayed ? {} : { display: "none" }]}>
+    <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
       <AnimatedTouchableOpacity
         activeOpacity={1.0}
         onPressOut={onPressOut}
         style={[
           styles.whiteWrap,
           opacityAnim,
-          isAppearedBtns ? {} : { display: "none" },
+          shouldAppearBtns ? {} : { display: "none" },
         ]}
       />
       <View style={styles.footerBackgroundWrap}>

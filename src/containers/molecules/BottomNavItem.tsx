@@ -1,7 +1,7 @@
 import React, { FC, useState, useRef } from "react";
 import { Animated, Dimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
+import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
 import BottomNavItem from "../../components/molecules/BottomNavItem";
 import { RootState } from "../../reducers/index";
 
@@ -48,11 +48,11 @@ const BottomNavItemContainer: FC<Props> = (props) => {
   const plusToCrossAnim = useRef(new Animated.Value(0)).current;
 
   const animateStart = (anim, buttonState) => {
-    const { toValue, isAppearedBtns, asyncFunc } = (() => {
+    const { toValue, shouldAppearBtns, asyncFunc } = (() => {
       if (buttonState === "0deg") {
         return {
           toValue: 1,
-          isAppearedBtns: true,
+          shouldAppearBtns: true,
           asyncFunc: () => {},
         };
       } else {
@@ -60,7 +60,7 @@ const BottomNavItemContainer: FC<Props> = (props) => {
         const resetAnimValue = () => plusToCrossAnim.setValue(0);
         return {
           toValue: 2,
-          isAppearedBtns: false,
+          shouldAppearBtns: false,
           asyncFunc: resetAnimValue,
         };
       }
@@ -71,16 +71,16 @@ const BottomNavItemContainer: FC<Props> = (props) => {
       useNativeDriver: false,
     }).start(asyncFunc);
 
-    dispatch(setCameraAndAlbumStatus(isAppearedBtns));
+    dispatch(setShouldAppearPostBtns(shouldAppearBtns));
     const newIndex = (stateIndex + 1) % 2;
     setStateIndex(newIndex);
   };
 
-  const isAppearedBtns = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.isAppeared
+  const shouldAppearBtns = useSelector(
+    (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
   );
   const isPushedOuterBtns =
-    !isAppearedBtns && stateArray[stateIndex] == "45deg";
+    !shouldAppearBtns && stateArray[stateIndex] == "45deg";
   if (isPushedOuterBtns) animateStart(plusToCrossAnim, "45deg");
 
   const changeStyle = () => {

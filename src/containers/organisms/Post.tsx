@@ -8,7 +8,7 @@ import * as Location from "expo-location";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { RootState } from "../../reducers/index";
 import { setPostData } from "../../actions/post";
-import { setBottomNavStatus } from "../../actions/bottomNav";
+import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { setshouldNavigateMap } from "../../actions/mapNavigate";
 import env from "../../../env.json";
 import { styles } from "../../styles/post";
@@ -18,7 +18,7 @@ type Props = {
   navigation: NavigationProp<Record<string, object>>;
 };
 
-const getLocation = async () => {
+const getLocationAddressAsync = async () => {
   await Permissions.askAsync(Permissions.LOCATION);
   const location = await Location.getCurrentPositionAsync({});
   const latitude = location.coords.latitude;
@@ -55,7 +55,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     });
 
     if (result.cancelled) {
-      dispatch(setBottomNavStatus(true));
+      dispatch(setShouldDisplayBottomNav(true));
       dispatch(setshouldNavigateMap(true));
     } else {
       dispatch(setPostData(result.uri, "camera"));
@@ -79,7 +79,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     });
 
     if (result.cancelled) {
-      dispatch(setBottomNavStatus(true));
+      dispatch(setShouldDisplayBottomNav(true));
       dispatch(setshouldNavigateMap(true));
     } else {
       dispatch(setPostData(result.uri, "album"));
@@ -87,7 +87,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   };
 
   useEffect(() => {
-    dispatch(setBottomNavStatus(false));
+    dispatch(setShouldDisplayBottomNav(false));
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity
@@ -102,7 +102,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
 
   if (type === "camera") {
     (async () => {
-      const test = await getLocation();
+      const test = await getLocationAddressAsync();
       console.log(test);
     })();
   }

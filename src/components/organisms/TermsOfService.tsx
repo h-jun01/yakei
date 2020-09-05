@@ -1,15 +1,15 @@
 import React, { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setBottomNavStatus } from "../../actions/bottomNav";
+import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { ScrollView, View, Text } from "react-native";
 import { styles } from "../../styles/user/terms";
 
 const TermsOfService: FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setBottomNavStatus(false));
+    dispatch(setShouldDisplayBottomNav(false));
     return () => {
-      dispatch(setBottomNavStatus(true));
+      dispatch(setShouldDisplayBottomNav(true));
     };
   }, []);
 

@@ -8,7 +8,7 @@ import type { NavigationState } from "@react-navigation/routers/lib/typescript/s
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { setPostData } from "../../actions/post";
-import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
+import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
 
 type Props = {
   state: BottomTabBarProps["state"];
@@ -25,13 +25,13 @@ const animateStart = (anim, toValue) => {
 };
 
 const useAnimation = () => {
-  const isAppeared = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.isAppeared
+  const shouldAppear = useSelector(
+    (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
   );
   const moveUpperLeftAnim = useRef(new Animated.Value(0)).current;
   const moveUpperRightAnim = useRef(new Animated.Value(0)).current;
 
-  if (isAppeared) {
+  if (shouldAppear) {
     animateStart(moveUpperLeftAnim, 1);
     animateStart(moveUpperRightAnim, 1);
   } else {
@@ -98,7 +98,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
     if (!result.cancelled) {
       dispatch(setPostData(result.uri, "camera"));
       navigateToPostScreen();
-      dispatch(setCameraAndAlbumStatus(false));
+      dispatch(setShouldAppearPostBtns(false));
     }
   };
 
@@ -121,7 +121,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
     if (!result.cancelled) {
       dispatch(setPostData(result.uri, "album"));
       navigateToPostScreen();
-      dispatch(setCameraAndAlbumStatus(false));
+      dispatch(setShouldAppearPostBtns(false));
     }
   };
 
