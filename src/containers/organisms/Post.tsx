@@ -107,7 +107,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     })();
   }
 
-  return <Post uri={uri} type={type} />;
+  return <Post uri={uri} />;
 };
 
 export default PostContainer;

@@ -1,6 +1,8 @@
 import React, { FC, useState } from "react";
 import { ScrollView, View, Image, Dimensions } from "react-native";
 import { styles } from "../../styles/post";
+import { baseColor } from "../../styles/thema/colors";
+import EiffelTowerSvg from "../atoms/svg/EiffelTowerSvg";
 
 type Props = {
   uri: string;
@@ -22,6 +24,7 @@ const Post: FC<Props> = ({ ...props }) => {
 
   const width = Dimensions.get("window").width;
   const height = width * aspectRatio;
+  const viewBoxRatio = 18 / 23;
 
   return (
     <ScrollView style={styles.container}>
@@ -32,6 +35,18 @@ const Post: FC<Props> = ({ ...props }) => {
         }}
         source={{ uri }}
       />
+      <View>
+        <View
+          style={[
+            styles.svgWrap,
+            {
+              aspectRatio: viewBoxRatio,
+            },
+          ]}
+        >
+          <EiffelTowerSvg color={baseColor.text} />
+        </View>
+      </View>
     </ScrollView>
   );
 };
