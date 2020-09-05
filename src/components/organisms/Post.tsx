@@ -1,14 +1,13 @@
 import React, { FC, useState } from "react";
-import { ScrollView, Image, Dimensions } from "react-native";
+import { ScrollView, View, Image, Dimensions } from "react-native";
 import { styles } from "../../styles/post";
 
 type Props = {
   uri: string;
-  type: string;
 };
 
 const Post: FC<Props> = ({ ...props }) => {
-  const { uri, type } = props;
+  const { uri } = props;
   const [aspectRatio, setAspectRatio] = useState(0);
 
   Image.getSize(
