@@ -1,5 +1,5 @@
-import React, { FC, useEffect } from "react";
-import { TouchableOpacity, Alert } from "react-native";
+import React, { FC, useEffect, useState } from "react";
+import { TouchableOpacity, Alert, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import * as Permissions from "expo-permissions";
@@ -38,6 +38,17 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const dispatch = useDispatch();
   const { navigation } = props;
   const { uri, type } = useSelector((state: RootState) => state.postReducer);
+  const [aspectRatio, setAspectRatio] = useState<number>(0);
+
+  Image.getSize(
+    uri,
+    (width, height) => {
+      setAspectRatio(height / width);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 
   const onPressOfCamera = async () => {
     // カメラへのアクセス許可を申請
@@ -107,7 +118,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     })();
   }
 
-  return <Post uri={uri} />;
+  return <Post uri={uri} aspectRatio={aspectRatio} />;
 };
 
 export default PostContainer;
