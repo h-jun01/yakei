@@ -11,6 +11,21 @@ export const styles = StyleSheet.create({
     height: hp("100%"),
     backgroundColor: baseColor.base,
   },
+  rowWrap: {
+    width: wp("100%"),
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  photgenicSubjectInput: {
+    width: wp("100%"),
+    marginVertical: hp("1.25%"),
+    padding: wp("2%"),
+    borderRadius: 5,
+    borderBottomWidth: 0.5,
+    borderBottomColor: utilityColor.postInputBorder,
+    fontSize: Size.Large,
+    color: baseColor.text,
+  },
   svgWrap: {
     width: Size.Xxlarge,
   },

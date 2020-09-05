@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
-import { ScrollView, View, Image, Dimensions } from "react-native";
+import { ScrollView, View, Image, TextInput, Dimensions } from "react-native";
 import { styles } from "../../styles/post";
-import { baseColor } from "../../styles/thema/colors";
+import { baseColor, utilityColor } from "../../styles/thema/colors";
 import EiffelTowerSvg from "../atoms/svg/EiffelTowerSvg";
 
 type Props = {
@@ -25,6 +25,7 @@ const Post: FC<Props> = ({ ...props }) => {
   const width = Dimensions.get("window").width;
   const height = width * aspectRatio;
   const viewBoxRatio = 18 / 23;
+  const svgAspectRatio = { aspectRatio: viewBoxRatio };
 
   return (
     <ScrollView style={styles.container}>
@@ -35,17 +36,20 @@ const Post: FC<Props> = ({ ...props }) => {
         }}
         source={{ uri }}
       />
-      <View>
-        <View
-          style={[
-            styles.svgWrap,
-            {
-              aspectRatio: viewBoxRatio,
-            },
-          ]}
-        >
+      <View style={styles.rowWrap}>
+        <View style={[styles.svgWrap, svgAspectRatio]}>
           <EiffelTowerSvg color={baseColor.text} />
         </View>
+        <TextInput
+          style={styles.photgenicSubjectInput}
+          placeholder={"被写体を入力（例 : 東京スカイツリー）"}
+          autoCapitalize={"none"}
+          keyboardType="default"
+          returnKeyType="done"
+          blurOnSubmit={true}
+          editable={true}
+          placeholderTextColor={utilityColor.placeholderText}
+        />
       </View>
     </ScrollView>
   );
