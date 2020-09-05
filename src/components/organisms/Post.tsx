@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { ScrollView, View, Image, TextInput, Dimensions } from "react-native";
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import { styles } from "../../styles/post";
@@ -8,10 +8,19 @@ import EiffelTowerSvg from "../atoms/svg/EiffelTowerSvg";
 type Props = {
   uri: string;
   aspectRatio: number;
+  scrollViewRef: React.MutableRefObject<ScrollView | null>;
+  setSpaceHeight: React.Dispatch<React.SetStateAction<number>>;
+  handleContentSizeChange: (width: number, height: number) => void;
 };
 
 const Post: FC<Props> = ({ ...props }) => {
-  const { uri, aspectRatio } = props;
+  const {
+    uri,
+    aspectRatio,
+    scrollViewRef,
+    setSpaceHeight,
+    handleContentSizeChange,
+  } = props;
 
   const width = Dimensions.get("window").width;
   const height = width * aspectRatio;
@@ -19,7 +28,11 @@ const Post: FC<Props> = ({ ...props }) => {
   const svgAspectRatio = { aspectRatio: viewBoxRatio };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      onContentSizeChange={handleContentSizeChange}
+      ref={scrollViewRef}
+    >
       <View>
         <Image
           style={{
@@ -43,7 +56,11 @@ const Post: FC<Props> = ({ ...props }) => {
             placeholderTextColor={utilityColor.placeholderText}
           />
         </View>
-        <KeyboardSpacer />
+        <KeyboardSpacer
+          onToggle={(keyboardState, keyboardSpace) => {
+            setSpaceHeight(keyboardSpace);
+          }}
+        />
       </View>
     </ScrollView>
   );

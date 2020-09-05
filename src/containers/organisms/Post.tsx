@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from "react";
-import { TouchableOpacity, Alert, Image } from "react-native";
+import React, { FC, useEffect, useState, useRef } from "react";
+import { TouchableOpacity, Alert, Image, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import * as Permissions from "expo-permissions";
@@ -118,7 +118,24 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     })();
   }
 
-  return <Post uri={uri} aspectRatio={aspectRatio} />;
+  const [spaceHeight, setSpaceHeight] = useState(0);
+  const scrollViewRef = useRef<null | ScrollView>(null);
+  const handleContentSizeChange = (width, height) => {
+    if (spaceHeight === 0) return;
+    scrollViewRef.current?.scrollTo({
+      y: height - spaceHeight,
+    });
+  };
+
+  return (
+    <Post
+      uri={uri}
+      aspectRatio={aspectRatio}
+      scrollViewRef={scrollViewRef}
+      setSpaceHeight={setSpaceHeight}
+      handleContentSizeChange={handleContentSizeChange}
+    />
+  );
 };
 
 export default PostContainer;
