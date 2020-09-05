@@ -80,6 +80,8 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
   // お気に入り押下時
   const pressedFavorite = async () => {
     if (!isFavoriteStatus) {
+      setIsFavoriteStatus(true);
+
       await accountFireStore.updateFavoriteList(photo_id);
       await photoFireStore.IncrementFavoriteNumber(photo_id, favoriteNumber);
       await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
@@ -89,8 +91,6 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       const newFavoriteList = favoriteList.slice();
       newFavoriteList.push(photo_id);
       dispach(upDateFavoriteList(newFavoriteList));
-
-      setIsFavoriteStatus(true);
 
       const notificationItems = {
         uid,

@@ -2,7 +2,9 @@ import React, { FC } from "react";
 import { View, Text } from "react-native";
 import { Timestamp } from "@google-cloud/firestore";
 import { useDisplayTime } from "../../utilities/hooks/date";
-import { styles } from "../../styles/notification";
+import { StyleSheet } from "react-native";
+import { baseColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
 
 type Props = {
   opponent_name: string;
@@ -26,5 +28,28 @@ const NotificationText: FC<Props> = ({ ...props }) => {
     </View>
   );
 };
+
+export const styles = StyleSheet.create({
+  text: {
+    width: 230,
+    color: "#fff",
+    letterSpacing: 0.8,
+    lineHeight: 16,
+    paddingLeft: 17,
+    paddingRight: 17,
+    paddingBottom: 10,
+  },
+  timeStamp: {
+    paddingLeft: 17,
+    paddingRight: 17,
+    color: baseColor.grayText,
+    fontSize: Size.Small,
+    fontWeight: "400",
+  },
+  nameSize: {
+    fontSize: 15,
+    fontWeight: "700",
+  },
+});
 
 export default NotificationText;
