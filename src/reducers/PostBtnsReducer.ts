@@ -9,9 +9,9 @@ const initialState: State = {
   shouldAppear: false,
 };
 
-type CameraAndAlbumReducer = Reducer<State, UnionedAction>;
+type PostBtnsReducer = Reducer<State, UnionedAction>;
 
-export const cameraAndAlbumReducer: CameraAndAlbumReducer = (
+export const postBtnsReducer: PostBtnsReducer = (
   state = initialState,
   action: UnionedAction
 ): State => {

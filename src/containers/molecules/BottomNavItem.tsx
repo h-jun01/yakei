@@ -77,7 +77,7 @@ const BottomNavItemContainer: FC<Props> = (props) => {
   };
 
   const shouldAppearBtns = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
+    (state: RootState) => state.postBtnsReducer.shouldAppear
   );
   const isPushedOuterBtns =
     !shouldAppearBtns && stateArray[stateIndex] == "45deg";

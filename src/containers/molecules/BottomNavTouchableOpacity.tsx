@@ -20,7 +20,7 @@ const BottomNavTouchableOpacityContainer: FC<Props> = ({ ...props }) => {
 
   const dispatch = useDispatch();
   const shouldAppearBtns = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
+    (state: RootState) => state.postBtnsReducer.shouldAppear
   );
   const { options } = descriptors[route.key];
   const label = route["name"];

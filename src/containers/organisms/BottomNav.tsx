@@ -15,7 +15,7 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
     (state: RootState) => state.bottomNavReducer.shouldDisplay
   );
   const shouldAppearBtns = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
+    (state: RootState) => state.postBtnsReducer.shouldAppear
   );
 
   if (shouldAppearBtns) {

@@ -26,7 +26,7 @@ const animateStart = (anim, toValue) => {
 
 const useAnimation = () => {
   const shouldAppear = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.shouldAppear
+    (state: RootState) => state.postBtnsReducer.shouldAppear
   );
   const moveUpperLeftAnim = useRef(new Animated.Value(0)).current;
   const moveUpperRightAnim = useRef(new Animated.Value(0)).current;
