@@ -21,6 +21,10 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  svgWrap: {
+    width: Size.Xxlarge,
+    marginRight: wp("3%"),
+  },
   photgenicSubjectInput: {
     width: "100%",
     marginVertical: hp("1.25%"),
@@ -31,55 +35,19 @@ export const styles = StyleSheet.create({
     fontSize: Size.Large,
     color: baseColor.text,
   },
-  svgWrap: {
-    width: Size.Xxlarge,
-    marginRight: wp("3%"),
+  locationTextWrap: {
+    width: "100%",
+    marginVertical: hp("1.25%"),
+    padding: wp("2%"),
+    borderRadius: 5,
+    borderBottomWidth: 0.5,
+    borderBottomColor: utilityColor.postInputBorder,
   },
-  // userImgWrap: {
-  //   position: "relative",
-  // },
-  // iconImg: {
-  //   position: "absolute",
-  //   alignSelf: "center",
-  //   bottom: hp("8%"),
-  //   zIndex: 1,
-  // },
-  // overlay: {
-  //   width: wp("20.3%"),
-  //   height: wp("20.3%"),
-  //   position: "absolute",
-  //   bottom: hp("8.2%"),
-  //   alignSelf: "center",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   borderRadius: 180,
-  //   backgroundColor: utilityColor.strongOverlay,
-  //   zIndex: 2,
-  // },
-
-  // //インプットエリア
-  // inputWrap: {
-  //   width: wp("95%"),
-  //   alignSelf: "center",
-  //   paddingTop: 10,
-  // },
-  // margin: {
-  //   marginVertical: hp("1.5%"),
-  // },
-  // userButton: {
-  //   width: wp("85%"),
-  //   marginLeft: "auto",
-  //   marginRight: "auto",
-  //   marginTop: hp("15%"),
-  //   paddingVertical: hp("1.5%"),
-  //   backgroundColor: baseColor.accent,
-  //   borderRadius: 5,
-  // },
-  // headerIcon: {
-  //   position: "absolute",
-  //   bottom: hp("2%"),
-  //   right: wp("2%"),
-  // },
+  locationText: {
+    width: "100%",
+    fontSize: Size.Large,
+    color: baseColor.text,
+  },
   // 閉じるボタン
   crossButton: {
     color: "#fff",

@@ -1,9 +1,17 @@
 import React, { FC } from "react";
-import { ScrollView, View, Image, TextInput, Dimensions } from "react-native";
+import {
+  ScrollView,
+  View,
+  Image,
+  TextInput,
+  Text,
+  Dimensions,
+} from "react-native";
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import { styles } from "../../styles/post";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import EiffelTowerSvg from "../atoms/svg/EiffelTowerSvg";
+import MapTintedSvg from "../atoms/svg/MapButtonTintedSvg";
 
 type Props = {
   uri: string;
@@ -24,8 +32,10 @@ const Post: FC<Props> = ({ ...props }) => {
 
   const width = Dimensions.get("window").width;
   const height = width * aspectRatio;
-  const viewBoxRatio = 18 / 23;
-  const svgAspectRatio = { aspectRatio: viewBoxRatio };
+  const eiffelViewBoxRatio = 18 / 23;
+  const mapSvgViewBoxRatio = 22 / 28;
+  const eiffelSvgAspectRatio = { aspectRatio: eiffelViewBoxRatio };
+  const mapSvgAspectRatio = { aspectRatio: mapSvgViewBoxRatio };
 
   return (
     <ScrollView
@@ -41,8 +51,9 @@ const Post: FC<Props> = ({ ...props }) => {
           }}
           source={{ uri }}
         />
+
         <View style={styles.rowWrap}>
-          <View style={[styles.svgWrap, svgAspectRatio]}>
+          <View style={[styles.svgWrap, eiffelSvgAspectRatio]}>
             <EiffelTowerSvg color={baseColor.text} />
           </View>
           <TextInput
@@ -56,6 +67,16 @@ const Post: FC<Props> = ({ ...props }) => {
             placeholderTextColor={utilityColor.placeholderText}
           />
         </View>
+
+        <View style={styles.rowWrap}>
+          <View style={[styles.svgWrap, mapSvgAspectRatio]}>
+            <MapTintedSvg color={baseColor.text} />
+          </View>
+          <View style={styles.locationTextWrap}>
+            <Text style={styles.locationText}>撮影場所を入力</Text>
+          </View>
+        </View>
+
         <KeyboardSpacer
           onToggle={(keyboardState, keyboardSpace) => {
             setSpaceHeight(keyboardSpace);
