@@ -19,6 +19,7 @@ type NotificationFireStore = {
   notificationOpponentFavorite: (
     notificationItems: NotificationItems
   ) => Promise<void>;
+  //   onSnapshotNotification: (uid: string, closure: any) => void;
 };
 
 const user = db.collection("users");
@@ -36,7 +37,6 @@ export const notificationFireStore: NotificationFireStore = {
     querySnapshot.forEach((doc) => {
       notificationDataList.push(doc.data());
     });
-    console.log(notificationDataList);
 
     return notificationDataList;
   },

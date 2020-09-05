@@ -31,9 +31,15 @@ import UserScreen from "./screens/UserScreen";
 const ScreenSwitcher: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
   const selectIsLogin = (state: RootState) => state.authReducer.isLogin;
+  const selectNotificationDataList = (state: RootState) =>
+    state.notificationReducer.notificationDataList;
+
   const isLoading = useSelector(selectIsLoading);
   const isLogin = useSelector(selectIsLogin);
+  const notificationDataList = useSelector(selectNotificationDataList);
+
   const dispatch = useDispatch();
+
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
@@ -49,14 +55,9 @@ const ScreenSwitcher: FC = () => {
         await photoFireStore.getPhotoList(user.uid).then((res) => {
           dispatch(setPhotoListData(res));
         });
-        await noticeFireStore.getNoticeList().then((res) => {
-          dispatch(setNoticeListData(res.data()));
-        });
-        await notificationFireStore
-          .getUserNotification(user.uid)
-          .then((res) => {
-            dispatch(setNotificationDataList(res));
-          });
+        // await noticeFireStore.getNoticeList().then((res) => {
+        //   dispatch(setNoticeListData(res.data()));
+        // });
         dispatch(loadingStatusChange(true));
         dispatch(loginStatusChange(true));
       } else {
@@ -65,6 +66,23 @@ const ScreenSwitcher: FC = () => {
       }
     });
   }, []);
+
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       notificationFireStore.onSnapshotNotification(user.uid, (res) => {
+  //         const newNotificationDataList: any = notificationDataList.slice();
+  //         newNotificationDataList.push(res);
+  //         dispatch(setNotificationDataList(newNotificationDataList));
+
+  //         // console.log("before");
+  //         // console.log(notificationDataList);
+  //         // console.log("after");
+  //         // console.log(newNotificationDataList);
+  //       });
+  //     }
+  //   });
+  // }, []);
 
   if (!isLoading) {
     return <LodingScreen />;

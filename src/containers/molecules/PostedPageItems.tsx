@@ -106,9 +106,13 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
         notificationItems
       );
 
-      // const newNotificationDataList = notificationDataList.slice();
-      // newNotificationDataList.push(notificationItems);
-      // dispach(setNotificationDataList(newNotificationDataList));
+      // await notificationFireStore
+      //   .onSnapshotNotification(uid)
+      //   .then(async (res) => {
+      //     const newNotificationDataList: any = notificationDataList.slice();
+      //     newNotificationDataList.push(await res);
+      //     dispach(setNotificationDataList(newNotificationDataList));
+      //   });
     } else {
       await accountFireStore.deleteFavoriteItem(photo_id);
       await photoFireStore.DecrementFavoriteNumber(photo_id, favoriteNumber);
