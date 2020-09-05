@@ -102,17 +102,10 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
         create_time: FieldValue.serverTimestamp() as Timestamp,
       };
 
-      await notificationFireStore.notificationOpponentFavorite(
-        notificationItems
-      );
-
-      // await notificationFireStore
-      //   .onSnapshotNotification(uid)
-      //   .then(async (res) => {
-      //     const newNotificationDataList: any = notificationDataList.slice();
-      //     newNotificationDataList.push(await res);
-      //     dispach(setNotificationDataList(newNotificationDataList));
-      //   });
+      uid !== opponentUid &&
+        (await notificationFireStore.notificationOpponentFavorite(
+          notificationItems
+        ));
     } else {
       await accountFireStore.deleteFavoriteItem(photo_id);
       await photoFireStore.DecrementFavoriteNumber(photo_id, favoriteNumber);
