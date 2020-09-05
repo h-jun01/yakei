@@ -33,7 +33,7 @@ const Post: FC<Props> = ({ ...props }) => {
       onContentSizeChange={handleContentSizeChange}
       ref={scrollViewRef}
     >
-      <View>
+      <View style={styles.allWrap}>
         <Image
           style={{
             width: width,

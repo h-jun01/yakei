@@ -11,13 +11,18 @@ export const styles = StyleSheet.create({
     height: hp("100%"),
     backgroundColor: baseColor.base,
   },
-  rowWrap: {
+  allWrap: {
+    flexDirection: "column",
+    alignItems: "center",
     width: wp("100%"),
+  },
+  rowWrap: {
+    width: "94%",
     flexDirection: "row",
     alignItems: "center",
   },
   photgenicSubjectInput: {
-    width: wp("100%"),
+    width: "100%",
     marginVertical: hp("1.25%"),
     padding: wp("2%"),
     borderRadius: 5,
@@ -28,12 +33,8 @@ export const styles = StyleSheet.create({
   },
   svgWrap: {
     width: Size.Xxlarge,
+    marginRight: wp("3%"),
   },
-  // allWrap: {
-  //   flex: 1,
-  //   width: wp("100%"),
-  //   height: hp("100%"),
-  // },
   // userImgWrap: {
   //   position: "relative",
   // },
