@@ -23,8 +23,8 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   const favoriteList = useSelector(selectFavoriteList);
 
-  const [favoriteNumber, setFavoriteNumber] = useState<number>(0);
-  const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(false);
+  const [favoriteNumber, setFavoriteNumber] = useState(0);
+  const [isFavoriteStatus, setIsFavoriteStatus] = useState(false);
 
   const dispach = useDispatch();
 

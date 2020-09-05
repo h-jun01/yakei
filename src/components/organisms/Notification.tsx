@@ -14,41 +14,44 @@ type Props = {
 
 const Notification: FC<Props> = ({ notificationDataList }) => {
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.box}>
-        {notificationDataList.length !== 0 &&
-        notificationDataList !== undefined ? (
-          notificationDataList.map((item, index) => (
-            <Fragment key={index}>
-              <View style={styles.wrapper}>
-                <Image
-                  style={styles.userImage}
-                  source={{
-                    uri: item.opponent_url,
-                  }}
-                  PlaceholderContent={<ActivityIndicator />}
-                />
-                <NotificationText
-                  opponent_name={item.opponent_name}
-                  content={item.content}
-                  create_time={item.create_time}
-                />
-                <Image
-                  style={styles.photoImage}
-                  source={{
-                    uri: item.photo_url,
-                  }}
-                  PlaceholderContent={<ActivityIndicator />}
-                />
-              </View>
-              <View style={styles.border} />
-            </Fragment>
-          ))
-        ) : (
-          <NoNotificationTex />
-        )}
-      </View>
-    </ScrollView>
+    // <ScrollView style={styles.container}>
+    <React.Fragment>
+      {notificationDataList.length !== 0 &&
+      notificationDataList !== undefined ? (
+        <ScrollView style={styles.container}>
+          <View style={styles.box}>
+            {notificationDataList.map((item, index) => (
+              <Fragment key={index}>
+                <View style={styles.wrapper}>
+                  <Image
+                    style={styles.userImage}
+                    source={{
+                      uri: item.opponent_url,
+                    }}
+                    PlaceholderContent={<ActivityIndicator />}
+                  />
+                  <NotificationText
+                    opponent_name={item.opponent_name}
+                    content={item.content}
+                    create_time={item.create_time}
+                  />
+                  <Image
+                    style={styles.photoImage}
+                    source={{
+                      uri: item.photo_url,
+                    }}
+                    PlaceholderContent={<ActivityIndicator />}
+                  />
+                </View>
+                <View style={styles.border} />
+              </Fragment>
+            ))}
+          </View>
+        </ScrollView>
+      ) : (
+        <NoNotificationTex />
+      )}
+    </React.Fragment>
   );
 };
 
@@ -59,6 +62,7 @@ const styles = StyleSheet.create({
   },
   box: {
     alignItems: "center",
+    paddingBottom: 104,
   },
   wrapper: {
     flexDirection: "row",

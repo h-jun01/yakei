@@ -67,23 +67,6 @@ const ScreenSwitcher: FC = () => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       notificationFireStore.onSnapshotNotification(user.uid, (res) => {
-  //         const newNotificationDataList: any = notificationDataList.slice();
-  //         newNotificationDataList.push(res);
-  //         dispatch(setNotificationDataList(newNotificationDataList));
-
-  //         // console.log("before");
-  //         // console.log(notificationDataList);
-  //         // console.log("after");
-  //         // console.log(newNotificationDataList);
-  //       });
-  //     }
-  //   });
-  // }, []);
-
   if (!isLoading) {
     return <LodingScreen />;
   }
