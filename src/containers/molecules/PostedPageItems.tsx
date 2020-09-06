@@ -35,13 +35,11 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   const selectFavoriteList = (state: RootState) =>
     state.userReducer.favoriteList;
-  const selectUserToken = (state: RootState) => state.userReducer.token;
   const selectOpponentUid = (state: RootState) => state.userReducer.uid;
   const selectOpponentUrl = (state: RootState) => state.userReducer.userImg;
   const selectOpponentName = (state: RootState) => state.userReducer.name;
 
   const favoriteList = useSelector(selectFavoriteList);
-  const userToken = useSelector(selectUserToken);
   const opponentUid = useSelector(selectOpponentUid);
   const opponentUrl = useSelector(selectOpponentUrl);
   const opponentName = useSelector(selectOpponentName);

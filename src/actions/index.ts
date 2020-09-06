@@ -9,7 +9,6 @@ import { setNotificationDataList } from "./notification";
 import { setCommentDataList, setIsInputForm } from "./postedData";
 import {
   setUserData,
-  setDeviceToken,
   upDateUserName,
   upDateUserSelfIntroduction,
   upDateUserProfileImage,
@@ -39,14 +38,12 @@ export enum ActionTypes {
   SET_CAMERA_AND_ALBUM_STATUS = "SET_CAMERA_AND_ALBUM_STATUS",
   SET_FAVORITE_ITEMS = "SET_FAVORITE_ITEMS",
   SET_NOTIFICATION_DATA_LIST = "SET_NOTIFICATION_DATA_LIST",
-  SET_DEVICE_TOKEN = "SET_DEVICE_TOKEN",
 }
 
 export type UnionedAction =
   | ReturnType<typeof loadingStatusChange>
   | ReturnType<typeof loginStatusChange>
   | ReturnType<typeof setUserData>
-  | ReturnType<typeof setDeviceToken>
   | ReturnType<typeof setPhotoListData>
   | ReturnType<typeof setAllPhotoListData>
   | ReturnType<typeof setCommentDataList>
