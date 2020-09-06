@@ -37,21 +37,27 @@ const getLocationAddressAsync = async (
     });
 };
 
-const PostContainer: FC<Props> = ({ ...props }) => {
-  const dispatch = useDispatch();
-  const { navigation } = props;
-  const { uri, type } = useSelector((state: RootState) => state.postReducer);
-  const [aspectRatio, setAspectRatio] = useState<number>(0);
-
+const getImageSize = (
+  uri: string,
+  set: React.Dispatch<React.SetStateAction<number>>
+) => {
   Image.getSize(
     uri,
     (width, height) => {
-      setAspectRatio(height / width);
+      set(height / width);
     },
     (error) => {
       console.log(error);
     }
   );
+};
+
+const PostContainer: FC<Props> = ({ ...props }) => {
+  const dispatch = useDispatch();
+  const { navigation } = props;
+  const { uri, type } = useSelector((state: RootState) => state.postReducer);
+  const [aspectRatio, setAspectRatio] = useState<number>(0);
+  getImageSize(uri, setAspectRatio);
 
   const onPressOfCamera = async () => {
     // カメラへのアクセス許可を申請
