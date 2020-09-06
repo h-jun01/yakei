@@ -169,11 +169,18 @@ const uploadPostImage = async (
     url,
     photogenicSubject,
   });
-  if (firestoreResult.state === "error") {
+  const docId = firestoreResult.docId;
+  if (firestoreResult.state === "error" || docId === undefined) {
     callingAlert("投稿に失敗しました");
     return;
   }
-  console.log("成功！！！！！！！");
+  const photoData = await postFireStore.getPhotoData(docId);
+  if (photoData.state === "error") {
+    // エラーの時の処理はどうしようか悩んでいるので保留
+    // アプリの再起動をかけるべき?
+    return;
+  }
+  console.log(photoData);
 };
 
 const PostContainer: FC<Props> = ({ ...props }) => {

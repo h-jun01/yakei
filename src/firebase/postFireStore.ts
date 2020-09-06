@@ -1,3 +1,4 @@
+import firebase from "firebase";
 import geohash from "ngeohash";
 import { db, FieldValue } from "./firebase";
 
@@ -11,6 +12,9 @@ type PhotoData = {
 type PostFireStore = {
   addImageData: (data: PhotoData) => Promise<{ state: string; docId?: string }>;
   addPhotoId: (docId: string) => Promise<string>;
+  getPhotoData: (
+    docId: string
+  ) => Promise<{ state: string; data?: firebase.firestore.DocumentData }>;
 };
 
 const photosRef = db.collection("photos");
@@ -58,5 +62,17 @@ export const postFireStore: PostFireStore = {
         });
     });
   },
-  // getPhotoData: (ref: )
+  getPhotoData: (docId: string) => {
+    return new Promise((resolve) => {
+      photosRef
+        .doc(docId)
+        .get()
+        .then((doc) => {
+          resolve({ state: "success", data: doc.data() });
+        })
+        .catch((error) => {
+          resolve({ state: "error" });
+        });
+    });
+  },
 };
