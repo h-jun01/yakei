@@ -21,7 +21,7 @@ type Props = {
   navigation: NavigationProp<Record<string, object>>;
 };
 
-const getImageSize = (
+const assignImageAspectRatio = (
   uri: string,
   set: React.Dispatch<React.SetStateAction<number>>
 ) => {
@@ -107,7 +107,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
   const { uri, type } = useSelector((state: RootState) => state.postReducer);
   const [aspectRatio, setAspectRatio] = useState<number>(0);
-  getImageSize(uri, setAspectRatio);
+  assignImageAspectRatio(uri, setAspectRatio);
 
   useEffect(() => {
     // マウント時にのみ実行
