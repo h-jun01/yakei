@@ -15,6 +15,7 @@ import env from "../../../env.json";
 import { styles } from "../../styles/post";
 import { baseColor } from "../../styles/thema/colors";
 import { postFirebaseStorage } from "../../firebase/postFirebaseStorage";
+import { postFireStore } from "../../firebase/postFireStore";
 import { callingAlert } from "../../utilities/alert";
 import Post from "../../components/organisms/Post";
 import PaperAirplaneSvg from "../../components/atoms/svg/PaperAirplaneSvg";
@@ -113,6 +114,35 @@ const getLocationAddressAsync = async (
     });
 };
 
+const checkHasError = (
+  uid: string,
+  uri: string,
+  photgenicSubject: string,
+  location: Location
+) => {
+  if (!uid) {
+    callingAlert(
+      "ユーザーを認識できませんでした。もう一度投稿し直してください。"
+    );
+    return true;
+  } else if (!uri) {
+    callingAlert("画像を認識できません。もう一度投稿し直してください。");
+    return true;
+  } else if (!photgenicSubject) {
+    callingAlert("被写体の名称を入力してください。");
+    return;
+  } else if (
+    location.latitude === undefined ||
+    location.longitude === undefined ||
+    location.address === "撮影場所を入力"
+  ) {
+    callingAlert("位置情報を選択してください。");
+    return true;
+  } else {
+    return false;
+  }
+};
+
 const uploadPostImage = async (uid: string, uri: string) => {
   const ref = postFirebaseStorage.getUploadRef(uid);
   const uploadedResult = await postFirebaseStorage.uploadPostImage(ref, uri);
@@ -133,7 +163,37 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
   const { uri, type } = useSelector((state: RootState) => state.postReducer);
   const [aspectRatio, setAspectRatio] = useState<number>(0);
+  const [location, setLocation] = useState<Location>({
+    address: "撮影場所を入力",
+  });
+  const [spaceHeight, setSpaceHeight] = useState(0);
+  const [photgenicSubject, setPhotgenicSubject] = useState("");
+  const uid = useSelector((state: RootState) => state.userReducer.uid);
+
   assignImageAspectRatio(uri, setAspectRatio);
+
+  useEffect(() => {
+    // マウント時 & uriが異なる時に実行
+    if (type === "camera") {
+      getLocationAddressAsync(setLocation);
+    } else {
+      setLocation({ address: "撮影場所を入力" });
+    }
+    const onPress = () => {
+      const hasError = checkHasError(uid, uri, photgenicSubject, location);
+      if (hasError) return;
+      uploadPostImage(uid, uri);
+    };
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity activeOpacity={0.6} onPress={onPress}>
+          <View style={styles.postBtn}>
+            <PaperAirplaneSvg color={baseColor.text} />
+          </View>
+        </TouchableOpacity>
+      ),
+    });
+  }, [uri]);
 
   useEffect(() => {
     // マウント時 & typeが異なる時に実行
@@ -154,33 +214,6 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     });
   }, [type]);
 
-  const [location, setLocation] = useState<Location>({
-    address: "撮影場所を入力",
-  });
-  const uid = useSelector((state: RootState) => state.userReducer.uid);
-
-  useEffect(() => {
-    // マウント時 & uriが異なる時に実行
-    if (type === "camera") {
-      getLocationAddressAsync(setLocation);
-    } else {
-      setLocation({ address: "撮影場所を入力" });
-    }
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => uploadPostImage(uid, uri)}
-        >
-          <View style={styles.postBtn}>
-            <PaperAirplaneSvg color={baseColor.text} />
-          </View>
-        </TouchableOpacity>
-      ),
-    });
-  }, [uri]);
-
-  const [spaceHeight, setSpaceHeight] = useState(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
   const handleContentSizeChange = (width, height) => {
     if (spaceHeight === 0) return;
@@ -197,6 +230,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       scrollViewRef={scrollViewRef}
       setSpaceHeight={setSpaceHeight}
       handleContentSizeChange={handleContentSizeChange}
+      setPhotgenicSubject={setPhotgenicSubject}
     />
   );
 };
