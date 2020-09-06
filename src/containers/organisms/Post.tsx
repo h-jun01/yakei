@@ -14,13 +14,18 @@ import { setShouldNavigateMap } from "../../actions/mapNavigate";
 import env from "../../../env.json";
 import { styles } from "../../styles/post";
 import { baseColor } from "../../styles/thema/colors";
-import Post from "../../components/organisms/Post";
-import PaperAirplaneSvg from "../../components/atoms/svg/PaperAirplaneSvg";
 import { postFireStore } from "../../firebase/postFireStore";
 import { callingAlert } from "../../utilities/alert";
+import Post from "../../components/organisms/Post";
+import PaperAirplaneSvg from "../../components/atoms/svg/PaperAirplaneSvg";
 
 type Props = {
   navigation: NavigationProp<Record<string, object>>;
+};
+type Location = {
+  latitude?: number;
+  longitude?: number;
+  address: string;
 };
 
 const assignImageAspectRatio = (
@@ -86,7 +91,7 @@ const onPressOfCamera = async (dispatch: Dispatch) => {
 };
 
 const getLocationAddressAsync = async (
-  set: React.Dispatch<React.SetStateAction<string>>
+  set: React.Dispatch<React.SetStateAction<Location>>
 ) => {
   await Permissions.askAsync(Permissions.LOCATION);
   const location = await Location.getCurrentPositionAsync({});
@@ -99,7 +104,11 @@ const getLocationAddressAsync = async (
     .then((data) => {
       const address = data.results[0].formatted_address;
       if (typeof address === "string") {
-        set(address);
+        set({
+          latitude: latitude,
+          longitude: longitude,
+          address: address,
+        });
       }
     });
 };
@@ -145,15 +154,17 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     });
   }, [type]);
 
-  const [address, setAddress] = useState<string>("撮影場所を入力");
+  const [location, setLocation] = useState<Location>({
+    address: "撮影場所を入力",
+  });
   const uid = useSelector((state: RootState) => state.userReducer.uid);
 
   useEffect(() => {
     // マウント時 & uriが異なる時に実行
     if (type === "camera") {
-      getLocationAddressAsync(setAddress);
+      getLocationAddressAsync(setLocation);
     } else {
-      setAddress("撮影場所を入力");
+      setLocation({ address: "撮影場所を入力" });
     }
     navigation.setOptions({
       headerRight: () => (
@@ -181,7 +192,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   return (
     <Post
       uri={uri}
-      address={address}
+      address={location.address}
       aspectRatio={aspectRatio}
       scrollViewRef={scrollViewRef}
       setSpaceHeight={setSpaceHeight}
