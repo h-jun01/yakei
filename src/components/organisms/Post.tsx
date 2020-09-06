@@ -45,10 +45,13 @@ const Post: FC<Props> = ({ ...props }) => {
     >
       <View style={styles.allWrap}>
         <Image
-          style={{
-            width: width,
-            height: height,
-          }}
+          style={[
+            {
+              width: width,
+              height: height,
+            },
+            styles.image,
+          ]}
           source={{ uri }}
         />
 
