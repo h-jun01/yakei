@@ -52,6 +52,8 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             PlaceholderContent={<ActivityIndicator />}
           />
           <DetailPostedPageItems
+            uid={uid}
+            url={url}
             photo_id={photo_id}
             latitude={latitude}
             longitude={longitude}
@@ -70,7 +72,12 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             </View>
           ))}
       </ScrollView>
-      <KeyboardInputView textInputRef={textInputRef} photo_id={photo_id} />
+      <KeyboardInputView
+        textInputRef={textInputRef}
+        photo_id={photo_id}
+        uid={uid}
+        url={url}
+      />
     </View>
   );
 };

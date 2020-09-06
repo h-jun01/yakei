@@ -14,7 +14,6 @@ type Props = {
 
 const Notification: FC<Props> = ({ notificationDataList }) => {
   return (
-    // <ScrollView style={styles.container}>
     <React.Fragment>
       {notificationDataList.length !== 0 &&
       notificationDataList !== undefined ? (

@@ -102,10 +102,11 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
         create_time: FieldValue.serverTimestamp() as Timestamp,
       };
 
-      uid !== opponentUid &&
-        (await notificationFireStore.notificationOpponentFavorite(
+      if (uid !== opponentUid) {
+        await notificationFireStore.notificationOpponentFavorite(
           notificationItems
-        ));
+        );
+      }
     } else {
       await accountFireStore.deleteFavoriteItem(photo_id);
       await photoFireStore.DecrementFavoriteNumber(photo_id, favoriteNumber);

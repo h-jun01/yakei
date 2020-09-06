@@ -13,33 +13,33 @@ type NotificationItems = {
 };
 
 type NotificationFireStore = {
-  getUserNotification: (
-    uid: string
-  ) => Promise<firebase.firestore.DocumentData[]>;
+  //   getUserNotification: (
+  //     uid: string
+  //   ) => Promise<firebase.firestore.DocumentData[]>;
   notificationOpponentFavorite: (
     notificationItems: NotificationItems
   ) => Promise<void>;
-  //   onSnapshotNotification: (uid: string, closure: any) => void;
+  //   getNotificationPhotoURL;
 };
 
 const user = db.collection("users");
 
 export const notificationFireStore: NotificationFireStore = {
   // 自分の通知を取得
-  getUserNotification: async (uid: string) => {
-    const notificationDataList: firebase.firestore.DocumentData[] = [];
-    const querySnapshot = await user
-      .doc(uid)
-      .collection("notification")
-      .orderBy("create_time", "desc")
-      .limit(20)
-      .get();
-    querySnapshot.forEach((doc) => {
-      notificationDataList.push(doc.data());
-    });
+  //   getUserNotification: async (uid: string) => {
+  //     const notificationDataList: firebase.firestore.DocumentData[] = [];
+  //     const querySnapshot = await user
+  //       .doc(uid)
+  //       .collection("notification")
+  //       .orderBy("create_time", "desc")
+  //       .limit(20)
+  //       .get();
+  //     querySnapshot.forEach((doc) => {
+  //       notificationDataList.push(doc.data());
+  //     });
 
-    return notificationDataList;
-  },
+  //     return notificationDataList;
+  //   },
   // お気に入りされた時に通知を更新
   notificationOpponentFavorite: async ({ ...notificationItems }) => {
     await user
@@ -47,4 +47,14 @@ export const notificationFireStore: NotificationFireStore = {
       .collection("notification")
       .add({ ...notificationItems });
   },
+  //   getNotificationPhotoURL: async (uid, url) => {
+  //     return await user
+  //       .doc(uid)
+  //       .collection("notification")
+  //       .where("photo_url", "==", url)
+  //       .get()
+  //       .then(async (res) => {
+  //         return (await res.docs[0].data().photo_url) === url ? true : false;
+  //       });
+  //   },
 };
