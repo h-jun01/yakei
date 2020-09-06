@@ -1,15 +1,10 @@
-import firebase from "firebase";
-import geohash from "ngeohash";
-import { db } from "./firebase";
+import { Reference, storageRef } from "./firebase";
 
-type Reference = firebase.storage.Reference;
 type PostFirebaseStorage = {
   getUploadRef: (uid: string) => Reference;
   uploadPostImage: (ref: Reference, uri: string) => Promise<string>;
   getImageUrl: (ref: Reference) => Promise<string>;
 };
-
-const storageRef = firebase.storage().ref();
 
 export const postFirebaseStorage: PostFirebaseStorage = {
   // 画像をアップロードするストレージ参照を取得する
