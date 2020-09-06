@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState, useRef } from "react";
 import { View, TouchableOpacity, Alert, Image, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import type { Dispatch } from "redux";
+import firebase from "firebase";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
@@ -11,6 +12,8 @@ import { RootState } from "../../reducers/index";
 import { setPostData } from "../../actions/post";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { setShouldNavigateMap } from "../../actions/mapNavigate";
+import { setPhotoListData } from "../../actions/photo";
+import { setAllPhotoListData } from "../../actions/allPhoto";
 import env from "../../../env.json";
 import { styles } from "../../styles/post";
 import { baseColor } from "../../styles/thema/colors";
@@ -148,7 +151,7 @@ const uploadPostImage = async (
   uri: string,
   photogenicSubject: string,
   location: Location
-) => {
+): Promise<undefined | firebase.firestore.DocumentData> => {
   const ref = postFirebaseStorage.getUploadRef(uid);
   const storageResult = await postFirebaseStorage.uploadPostImage(ref, uri);
   if (storageResult === "error") {
@@ -174,13 +177,14 @@ const uploadPostImage = async (
     callingAlert("投稿に失敗しました");
     return;
   }
-  const photoData = await postFireStore.getPhotoData(docId);
-  if (photoData.state === "error") {
+  const photoDataResult = await postFireStore.getPhotoData(docId);
+  const data = photoDataResult.data;
+  if (photoDataResult.state === "error" || data === undefined) {
     // エラーの時の処理はどうしようか悩んでいるので保留
     // アプリの再起動をかけるべき?
     return;
   }
-  console.log(photoData);
+  return data;
 };
 
 const PostContainer: FC<Props> = ({ ...props }) => {
@@ -214,14 +218,26 @@ const PostContainer: FC<Props> = ({ ...props }) => {
 
   useEffect(() => {
     // マウント時 & uid, uri, 被写体の名称、位置情報が異なる時に実行
-    const onPress = () => {
+    const onPress = async () => {
       const hasError = checkHasError(uid, uri, photogenicSubject, location);
       if (hasError) return;
-      uploadPostImage(uid, uri, photogenicSubject, location);
+      const photoData = await uploadPostImage(
+        uid,
+        uri,
+        photogenicSubject,
+        location
+      );
+      if (!photoData) return;
+      const newAllPhotos = allPhotoDataList.slice();
+      const newMyPhotos = myPhotoDataList.slice();
+      newAllPhotos.push(photoData);
+      newMyPhotos.push(photoData);
+      dispatch(setAllPhotoListData(newAllPhotos));
+      dispatch(setPhotoListData(newMyPhotos));
     };
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity activeOpacity={0.6} onPress={onPress}>
+        <TouchableOpacity activeOpacity={0.6} onPress={() => onPress()}>
           <View style={styles.postBtn}>
             <PaperAirplaneSvg color={baseColor.text} />
           </View>
