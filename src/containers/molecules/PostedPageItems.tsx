@@ -70,11 +70,9 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   // お気に入りチェック
   useEffect(() => {
-    if (favoriteList.indexOf(photo_id) !== -1) {
-      setIsFavoriteStatus(true);
-    } else {
-      setIsFavoriteStatus(false);
-    }
+    favoriteList.indexOf(photo_id) !== -1
+      ? setIsFavoriteStatus(true)
+      : setIsFavoriteStatus(false);
   });
 
   // お気に入り押下時
@@ -83,7 +81,7 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       setIsFavoriteStatus(true);
 
       await accountFireStore.updateFavoriteList(photo_id);
-      await photoFireStore.IncrementFavoriteNumber(photo_id, favoriteNumber);
+      await photoFireStore.IncrementFavoriteNumber(photo_id);
       await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
         setFavoriteNumber(res);
       });
@@ -109,7 +107,7 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       }
     } else {
       await accountFireStore.deleteFavoriteItem(photo_id);
-      await photoFireStore.DecrementFavoriteNumber(photo_id, favoriteNumber);
+      await photoFireStore.DecrementFavoriteNumber(photo_id);
       await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
         setFavoriteNumber(res);
       });
