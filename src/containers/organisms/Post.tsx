@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState, useRef } from "react";
 import { TouchableOpacity, Alert, Image, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import type { Dispatch } from "redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
@@ -16,6 +17,68 @@ import Post from "../../components/organisms/Post";
 
 type Props = {
   navigation: NavigationProp<Record<string, object>>;
+};
+
+const getImageSize = (
+  uri: string,
+  set: React.Dispatch<React.SetStateAction<number>>
+) => {
+  Image.getSize(
+    uri,
+    (width, height) => {
+      set(height / width);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
+const onPressOfAlbum = async (dispatch: Dispatch) => {
+  // アルバムへのアクセス許可を申請
+  const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+  if (status !== "granted") {
+    Alert.alert(
+      "",
+      "端末の[設定]＞[YAKEI]で、写真へのアクセスを許可してください。"
+    );
+    return;
+  }
+  // アルバムの起動
+  const result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    quality: 1,
+  });
+
+  if (result.cancelled) {
+    dispatch(setShouldDisplayBottomNav(true));
+    dispatch(setshouldNavigateMap(true));
+  } else {
+    dispatch(setPostData(result.uri, "album"));
+  }
+};
+
+const onPressOfCamera = async (dispatch: Dispatch) => {
+  // カメラへのアクセス許可を申請
+  const { status } = await Permissions.askAsync(Permissions.CAMERA);
+  if (status !== "granted") {
+    Alert.alert(
+      "",
+      "端末の[設定]＞[YAKEI]で、カメラへのアクセスを許可してください。"
+    );
+    return;
+  }
+  // カメラの起動
+  const result = await ImagePicker.launchCameraAsync({
+    allowsEditing: false,
+  });
+
+  if (result.cancelled) {
+    dispatch(setShouldDisplayBottomNav(true));
+    dispatch(setshouldNavigateMap(true));
+  } else {
+    dispatch(setPostData(result.uri, "camera"));
+  }
 };
 
 const getLocationAddressAsync = async (
@@ -37,21 +100,6 @@ const getLocationAddressAsync = async (
     });
 };
 
-const getImageSize = (
-  uri: string,
-  set: React.Dispatch<React.SetStateAction<number>>
-) => {
-  Image.getSize(
-    uri,
-    (width, height) => {
-      set(height / width);
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
-};
-
 const PostContainer: FC<Props> = ({ ...props }) => {
   const dispatch = useDispatch();
   const { navigation } = props;
@@ -59,60 +107,17 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const [aspectRatio, setAspectRatio] = useState<number>(0);
   getImageSize(uri, setAspectRatio);
 
-  const onPressOfCamera = async () => {
-    // カメラへのアクセス許可を申請
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    if (status !== "granted") {
-      Alert.alert(
-        "",
-        "端末の[設定]＞[YAKEI]で、カメラへのアクセスを許可してください。"
-      );
-      return;
-    }
-    // カメラの起動
-    const result = await ImagePicker.launchCameraAsync({
-      allowsEditing: false,
-    });
-
-    if (result.cancelled) {
-      dispatch(setShouldDisplayBottomNav(true));
-      dispatch(setshouldNavigateMap(true));
-    } else {
-      dispatch(setPostData(result.uri, "camera"));
-    }
-  };
-
-  const onPressOfAlbum = async () => {
-    // アルバムへのアクセス許可を申請
-    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    if (status !== "granted") {
-      Alert.alert(
-        "",
-        "端末の[設定]＞[YAKEI]で、写真へのアクセスを許可してください。"
-      );
-      return;
-    }
-    // アルバムの起動
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
-    });
-
-    if (result.cancelled) {
-      dispatch(setShouldDisplayBottomNav(true));
-      dispatch(setshouldNavigateMap(true));
-    } else {
-      dispatch(setPostData(result.uri, "album"));
-    }
-  };
-
   useEffect(() => {
     dispatch(setShouldDisplayBottomNav(false));
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={type === "camera" ? onPressOfCamera : onPressOfAlbum}
+          onPress={
+            type === "camera"
+              ? () => onPressOfCamera(dispatch)
+              : () => onPressOfAlbum(dispatch)
+          }
         >
           <FontAwesome name="times" style={styles.crossButton} />
         </TouchableOpacity>
