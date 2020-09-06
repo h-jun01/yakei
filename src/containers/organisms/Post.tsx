@@ -14,7 +14,7 @@ import { setShouldNavigateMap } from "../../actions/mapNavigate";
 import env from "../../../env.json";
 import { styles } from "../../styles/post";
 import { baseColor } from "../../styles/thema/colors";
-import { postFirebaseStorage } from "../../firebase/postFireStore";
+import { postFirebaseStorage } from "../../firebase/postFirebaseStorage";
 import { callingAlert } from "../../utilities/alert";
 import Post from "../../components/organisms/Post";
 import PaperAirplaneSvg from "../../components/atoms/svg/PaperAirplaneSvg";
