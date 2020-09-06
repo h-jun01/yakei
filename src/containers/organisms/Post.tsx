@@ -104,15 +104,19 @@ const getLocationAddressAsync = async (
     });
 };
 
-const uploadPostImage = (uid: string, uri: string) => {
-  const uploadPostImage = postFireStore.getUploadImageFunc(uid, uri);
-  uploadPostImage
-    .then((snapshot) => {
-      console.log("Uploaded successfully!!");
-    })
-    .catch(() => {
-      callingAlert("投稿に失敗しました");
-    });
+const uploadPostImage = async (uid: string, uri: string) => {
+  const ref = postFireStore.getUploadRef(uid);
+  const uploadedResult = await postFireStore.uploadPostImage(ref, uri);
+  if (uploadedResult === "error") {
+    callingAlert("投稿に失敗しました");
+    return;
+  }
+  const imageUrl = await postFireStore.getImageUrl(ref);
+  if (imageUrl === "error") {
+    callingAlert("投稿に失敗しました");
+    return;
+  }
+  console.log(imageUrl);
 };
 
 const PostContainer: FC<Props> = ({ ...props }) => {
