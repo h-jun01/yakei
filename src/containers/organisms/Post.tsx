@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState, useRef } from "react";
-import { TouchableOpacity, Alert, Image, ScrollView } from "react-native";
+import { View, TouchableOpacity, Alert, Image, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import type { Dispatch } from "redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
@@ -13,7 +13,9 @@ import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { setshouldNavigateMap } from "../../actions/mapNavigate";
 import env from "../../../env.json";
 import { styles } from "../../styles/post";
+import { baseColor } from "../../styles/thema/colors";
 import Post from "../../components/organisms/Post";
+import PaperAirplaneSvg from "../../components/atoms/svg/PaperAirplaneSvg";
 
 type Props = {
   navigation: NavigationProp<Record<string, object>>;
@@ -108,6 +110,20 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   getImageSize(uri, setAspectRatio);
 
   useEffect(() => {
+    // マウント時にのみ実行
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity activeOpacity={0.6} onPress={() => {}}>
+          <View style={styles.postBtn}>
+            <PaperAirplaneSvg color={baseColor.text} />
+          </View>
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
+
+  useEffect(() => {
+    // マウント時 & typeが異なる時に実行
     dispatch(setShouldDisplayBottomNav(false));
     navigation.setOptions({
       headerLeft: () => (
@@ -127,6 +143,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
 
   const [address, setAddress] = useState<string>("撮影場所を入力");
   useEffect(() => {
+    // マウント時 & uriが異なる時に実行
     if (type === "camera") {
       getLocationAddressAsync(setAddress);
     } else {

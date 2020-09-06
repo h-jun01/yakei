@@ -6,6 +6,8 @@ import {
 } from "react-native-responsive-screen";
 import { Size } from "./thema/fonts";
 
+const postBtnViewBoxRatio = 1;
+
 export const styles = StyleSheet.create({
   container: {
     height: hp("100%"),
@@ -57,9 +59,15 @@ export const styles = StyleSheet.create({
   },
   // 閉じるボタン
   crossButton: {
-    color: "#fff",
+    color: baseColor.text,
     fontSize: wp("5.6%"),
     fontWeight: "bold",
     paddingLeft: wp("4%"),
+  },
+  // 投稿ボタン
+  postBtn: {
+    width: wp("9%"),
+    paddingRight: wp("4%"),
+    aspectRatio: postBtnViewBoxRatio,
   },
 });
