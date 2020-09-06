@@ -10,7 +10,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { RootState } from "../../reducers/index";
 import { setPostData } from "../../actions/post";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
-import { setshouldNavigateMap } from "../../actions/mapNavigate";
+import { setShouldNavigateMap } from "../../actions/mapNavigate";
 import env from "../../../env.json";
 import { styles } from "../../styles/post";
 import { baseColor } from "../../styles/thema/colors";
@@ -56,7 +56,7 @@ const onPressOfAlbum = async (dispatch: Dispatch) => {
 
   if (result.cancelled) {
     dispatch(setShouldDisplayBottomNav(true));
-    dispatch(setshouldNavigateMap(true));
+    dispatch(setShouldNavigateMap(true));
   } else {
     dispatch(setPostData(result.uri, "album"));
   }
@@ -79,7 +79,7 @@ const onPressOfCamera = async (dispatch: Dispatch) => {
 
   if (result.cancelled) {
     dispatch(setShouldDisplayBottomNav(true));
-    dispatch(setshouldNavigateMap(true));
+    dispatch(setShouldNavigateMap(true));
   } else {
     dispatch(setPostData(result.uri, "camera"));
   }

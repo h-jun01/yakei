@@ -5,7 +5,7 @@ import { setAllPhotoListData } from "./allPhoto";
 import { setShouldDisplayBottomNav } from "./bottomNav";
 import { setShouldAppearPostBtns } from "./cameraAndAlbum";
 import { setPostData } from "./post";
-import { setshouldNavigateMap } from "./mapNavigate";
+import { setShouldNavigateMap } from "./mapNavigate";
 import {
   setCommentDataList,
   setInputCommentValue,
@@ -62,4 +62,4 @@ export type UnionedAction =
   | ReturnType<typeof setShouldDisplayBottomNav>
   | ReturnType<typeof setShouldAppearPostBtns>
   | ReturnType<typeof setPostData>
-  | ReturnType<typeof setshouldNavigateMap>;
+  | ReturnType<typeof setShouldNavigateMap>;

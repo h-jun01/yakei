@@ -1,6 +1,6 @@
 import { ActionTypes } from "./index";
 
-export const setshouldNavigateMap = (shouldNavigateMap: boolean) =>
+export const setShouldNavigateMap = (shouldNavigateMap: boolean) =>
   ({
     type: ActionTypes.SET_SHOULD_NAVIGATE,
     payload: {
