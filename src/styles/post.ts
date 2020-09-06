@@ -6,6 +6,8 @@ import {
 } from "react-native-responsive-screen";
 import { Size } from "./thema/fonts";
 
+const eiffelSvgViewBoxRatio = 18 / 23;
+const mapSvgViewBoxRatio = 22 / 28;
 const postBtnViewBoxRatio = 1;
 
 export const styles = StyleSheet.create({
@@ -29,6 +31,12 @@ export const styles = StyleSheet.create({
   svgWrap: {
     width: Size.Xxlarge,
     marginRight: wp("5%"),
+  },
+  eiffelSvgWrap: {
+    aspectRatio: eiffelSvgViewBoxRatio,
+  },
+  mapSvgWrap: {
+    aspectRatio: mapSvgViewBoxRatio,
   },
   photgenicSubjectInput: {
     width: "100%",

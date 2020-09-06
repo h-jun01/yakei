@@ -35,10 +35,6 @@ const Post: FC<Props> = ({ ...props }) => {
 
   const width = Dimensions.get("window").width;
   const height = width * aspectRatio;
-  const eiffelViewBoxRatio = 18 / 23;
-  const mapSvgViewBoxRatio = 22 / 28;
-  const eiffelSvgAspectRatio = { aspectRatio: eiffelViewBoxRatio };
-  const mapSvgAspectRatio = { aspectRatio: mapSvgViewBoxRatio };
 
   return (
     <ScrollView
@@ -59,7 +55,7 @@ const Post: FC<Props> = ({ ...props }) => {
         />
 
         <View style={styles.rowWrap}>
-          <View style={[styles.svgWrap, eiffelSvgAspectRatio]}>
+          <View style={[styles.svgWrap, styles.eiffelSvgWrap]}>
             <EiffelTowerSvg color={baseColor.text} />
           </View>
           <TextInput
@@ -75,7 +71,7 @@ const Post: FC<Props> = ({ ...props }) => {
         </View>
 
         <View style={styles.rowWrap}>
-          <View style={[styles.svgWrap, mapSvgAspectRatio]}>
+          <View style={[styles.svgWrap, styles.mapSvgWrap]}>
             <MapTintedSvg color={baseColor.text} />
           </View>
           <TouchableOpacity activeOpacity={1} style={styles.locationTextWrap}>
