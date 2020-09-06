@@ -14,7 +14,7 @@ import { setShouldNavigateMap } from "../../actions/mapNavigate";
 import env from "../../../env.json";
 import { styles } from "../../styles/post";
 import { baseColor } from "../../styles/thema/colors";
-import { postFireStore } from "../../firebase/postFireStore";
+import { postFirebaseStorage } from "../../firebase/postFireStore";
 import { callingAlert } from "../../utilities/alert";
 import Post from "../../components/organisms/Post";
 import PaperAirplaneSvg from "../../components/atoms/svg/PaperAirplaneSvg";
@@ -114,13 +114,13 @@ const getLocationAddressAsync = async (
 };
 
 const uploadPostImage = async (uid: string, uri: string) => {
-  const ref = postFireStore.getUploadRef(uid);
-  const uploadedResult = await postFireStore.uploadPostImage(ref, uri);
+  const ref = postFirebaseStorage.getUploadRef(uid);
+  const uploadedResult = await postFirebaseStorage.uploadPostImage(ref, uri);
   if (uploadedResult === "error") {
     callingAlert("投稿に失敗しました");
     return;
   }
-  const imageUrl = await postFireStore.getImageUrl(ref);
+  const imageUrl = await postFirebaseStorage.getImageUrl(ref);
   if (imageUrl === "error") {
     callingAlert("投稿に失敗しました");
     return;

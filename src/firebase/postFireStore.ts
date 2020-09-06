@@ -3,7 +3,7 @@ import geohash from "ngeohash";
 import { db } from "./firebase";
 
 type Reference = firebase.storage.Reference;
-type PostFireStore = {
+type PostFirebaseStorage = {
   getUploadRef: (uid: string) => Reference;
   uploadPostImage: (ref: Reference, uri: string) => Promise<string>;
   getImageUrl: (ref: Reference) => Promise<string>;
@@ -11,7 +11,7 @@ type PostFireStore = {
 
 const storageRef = firebase.storage().ref();
 
-export const postFireStore: PostFireStore = {
+export const postFirebaseStorage: PostFirebaseStorage = {
   // 画像をアップロードするストレージ参照を取得する
   getUploadRef: (uid: string) => {
     const filename = Date.now().toString();
@@ -35,8 +35,8 @@ export const postFireStore: PostFireStore = {
     });
   },
   // ストレージ参照からURLを取得する
-  getImageUrl: (ref: Reference) =>
-    new Promise((resolve) => {
+  getImageUrl: (ref: Reference) => {
+    return new Promise((resolve) => {
       ref
         .getDownloadURL()
         .then((url) => {
@@ -45,5 +45,6 @@ export const postFireStore: PostFireStore = {
         .catch((error) => {
           resolve("error");
         });
-    }),
+    });
+  },
 };
