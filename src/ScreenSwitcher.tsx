@@ -55,9 +55,9 @@ const ScreenSwitcher: FC = () => {
         await photoFireStore.getPhotoList(user.uid).then((res) => {
           dispatch(setPhotoListData(res));
         });
-        // await noticeFireStore.getNoticeList().then((res) => {
-        //   dispatch(setNoticeListData(res.data()));
-        // });
+        await noticeFireStore.getNoticeList().then((res) => {
+          dispatch(setNoticeListData(res.data()));
+        });
         dispatch(loadingStatusChange(true));
         dispatch(loginStatusChange(true));
       } else {

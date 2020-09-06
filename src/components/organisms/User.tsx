@@ -7,6 +7,8 @@ import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 import UserImage from "../atoms/UserImage";
 import TabMenu from "../../containers/molecules/TabMenu";
 
+import PushNotification from "../../containers/organisms/PushNotification";
+
 type Props = {
   navigation: any;
   name: string;
@@ -57,6 +59,7 @@ const User: FC<Props> = ({ ...props }) => {
             </Text>
           </View>
         </View>
+        <PushNotification />
         <TabMenu navigation={navigation} />
       </View>
     </ScrollView>
