@@ -117,7 +117,7 @@ const getLocationAddressAsync = async (
 const checkHasError = (
   uid: string,
   uri: string,
-  photgenicSubject: string,
+  photogenicSubject: string,
   location: Location
 ) => {
   if (!uid) {
@@ -128,7 +128,7 @@ const checkHasError = (
   } else if (!uri) {
     callingAlert("画像を認識できません。もう一度投稿し直してください。");
     return true;
-  } else if (!photgenicSubject) {
+  } else if (!photogenicSubject) {
     callingAlert("被写体の名称を入力してください。");
     return;
   } else if (
@@ -143,19 +143,37 @@ const checkHasError = (
   }
 };
 
-const uploadPostImage = async (uid: string, uri: string) => {
+const uploadPostImage = async (
+  uid: string,
+  uri: string,
+  photogenicSubject: string,
+  location: Location
+) => {
   const ref = postFirebaseStorage.getUploadRef(uid);
-  const uploadedResult = await postFirebaseStorage.uploadPostImage(ref, uri);
-  if (uploadedResult === "error") {
+  const storageResult = await postFirebaseStorage.uploadPostImage(ref, uri);
+  if (storageResult === "error") {
     callingAlert("投稿に失敗しました");
     return;
   }
-  const imageUrl = await postFirebaseStorage.getImageUrl(ref);
-  if (imageUrl === "error") {
+  const url = await postFirebaseStorage.getImageUrl(ref);
+  if (url === "error") {
     callingAlert("投稿に失敗しました");
     return;
   }
-  console.log(imageUrl);
+  if (location.latitude === undefined) return;
+  if (location.longitude === undefined) return;
+  const firestoreResult = await postFireStore.addImageData({
+    latitude: location.latitude,
+    longitude: location.longitude,
+    uid,
+    url,
+    photogenicSubject,
+  });
+  if (firestoreResult === "error") {
+    callingAlert("投稿に失敗しました");
+    return;
+  }
+  console.log("成功！！！！！！！");
 };
 
 const PostContainer: FC<Props> = ({ ...props }) => {
@@ -167,7 +185,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     address: "撮影場所を入力",
   });
   const [spaceHeight, setSpaceHeight] = useState(0);
-  const [photgenicSubject, setPhotgenicSubject] = useState("");
+  const [photogenicSubject, setPhotogenicSubject] = useState("");
   const uid = useSelector((state: RootState) => state.userReducer.uid);
 
   assignImageAspectRatio(uri, setAspectRatio);
@@ -179,10 +197,14 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     } else {
       setLocation({ address: "撮影場所を入力" });
     }
+  }, [uri]);
+
+  useEffect(() => {
+    // マウント時 & uid, uri, 被写体の名称、位置情報が異なる時に実行
     const onPress = () => {
-      const hasError = checkHasError(uid, uri, photgenicSubject, location);
+      const hasError = checkHasError(uid, uri, photogenicSubject, location);
       if (hasError) return;
-      uploadPostImage(uid, uri);
+      uploadPostImage(uid, uri, photogenicSubject, location);
     };
     navigation.setOptions({
       headerRight: () => (
@@ -193,7 +215,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
         </TouchableOpacity>
       ),
     });
-  }, [uri]);
+  }, [uid, uri, photogenicSubject, location]);
 
   useEffect(() => {
     // マウント時 & typeが異なる時に実行
@@ -230,7 +252,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       scrollViewRef={scrollViewRef}
       setSpaceHeight={setSpaceHeight}
       handleContentSizeChange={handleContentSizeChange}
-      setPhotgenicSubject={setPhotgenicSubject}
+      setPhotogenicSubject={setPhotogenicSubject}
     />
   );
 };

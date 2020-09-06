@@ -18,7 +18,7 @@ type MarkerDate = {
     favoriteNumber: number;
     latitude: number;
     longitude: number;
-    photogenic_subjec: string;
+    photogenic_subject: string;
   };
   coordinate: {
     latitude: number;

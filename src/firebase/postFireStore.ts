@@ -5,7 +5,7 @@ import { db, FieldValue } from "./firebase";
 type PhotoData = {
   latitude: number;
   longitude: number;
-  photogenic_subject: string;
+  photogenicSubject: string;
   uid: string;
   url: string;
 };
@@ -19,7 +19,7 @@ const photosRef = db.collection("photos");
 export const postFireStore: PostFireStore = {
   // photosコレクションにデータを追加
   addImageData: (data: PhotoData) => {
-    const { latitude, longitude, photogenic_subject, uid, url } = data;
+    const { latitude, longitude, photogenicSubject, uid, url } = data;
     const geohashStr = geohash.encode(latitude, longitude);
     return new Promise((resolve) => {
       photosRef
@@ -29,7 +29,7 @@ export const postFireStore: PostFireStore = {
           geohash: geohashStr,
           latitude,
           longitude,
-          photogenic_subject,
+          photogenic_subject: photogenicSubject,
           uid,
           url,
         })

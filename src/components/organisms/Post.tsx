@@ -21,7 +21,7 @@ type Props = {
   scrollViewRef: React.MutableRefObject<ScrollView | null>;
   setSpaceHeight: React.Dispatch<React.SetStateAction<number>>;
   handleContentSizeChange: (width: number, height: number) => void;
-  setPhotgenicSubject: React.Dispatch<React.SetStateAction<string>>;
+  setPhotogenicSubject: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const Post: FC<Props> = ({ ...props }) => {
@@ -32,7 +32,7 @@ const Post: FC<Props> = ({ ...props }) => {
     scrollViewRef,
     setSpaceHeight,
     handleContentSizeChange,
-    setPhotgenicSubject,
+    setPhotogenicSubject,
   } = props;
 
   const width = Dimensions.get("window").width;
@@ -63,7 +63,7 @@ const Post: FC<Props> = ({ ...props }) => {
           <TextInput
             style={styles.photgenicSubjectInput}
             placeholder={"被写体を入力（例 : 東京スカイツリー）"}
-            onChangeText={(text) => setPhotgenicSubject(text)}
+            onChangeText={(text) => setPhotogenicSubject(text)}
             autoCapitalize={"none"}
             keyboardType="default"
             returnKeyType="done"
