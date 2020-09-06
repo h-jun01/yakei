@@ -18,20 +18,23 @@ type Props = {
   navigation: NavigationProp<Record<string, object>>;
 };
 
-const getLocationAddressAsync = async () => {
+const getLocationAddressAsync = async (
+  set: React.Dispatch<React.SetStateAction<string>>
+) => {
   await Permissions.askAsync(Permissions.LOCATION);
   const location = await Location.getCurrentPositionAsync({});
   const latitude = location.coords.latitude;
   const longitude = location.coords.longitude;
   const api = env.GOOGLE_CLOUD_PLATFORM_ID;
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${api}`;
-  return new Promise((resolve) => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        resolve(data.results[2]);
-      });
-  });
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      const address = data.results[0].formatted_address;
+      if (typeof address === "string") {
+        set(address);
+      }
+    });
 };
 
 const PostContainer: FC<Props> = ({ ...props }) => {
@@ -111,12 +114,14 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     });
   }, [type]);
 
-  if (type === "camera") {
-    (async () => {
-      const test = await getLocationAddressAsync();
-      console.log(test);
-    })();
-  }
+  const [address, setAddress] = useState<string>("撮影場所を入力");
+  useEffect(() => {
+    if (type === "camera") {
+      getLocationAddressAsync(setAddress);
+    } else {
+      setAddress("撮影場所を入力");
+    }
+  }, [uri]);
 
   const [spaceHeight, setSpaceHeight] = useState(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
@@ -130,6 +135,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   return (
     <Post
       uri={uri}
+      address={address}
       aspectRatio={aspectRatio}
       scrollViewRef={scrollViewRef}
       setSpaceHeight={setSpaceHeight}

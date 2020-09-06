@@ -5,6 +5,7 @@ import {
   Image,
   TextInput,
   Text,
+  TouchableOpacity,
   Dimensions,
 } from "react-native";
 import KeyboardSpacer from "react-native-keyboard-spacer";
@@ -15,6 +16,7 @@ import MapTintedSvg from "../atoms/svg/MapButtonTintedSvg";
 
 type Props = {
   uri: string;
+  address: string;
   aspectRatio: number;
   scrollViewRef: React.MutableRefObject<ScrollView | null>;
   setSpaceHeight: React.Dispatch<React.SetStateAction<number>>;
@@ -24,6 +26,7 @@ type Props = {
 const Post: FC<Props> = ({ ...props }) => {
   const {
     uri,
+    address,
     aspectRatio,
     scrollViewRef,
     setSpaceHeight,
@@ -75,9 +78,9 @@ const Post: FC<Props> = ({ ...props }) => {
           <View style={[styles.svgWrap, mapSvgAspectRatio]}>
             <MapTintedSvg color={baseColor.text} />
           </View>
-          <View style={styles.locationTextWrap}>
-            <Text style={styles.locationText}>撮影場所を入力</Text>
-          </View>
+          <TouchableOpacity activeOpacity={1} style={styles.locationTextWrap}>
+            <Text style={styles.locationText}>{address}</Text>
+          </TouchableOpacity>
         </View>
 
         <KeyboardSpacer
