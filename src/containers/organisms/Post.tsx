@@ -16,6 +16,8 @@ import { styles } from "../../styles/post";
 import { baseColor } from "../../styles/thema/colors";
 import Post from "../../components/organisms/Post";
 import PaperAirplaneSvg from "../../components/atoms/svg/PaperAirplaneSvg";
+import { postFireStore } from "../../firebase/postFireStore";
+import { callingAlert } from "../../utilities/alert";
 
 type Props = {
   navigation: NavigationProp<Record<string, object>>;
@@ -102,25 +104,23 @@ const getLocationAddressAsync = async (
     });
 };
 
+const uploadPostImage = (uid: string, uri: string) => {
+  const uploadPostImage = postFireStore.getUploadImageFunc(uid, uri);
+  uploadPostImage
+    .then((snapshot) => {
+      console.log("Uploaded successfully!!");
+    })
+    .catch(() => {
+      callingAlert("投稿に失敗しました");
+    });
+};
+
 const PostContainer: FC<Props> = ({ ...props }) => {
   const dispatch = useDispatch();
   const { navigation } = props;
   const { uri, type } = useSelector((state: RootState) => state.postReducer);
   const [aspectRatio, setAspectRatio] = useState<number>(0);
   assignImageAspectRatio(uri, setAspectRatio);
-
-  useEffect(() => {
-    // マウント時にのみ実行
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity activeOpacity={0.6} onPress={() => {}}>
-          <View style={styles.postBtn}>
-            <PaperAirplaneSvg color={baseColor.text} />
-          </View>
-        </TouchableOpacity>
-      ),
-    });
-  }, []);
 
   useEffect(() => {
     // マウント時 & typeが異なる時に実行
@@ -142,6 +142,8 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   }, [type]);
 
   const [address, setAddress] = useState<string>("撮影場所を入力");
+  const uid = useSelector((state: RootState) => state.userReducer.uid);
+
   useEffect(() => {
     // マウント時 & uriが異なる時に実行
     if (type === "camera") {
@@ -149,6 +151,18 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     } else {
       setAddress("撮影場所を入力");
     }
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => uploadPostImage(uid, uri)}
+        >
+          <View style={styles.postBtn}>
+            <PaperAirplaneSvg color={baseColor.text} />
+          </View>
+        </TouchableOpacity>
+      ),
+    });
   }, [uri]);
 
   const [spaceHeight, setSpaceHeight] = useState(0);
