@@ -28,6 +28,7 @@ const userCreation = async (request, response) => {
         img_index: "",
         header_img_index: "",
         self_introduction: "",
+        favorite_list: [],
         create_time: admin.firestore.FieldValue.serverTimestamp(),
         update_time: admin.firestore.FieldValue.serverTimestamp(),
       });
@@ -58,21 +59,6 @@ exports.signUp = functions
     });
   });
 
-// exports.inputPhotoDataList = functions
-//   .region("asia-northeast1")
-//   .auth.user()
-//   .onCreate(async (user) => {
-//     const photoRef = admin.firestore().collection("photos").doc(user.uid);
-//     return await photoRef
-//       .set({
-//         uid: user.uid,
-//         photo_list: [],
-//       })
-//       .catch((error) => {
-//         throw new Error("Profile doesn't exist");
-//       });
-//   });
-
 exports.googleLogin = functions
   .region("asia-northeast1")
   .auth.user()
@@ -88,6 +74,7 @@ exports.googleLogin = functions
         img_index: "",
         header_img_index: "",
         self_introduction: "",
+        favorite_list: [],
         create_time: admin.firestore.FieldValue.serverTimestamp(),
         update_time: admin.firestore.FieldValue.serverTimestamp(),
       })

@@ -1,57 +1,43 @@
 import React, { FC, useState, useEffect } from "react";
-import { Timestamp } from "@google-cloud/firestore";
 import { useSelector, useDispatch } from "react-redux";
+import { Timestamp } from "@google-cloud/firestore";
 import { RootState } from "../../reducers/index";
+import { useDisplayTime } from "../../utilities/hooks/date";
 import { FieldValue } from "../../firebase/firebase";
 import { accountFireStore } from "../../firebase/accountFireStore";
-import { commentFireStore } from "../../firebase/commentFireStore";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { notificationFireStore } from "../../firebase/notificationFireStore";
-import { useDisplayTime } from "../../utilities/hooks/date";
 import { upDateFavoriteList } from "../../actions/user";
-import { setNotificationDataList } from "../../actions/notification";
-import PostedPageItems from "../../components/molecules/PostedPageItems";
+import DetailPostedPageItems from "../../components/molecules/DetailPostedPageItems";
 
 type Props = {
-  navigation: any;
-  photo_id: string;
   uid: string;
-  create_time: Timestamp;
   url: string;
+  photo_id: string;
   latitude: number;
   longitude: number;
+  create_time: Timestamp;
 };
 
-const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
-  const {
-    navigation,
-    photo_id,
-    uid,
-    create_time,
-    url,
-    latitude,
-    longitude,
-  } = props;
+const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
+  const { photo_id, create_time, uid, url } = props;
 
   const selectFavoriteList = (state: RootState) =>
     state.userReducer.favoriteList;
-  const selectNotificationDataList = (state: RootState) =>
-    state.notificationReducer.notificationDataList;
   const selectOpponentUid = (state: RootState) => state.userReducer.uid;
   const selectOpponentUrl = (state: RootState) => state.userReducer.userImg;
   const selectOpponentName = (state: RootState) => state.userReducer.name;
 
   const favoriteList = useSelector(selectFavoriteList);
-  const notificationDataList = useSelector(selectNotificationDataList);
   const opponentUid = useSelector(selectOpponentUid);
   const opponentUrl = useSelector(selectOpponentUrl);
   const opponentName = useSelector(selectOpponentName);
 
-  const [commentCount, setCommentCount] = useState<number>(0);
-  const [favoriteNumber, setFavoriteNumber] = useState<number>(0);
-  const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(false);
+  const [favoriteNumber, setFavoriteNumber] = useState(0);
+  const [isFavoriteStatus, setIsFavoriteStatus] = useState(false);
 
   const dispach = useDispatch();
+
   const date = useDisplayTime(create_time.toMillis());
 
   // お気に入り数取得
@@ -60,13 +46,6 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       setFavoriteNumber(res);
     });
   }, [favoriteList]);
-
-  // コメント数取得
-  useEffect(() => {
-    commentFireStore.getCommentDataList(photo_id).then((res) => {
-      setCommentCount(res.length);
-    });
-  }, []);
 
   // お気に入りチェック
   useEffect(() => {
@@ -123,16 +102,8 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
   };
 
   return (
-    <PostedPageItems
-      navigation={navigation}
-      photo_id={photo_id}
-      uid={uid}
-      create_time={create_time}
-      url={url}
+    <DetailPostedPageItems
       favoriteNumber={favoriteNumber}
-      latitude={latitude}
-      longitude={longitude}
-      commentCount={commentCount}
       date={date}
       isFavoriteStatus={isFavoriteStatus}
       pressedFavorite={pressedFavorite}
@@ -140,4 +111,4 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
   );
 };
 
-export default PostedPageItemsContainer;
+export default DetailPostedPageItemsContainer;

@@ -16,7 +16,6 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     uid,
     create_time,
     url,
-    favoriteNumber,
     latitude,
     longitude,
     photogenic_subjec,
@@ -24,6 +23,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
 
   const selrctCommentDataList = (state: RootState) =>
     state.postedDataReducer.commentDataList;
+
   const commentDataList = useSelector(selrctCommentDataList);
   const textInputRef = useRef<null | TextInput>(null);
   const dispatch = useDispatch();
@@ -52,7 +52,6 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
       uid={uid}
       create_time={create_time}
       url={url}
-      favoriteNumber={favoriteNumber}
       latitude={latitude}
       longitude={longitude}
       photogenic_subjec={photogenic_subjec}

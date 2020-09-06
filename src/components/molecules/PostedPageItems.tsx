@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Timestamp } from "@google-cloud/firestore";
 import { styles } from "../../styles/imageList";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
@@ -18,7 +18,7 @@ type Props = {
   longitude: number;
   commentCount: number;
   isFavoriteStatus: boolean;
-  pressedFavorite: (photo_id: string, favoriteNumber: number) => Promise<void>;
+  pressedFavorite: () => Promise<void>;
 };
 
 const PostedPageItems: FC<Props> = ({ ...props }) => {
@@ -40,19 +40,23 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
   return (
     <Fragment>
       <View style={styles.postItem}>
-        <Text
-          style={styles.PostIcon}
-          onPress={() => pressedFavorite(photo_id, favoriteNumber)}
+        <TouchableOpacity
+          activeOpacity={0.6}
+          style={styles.touchableOpacity}
+          onPress={() => pressedFavorite()}
         >
-          {isFavoriteStatus ? (
-            <AntDesign name="heart" size={15} color="#E0245E" />
-          ) : (
-            <AntDesign name="hearto" size={15} />
-          )}
-        </Text>
-        <Text style={styles.stateNum}>{favoriteNumber}</Text>
-        <Text
-          style={styles.PostIcon}
+          <Text style={styles.PostIcon}>
+            {isFavoriteStatus ? (
+              <AntDesign name="heart" size={15} color="#E0245E" />
+            ) : (
+              <AntDesign name="hearto" size={15} />
+            )}
+          </Text>
+          <Text style={styles.stateNum}>{favoriteNumber}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          style={styles.touchableOpacity}
           onPress={() =>
             navigation.navigate("post", {
               photo_id,
@@ -65,9 +69,11 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
             })
           }
         >
-          <MaterialCommunityIcons name="comment-outline" size={15.5} />
-        </Text>
-        <Text style={styles.stateNum}>{commentCount}</Text>
+          <Text style={styles.PostIcon}>
+            <MaterialCommunityIcons name="comment-outline" size={15.5} />
+          </Text>
+          <Text style={styles.stateNum}>{commentCount}</Text>
+        </TouchableOpacity>
         <Text style={styles.PostIcon}>
           <EvilIcons name="location" size={21} />
         </Text>

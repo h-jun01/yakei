@@ -16,7 +16,6 @@ type PhotoDataList = {
   uid: string;
   create_time: Timestamp;
   url: string;
-  favoriteNumber: number;
   latitude: number;
   longitude: number;
   photogenic_subjec: string;
@@ -47,7 +46,6 @@ const ImageList: FC<Props> = ({ ...props }) => {
                   uid: item.uid,
                   create_time: item.create_time,
                   url: item.url,
-                  favoriteNumber: item.favoriteNumber,
                   latitude: item.latitude,
                   longitude: item.longitude,
                   photogenic_subjec: item.photogenic_subjec,
@@ -66,7 +64,6 @@ const ImageList: FC<Props> = ({ ...props }) => {
               uid={item.uid}
               create_time={item.create_time}
               url={item.url}
-              favoriteNumber={item.favoriteNumber}
               latitude={item.latitude}
               longitude={item.longitude}
             />

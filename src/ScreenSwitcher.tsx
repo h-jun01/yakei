@@ -7,12 +7,14 @@ import { auth } from "./firebase/firebase";
 import { accountFireStore } from "./firebase/accountFireStore";
 import { photoFireStore } from "./firebase/photoFireStore";
 import { noticeFireStore } from "./firebase/noticeFireStore";
+import { notificationFireStore } from "./firebase/notificationFireStore";
 import { RootState } from "./reducers/index";
 import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import { setAllPhotoListData } from "./actions/allPhoto";
 import { setNoticeListData } from "./actions/notice";
+import { setNotificationDataList } from "./actions/notification";
 import Intro from "./containers/organisms/Intro";
 import SignUp from "./containers/organisms/SignUp";
 import SignIn from "./containers/organisms/SignIn";
@@ -29,9 +31,15 @@ import UserScreen from "./screens/UserScreen";
 const ScreenSwitcher: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
   const selectIsLogin = (state: RootState) => state.authReducer.isLogin;
+  const selectNotificationDataList = (state: RootState) =>
+    state.notificationReducer.notificationDataList;
+
   const isLoading = useSelector(selectIsLoading);
   const isLogin = useSelector(selectIsLogin);
+  const notificationDataList = useSelector(selectNotificationDataList);
+
   const dispatch = useDispatch();
+
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
@@ -47,9 +55,9 @@ const ScreenSwitcher: FC = () => {
         await photoFireStore.getPhotoList(user.uid).then((res) => {
           dispatch(setPhotoListData(res));
         });
-        await noticeFireStore.getNoticeList().then((res) => {
-          dispatch(setNoticeListData(res.data()));
-        });
+        // await noticeFireStore.getNoticeList().then((res) => {
+        //   dispatch(setNoticeListData(res.data()));
+        // });
         dispatch(loadingStatusChange(true));
         dispatch(loginStatusChange(true));
       } else {

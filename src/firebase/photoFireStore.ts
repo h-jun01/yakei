@@ -10,7 +10,11 @@ type PhotoFireStore = {
     longitude: number
   ) => Promise<firebase.firestore.DocumentData[]>;
   getFavoriteNumber: (photo_id: string) => Promise<number>;
-  updateFavoriteNumber: (
+  IncrementFavoriteNumber: (
+    photo_id: string,
+    favoriteNumber: number
+  ) => Promise<void>;
+  DecrementFavoriteNumber: (
     photo_id: string,
     favoriteNumber: number
   ) => Promise<void>;
@@ -70,10 +74,15 @@ export const photoFireStore: PhotoFireStore = {
         return (await res.data()?.favoriteNumber) as number;
       });
   },
-  // お気に入り数の更新
-  updateFavoriteNumber: async (photo_id: string, favoriteNumber: number) => {
+  // お気に入り数の増加
+  IncrementFavoriteNumber: async (photo_id: string, favoriteNumber: number) => {
     photo.doc(photo_id).update({
       favoriteNumber: favoriteNumber + 1,
+    });
+  },
+  DecrementFavoriteNumber: async (photo_id: string, favoriteNumber: number) => {
+    photo.doc(photo_id).update({
+      favoriteNumber: favoriteNumber - 1,
     });
   },
 };
