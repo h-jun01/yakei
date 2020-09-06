@@ -1,4 +1,3 @@
-import firebase from "firebase";
 import geohash from "ngeohash";
 import { db, FieldValue } from "./firebase";
 
@@ -10,7 +9,7 @@ type PhotoData = {
   url: string;
 };
 type PostFireStore = {
-  addImageData: (data: PhotoData) => Promise<string>;
+  addImageData: (data: PhotoData) => Promise<{ state: string; docId?: string }>;
   addPhotoId: (docId: string) => Promise<string>;
 };
 
@@ -35,14 +34,15 @@ export const postFireStore: PostFireStore = {
         })
         .then(async (docRef) => {
           const addIdResult = await postFireStore.addPhotoId(docRef.id);
-          if (addIdResult === "error") resolve("error");
-          resolve("success");
+          if (addIdResult === "error") resolve({ state: "error" });
+          resolve({ state: "success", docId: docRef.id });
         })
         .catch((error) => {
-          resolve("error");
+          resolve({ state: "error" });
         });
     });
   },
+  // ランダム生成されたドキュメントIDをphoto_idフィールドに追加
   addPhotoId: (docId: string) => {
     return new Promise((resolve) => {
       photosRef
@@ -58,4 +58,5 @@ export const postFireStore: PostFireStore = {
         });
     });
   },
+  // getPhotoData: (ref: )
 };

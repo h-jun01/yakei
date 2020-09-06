@@ -169,7 +169,7 @@ const uploadPostImage = async (
     url,
     photogenicSubject,
   });
-  if (firestoreResult === "error") {
+  if (firestoreResult.state === "error") {
     callingAlert("投稿に失敗しました");
     return;
   }
@@ -187,6 +187,12 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const [spaceHeight, setSpaceHeight] = useState(0);
   const [photogenicSubject, setPhotogenicSubject] = useState("");
   const uid = useSelector((state: RootState) => state.userReducer.uid);
+  const allPhotoDataList = useSelector(
+    (state: RootState) => state.allPhotoReducer.allPhotoDataList
+  );
+  const myPhotoDataList = useSelector(
+    (state: RootState) => state.myPhotoReducer.photoDataList
+  );
 
   assignImageAspectRatio(uri, setAspectRatio);
 
