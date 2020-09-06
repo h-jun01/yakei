@@ -18,6 +18,15 @@ export const setUserData = (
     },
   } as const);
 
+// デバイストークンをセット
+export const setDeviceToken = (token: string) =>
+  ({
+    type: ActionTypes.SET_DEVICE_TOKEN,
+    payload: {
+      token,
+    },
+  } as const);
+
 //ユーザ名の更新
 export const upDateUserName = (name: string) =>
   ({

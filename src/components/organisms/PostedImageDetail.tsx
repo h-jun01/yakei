@@ -16,7 +16,7 @@ type Props = {
   url: string;
   latitude: number;
   longitude: number;
-  photogenic_subjec: string;
+  photogenic_subject: string;
   commentDataList: firebase.firestore.DocumentData[];
   textInputRef: MutableRefObject<TextInput | null>;
   focusOnInput: () => void;
@@ -30,7 +30,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     url,
     latitude,
     longitude,
-    photogenic_subjec,
+    photogenic_subject,
     commentDataList,
     textInputRef,
     focusOnInput,
@@ -42,7 +42,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
         <View>
           <InformationUserPosted
             uid={uid}
-            photogenic_subjec={photogenic_subjec}
+            photogenic_subject={photogenic_subject}
           />
           <Image
             style={styles.image}

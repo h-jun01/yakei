@@ -15,6 +15,8 @@ type AccountFireStore = {
   >;
   getUserName: (uid: string) => Promise<React.SetStateAction<string>>;
   getUserImage: (uid: string) => Promise<React.SetStateAction<string>>;
+  getDeviceToken: (uid: string) => Promise<string>;
+  saveDeviceToken: (uid: string, token: string) => Promise<void>;
   loginUser: (
     email: string,
     password: string
@@ -60,6 +62,17 @@ export const accountFireStore: AccountFireStore = {
   getUserImage: async (uid: string) => {
     return await accountFireStore.getUser(uid).then(async (res) => {
       return (await res.data()?.user_img) as string;
+    });
+  },
+  getDeviceToken: async (uid: string) => {
+    return await accountFireStore.getUser(uid).then(async (res) => {
+      return (await res.data()?.token) as string;
+    });
+  },
+  // デバイスのトークンを保存
+  saveDeviceToken: async (uid: string, token: string) => {
+    await user.doc(uid).update({
+      token,
     });
   },
   //ログイン処理

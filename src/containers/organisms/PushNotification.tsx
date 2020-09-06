@@ -108,7 +108,7 @@ const PushNotification = () => {
   const _handleNotification = (notification) => {
     Vibration.vibrate(400);
     console.log(notification);
-    setNotification({ notification });
+    // setNotification({ notification });
   };
 
   // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
@@ -121,7 +121,8 @@ const PushNotification = () => {
       data: { data: "goes here" },
       _displayInForeground: true,
     };
-    const response = await fetch("https://exp.host/--/api/v2/push/send", {
+
+    await fetch("https://exp.host/--/api/v2/push/send", {
       method: "POST",
       headers: {
         Accept: "application/json",

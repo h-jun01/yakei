@@ -59,7 +59,7 @@ const User: FC<Props> = ({ ...props }) => {
             </Text>
           </View>
         </View>
-        <PushNotification />
+        {/* <PushNotification /> */}
         <TabMenu navigation={navigation} />
       </View>
     </ScrollView>

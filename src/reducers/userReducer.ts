@@ -2,6 +2,7 @@ import { Reducer } from "redux";
 import { ActionTypes, UnionedAction } from "../actions/index";
 
 type State = {
+  token: string;
   uid: string;
   name: string;
   userImg: string;
@@ -15,6 +16,7 @@ type State = {
 type UserReducer = Reducer<State, UnionedAction>;
 
 const initialState: State = {
+  token: "",
   uid: "",
   name: "",
   userImg: "",
@@ -41,6 +43,11 @@ export const userReducer: UserReducer = (
         headerImgIndex: action.payload.headerImgIndex,
         selfIntroduction: action.payload.selfIntroduction,
         favoriteList: action.payload.favoriteList,
+      };
+    case ActionTypes.SET_DEVICE_TOKEN:
+      return {
+        ...state,
+        token: action.payload.token,
       };
     case ActionTypes.UPDATE_USER_NAME:
       return {
