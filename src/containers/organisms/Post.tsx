@@ -31,6 +31,7 @@ type Location = {
   longitude?: number;
   address: string;
 };
+type DocumentData = firebase.firestore.DocumentData;
 
 const assignImageAspectRatio = (
   uri: string,
@@ -151,7 +152,7 @@ const uploadPostImage = async (
   uri: string,
   photogenicSubject: string,
   location: Location
-): Promise<undefined | firebase.firestore.DocumentData> => {
+): Promise<undefined | DocumentData> => {
   const ref = postFirebaseStorage.getUploadRef(uid);
   const storageResult = await postFirebaseStorage.uploadPostImage(ref, uri);
   if (storageResult === "error") {
@@ -187,16 +188,32 @@ const uploadPostImage = async (
   return data;
 };
 
+const dispatchPhotoData = (
+  dispatch: Dispatch,
+  selectedPhotoData: {
+    allPhotoDataList: DocumentData[];
+    myPhotoDataList: DocumentData[];
+  },
+  photoData: DocumentData
+) => {
+  const newAllPhotos = selectedPhotoData.allPhotoDataList.slice();
+  const newMyPhotos = selectedPhotoData.myPhotoDataList.slice();
+  newAllPhotos.push(photoData);
+  newMyPhotos.push(photoData);
+  dispatch(setAllPhotoListData(newAllPhotos));
+  dispatch(setPhotoListData(newMyPhotos));
+};
+
 const PostContainer: FC<Props> = ({ ...props }) => {
   const dispatch = useDispatch();
   const { navigation } = props;
   const { uri, type } = useSelector((state: RootState) => state.postReducer);
-  const [aspectRatio, setAspectRatio] = useState<number>(0);
   const [location, setLocation] = useState<Location>({
     address: "撮影場所を入力",
   });
   const [spaceHeight, setSpaceHeight] = useState(0);
   const [photogenicSubject, setPhotogenicSubject] = useState("");
+  const [aspectRatio, setAspectRatio] = useState<number>(0);
   const uid = useSelector((state: RootState) => state.userReducer.uid);
   const allPhotoDataList = useSelector(
     (state: RootState) => state.allPhotoReducer.allPhotoDataList
@@ -204,8 +221,6 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const myPhotoDataList = useSelector(
     (state: RootState) => state.myPhotoReducer.photoDataList
   );
-
-  assignImageAspectRatio(uri, setAspectRatio);
 
   useEffect(() => {
     // マウント時 & uriが異なる時に実行
@@ -228,12 +243,10 @@ const PostContainer: FC<Props> = ({ ...props }) => {
         location
       );
       if (!photoData) return;
-      const newAllPhotos = allPhotoDataList.slice();
-      const newMyPhotos = myPhotoDataList.slice();
-      newAllPhotos.push(photoData);
-      newMyPhotos.push(photoData);
-      dispatch(setAllPhotoListData(newAllPhotos));
-      dispatch(setPhotoListData(newMyPhotos));
+      const selectedPhotoData = { allPhotoDataList, myPhotoDataList };
+      dispatchPhotoData(dispatch, selectedPhotoData, photoData);
+      // navigation.navigate("postedImageDetail", {
+      // })
     };
     navigation.setOptions({
       headerRight: () => (
@@ -272,6 +285,8 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       y: height - spaceHeight,
     });
   };
+
+  assignImageAspectRatio(uri, setAspectRatio);
 
   return (
     <Post
