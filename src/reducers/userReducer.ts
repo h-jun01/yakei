@@ -1,5 +1,5 @@
-import { ActionTypes, UnionedAction } from "../actions/index";
 import { Reducer } from "redux";
+import { ActionTypes, UnionedAction } from "../actions/index";
 
 type State = {
   uid: string;
@@ -9,7 +9,7 @@ type State = {
   imgIndex: string;
   headerImgIndex: string;
   selfIntroduction: string;
-  favoriteList: firebase.firestore.DocumentData[];
+  favoriteList: string[];
 };
 
 type UserReducer = Reducer<State, UnionedAction>;
@@ -28,7 +28,7 @@ const initialState: State = {
 export const userReducer: UserReducer = (
   state = initialState,
   action: UnionedAction
-) => {
+): State => {
   switch (action.type) {
     case ActionTypes.USER_DATA:
       return {
@@ -71,6 +71,11 @@ export const userReducer: UserReducer = (
       return {
         ...state,
         selfIntroduction: action.payload.selfIntroduction,
+      };
+    case ActionTypes.UPDATE_FAVORITE_LIST:
+      return {
+        ...state,
+        favoriteList: action.payload.favoriteList,
       };
     default: {
       return state;

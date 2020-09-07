@@ -2,24 +2,24 @@ import { Reducer } from "redux";
 import { ActionTypes, UnionedAction } from "../actions/index";
 
 type State = {
-  allPhotoDataList: firebase.firestore.DocumentData[];
+  favoriteItems: firebase.firestore.DocumentData[];
 };
 
-type AllPhotoReducer = Reducer<State, UnionedAction>;
+type FavoriteReducer = Reducer<State, UnionedAction>;
 
 const initialState: State = {
-  allPhotoDataList: [],
+  favoriteItems: [],
 };
 
-export const allPhotoReducer: AllPhotoReducer = (
+export const favoriteReducer: FavoriteReducer = (
   state = initialState,
   action: UnionedAction
 ): State => {
   switch (action.type) {
-    case ActionTypes.PHOTO_ALL_DATA_LIST:
+    case ActionTypes.SET_FAVORITE_ITEMS:
       return {
         ...state,
-        allPhotoDataList: action.payload.allPhotoDataList,
+        favoriteItems: action.payload.favoriteItems,
       };
     default: {
       return state;

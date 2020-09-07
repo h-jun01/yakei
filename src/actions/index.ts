@@ -6,11 +6,9 @@ import { setShouldDisplayBottomNav } from "./bottomNav";
 import { setShouldAppearPostBtns } from "./cameraAndAlbum";
 import { setPostData } from "./post";
 import { setShouldNavigateMap } from "./mapNavigate";
-import {
-  setCommentDataList,
-  setInputCommentValue,
-  setIsInputForm,
-} from "./postedData";
+import { setFavoriteItems } from "./favorite";
+import { setNotificationDataList } from "./notification";
+import { setCommentDataList, setIsInputForm } from "./postedData";
 import {
   setUserData,
   upDateUserName,
@@ -19,6 +17,7 @@ import {
   upDateUserProfileHeaderImage,
   upDateUserImgIndex,
   upDateUserHeaderImgIndex,
+  upDateFavoriteList,
 } from "./user";
 
 export enum ActionTypes {
@@ -28,7 +27,6 @@ export enum ActionTypes {
   PHOTO_DATA_LIST = "PHOTO_DATA_LIST",
   PHOTO_ALL_DATA_LIST = "PHOTO_ALL_DATA_LIST",
   COMMENT_DATA_LIST = "COMMENT_DATA_LIST",
-  INPUT_COMMENT_VALUE = "INPUT_COMMENT_VALUE",
   INPUT_FORM_STATUS = "INPUT_FORM_STATUS",
   NOTICE_DATA_LIST = "NOTICE_DATA_LIST",
   UPDATE_USER_NAME = "UPDATE_USER_NAME",
@@ -37,10 +35,13 @@ export enum ActionTypes {
   UPDATE_PROFILE_HEADER_IMAGE = "UPDATE_PROFILE_HEADER_IMAGE",
   UPDATE_IMG_INDEX = "UPDATE_IMG_INDEX",
   UPDATE_HEADER_IMG_INDEX = "UPDATE_HEADER_IMG_INDEX",
+  UPDATE_FAVORITE_LIST = "UPDATE_FAVORITE_LIST",
   SET_SHOULD_DISPLAY_BOTTOM_NAV = "SET_SHOULD_DISPLAY_BOTTOM_NAV",
   SET_SHOULD_APPEAR_POST_BTNS = "SET_SHOULD_APPEAR_POST_BTNS",
   SET_POST_DATA = "SET_POST_DATA",
   SET_SHOULD_NAVIGATE = "SET_SHOULD_NAVIGATE",
+  SET_FAVORITE_ITEMS = "SET_FAVORITE_ITEMS",
+  SET_NOTIFICATION_DATA_LIST = "SET_NOTIFICATION_DATA_LIST",
 }
 
 export type UnionedAction =
@@ -50,7 +51,6 @@ export type UnionedAction =
   | ReturnType<typeof setPhotoListData>
   | ReturnType<typeof setAllPhotoListData>
   | ReturnType<typeof setCommentDataList>
-  | ReturnType<typeof setInputCommentValue>
   | ReturnType<typeof setIsInputForm>
   | ReturnType<typeof setNoticeListData>
   | ReturnType<typeof upDateUserName>
@@ -59,7 +59,10 @@ export type UnionedAction =
   | ReturnType<typeof upDateUserProfileHeaderImage>
   | ReturnType<typeof upDateUserImgIndex>
   | ReturnType<typeof upDateUserHeaderImgIndex>
+  | ReturnType<typeof upDateFavoriteList>
   | ReturnType<typeof setShouldDisplayBottomNav>
   | ReturnType<typeof setShouldAppearPostBtns>
   | ReturnType<typeof setPostData>
-  | ReturnType<typeof setShouldNavigateMap>;
+  | ReturnType<typeof setShouldNavigateMap>
+  | ReturnType<typeof setFavoriteItems>
+  | ReturnType<typeof setNotificationDataList>;

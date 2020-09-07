@@ -39,6 +39,7 @@ export const styles = StyleSheet.create({
     color: baseColor.text,
     fontWeight: "500",
     marginRight: wp(".5%"),
+    marginLeft: wp(".5%"),
   },
   favoriteNumber: {
     color: baseColor.text,
@@ -90,7 +91,6 @@ export const styles = StyleSheet.create({
     color: "#505050",
   },
 
-  //何ここ
   input: {
     width: deviceWidth / 1.15,
     minHeight: 30,
@@ -148,5 +148,8 @@ export const styles = StyleSheet.create({
     color: baseColor.grayText,
     fontSize: Size.Small,
     fontWeight: "400",
+  },
+  touchableOpacity: {
+    flexDirection: "row",
   },
 });

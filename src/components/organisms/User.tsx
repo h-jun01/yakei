@@ -7,6 +7,8 @@ import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 import UserImage from "../atoms/UserImage";
 import TabMenu from "../../containers/molecules/TabMenu";
 
+import PushNotification from "../../containers/organisms/PushNotification";
+
 type Props = {
   navigation: any;
   name: string;
@@ -14,6 +16,7 @@ type Props = {
   headerImage: string;
   selfIntroduction: string;
   myPhotoDataListCount: number;
+  favoriteListCount: number;
 };
 
 const User: FC<Props> = ({ ...props }) => {
@@ -24,6 +27,7 @@ const User: FC<Props> = ({ ...props }) => {
     headerImage,
     selfIntroduction,
     myPhotoDataListCount,
+    favoriteListCount,
   } = props;
 
   return (
@@ -45,7 +49,7 @@ const User: FC<Props> = ({ ...props }) => {
             <Text style={styles.userIntro}>{selfIntroduction}</Text>
             <View style={styles.userState}>
               <Text style={styles.stateText}>{myPhotoDataListCount}投稿</Text>
-              <Text style={styles.stateText}>いいね数</Text>
+              <Text style={styles.stateText}>{favoriteListCount}いいね</Text>
             </View>
             <Text
               style={styles.buttonItem}
@@ -55,6 +59,7 @@ const User: FC<Props> = ({ ...props }) => {
             </Text>
           </View>
         </View>
+        {/* <PushNotification /> */}
         <TabMenu navigation={navigation} />
       </View>
     </ScrollView>

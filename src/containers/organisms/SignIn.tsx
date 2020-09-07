@@ -58,11 +58,8 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
         callingAlert("パスワードは6文字以上の半角英数字で入力してください");
         return;
       }
-      setIsLoading(true);
-
       await accountFireStore.loginUser(email, password);
     } catch (error) {
-      setIsLoading(false);
       console.log(error.toString());
     }
   };

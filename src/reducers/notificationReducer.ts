@@ -2,24 +2,24 @@ import { Reducer } from "redux";
 import { ActionTypes, UnionedAction } from "../actions/index";
 
 type State = {
-  allPhotoDataList: firebase.firestore.DocumentData[];
+  notificationDataList: firebase.firestore.DocumentData[];
 };
 
-type AllPhotoReducer = Reducer<State, UnionedAction>;
+type NotificationReducer = Reducer<State, UnionedAction>;
 
 const initialState: State = {
-  allPhotoDataList: [],
+  notificationDataList: [],
 };
 
-export const allPhotoReducer: AllPhotoReducer = (
+export const notificationReducer: NotificationReducer = (
   state = initialState,
   action: UnionedAction
 ): State => {
   switch (action.type) {
-    case ActionTypes.PHOTO_ALL_DATA_LIST:
+    case ActionTypes.SET_NOTIFICATION_DATA_LIST:
       return {
         ...state,
-        allPhotoDataList: action.payload.allPhotoDataList,
+        notificationDataList: action.payload.notificationDataList,
       };
     default: {
       return state;

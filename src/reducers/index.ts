@@ -9,6 +9,8 @@ import { bottomNavReducer } from "./bottomNavReducer";
 import { postBtnsReducer } from "./postBtnsReducer";
 import { postReducer } from "./postReducer";
 import { mapNavigateReducer } from "./mapNavigateReducer";
+import { favoriteReducer } from "./favoriteReducer";
+import { notificationReducer } from "./notificationReducer";
 
 export const rootReducer = combineReducers({
   authReducer,
@@ -21,6 +23,8 @@ export const rootReducer = combineReducers({
   postBtnsReducer,
   postReducer,
   mapNavigateReducer,
+  favoriteReducer,
+  notificationReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

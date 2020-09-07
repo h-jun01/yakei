@@ -1,4 +1,5 @@
 import React, { FC, Fragment, useEffect } from "react";
+import { Vibration, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -7,12 +8,17 @@ import { auth } from "./firebase/firebase";
 import { accountFireStore } from "./firebase/accountFireStore";
 import { photoFireStore } from "./firebase/photoFireStore";
 import { noticeFireStore } from "./firebase/noticeFireStore";
+import { notificationFireStore } from "./firebase/notificationFireStore";
 import { RootState } from "./reducers/index";
 import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import { setAllPhotoListData } from "./actions/allPhoto";
 import { setNoticeListData } from "./actions/notice";
+import { setNotificationDataList } from "./actions/notification";
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
+import Constants from "expo-constants";
 import Intro from "./containers/organisms/Intro";
 import SignUp from "./containers/organisms/SignUp";
 import SignIn from "./containers/organisms/SignIn";
@@ -31,11 +37,53 @@ import { baseColor } from "./styles/thema/colors";
 const ScreenSwitcher: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
   const selectIsLogin = (state: RootState) => state.authReducer.isLogin;
+  const selectUid = (state: RootState) => state.userReducer.uid;
+
   const isLoading = useSelector(selectIsLoading);
   const isLogin = useSelector(selectIsLogin);
+  const uid = useSelector(selectUid);
+
   const dispatch = useDispatch();
+
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
+
+  const registerForPushNotificationsAsync = async () => {
+    // パーミッションを取得
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
+      // 既に許可されている場合何もしない
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS
+        );
+        finalStatus = status;
+      }
+      // 許可されなかった場合何もしない
+      if (finalStatus !== "granted") {
+        return;
+      }
+      // トークン生成
+      const token = await Notifications.getExpoPushTokenAsync();
+      accountFireStore.saveDeviceToken(uid, token);
+    }
+    // androidの設定
+    if (Platform.OS === "android") {
+      Notifications.createChannelAndroidAsync("default", {
+        name: "default",
+        sound: true,
+        priority: "max",
+        vibrate: [0, 250, 250, 250],
+      });
+    }
+  };
+
+  const _handleNotification = () => {
+    Vibration.vibrate(400);
+  };
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
@@ -57,6 +105,21 @@ const ScreenSwitcher: FC = () => {
       } else {
         dispatch(loginStatusChange(false));
         dispatch(loadingStatusChange(true));
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        registerForPushNotificationsAsync();
+
+        // Handle notifications that are received or selected while the app
+        // is open. If the app was closed and then opened by tapping the
+        // notification (rather than just tapping the app icon to open it),
+        // this function will fire on the next tick after the app starts
+        // with the notification data.
+        Notifications.addListener(_handleNotification);
       }
     });
   }, []);

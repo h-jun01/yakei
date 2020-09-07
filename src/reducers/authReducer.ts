@@ -1,5 +1,5 @@
-import { ActionTypes, UnionedAction } from "../actions/index";
 import { Reducer } from "redux";
+import { ActionTypes, UnionedAction } from "../actions/index";
 
 type State = {
   isLoading: boolean;
@@ -16,7 +16,7 @@ const initialState: State = {
 export const authReducer: AuthReducer = (
   state = initialState,
   action: UnionedAction
-) => {
+): State => {
   switch (action.type) {
     case ActionTypes.LOADING_STATUS:
       return {
