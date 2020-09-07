@@ -35,14 +35,11 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   const selectFavoriteList = (state: RootState) =>
     state.userReducer.favoriteList;
-  const selectNotificationDataList = (state: RootState) =>
-    state.notificationReducer.notificationDataList;
   const selectOpponentUid = (state: RootState) => state.userReducer.uid;
   const selectOpponentUrl = (state: RootState) => state.userReducer.userImg;
   const selectOpponentName = (state: RootState) => state.userReducer.name;
 
   const favoriteList = useSelector(selectFavoriteList);
-  const notificationDataList = useSelector(selectNotificationDataList);
   const opponentUid = useSelector(selectOpponentUid);
   const opponentUrl = useSelector(selectOpponentUrl);
   const opponentName = useSelector(selectOpponentName);
@@ -50,6 +47,7 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
   const [commentCount, setCommentCount] = useState<number>(0);
   const [favoriteNumber, setFavoriteNumber] = useState<number>(0);
   const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(false);
+  const [token, setToken] = useState<string>("");
 
   const dispach = useDispatch();
   const date = useDisplayTime(create_time.toMillis());
@@ -70,12 +68,37 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   // お気に入りチェック
   useEffect(() => {
-    if (favoriteList.indexOf(photo_id) !== -1) {
-      setIsFavoriteStatus(true);
-    } else {
-      setIsFavoriteStatus(false);
-    }
+    favoriteList.indexOf(photo_id) !== -1
+      ? setIsFavoriteStatus(true)
+      : setIsFavoriteStatus(false);
   });
+
+  // useEffect(() => {
+  //   accountFireStore.getDeviceToken(uid).then((res) => {
+  //     res && setToken(res);
+  //   });
+  // }, []);
+
+  const sendPushNotification = async (token: string) => {
+    const message = {
+      to: token,
+      sound: "default",
+      title: "Original Title",
+      body: "And here is the body!",
+      data: { data: "goes here" },
+      _displayInForeground: true,
+    };
+
+    await fetch("https://exp.host/--/api/v2/push/send", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Accept-encoding": "gzip, deflate",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(message),
+    });
+  };
 
   // お気に入り押下時
   const pressedFavorite = async () => {
@@ -83,7 +106,7 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       setIsFavoriteStatus(true);
 
       await accountFireStore.updateFavoriteList(photo_id);
-      await photoFireStore.IncrementFavoriteNumber(photo_id, favoriteNumber);
+      await photoFireStore.IncrementFavoriteNumber(photo_id);
       await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
         setFavoriteNumber(res);
       });
@@ -106,10 +129,13 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
         await notificationFireStore.notificationOpponentFavorite(
           notificationItems
         );
+        await accountFireStore.getDeviceToken(uid).then(async (res) => {
+          await sendPushNotification(res);
+        });
       }
     } else {
       await accountFireStore.deleteFavoriteItem(photo_id);
-      await photoFireStore.DecrementFavoriteNumber(photo_id, favoriteNumber);
+      await photoFireStore.DecrementFavoriteNumber(photo_id);
       await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
         setFavoriteNumber(res);
       });

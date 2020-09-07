@@ -40,7 +40,7 @@ export const notificationFireStore: NotificationFireStore = {
 
   //     return notificationDataList;
   //   },
-  // お気に入りされた時に通知を更新
+  // お気に入り時の通知を更新
   notificationOpponentFavorite: async ({ ...notificationItems }) => {
     await user
       .doc(notificationItems.uid)
