@@ -1,5 +1,12 @@
 import React, { FC, useEffect, useState, useRef } from "react";
-import { View, TouchableOpacity, Alert, Image, ScrollView } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Alert,
+  Image,
+  ScrollView,
+} from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useDispatch, useSelector } from "react-redux";
 import type { Dispatch } from "redux";
@@ -121,33 +128,23 @@ const getLocationAddressAsync = async (
     });
 };
 
-const checkHasError = (
+const checkError = (
   uid: string,
   uri: string,
   photogenicSubject: string,
   location: Location
-) => {
-  if (!uid) {
-    callingAlert(
-      "ユーザーを認識できませんでした。もう一度投稿し直してください。"
-    );
-    return true;
-  } else if (!uri) {
-    callingAlert("画像を認識できません。もう一度投稿し直してください。");
-    return true;
-  } else if (!photogenicSubject) {
-    callingAlert("被写体の名称を入力してください。");
-    return;
-  } else if (
+): string | false => {
+  if (!uid)
+    return "ユーザーを認識できませんでした。もう一度投稿し直してください。";
+  if (!uri) return "画像を認識できません。もう一度投稿し直してください。";
+  if (!photogenicSubject) return "被写体の名称を入力してください。";
+  if (
     location.latitude === undefined ||
     location.longitude === undefined ||
     location.address === "撮影場所を入力"
-  ) {
-    callingAlert("位置情報を選択してください。");
-    return true;
-  } else {
-    return false;
-  }
+  )
+    return "位置情報を選択してください。";
+  return false;
 };
 
 const uploadPostImage = async (
@@ -207,6 +204,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   });
   const [photogenicSubject, setPhotogenicSubject] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isDisabled, setIsDisable] = useState<boolean>(false);
   const [spaceHeight, setSpaceHeight] = useState(0);
   const [aspectRatio, setAspectRatio] = useState<number>(0);
   const uid = useSelector((state: RootState) => state.userReducer.uid);
@@ -229,24 +227,28 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   // 投稿ボタン押下時の処理を定義
   useEffect(() => {
     const onPress = async () => {
-      const hasError = await checkHasError(
-        uid,
-        uri,
-        photogenicSubject,
-        location
-      );
-      if (hasError) return;
-
+      if (isLoading || isDisabled) return;
       setIsLoading(true);
+      setIsDisable(true);
+
+      const error = await checkError(uid, uri, photogenicSubject, location);
+      if (error) {
+        setIsLoading(false);
+        setIsDisable(false);
+        callingAlert(error);
+        return;
+      }
+
       const photoData = await uploadPostImage(
         uid,
         uri,
         photogenicSubject,
         location
       );
-      setIsLoading(false);
 
       if (!photoData) {
+        setIsLoading(false);
+        setIsDisable(false);
         callingAlert("投稿に失敗しました");
         return;
       }
@@ -258,15 +260,19 @@ const PostContainer: FC<Props> = ({ ...props }) => {
         imageData: photoData,
         shouldHeaderLeftBeCross: true,
       });
+      setIsLoading(false);
     };
 
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity activeOpacity={0.6} onPress={() => onPress()}>
+        <TouchableWithoutFeedback
+          onPress={() => onPress()}
+          disabled={isDisabled}
+        >
           <View style={styles.postBtn}>
             <PaperAirplaneSvg color={baseColor.text} />
           </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       ),
     });
   }, [uid, uri, photogenicSubject, location]);
