@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { deviceWidth } from "../../utilities/dimensions";
 
 type Props = {
   heading: string;
@@ -7,15 +8,25 @@ type Props = {
 
 const HelpHeading: FC<Props> = ({ heading }) => {
   return (
-    <View>
-      <Text>{heading}</Text>
+    <View style={styles.backColor}>
+      <Text style={styles.textColor}>{heading}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  backColor: {
+    width: deviceWidth / 1.12,
+    height: 44,
+    backgroundColor: "#505e83",
+    justifyContent: "center",
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  textColor: {
+    fontWeight: "bold",
+    color: "#fff",
+    marginLeft: 20,
   },
 });
 
