@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState, useRef } from "react";
 import { View, TouchableOpacity, Alert, Image, ScrollView } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 import { useDispatch, useSelector } from "react-redux";
 import type { Dispatch } from "redux";
 import firebase from "firebase";
@@ -65,6 +66,7 @@ const onPressOfAlbum = async (dispatch: Dispatch) => {
   });
 
   if (result.cancelled) {
+    // マップ画面に遷移
     dispatch(setShouldDisplayBottomNav(true));
     dispatch(setShouldNavigateMap(true));
   } else {
@@ -88,6 +90,7 @@ const onPressOfCamera = async (dispatch: Dispatch) => {
   });
 
   if (result.cancelled) {
+    // マップ画面に遷移
     dispatch(setShouldDisplayBottomNav(true));
     dispatch(setShouldNavigateMap(true));
   } else {
@@ -155,15 +158,9 @@ const uploadPostImage = async (
 ): Promise<undefined | DocumentData> => {
   const ref = postFirebaseStorage.getUploadRef(uid);
   const storageResult = await postFirebaseStorage.uploadPostImage(ref, uri);
-  if (storageResult === "error") {
-    callingAlert("投稿に失敗しました");
-    return;
-  }
+  if (storageResult === "error") return;
   const url = await postFirebaseStorage.getImageUrl(ref);
-  if (url === "error") {
-    callingAlert("投稿に失敗しました");
-    return;
-  }
+  if (url === "error") return;
   if (location.latitude === undefined) return;
   if (location.longitude === undefined) return;
   const firestoreResult = await postFireStore.addImageData({
@@ -174,10 +171,7 @@ const uploadPostImage = async (
     photogenicSubject,
   });
   const docId = firestoreResult.docId;
-  if (firestoreResult.state === "error" || docId === undefined) {
-    callingAlert("投稿に失敗しました");
-    return;
-  }
+  if (firestoreResult.state === "error" || docId === undefined) return;
   const photoDataResult = await postFireStore.getPhotoData(docId);
   const data = photoDataResult.data;
   if (photoDataResult.state === "error" || data === undefined) {
@@ -211,8 +205,9 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const [location, setLocation] = useState<Location>({
     address: "撮影場所を入力",
   });
-  const [spaceHeight, setSpaceHeight] = useState(0);
   const [photogenicSubject, setPhotogenicSubject] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [spaceHeight, setSpaceHeight] = useState(0);
   const [aspectRatio, setAspectRatio] = useState<number>(0);
   const uid = useSelector((state: RootState) => state.userReducer.uid);
   const allPhotoDataList = useSelector(
@@ -241,20 +236,30 @@ const PostContainer: FC<Props> = ({ ...props }) => {
         location
       );
       if (hasError) return;
+
+      setIsLoading(true);
       const photoData = await uploadPostImage(
         uid,
         uri,
         photogenicSubject,
         location
       );
-      if (!photoData) return;
+      setIsLoading(false);
+
+      if (!photoData) {
+        callingAlert("投稿に失敗しました");
+        return;
+      }
+
       const selectedPhotoData = { allPhotoDataList, myPhotoDataList };
       dispatchPhotoData(dispatch, selectedPhotoData, photoData);
+      console.log(photoData.photo_id);
       navigation.navigate("postedImageDetail", {
         imageData: photoData,
         shouldHeaderLeftBeCross: true,
       });
     };
+
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity activeOpacity={0.6} onPress={() => onPress()}>
@@ -296,15 +301,23 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   assignImageAspectRatio(uri, setAspectRatio);
 
   return (
-    <Post
-      uri={uri}
-      address={location.address}
-      aspectRatio={aspectRatio}
-      scrollViewRef={scrollViewRef}
-      setSpaceHeight={setSpaceHeight}
-      handleContentSizeChange={handleContentSizeChange}
-      setPhotogenicSubject={setPhotogenicSubject}
-    />
+    <>
+      <Post
+        uri={uri}
+        address={location.address}
+        aspectRatio={aspectRatio}
+        scrollViewRef={scrollViewRef}
+        setSpaceHeight={setSpaceHeight}
+        handleContentSizeChange={handleContentSizeChange}
+        setPhotogenicSubject={setPhotogenicSubject}
+      />
+      <Spinner
+        visible={isLoading}
+        textContent="保存中..."
+        textStyle={{ color: "#fff", fontSize: 13 }}
+        overlayColor="rgba(0,0,0,0.5)"
+      />
+    </>
   );
 };
 
