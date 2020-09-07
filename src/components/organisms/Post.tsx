@@ -63,6 +63,7 @@ const Post: FC<Props> = ({ ...props }) => {
           <TextInput
             style={styles.photgenicSubjectInput}
             placeholder={"被写体を入力（例 : 東京スカイツリー）"}
+            maxLength={25}
             onChangeText={(text) => setPhotogenicSubject(text)}
             autoCapitalize={"none"}
             keyboardType="default"
