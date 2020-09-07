@@ -15,6 +15,7 @@ type UseInput = {
 type ItemList = {
   item: string;
   placeholder: string;
+  maxLength: number;
   secureTextEntry: boolean;
   signUpUserData: UseInput;
 };
@@ -33,12 +34,14 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
       item: "メールアドレス",
       placeholder: "メールアドレスを入力",
       secureTextEntry: false,
+      maxLength: 255,
       signUpUserData: email,
     },
     {
       item: "パスワード",
       placeholder: "6文字以上の半角英数字",
       secureTextEntry: true,
+      maxLength: 255,
       signUpUserData: pass,
     },
   ];
