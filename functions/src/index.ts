@@ -12,7 +12,7 @@ const userCreation = async (request, response) => {
     password: request.body.password,
     disabled: false,
     photoURL:
-      "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/default.png?alt=media&token=04a08b6e-f169-4204-97de-598d7ed42225",
+      "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/default_user.jpg?alt=media&token=cbfc483a-3070-4097-829d-56fa9474db05",
   };
   await admin
     .auth()
@@ -24,7 +24,7 @@ const userCreation = async (request, response) => {
         name: userRecord.displayName,
         user_img: userRecord.photoURL,
         user_header_img:
-          "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/defaultHeader.png?alt=media&token=f8c65ab2-c140-4a24-a2c7-e9592d0c830e",
+          "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/default_header.jpeg?alt=media&token=bec91512-fa18-4e28-b83a-0018f424a2c7",
         img_index: "",
         header_img_index: "",
         self_introduction: "",
