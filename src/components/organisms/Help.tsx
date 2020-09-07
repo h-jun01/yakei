@@ -1,18 +1,29 @@
 import React, { FC } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { deviceWidth } from "../../utilities/dimensions";
 import HelpHeading from "../atoms/HelpHeading";
 
-const Help: FC = () => {
+type Props = {
+  navigation: any;
+};
+
+const Help: FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <HelpHeading heading="注意事項" />
-      <Text>・他人の写真をYAKEIに投稿してはいけません。</Text>
-      <Text>
-        ・掲載されている他人の作品をブログやサイト等に無断で転載してはいけません。
+      <Text style={styles.considerationsText}>
+        ・他人の写真をYAKEIに投稿してはいけません。
       </Text>
-      <Text>・無差別な商業用の宣伝行為をしてはいけません</Text>
-      <Text>
-        ・ 他の利用者に対して誹謗・中傷・プライバシーの侵害をしてはいけません
+      <Text style={styles.considerationsText}>
+        ・掲載されている他人の作品をブログやサイト等に{"\n"}
+        {"\u3000"}無断で転載してはいけません。
+      </Text>
+      <Text style={styles.considerationsText}>
+        ・無差別な商業用の宣伝行為をしてはいけません
+      </Text>
+      <Text style={styles.considerationsText}>
+        ・他の利用者に対して誹謗・中傷・プライバシーの{"\n"}
+        {"\u3000"}侵害をしてはいけません
       </Text>
       <HelpHeading heading="よくある質問" />
       <Text style={styles.questionText}>
@@ -37,9 +48,17 @@ const Help: FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
+  },
+  considerationsText: {
+    width: deviceWidth / 1.2,
+    marginBottom: 15,
   },
   questionText: {
     color: "#1D89C6",
+    width: deviceWidth / 1.2,
+    marginLeft: 5,
+    marginBottom: 15,
   },
 });
 
