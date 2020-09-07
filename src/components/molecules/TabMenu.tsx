@@ -35,14 +35,16 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                 activeOpacity={0.8}
                 onPress={() =>
                   navigation.navigate("post", {
-                    photo_id: item.photo_id,
-                    uid: item.uid,
-                    create_time: item.create_time,
-                    url: item.url,
-                    favoriteNumber: item.favoriteNumber,
-                    latitude: item.latitude,
-                    longitude: item.longitude,
-                    photogenic_subject: item.photogenic_subject,
+                    imageData: {
+                      photo_id: item.photo_id,
+                      uid: item.uid,
+                      create_time: item.create_time,
+                      url: item.url,
+                      favoriteNumber: item.favoriteNumber,
+                      latitude: item.latitude,
+                      longitude: item.longitude,
+                      photogenic_subject: item.photogenic_subject,
+                    },
                   })
                 }
               >
@@ -72,14 +74,16 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                 activeOpacity={0.8}
                 onPress={() =>
                   navigation.navigate("post", {
-                    photo_id: item.photo_id,
-                    uid: item.uid,
-                    create_time: item.create_time,
-                    url: item.url,
-                    favoriteNumber: item.favoriteNumber,
-                    latitude: item.latitude,
-                    longitude: item.longitude,
-                    photogenic_subject: item.photogenic_subject,
+                    imageData: {
+                      photo_id: item.photo_id,
+                      uid: item.uid,
+                      create_time: item.create_time,
+                      url: item.url,
+                      favoriteNumber: item.favoriteNumber,
+                      latitude: item.latitude,
+                      longitude: item.longitude,
+                      photogenic_subject: item.photogenic_subject,
+                    },
                   })
                 }
               >

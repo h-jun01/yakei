@@ -59,13 +59,15 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
           style={styles.touchableOpacity}
           onPress={() =>
             navigation.navigate("post", {
-              photo_id,
-              uid,
-              create_time,
-              url,
-              favoriteNumber,
-              latitude,
-              longitude,
+              imageData: {
+                photo_id,
+                uid,
+                create_time,
+                url,
+                favoriteNumber,
+                latitude,
+                longitude,
+              },
             })
           }
         >
