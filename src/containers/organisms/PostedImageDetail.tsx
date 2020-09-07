@@ -2,12 +2,19 @@ import React, { FC, useEffect, useRef, useCallback } from "react";
 import { TextInput } from "react-native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
+import firebase from "firebase";
+import { RouteProp } from "@react-navigation/core/lib/typescript/src/types";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 
+type routeObj = {
+  imageData: firebase.firestore.DocumentData;
+  shouldHeaderLeftBeCross?: boolean;
+};
+
 type Props = {
-  route: any;
+  route: RouteProp<Record<string, routeObj>, string>;
 };
 
 const PostedImageDetailContainer: FC<Props> = ({ route }) => {
@@ -19,7 +26,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     latitude,
     longitude,
     photogenic_subject,
-  } = route.params;
+  } = route.params.imageData;
 
   const selrctCommentDataList = (state: RootState) =>
     state.postedDataReducer.commentDataList;

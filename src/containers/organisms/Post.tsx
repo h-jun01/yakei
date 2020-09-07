@@ -234,7 +234,12 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   useEffect(() => {
     // マウント時 & uid, uri, 被写体の名称、位置情報が異なる時に実行
     const onPress = async () => {
-      const hasError = checkHasError(uid, uri, photogenicSubject, location);
+      const hasError = await checkHasError(
+        uid,
+        uri,
+        photogenicSubject,
+        location
+      );
       if (hasError) return;
       const photoData = await uploadPostImage(
         uid,
@@ -246,7 +251,10 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       const selectedPhotoData = { allPhotoDataList, myPhotoDataList };
       dispatchPhotoData(dispatch, selectedPhotoData, photoData);
       console.log(photoData.photo_id);
-      navigation.navigate("postedImageDetail", photoData);
+      navigation.navigate("postedImageDetail", {
+        imageData: photoData,
+        shouldHeaderLeftBeCross: true,
+      });
     };
     navigation.setOptions({
       headerRight: () => (
