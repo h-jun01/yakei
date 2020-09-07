@@ -9,6 +9,7 @@ import { photoFireStore } from "../../firebase/photoFireStore";
 import { notificationFireStore } from "../../firebase/notificationFireStore";
 import { useDisplayTime } from "../../utilities/hooks/date";
 import { upDateFavoriteList } from "../../actions/user";
+import { sendPushFavoriteNotification } from "../../utilities/sendPushNotification";
 import PostedPageItems from "../../components/molecules/PostedPageItems";
 
 type Props = {
@@ -71,27 +72,6 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       : setIsFavoriteStatus(false);
   });
 
-  const sendPushNotification = async (token: string) => {
-    const message = {
-      to: token,
-      sound: "default",
-      title: "Original Title",
-      body: "And here is the body!",
-      data: { data: "goes here" },
-      _displayInForeground: true,
-    };
-
-    await fetch("https://exp.host/--/api/v2/push/send", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Accept-encoding": "gzip, deflate",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(message),
-    });
-  };
-
   // お気に入り押下時
   const pressedFavorite = async () => {
     if (!isFavoriteStatus) {
@@ -122,7 +102,7 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
           notificationItems
         );
         await accountFireStore.getDeviceToken(uid).then(async (res) => {
-          await sendPushNotification(res);
+          await sendPushFavoriteNotification(res);
         });
       }
     } else {
