@@ -280,7 +280,6 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
         userSelfIntroduction={userSelfIntroduction}
         setUserName={setUserName}
         setUserSelfIntroduction={setUserSelfIntroduction}
-        saveData={saveData}
         onAddImagePressed={onAddImagePressed}
         onAddHeaderImagePressed={onAddHeaderImagePressed}
       />
