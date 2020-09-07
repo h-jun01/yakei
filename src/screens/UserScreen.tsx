@@ -4,7 +4,7 @@ import User from "../containers/organisms/User";
 import Setting from "../containers/organisms/Setting";
 import EditProfile from "../containers/organisms/EditProfile";
 import PasswordReset from "../components/organisms/PasswordReset";
-import Notice from "../containers/organisms/Notice";
+import News from "../containers/organisms/News";
 import TermsOfService from "../components/organisms/TermsOfService";
 import PrivacyPolicy from "../components/organisms/PrivacyPolicy";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
@@ -59,7 +59,7 @@ const UserScreen: FC = () => {
       />
       <Stack.Screen
         name="notice"
-        component={Notice}
+        component={News}
         options={{
           title: "お知らせ",
           headerBackTitleVisible: false,

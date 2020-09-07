@@ -4,7 +4,7 @@ import { userReducer } from "./userReducer";
 import { myPhotoReducer } from "./myPhotoReducer";
 import { allPhotoReducer } from "./allPhotoReducer";
 import { postedDataReducer } from "./postedDataReducer";
-import { noticeReducer } from "./noticeReducer";
+import { newsReducer } from "./newsReducer";
 import { bottomNavReducer } from "./bottomNavReducer";
 import { postBtnsReducer } from "./postBtnsReducer";
 import { postReducer } from "./postReducer";
@@ -18,7 +18,7 @@ export const rootReducer = combineReducers({
   allPhotoReducer,
   myPhotoReducer,
   postedDataReducer,
-  noticeReducer,
+  newsReducer,
   bottomNavReducer,
   postBtnsReducer,
   postReducer,

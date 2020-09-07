@@ -7,14 +7,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { auth } from "./firebase/firebase";
 import { accountFireStore } from "./firebase/accountFireStore";
 import { photoFireStore } from "./firebase/photoFireStore";
-import { noticeFireStore } from "./firebase/noticeFireStore";
+import { newsFireStore } from "./firebase/newsFireStore";
 import { notificationFireStore } from "./firebase/notificationFireStore";
 import { RootState } from "./reducers/index";
 import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import { setAllPhotoListData } from "./actions/allPhoto";
-import { setNoticeListData } from "./actions/notice";
+import { setNewsDataList } from "./actions/news ";
 import { setNotificationDataList } from "./actions/notification";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
@@ -108,8 +108,8 @@ const ScreenSwitcher: FC = () => {
         await photoFireStore.getPhotoList(user.uid).then((res) => {
           dispatch(setPhotoListData(res));
         });
-        await noticeFireStore.getNoticeList().then((res) => {
-          dispatch(setNoticeListData(res.data()));
+        await newsFireStore.getNewsDataList().then((res) => {
+          dispatch(setNewsDataList(res.data()));
         });
         dispatch(loadingStatusChange(true));
         dispatch(loginStatusChange(true));
