@@ -9,7 +9,6 @@ import { photoFireStore } from "../../firebase/photoFireStore";
 import { notificationFireStore } from "../../firebase/notificationFireStore";
 import { useDisplayTime } from "../../utilities/hooks/date";
 import { upDateFavoriteList } from "../../actions/user";
-import { setNotificationDataList } from "../../actions/notification";
 import PostedPageItems from "../../components/molecules/PostedPageItems";
 
 type Props = {
@@ -47,7 +46,6 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
   const [commentCount, setCommentCount] = useState<number>(0);
   const [favoriteNumber, setFavoriteNumber] = useState<number>(0);
   const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(false);
-  const [token, setToken] = useState<string>("");
 
   const dispach = useDispatch();
   const date = useDisplayTime(create_time.toMillis());
@@ -72,12 +70,6 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       ? setIsFavoriteStatus(true)
       : setIsFavoriteStatus(false);
   });
-
-  // useEffect(() => {
-  //   accountFireStore.getDeviceToken(uid).then((res) => {
-  //     res && setToken(res);
-  //   });
-  // }, []);
 
   const sendPushNotification = async (token: string) => {
     const message = {

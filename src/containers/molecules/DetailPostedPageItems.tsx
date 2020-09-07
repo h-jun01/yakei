@@ -49,12 +49,31 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   // お気に入りチェック
   useEffect(() => {
-    if (favoriteList.indexOf(photo_id) !== -1) {
-      setIsFavoriteStatus(true);
-    } else {
-      setIsFavoriteStatus(false);
-    }
+    favoriteList.indexOf(photo_id) !== -1
+      ? setIsFavoriteStatus(true)
+      : setIsFavoriteStatus(false);
   });
+
+  const sendPushNotification = async (token: string) => {
+    const message = {
+      to: token,
+      sound: "default",
+      title: "Original Title",
+      body: "And here is the body!",
+      data: { data: "goes here" },
+      _displayInForeground: true,
+    };
+
+    await fetch("https://exp.host/--/api/v2/push/send", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Accept-encoding": "gzip, deflate",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(message),
+    });
+  };
 
   // お気に入り押下時
   const pressedFavorite = async () => {
@@ -62,7 +81,7 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       setIsFavoriteStatus(true);
 
       await accountFireStore.updateFavoriteList(photo_id);
-      await photoFireStore.IncrementFavoriteNumber(photo_id, favoriteNumber);
+      await photoFireStore.IncrementFavoriteNumber(photo_id);
       await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
         setFavoriteNumber(res);
       });
@@ -85,10 +104,13 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
         await notificationFireStore.notificationOpponentFavorite(
           notificationItems
         );
+        await accountFireStore.getDeviceToken(uid).then(async (res) => {
+          await sendPushNotification(res);
+        });
       }
     } else {
       await accountFireStore.deleteFavoriteItem(photo_id);
-      await photoFireStore.DecrementFavoriteNumber(photo_id, favoriteNumber);
+      await photoFireStore.DecrementFavoriteNumber(photo_id);
       await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
         setFavoriteNumber(res);
       });
