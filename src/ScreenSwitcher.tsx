@@ -17,6 +17,7 @@ import { setAllPhotoListData } from "./actions/allPhoto";
 import { setNewsDataList } from "./actions/news ";
 import { setNotificationDataList } from "./actions/notification";
 import { Notifications } from "expo";
+import { baseColor } from "./styles/thema/colors";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import Intro from "./containers/organisms/Intro";
@@ -32,7 +33,6 @@ import PickUpScreen from "./screens/PickUpScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
 import PostScreen from "./screens/PostScreen";
-import { baseColor } from "./styles/thema/colors";
 
 const ScreenSwitcher: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;

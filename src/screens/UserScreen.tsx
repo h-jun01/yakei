@@ -5,6 +5,7 @@ import Setting from "../containers/organisms/Setting";
 import EditProfile from "../containers/organisms/EditProfile";
 import PasswordReset from "../components/organisms/PasswordReset";
 import News from "../containers/organisms/News";
+import Help from "../components/organisms/Help";
 import TermsOfService from "../components/organisms/TermsOfService";
 import PrivacyPolicy from "../components/organisms/PrivacyPolicy";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
@@ -62,6 +63,18 @@ const UserScreen: FC = () => {
         component={News}
         options={{
           title: "お知らせ",
+          headerBackTitleVisible: false,
+          headerTintColor: baseColor.text,
+          headerStyle: {
+            backgroundColor: baseColor.darkNavy,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="help"
+        component={Help}
+        options={{
+          title: "ヘルプ",
           headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {
