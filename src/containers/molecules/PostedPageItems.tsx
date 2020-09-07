@@ -9,7 +9,7 @@ import { photoFireStore } from "../../firebase/photoFireStore";
 import { notificationFireStore } from "../../firebase/notificationFireStore";
 import { useDisplayTime } from "../../utilities/hooks/date";
 import { upDateFavoriteList } from "../../actions/user";
-import { setNotificationDataList } from "../../actions/notification";
+import { sendPushFavoriteNotification } from "../../utilities/sendPushNotification";
 import PostedPageItems from "../../components/molecules/PostedPageItems";
 
 type Props = {
@@ -47,7 +47,6 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
   const [commentCount, setCommentCount] = useState<number>(0);
   const [favoriteNumber, setFavoriteNumber] = useState<number>(0);
   const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(false);
-  const [token, setToken] = useState<string>("");
 
   const dispach = useDispatch();
   const date = useDisplayTime(create_time.toMillis());
@@ -72,33 +71,6 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       ? setIsFavoriteStatus(true)
       : setIsFavoriteStatus(false);
   });
-
-  // useEffect(() => {
-  //   accountFireStore.getDeviceToken(uid).then((res) => {
-  //     res && setToken(res);
-  //   });
-  // }, []);
-
-  const sendPushNotification = async (token: string) => {
-    const message = {
-      to: token,
-      sound: "default",
-      title: "Original Title",
-      body: "And here is the body!",
-      data: { data: "goes here" },
-      _displayInForeground: true,
-    };
-
-    await fetch("https://exp.host/--/api/v2/push/send", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Accept-encoding": "gzip, deflate",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(message),
-    });
-  };
 
   // お気に入り押下時
   const pressedFavorite = async () => {
@@ -130,7 +102,7 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
           notificationItems
         );
         await accountFireStore.getDeviceToken(uid).then(async (res) => {
-          await sendPushNotification(res);
+          await sendPushFavoriteNotification(res);
         });
       }
     } else {

@@ -8,6 +8,7 @@ import { accountFireStore } from "../../firebase/accountFireStore";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { notificationFireStore } from "../../firebase/notificationFireStore";
 import { upDateFavoriteList } from "../../actions/user";
+import { sendPushFavoriteNotification } from "../../utilities/sendPushNotification";
 import DetailPostedPageItems from "../../components/molecules/DetailPostedPageItems";
 
 type Props = {
@@ -49,11 +50,9 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   // お気に入りチェック
   useEffect(() => {
-    if (favoriteList.indexOf(photo_id) !== -1) {
-      setIsFavoriteStatus(true);
-    } else {
-      setIsFavoriteStatus(false);
-    }
+    favoriteList.indexOf(photo_id) !== -1
+      ? setIsFavoriteStatus(true)
+      : setIsFavoriteStatus(false);
   });
 
   // お気に入り押下時
@@ -62,7 +61,7 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       setIsFavoriteStatus(true);
 
       await accountFireStore.updateFavoriteList(photo_id);
-      await photoFireStore.IncrementFavoriteNumber(photo_id, favoriteNumber);
+      await photoFireStore.IncrementFavoriteNumber(photo_id);
       await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
         setFavoriteNumber(res);
       });
@@ -85,10 +84,13 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
         await notificationFireStore.notificationOpponentFavorite(
           notificationItems
         );
+        await accountFireStore.getDeviceToken(uid).then(async (res) => {
+          await sendPushFavoriteNotification(res);
+        });
       }
     } else {
       await accountFireStore.deleteFavoriteItem(photo_id);
-      await photoFireStore.DecrementFavoriteNumber(photo_id, favoriteNumber);
+      await photoFireStore.DecrementFavoriteNumber(photo_id);
       await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
         setFavoriteNumber(res);
       });

@@ -47,35 +47,39 @@ const ScreenSwitcher: FC = () => {
   const Tab = createBottomTabNavigator();
 
   const registerForPushNotificationsAsync = async () => {
-    // パーミッションを取得
-    if (Constants.isDevice) {
-      const { status: existingStatus } = await Permissions.getAsync(
-        Permissions.NOTIFICATIONS
-      );
-      // 既に許可されている場合何もしない
-      let finalStatus = existingStatus;
-      if (existingStatus !== "granted") {
-        const { status } = await Permissions.askAsync(
+    try {
+      // パーミッションを取得
+      if (Constants.isDevice) {
+        const { status: existingStatus } = await Permissions.getAsync(
           Permissions.NOTIFICATIONS
         );
-        finalStatus = status;
+        // 既に許可されている場合何もしない
+        let finalStatus = existingStatus;
+        if (existingStatus !== "granted") {
+          const { status } = await Permissions.askAsync(
+            Permissions.NOTIFICATIONS
+          );
+          finalStatus = status;
+        }
+        // 許可されなかった場合何もしない
+        if (finalStatus !== "granted") {
+          return;
+        }
+        // トークン生成
+        const token = await Notifications.getExpoPushTokenAsync();
+        accountFireStore.saveDeviceToken(uid, token);
       }
-      // 許可されなかった場合何もしない
-      if (finalStatus !== "granted") {
-        return;
+      // androidの設定
+      if (Platform.OS === "android") {
+        Notifications.createChannelAndroidAsync("default", {
+          name: "default",
+          sound: true,
+          priority: "max",
+          vibrate: [0, 250, 250, 250],
+        });
       }
-      // トークン生成
-      const token = await Notifications.getExpoPushTokenAsync();
-      accountFireStore.saveDeviceToken(uid, token);
-    }
-    // androidの設定
-    if (Platform.OS === "android") {
-      Notifications.createChannelAndroidAsync("default", {
-        name: "default",
-        sound: true,
-        priority: "max",
-        vibrate: [0, 250, 250, 250],
-      });
+    } catch (e) {
+      console.log(e);
     }
   };
 

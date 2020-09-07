@@ -71,9 +71,6 @@ export const accountFireStore: AccountFireStore = {
         resolve((await res.data()?.token) as string);
       });
     });
-    // return await accountFireStore.getUser(uid).then(async (res) => {
-    //   return (await res.data()?.token) as string;
-    // });
   },
   // デバイスのトークンを保存
   saveDeviceToken: async (uid: string, token: string) => {
