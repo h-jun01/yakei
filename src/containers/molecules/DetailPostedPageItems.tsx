@@ -85,7 +85,7 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
           notificationItems
         );
         await accountFireStore.getDeviceToken(uid).then(async (res) => {
-          await sendPushFavoriteNotification(res);
+          await sendPushFavoriteNotification(res, opponentName);
         });
       }
     } else {
