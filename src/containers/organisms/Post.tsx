@@ -245,6 +245,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       if (!photoData) return;
       const selectedPhotoData = { allPhotoDataList, myPhotoDataList };
       dispatchPhotoData(dispatch, selectedPhotoData, photoData);
+      console.log(photoData.photo_id);
       navigation.navigate("postedImageDetail", photoData);
     };
     navigation.setOptions({

@@ -25,7 +25,6 @@ const PostScreen: FC = () => {
         component={PostedImageDetail}
         options={{
           title: "投稿",
-          headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {
             backgroundColor: baseColor.darkNavy,
