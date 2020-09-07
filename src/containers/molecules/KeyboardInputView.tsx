@@ -61,7 +61,7 @@ const KeyboardInputViewContainer: FC<Props> = ({ ...props }) => {
         notificationItems
       );
       await accountFireStore.getDeviceToken(uid).then(async (res) => {
-        await sendPushCommentNotification(res);
+        await sendPushCommentNotification(res, opponentName, inputValue.value);
       });
     }
 

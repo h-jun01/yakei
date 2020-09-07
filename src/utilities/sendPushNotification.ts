@@ -1,9 +1,11 @@
-export const sendPushFavoriteNotification = async (token: string) => {
+export const sendPushFavoriteNotification = async (
+  token: string,
+  opponentName: string
+) => {
   const message = {
     to: token,
     sound: "default",
-    title: "Original Title",
-    body: "And here is the body!",
+    body: `${opponentName}さんがあなたの投稿にいいねしました。`,
     data: { data: "goes here" },
     _displayInForeground: true,
   };
@@ -19,12 +21,15 @@ export const sendPushFavoriteNotification = async (token: string) => {
   });
 };
 
-export const sendPushCommentNotification = async (token: string) => {
+export const sendPushCommentNotification = async (
+  token: string,
+  opponentName: string,
+  commentValue: string
+) => {
   const message = {
     to: token,
     sound: "default",
-    title: "Original Title",
-    body: "And here is the body!",
+    body: `あなたの投稿にコメントされました。${"\n"}${opponentName}：${commentValue}`,
     data: { data: "goes here" },
     _displayInForeground: true,
   };
