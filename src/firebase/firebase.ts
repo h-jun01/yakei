@@ -24,4 +24,6 @@ firebaseApp;
 export const db = firebase.firestore();
 export const auth = firebase.auth();
 export const storage = firebase.storage();
+export const storageRef = firebase.storage().ref();
 export const FieldValue = firebase.firestore.FieldValue;
+export type Reference = firebase.storage.Reference;

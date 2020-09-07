@@ -8,6 +8,7 @@ import Notice from "../containers/organisms/Notice";
 import TermsOfService from "../components/organisms/TermsOfService";
 import PrivacyPolicy from "../components/organisms/PrivacyPolicy";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
+import { baseColor } from "../styles/thema/colors";
 
 const UserScreen: FC = () => {
   const Stack = createStackNavigator();
@@ -26,9 +27,9 @@ const UserScreen: FC = () => {
         options={{
           title: "設定",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />
@@ -38,9 +39,9 @@ const UserScreen: FC = () => {
         options={{
           title: "プロフィール編集",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />
@@ -50,9 +51,9 @@ const UserScreen: FC = () => {
         options={{
           title: "パスワード再設定",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />
@@ -62,9 +63,9 @@ const UserScreen: FC = () => {
         options={{
           title: "お知らせ",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />
@@ -74,9 +75,9 @@ const UserScreen: FC = () => {
         options={{
           title: "利用規約",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />
@@ -86,9 +87,9 @@ const UserScreen: FC = () => {
         options={{
           title: "プライバシーポリシー",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />
@@ -98,9 +99,9 @@ const UserScreen: FC = () => {
         options={{
           title: "投稿",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />

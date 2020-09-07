@@ -29,4 +29,5 @@ export const utilityColor = {
   inputLabel: "#A7ABB1",
   overlay: "rgba(0,0,0,0.3)",
   strongOverlay: "rgba(0,0,0,0.4)",
+  postInputBorder: "#505E83",
 };

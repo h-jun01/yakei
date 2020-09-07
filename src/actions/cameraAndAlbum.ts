@@ -1,9 +1,9 @@
 import { ActionTypes } from "./index";
 
-export const setCameraAndAlbumStatus = (isAppeared: boolean) =>
+export const setShouldAppearPostBtns = (shouldAppear: boolean) =>
   ({
-    type: ActionTypes.SET_CAMERA_AND_ALBUM_STATUS,
+    type: ActionTypes.SET_SHOULD_APPEAR_POST_BTNS,
     payload: {
-      isAppeared,
+      shouldAppear,
     },
   } as const);

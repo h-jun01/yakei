@@ -2,24 +2,27 @@ import { Reducer } from "redux";
 import { ActionTypes, UnionedAction } from "../actions/index";
 
 export type State = {
-  shouldDisplay: boolean;
+  uri: string;
+  type: "camera" | "album";
 };
 
-type BottomNavReducer = Reducer<State, UnionedAction>;
+type PostReducer = Reducer<State, UnionedAction>;
 
 const initialState: State = {
-  shouldDisplay: true,
+  uri: "",
+  type: "camera",
 };
 
-export const bottomNavReducer: BottomNavReducer = (
+export const postReducer: PostReducer = (
   state = initialState,
   action: UnionedAction
 ): State => {
   switch (action.type) {
-    case ActionTypes.SET_SHOULD_DISPLAY_BOTTOM_NAV:
+    case ActionTypes.SET_POST_DATA:
       return {
         ...state,
-        shouldDisplay: action.payload.shouldDisplay,
+        uri: action.payload.uri,
+        type: action.payload.type,
       };
     default: {
       return state;

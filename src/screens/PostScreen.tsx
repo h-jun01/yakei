@@ -1,17 +1,19 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Notification from "../containers/organisms/Notification";
+import Post from "../containers/organisms/Post";
+import Home from "../containers/organisms/Home";
 import { baseColor } from "../styles/thema/colors";
 
-const NotificationScreen: FC = () => {
+const PostScreen: FC = () => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Notification"
-        component={Notification}
+        name="post"
+        component={Post}
         options={{
-          title: "通知",
+          title: "投稿する",
+          headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {
             backgroundColor: baseColor.darkNavy,
@@ -22,4 +24,4 @@ const NotificationScreen: FC = () => {
   );
 };
 
-export default NotificationScreen;
+export default PostScreen;

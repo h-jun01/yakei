@@ -3,7 +3,7 @@ import { Animated } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { RootState } from "../../reducers/index";
-import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
+import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
 
 import BottomNav from "../../components/organisms/BottomNav";
 
@@ -11,14 +11,14 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
   const dispatch = useDispatch();
   const whiteWrapAnim = useRef(new Animated.Value(0)).current;
 
-  const isDisplayed = useSelector(
-    (state: RootState) => state.bottomNavReducer.isDisplayed
+  const shouldDisplay = useSelector(
+    (state: RootState) => state.bottomNavReducer.shouldDisplay
   );
-  const isAppearedBtns = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.isAppeared
+  const shouldAppearBtns = useSelector(
+    (state: RootState) => state.postBtnsReducer.shouldAppear
   );
 
-  if (isAppearedBtns) {
+  if (shouldAppearBtns) {
     Animated.timing(whiteWrapAnim, {
       toValue: 1,
       duration: 200,
@@ -37,15 +37,15 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
   });
   const opacityAnim = { opacity: opacityInterpolate };
 
-  const onPressOut = () => dispatch(setCameraAndAlbumStatus(false));
+  const onPressOut = () => dispatch(setShouldAppearPostBtns(false));
 
   return (
     <BottomNav
       state={state}
       descriptors={descriptors}
       navigation={navigation}
-      isDisplayed={isDisplayed}
-      isAppearedBtns={isAppearedBtns}
+      shouldDisplay={shouldDisplay}
+      shouldAppearBtns={shouldAppearBtns}
       opacityAnim={opacityAnim}
       onPressOut={onPressOut}
     />

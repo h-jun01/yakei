@@ -9,10 +9,12 @@ type Props = {
     UpperLeft: Object;
     UpperRight: Object;
   };
+  onPressOfCamera: () => void;
+  onPressOfAlbum: () => void;
 };
 
 const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
-  const { animStyle } = props;
+  const { animStyle, onPressOfCamera, onPressOfAlbum } = props;
   const displayWidth = Dimensions.get("window").width;
   const iPhone11width = 414;
   const wrapHeightRatio = 72 / iPhone11width;
@@ -32,22 +34,28 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
     },
   });
   return (
-    <TouchableOpacity activeOpacity={1.0} style={styles.wrap}>
-      <View style={{ width: iconAspect, aspectRatio: 1 }}>
+    <View style={styles.wrap}>
+      <TouchableOpacity
+        onPress={onPressOfCamera}
+        style={{ width: iconAspect, aspectRatio: 1 }}
+      >
         <CameraSvg
           textColor={textColor}
           backColor={backColor}
           style={animStyle.UpperLeft}
         />
-      </View>
-      <View style={{ width: iconAspect, aspectRatio: 1 }}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={onPressOfAlbum}
+        style={{ width: iconAspect, aspectRatio: 1 }}
+      >
         <AlbumSvg
           textColor={textColor}
           backColor={backColor}
           style={animStyle.UpperRight}
         />
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 

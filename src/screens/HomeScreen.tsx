@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../containers/organisms/Home";
 import ImageList from "../containers/organisms/ImageList";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
+import { baseColor } from "../styles/thema/colors";
 
 const HomeScreen: FC = () => {
   const Stack = createStackNavigator();
@@ -21,9 +22,9 @@ const HomeScreen: FC = () => {
         options={{
           title: "一覧",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />
@@ -33,9 +34,9 @@ const HomeScreen: FC = () => {
         options={{
           title: "投稿",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />

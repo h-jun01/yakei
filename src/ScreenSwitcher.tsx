@@ -31,6 +31,8 @@ import HomeScreen from "./screens/HomeScreen";
 import PickUpScreen from "./screens/PickUpScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
+import PostScreen from "./screens/PostScreen";
+import { baseColor } from "./styles/thema/colors";
 
 const ScreenSwitcher: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
@@ -140,6 +142,7 @@ const ScreenSwitcher: FC = () => {
             <Tab.Screen name="Plus" component={HomeScreen} />
             <Tab.Screen name="通知" component={NotificationScreen} />
             <Tab.Screen name="マイページ" component={UserScreen} />
+            <Tab.Screen name="投稿" component={PostScreen} />
           </Tab.Navigator>
         </Fragment>
       ) : (
@@ -173,9 +176,9 @@ const ScreenSwitcher: FC = () => {
             options={{
               title: "利用規約",
               headerBackTitleVisible: false,
-              headerTintColor: "#fff",
+              headerTintColor: baseColor.text,
               headerStyle: {
-                backgroundColor: "#181F32",
+                backgroundColor: baseColor.darkNavy,
               },
             }}
           />
@@ -185,9 +188,9 @@ const ScreenSwitcher: FC = () => {
             options={{
               title: "プライバシーポリシー",
               headerBackTitleVisible: false,
-              headerTintColor: "#fff",
+              headerTintColor: baseColor.text,
               headerStyle: {
-                backgroundColor: "#181F32",
+                backgroundColor: baseColor.darkNavy,
               },
             }}
           />
@@ -197,9 +200,9 @@ const ScreenSwitcher: FC = () => {
             options={{
               title: "パスワード再設定",
               headerBackTitleVisible: false,
-              headerTintColor: "#fff",
+              headerTintColor: baseColor.text,
               headerStyle: {
-                backgroundColor: "#181F32",
+                backgroundColor: baseColor.darkNavy,
               },
             }}
           />

@@ -2,24 +2,24 @@ import { Reducer } from "redux";
 import { ActionTypes, UnionedAction } from "../actions/index";
 
 export type State = {
-  shouldDisplay: boolean;
+  shouldNavigateMap: boolean;
 };
 
-type BottomNavReducer = Reducer<State, UnionedAction>;
+type MapNavigateReducer = Reducer<State, UnionedAction>;
 
 const initialState: State = {
-  shouldDisplay: true,
+  shouldNavigateMap: false,
 };
 
-export const bottomNavReducer: BottomNavReducer = (
+export const mapNavigateReducer: MapNavigateReducer = (
   state = initialState,
   action: UnionedAction
 ): State => {
   switch (action.type) {
-    case ActionTypes.SET_SHOULD_DISPLAY_BOTTOM_NAV:
+    case ActionTypes.SET_SHOULD_NAVIGATE:
       return {
         ...state,
-        shouldDisplay: action.payload.shouldDisplay,
+        shouldNavigateMap: action.payload.shouldNavigateMap,
       };
     default: {
       return state;
