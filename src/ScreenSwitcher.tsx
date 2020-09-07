@@ -68,8 +68,15 @@ const ScreenSwitcher: FC = () => {
           return;
         }
         // トークン生成
-        const token = await Notifications.getExpoPushTokenAsync();
-        accountFireStore.saveDeviceToken(uid, token);
+        await Notifications.getExpoPushTokenAsync()
+          .then((token) => {
+            accountFireStore.saveDeviceToken(uid, token).catch(() => {
+              return;
+            });
+          })
+          .catch(() => {
+            return;
+          });
       }
       // androidの設定
       if (Platform.OS === "android") {
