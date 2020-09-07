@@ -1,12 +1,19 @@
 import React, { FC, useEffect, useRef, useCallback } from "react";
-import { TextInput } from "react-native";
+import { TextInput, TouchableOpacity } from "react-native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 import firebase from "firebase";
-import { RouteProp } from "@react-navigation/core/lib/typescript/src/types";
+import {
+  NavigationProp,
+  RouteProp,
+} from "@react-navigation/core/lib/typescript/src/types";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
+import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
+import { setShouldNavigateMap } from "../../actions/mapNavigate";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { styles } from "../../styles/post";
 
 type routeObj = {
   imageData: firebase.firestore.DocumentData;
@@ -15,9 +22,10 @@ type routeObj = {
 
 type Props = {
   route: RouteProp<Record<string, routeObj>, string>;
+  navigation: NavigationProp<Record<string, object>>;
 };
 
-const PostedImageDetailContainer: FC<Props> = ({ route }) => {
+const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   const {
     photo_id,
     uid,
@@ -27,6 +35,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
     longitude,
     photogenic_subject,
   } = route.params.imageData;
+  const shouldHeaderLeftBeCross = route.params.shouldHeaderLeftBeCross;
 
   const selrctCommentDataList = (state: RootState) =>
     state.postedDataReducer.commentDataList;
@@ -34,6 +43,22 @@ const PostedImageDetailContainer: FC<Props> = ({ route }) => {
   const commentDataList = useSelector(selrctCommentDataList);
   const textInputRef = useRef<null | TextInput>(null);
   const dispatch = useDispatch();
+
+  // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える
+  useEffect(() => {
+    if (shouldHeaderLeftBeCross === undefined) return;
+    const onPress = () => {
+      dispatch(setShouldDisplayBottomNav(true));
+      dispatch(setShouldNavigateMap(true));
+    };
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity activeOpacity={0.6} onPress={() => onPress()}>
+          <FontAwesome name="times" style={styles.crossButton} />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
 
   // コメント取得
   useEffect(() => {

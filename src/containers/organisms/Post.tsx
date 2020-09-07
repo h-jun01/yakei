@@ -222,8 +222,8 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     (state: RootState) => state.myPhotoReducer.photoDataList
   );
 
+  // 撮影場所を初期化
   useEffect(() => {
-    // マウント時 & uriが異なる時に実行
     if (type === "camera") {
       getLocationAddressAsync(setLocation);
     } else {
@@ -231,8 +231,8 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     }
   }, [uri]);
 
+  // 投稿ボタン押下時の処理を定義
   useEffect(() => {
-    // マウント時 & uid, uri, 被写体の名称、位置情報が異なる時に実行
     const onPress = async () => {
       const hasError = await checkHasError(
         uid,
@@ -250,7 +250,6 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       if (!photoData) return;
       const selectedPhotoData = { allPhotoDataList, myPhotoDataList };
       dispatchPhotoData(dispatch, selectedPhotoData, photoData);
-      console.log(photoData.photo_id);
       navigation.navigate("postedImageDetail", {
         imageData: photoData,
         shouldHeaderLeftBeCross: true,
@@ -267,8 +266,8 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     });
   }, [uid, uri, photogenicSubject, location]);
 
+  // 閉じるボタン押下時の処理
   useEffect(() => {
-    // マウント時 & typeが異なる時に実行
     dispatch(setShouldDisplayBottomNav(false));
     navigation.setOptions({
       headerLeft: () => (
