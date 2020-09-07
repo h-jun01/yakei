@@ -73,11 +73,11 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       : setIsFavoriteStatus(false);
   });
 
-  useEffect(() => {
-    accountFireStore.getDeviceToken(uid).then((res) => {
-      res && setToken(res);
-    });
-  }, []);
+  // useEffect(() => {
+  //   accountFireStore.getDeviceToken(uid).then((res) => {
+  //     res && setToken(res);
+  //   });
+  // }, []);
 
   const sendPushNotification = async (token: string) => {
     const message = {
@@ -129,7 +129,9 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
         await notificationFireStore.notificationOpponentFavorite(
           notificationItems
         );
-        sendPushNotification(token);
+        await accountFireStore.getDeviceToken(uid).then(async (res) => {
+          await sendPushNotification(res);
+        });
       }
     } else {
       await accountFireStore.deleteFavoriteItem(photo_id);
