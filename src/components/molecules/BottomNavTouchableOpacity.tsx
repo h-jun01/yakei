@@ -17,7 +17,6 @@ const BottomNavTouchableOpacity: FC<Props> = ({ ...props }) => {
 
   return (
     <TouchableOpacity
-      key={index}
       accessibilityRole="button"
       accessibilityState={isFocused ? { selected: true } : {}}
       accessibilityLabel={options.tabBarAccessibilityLabel}

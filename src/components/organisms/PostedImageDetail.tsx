@@ -4,7 +4,7 @@ import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
 import { styles } from "../../styles/postedImageDetail";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
-import DetailPostedPageItems from "../molecules/DetailPostedPageItems";
+import DetailPostedPageItems from "../../containers/molecules/DetailPostedPageItems";
 import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
 import CommentInputField from "../../containers/molecules/CommentInputField";
 import CommentField from "../../containers/molecules/CommentField";
@@ -14,10 +14,9 @@ type Props = {
   uid: string;
   create_time: Timestamp;
   url: string;
-  favoriteNumber: number;
   latitude: number;
   longitude: number;
-  photogenic_subjec: string;
+  photogenic_subject: string;
   commentDataList: firebase.firestore.DocumentData[];
   textInputRef: MutableRefObject<TextInput | null>;
   focusOnInput: () => void;
@@ -29,10 +28,9 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     uid,
     create_time,
     url,
-    favoriteNumber,
     latitude,
     longitude,
-    photogenic_subjec,
+    photogenic_subject,
     commentDataList,
     textInputRef,
     focusOnInput,
@@ -44,7 +42,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
         <View>
           <InformationUserPosted
             uid={uid}
-            photogenic_subjec={photogenic_subjec}
+            photogenic_subject={photogenic_subject}
           />
           <Image
             style={styles.image}
@@ -54,7 +52,9 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             PlaceholderContent={<ActivityIndicator />}
           />
           <DetailPostedPageItems
-            favoriteNumber={favoriteNumber}
+            uid={uid}
+            url={url}
+            photo_id={photo_id}
             latitude={latitude}
             longitude={longitude}
             create_time={create_time}
@@ -72,7 +72,12 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             </View>
           ))}
       </ScrollView>
-      <KeyboardInputView textInputRef={textInputRef} photo_id={photo_id} />
+      <KeyboardInputView
+        textInputRef={textInputRef}
+        photo_id={photo_id}
+        uid={uid}
+        url={url}
+      />
     </View>
   );
 };

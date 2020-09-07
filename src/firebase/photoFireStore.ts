@@ -1,6 +1,6 @@
 import firebase from "firebase";
 import geohash from "ngeohash";
-import { db } from "./firebase";
+import { db, FieldValue } from "./firebase";
 
 type PhotoFireStore = {
   getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
@@ -9,6 +9,9 @@ type PhotoFireStore = {
     latitude: number,
     longitude: number
   ) => Promise<firebase.firestore.DocumentData[]>;
+  getFavoriteNumber: (photo_id: string) => Promise<number>;
+  IncrementFavoriteNumber: (photo_id: string) => Promise<void>;
+  DecrementFavoriteNumber: (photo_id: string) => Promise<void>;
 };
 
 const photo = db.collection("photos");
@@ -55,5 +58,25 @@ export const photoFireStore: PhotoFireStore = {
       allPhotoList.push(doc.data());
     });
     return allPhotoList;
+  },
+  // お気に入り数の取得
+  getFavoriteNumber: async (photo_id: string) => {
+    return await photo
+      .doc(photo_id)
+      .get()
+      .then(async (res) => {
+        return (await res.data()?.favoriteNumber) as number;
+      });
+  },
+  // お気に入り数の増加
+  IncrementFavoriteNumber: async (photo_id: string) => {
+    photo.doc(photo_id).update({
+      favoriteNumber: FieldValue.increment(1),
+    });
+  },
+  DecrementFavoriteNumber: async (photo_id: string) => {
+    photo.doc(photo_id).update({
+      favoriteNumber: FieldValue.increment(-1),
+    });
   },
 };

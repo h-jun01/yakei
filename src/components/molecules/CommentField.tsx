@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/postedImageDetail";
-import { useDisplayTime } from "../../utilities/hooks/date";
 
 type Props = {
   postUserName: string;

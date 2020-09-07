@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Notification from "../containers/organisms/notification/Notification";
-import Details from "../containers/organisms/notification/Detail";
+import Notification from "../containers/organisms/Notification";
+import { baseColor } from "../styles/thema/colors";
 
 const NotificationScreen: FC = () => {
   const Stack = createStackNavigator();
@@ -11,13 +11,13 @@ const NotificationScreen: FC = () => {
         name="Notification"
         component={Notification}
         options={{
-          headerTintColor: "#fff",
+          title: "通知",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />
-      <Stack.Screen name="Detail" component={Details} />
     </Stack.Navigator>
   );
 };

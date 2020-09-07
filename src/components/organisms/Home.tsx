@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import { useTheme } from "@react-navigation/native";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { accountFireStore } from "../../firebase/accountFireStore";
+import { baseColor } from "../../styles/thema/colors";
 
 type Region = {
   latitude: number;
@@ -186,7 +187,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     favoriteNumber: data.favoriteNumber,
                     latitude: data.latitude,
                     longitude: data.longitude,
-                    photogenic_subjec: data.photogenic_subjec,
+                    photogenic_subject: data.photogenic_subject,
                   }}
                   coordinate={{
                     latitude: data.latitude,
@@ -239,7 +240,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     favoriteNumber: data.favoriteNumber,
                     latitude: data.latitude,
                     longitude: data.longitude,
-                    photogenic_subjec: data.photogenic_subjec,
+                    photogenic_subject: data.photogenic_subject,
                   }}
                   image={require("../../../assets/pin02.png")}
                   onPress={() => {
@@ -333,7 +334,7 @@ const styles = StyleSheet.create({
   },
   card: {
     elevation: 2,
-    backgroundColor: "#181F32",
+    backgroundColor: baseColor.darkNavy,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     borderBottomLeftRadius: 5,
@@ -354,7 +355,7 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontSize: 17,
-    color: "#fff",
+    color: baseColor.text,
     fontWeight: "bold",
     padding: 15,
   },

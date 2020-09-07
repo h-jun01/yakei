@@ -15,6 +15,8 @@ type AccountFireStore = {
   >;
   getUserName: (uid: string) => Promise<React.SetStateAction<string>>;
   getUserImage: (uid: string) => Promise<React.SetStateAction<string>>;
+  getDeviceToken: (uid: string) => Promise<string>;
+  saveDeviceToken: (uid: string, token: string) => Promise<void>;
   loginUser: (
     email: string,
     password: string
@@ -32,6 +34,8 @@ type AccountFireStore = {
   updateProfileHeaderImage: (user_header_img: string) => Promise<void>;
   updateImgIndex: (img_index: string) => Promise<void>;
   updateHeaderImgIndex: (header_img_index: string) => Promise<void>;
+  updateFavoriteList: (photo_id: string) => Promise<void>;
+  deleteFavoriteItem: (photo_id: string) => Promise<void>;
   deleteStorageImage: (imgIndex: string) => Promise<void> | undefined;
   deleteStorageHeaderImage: (
     headerImgIndex: string
@@ -58,6 +62,23 @@ export const accountFireStore: AccountFireStore = {
   getUserImage: async (uid: string) => {
     return await accountFireStore.getUser(uid).then(async (res) => {
       return (await res.data()?.user_img) as string;
+    });
+  },
+  // デバイスのトークンを取得
+  getDeviceToken: (uid: string) => {
+    return new Promise((resolve) => {
+      accountFireStore.getUser(uid).then(async (res) => {
+        resolve((await res.data()?.token) as string);
+      });
+    });
+    // return await accountFireStore.getUser(uid).then(async (res) => {
+    //   return (await res.data()?.token) as string;
+    // });
+  },
+  // デバイスのトークンを保存
+  saveDeviceToken: async (uid: string, token: string) => {
+    await user.doc(uid).update({
+      token,
     });
   },
   //ログイン処理
@@ -99,7 +120,7 @@ export const accountFireStore: AccountFireStore = {
   upDateSelfIntroduction: async (self_introduction: string) => {
     const userData = auth.currentUser;
     if (userData) {
-      return await user.doc(userData.uid).update({
+      await user.doc(userData.uid).update({
         self_introduction,
         update_time: FieldValue.serverTimestamp(),
       });
@@ -114,7 +135,7 @@ export const accountFireStore: AccountFireStore = {
           photoURL: user_img,
         })
         .then(async () => {
-          return await user.doc(userData.uid).update({
+          await user.doc(userData.uid).update({
             user_img,
             update_time: FieldValue.serverTimestamp(),
           });
@@ -125,7 +146,7 @@ export const accountFireStore: AccountFireStore = {
   updateProfileHeaderImage: async (user_header_img: string) => {
     const userData = auth.currentUser;
     if (userData) {
-      return await user.doc(userData.uid).update({
+      await user.doc(userData.uid).update({
         user_header_img,
         update_time: FieldValue.serverTimestamp(),
       });
@@ -135,7 +156,7 @@ export const accountFireStore: AccountFireStore = {
   updateImgIndex: async (img_index: string) => {
     const userData = auth.currentUser;
     if (userData) {
-      return await user.doc(userData.uid).update({
+      await user.doc(userData.uid).update({
         img_index,
         update_time: FieldValue.serverTimestamp(),
       });
@@ -145,7 +166,7 @@ export const accountFireStore: AccountFireStore = {
   updateHeaderImgIndex: async (header_img_index: string) => {
     const userData = auth.currentUser;
     if (userData) {
-      return await user.doc(userData.uid).update({
+      await user.doc(userData.uid).update({
         header_img_index,
         update_time: FieldValue.serverTimestamp(),
       });
@@ -160,6 +181,26 @@ export const accountFireStore: AccountFireStore = {
   uploadStorageHeaderImage: (postIndex: string) => {
     const userData = auth.currentUser;
     return storage.ref(`users/${userData?.uid}/header`).child(postIndex);
+  },
+  // お気に入りに追加
+  updateFavoriteList: async (photo_id: string) => {
+    const userData = auth.currentUser;
+    if (userData) {
+      await user.doc(userData.uid).update({
+        favorite_list: FieldValue.arrayUnion(photo_id),
+        update_time: FieldValue.serverTimestamp(),
+      });
+    }
+  },
+  // お気に入り削除
+  deleteFavoriteItem: async (photo_id: string) => {
+    const userData = auth.currentUser;
+    if (userData) {
+      await user.doc(userData.uid).update({
+        favorite_list: FieldValue.arrayRemove(photo_id),
+        update_time: FieldValue.serverTimestamp(),
+      });
+    }
   },
   //storageからアイコン画像を削除
   deleteStorageImage: (imgIndex: string) => {
@@ -180,7 +221,7 @@ export const accountFireStore: AccountFireStore = {
   },
   //パスワード変更
   passwordResetEmail: async (emailAddress: string) => {
-    return await auth
+    await auth
       .sendPasswordResetEmail(emailAddress)
       .then(() => {
         callingDoneAlert("再設定用のURLを送信しました。");

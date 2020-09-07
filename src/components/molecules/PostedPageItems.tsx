@@ -1,9 +1,10 @@
 import React, { FC, Fragment } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Timestamp } from "@google-cloud/firestore";
 import { styles } from "../../styles/imageList";
-import { useDisplayTime } from "../../utilities/hooks/date";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 type Props = {
   navigation: any;
@@ -11,10 +12,13 @@ type Props = {
   uid: string;
   create_time: Timestamp;
   url: string;
+  date: string;
   favoriteNumber: number;
   latitude: number;
   longitude: number;
   commentCount: number;
+  isFavoriteStatus: boolean;
+  pressedFavorite: () => Promise<void>;
 };
 
 const PostedPageItems: FC<Props> = ({ ...props }) => {
@@ -24,23 +28,35 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
     uid,
     create_time,
     url,
+    date,
     favoriteNumber,
     latitude,
     longitude,
     commentCount,
+    isFavoriteStatus,
+    pressedFavorite,
   } = props;
-
-  const date = useDisplayTime(create_time.toDate());
 
   return (
     <Fragment>
       <View style={styles.postItem}>
-        <Text style={styles.PostIcon}>
-          <EvilIcons name="heart" size={21} />
-        </Text>
-        <Text style={styles.stateNum}>{favoriteNumber}</Text>
-        <Text
-          style={styles.PostIcon}
+        <TouchableOpacity
+          activeOpacity={0.6}
+          style={styles.touchableOpacity}
+          onPress={() => pressedFavorite()}
+        >
+          <Text style={styles.PostIcon}>
+            {isFavoriteStatus ? (
+              <AntDesign name="heart" size={15} color="#E0245E" />
+            ) : (
+              <AntDesign name="hearto" size={15} />
+            )}
+          </Text>
+          <Text style={styles.stateNum}>{favoriteNumber}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          style={styles.touchableOpacity}
           onPress={() =>
             navigation.navigate("post", {
               photo_id,
@@ -53,9 +69,11 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
             })
           }
         >
-          <EvilIcons name="comment" size={21} />
-        </Text>
-        <Text style={styles.stateNum}>{commentCount}</Text>
+          <Text style={styles.PostIcon}>
+            <MaterialCommunityIcons name="comment-outline" size={15.5} />
+          </Text>
+          <Text style={styles.stateNum}>{commentCount}</Text>
+        </TouchableOpacity>
         <Text style={styles.PostIcon}>
           <EvilIcons name="location" size={21} />
         </Text>

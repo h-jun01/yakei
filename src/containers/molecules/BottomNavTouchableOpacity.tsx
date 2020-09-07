@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import type { Route } from "@react-navigation/routers/lib/typescript/src/types";
 import { RootState } from "../../reducers/index";
-import { setCameraAndAlbumStatus } from "../../actions/cameraAndAlbum";
+import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
+import { setShouldNavigateMap } from "../../actions/mapNavigate";
 import BottomNavTouchableOpacity from "../../components/molecules/BottomNavTouchableOpacity";
 
 type Props = {
@@ -18,16 +19,16 @@ const BottomNavTouchableOpacityContainer: FC<Props> = ({ ...props }) => {
   const { state, route, descriptors, navigation, index } = props;
 
   const dispatch = useDispatch();
-  const isAppearedBtns = useSelector(
-    (state: RootState) => state.cameraAndAlbumReducer.isAppeared
+  const shouldAppearBtns = useSelector(
+    (state: RootState) => state.postBtnsReducer.shouldAppear
   );
-  const { options } = descriptors[route["key"]];
+  const { options } = descriptors[route.key];
   const label = route["name"];
   const isFocused = state.index === index;
 
   const onPress = () => {
-    if (isAppearedBtns) {
-      dispatch(setCameraAndAlbumStatus(false));
+    if (shouldAppearBtns) {
+      dispatch(setShouldAppearPostBtns(false));
       return;
     }
     const event = navigation.emit({
@@ -46,6 +47,17 @@ const BottomNavTouchableOpacityContainer: FC<Props> = ({ ...props }) => {
       target: route["key"],
     });
   };
+
+  const navigateMap = (() => {
+    const mapIndex = 0;
+    if (index !== mapIndex) return;
+    const shouldNavigateMap = useSelector(
+      (state: RootState) => state.mapNavigateReducer.shouldNavigateMap
+    );
+    if (!shouldNavigateMap) return;
+    navigation.navigate(route["name"]);
+    dispatch(setShouldNavigateMap(false));
+  })();
 
   return (
     <BottomNavTouchableOpacity

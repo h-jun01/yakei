@@ -18,7 +18,7 @@ const CommentFieldContainer: FC<Props> = ({ ...props }) => {
   const [postUserImage, setPostUserImage] = useState<string>(
     "https://example.com"
   );
-  const date = useDisplayTime(create_time.toDate());
+  const date = useDisplayTime(create_time.toMillis());
 
   //投稿したユーザ名の取得
   useEffect(() => {

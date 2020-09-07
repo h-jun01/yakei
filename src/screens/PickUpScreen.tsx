@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import PickUp from "../containers/organisms/PickUp";
 import ImageList from "../containers/organisms/ImageList";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
+import { baseColor } from "../styles/thema/colors";
 
 const PickUpScreen: FC = () => {
   const Stack = createStackNavigator();
@@ -14,9 +15,9 @@ const PickUpScreen: FC = () => {
         options={{
           title: "ピックアップ",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />
@@ -26,9 +27,9 @@ const PickUpScreen: FC = () => {
         options={{
           title: "一覧",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />
@@ -38,9 +39,9 @@ const PickUpScreen: FC = () => {
         options={{
           title: "投稿",
           headerBackTitleVisible: false,
-          headerTintColor: "#fff",
+          headerTintColor: baseColor.text,
           headerStyle: {
-            backgroundColor: "#181F32",
+            backgroundColor: baseColor.darkNavy,
           },
         }}
       />
