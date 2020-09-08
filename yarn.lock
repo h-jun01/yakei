@@ -964,6 +964,11 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@expo-google-fonts/flamenco@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/flamenco/-/flamenco-0.1.0.tgz#eaf4702c790bf8e2bbc6ab64ac789802d4477045"
+  integrity sha512-1hqkl4IVtbidlDchpAioLYH4xtqvKpHfOZYrd7q39TK/VmxmL87bGwWvhi7SdO2ZmUu8QBaD3cp7fP8JUxiavw==
+
 "@expo/configure-splash-screen@0.1.13":
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/@expo/configure-splash-screen/-/configure-splash-screen-0.1.13.tgz#9f974146d716ffc03461e4d2deb7bfb22826e56a"

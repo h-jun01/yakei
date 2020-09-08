@@ -5,7 +5,7 @@ import { deviceWidth, } from "../../utilities/dimensions";
 // based on iphone 11 pro/ MAX scale
 const scale = deviceWidth / 414;
 
-//fontSizeを可変的にしてます
+//fontSizeを可変
 const normalize = (size) => {
   const newSize = size * scale;
   if (Platform.OS === "ios") {
@@ -27,7 +27,7 @@ export const Size = {
   Xxlarge: normalize(20),
   userNameSize: normalize(24),
   titleSize: normalize(40),
-  lineHeight: normalize(15),
+  lineHeight: normalize(16),
 };
 
 // export const Weights = {

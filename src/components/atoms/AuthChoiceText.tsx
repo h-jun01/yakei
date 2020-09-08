@@ -1,6 +1,12 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
-import { styles } from "../../styles/auth/auth";
+import { View, Text, StyleSheet } from "react-native";
+import { baseColor, utilityColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 
 const AuthChoiceText: FC = () => {
   return (
@@ -11,5 +17,28 @@ const AuthChoiceText: FC = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  //または
+  borderBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginVertical: wp("3%"),
+  },
+  orText: {
+    color: baseColor.text,
+    paddingHorizontal: wp("8%"),
+    fontSize: Size.Small,
+  },
+  borderItem: {
+    width: wp("25%"),
+    height: 1,
+    borderWidth: 0.3,
+    borderColor: utilityColor.border,
+    opacity: 0.5,
+  },
+});
 
 export default AuthChoiceText;

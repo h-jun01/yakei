@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 import { baseColor, utilityColor } from "../thema/colors";
 import {
   widthPercentageToDP as wp,
@@ -22,14 +21,14 @@ export const styles = StyleSheet.create({
   iconImg: {
     position: "absolute",
     alignSelf: "center",
-    bottom: hp("8%"),
+    bottom: wp("18%"),
     zIndex: 1,
   },
   overlay: {
     width: wp("20.3%"),
     height: wp("20.3%"),
     position: "absolute",
-    bottom: hp("8.2%"),
+    bottom: wp("18.2%"),
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",

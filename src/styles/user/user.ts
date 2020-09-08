@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 import { baseColor, utilityColor } from "../thema/colors";
 import { Size } from "../thema/fonts";
 import {
@@ -86,8 +85,8 @@ export const styles = StyleSheet.create({
     backgroundColor: baseColor.base,
   },
   imgItem: {
-    width: wp("32.4%"),
-    height: wp("32.4%"),
+    width: wp("32.3%"),
+    height: wp("32.%"),
     margin: wp("0.5%"),
     alignSelf: "center",
     justifyContent: "center",
