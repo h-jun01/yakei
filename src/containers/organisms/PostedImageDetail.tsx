@@ -45,8 +45,10 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   useEffect(() => {
     if (shouldHeaderLeftBeCross === undefined) return;
     const onPress = () => {
+      // マップ画面に遷移
       dispatch(setShouldDisplayBottomNav(true));
       dispatch(setShouldNavigateMap(true));
+      navigation.dispatch(StackActions.popToTop());
     };
     navigation.setOptions({
       headerLeft: () => (

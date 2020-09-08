@@ -3,10 +3,15 @@ import { StyleSheet } from "react-native";
 import { Text, View, Button, Icon } from "native-base";
 import BottomNav from "./BottomNav";
 // 地図の右上に表示する用のコンポーネント(FC)
-const LocationButtonView: React.FC<{
+const UserSwitchButtonView: React.FC<{
   onPressIcon: () => void;
+  photoDisplayFlag: boolean;
   photoSnapFlag: boolean;
-}> = (props: { onPressIcon: () => void; photoSnapFlag: boolean }) => {
+}> = (props: {
+  onPressIcon: () => void;
+  photoDisplayFlag: boolean;
+  photoSnapFlag: boolean;
+}) => {
   return (
     <View style={{ position: "absolute", right: "0%", bottom: "0%" }}>
       <Button
@@ -17,11 +22,11 @@ const LocationButtonView: React.FC<{
         }
         onPress={props.onPressIcon}
       >
-        <Icon
-          style={styles.crosshairsIcon}
-          type="FontAwesome5"
-          name="crosshairs"
-        />
+        {props.photoDisplayFlag ? (
+          <Icon style={styles.userIcon} type="FontAwesome5" name="user" />
+        ) : (
+          <Icon style={styles.usersIcon} type="FontAwesome5" name="users" />
+        )}
       </Button>
     </View>
   );
@@ -31,7 +36,7 @@ const styles = StyleSheet.create({
   buttonBoxDefault: {
     position: "absolute",
     right: 10,
-    bottom: 100,
+    bottom: 170,
     width: 55,
     height: 55,
     textAlign: "center",
@@ -42,7 +47,7 @@ const styles = StyleSheet.create({
   buttonBoxHaveSnap: {
     position: "absolute",
     right: 10,
-    bottom: 300,
+    bottom: 370,
     width: 55,
     height: 55,
     textAlign: "center",
@@ -50,8 +55,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#1B2441",
     padding: 0,
   },
-  crosshairsIcon: {
-    fontSize: 24,
+  userIcon: {
+    fontSize: 27,
+  },
+  usersIcon: {
+    fontSize: 19,
   },
   cardImage: {
     flex: 3,
@@ -70,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LocationButtonView;
+export default UserSwitchButtonView;
