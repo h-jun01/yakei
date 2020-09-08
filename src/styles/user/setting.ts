@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Size } from '../thema/fonts'
-import { baseColor, utilityColor } from '../thema/colors'
-import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
+import { baseColor, utilityColor } from '../thema/colors';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -44,45 +43,5 @@ export const styles = StyleSheet.create({
     borderWidth: 0.3,
     borderColor: utilityColor.border,
     opacity: 0.5,
-  },
-
-  //中身
-  //パスワード再設定
-  passwdChangeWrap: {
-    width: wp('95%'),
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: hp('15%'),
-  },
-  intro: {
-    color: baseColor.text,
-    fontSize: Size.NormalL,
-    fontWeight: "400",
-  },
-  jiro: {
-    marginTop: hp('2%'),
-  },
-  passwdLabel: {
-    color: utilityColor.inputLabel,
-    fontSize: Size.Small,
-    fontWeight: "600",
-  },
-  passwdInput: {
-    color: baseColor.text,
-    fontSize: Size.NormalL,
-    fontWeight: "600",
-  },
-  submitButton: {
-    width: wp('80%'),
-    backgroundColor: baseColor.accent,
-    paddingVertical: hp('1.5%'),
-    color: baseColor.text,
-    fontSize: Size.Large,
-    fontWeight: "700",
-    textAlign: "center",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: hp('25%'),
-    borderRadius: 5,
   },
 });

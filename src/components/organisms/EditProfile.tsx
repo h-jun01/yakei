@@ -2,9 +2,7 @@ import React, { FC } from "react";
 import {
   View,
   Text,
-  TouchableWithoutFeedback,
   KeyboardAvoidingView,
-  Keyboard,
   Platform,
 } from "react-native";
 import UserImage from "../atoms/UserImage";
