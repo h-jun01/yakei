@@ -13,6 +13,7 @@ import AuthScreenButton from "../atoms/AuthScreenButton";
 type ItemList = {
   item: string;
   placeholder: string;
+  maxLength: number;
   secureTextEntry: boolean;
   signUpUserData: UseInputResult;
 };
@@ -65,6 +66,7 @@ const SignUp: FC<Props> = ({ ...props }) => {
                   key={index}
                   item={item.item}
                   placeholder={item.placeholder}
+                  maxLength={item.maxLength}
                   secureTextEntry={item.secureTextEntry}
                   signUpUserData={item.signUpUserData}
                 />

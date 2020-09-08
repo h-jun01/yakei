@@ -11,18 +11,26 @@ type UseInput = {
 type Props = {
   item: string;
   placeholder: string;
+  maxLength: number;
   secureTextEntry: boolean;
   signUpUserData: UseInput;
 };
 
 const FormInput: FC<Props> = ({ ...props }) => {
-  const { item, placeholder, secureTextEntry, signUpUserData } = props;
+  const {
+    item,
+    placeholder,
+    maxLength,
+    secureTextEntry,
+    signUpUserData,
+  } = props;
   return (
     <View>
       <Text style={styles.authInputItemName}>{item}</Text>
       <TextInput
         style={styles.authInput}
         placeholder={placeholder}
+        maxLength={maxLength}
         autoCapitalize={"none"}
         keyboardType="default"
         returnKeyType="done"

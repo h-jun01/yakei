@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
     marginBottom: hp(".3%"),
   },
   photogenicSubjec: {
+    width: 300,
     color: baseColor.grayText,
     fontSize: Size.Small,
     fontWeight: "400",

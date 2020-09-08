@@ -1,6 +1,6 @@
 import { loadingStatusChange, loginStatusChange } from "./auth";
 import { setPhotoListData } from "./photo";
-import { setNoticeListData } from "./notice";
+import { setNewsDataList } from "./news ";
 import { setAllPhotoListData } from "./allPhoto";
 import { setShouldDisplayBottomNav } from "./bottomNav";
 import { setShouldAppearPostBtns } from "./cameraAndAlbum";
@@ -28,7 +28,7 @@ export enum ActionTypes {
   PHOTO_ALL_DATA_LIST = "PHOTO_ALL_DATA_LIST",
   COMMENT_DATA_LIST = "COMMENT_DATA_LIST",
   INPUT_FORM_STATUS = "INPUT_FORM_STATUS",
-  NOTICE_DATA_LIST = "NOTICE_DATA_LIST",
+  NEWS_DATA_LIST = "NOTICE_DATA_LIST",
   UPDATE_USER_NAME = "UPDATE_USER_NAME",
   UPDATE_SELF_INTRODUCTION = "UPDATE_SELF_INTRODUCTION",
   UPDATE_PROFILE_IMAGE = "UPDATE_PROFILE_IMAGE",
@@ -52,7 +52,7 @@ export type UnionedAction =
   | ReturnType<typeof setAllPhotoListData>
   | ReturnType<typeof setCommentDataList>
   | ReturnType<typeof setIsInputForm>
-  | ReturnType<typeof setNoticeListData>
+  | ReturnType<typeof setNewsDataList>
   | ReturnType<typeof upDateUserName>
   | ReturnType<typeof upDateUserSelfIntroduction>
   | ReturnType<typeof upDateUserProfileImage>

@@ -4,10 +4,12 @@ import { Timestamp } from "@google-cloud/firestore";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 import { FieldValue } from "../../firebase/firebase";
+import { accountFireStore } from "../../firebase/accountFireStore";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { notificationFireStore } from "../../firebase/notificationFireStore";
 import { useInput } from "../../utilities/hooks/input";
 import { setIsInputForm, setCommentDataList } from "../../actions/postedData";
+import { sendPushCommentNotification } from "../../utilities/sendPushNotification";
 import KeyboardInputView from "../../components/molecules/KeyboardInputView";
 
 type Props = {
@@ -58,6 +60,9 @@ const KeyboardInputViewContainer: FC<Props> = ({ ...props }) => {
       await notificationFireStore.notificationOpponentFavorite(
         notificationItems
       );
+      await accountFireStore.getDeviceToken(uid).then(async (res) => {
+        await sendPushCommentNotification(res, opponentName, inputValue.value);
+      });
     }
 
     dispatch(setIsInputForm(false));
