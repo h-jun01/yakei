@@ -39,15 +39,19 @@ const BottomNav: FC<Props> = ({ ...props }) => {
 
   return (
     <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
-      <AnimatedTouchableOpacity
-        activeOpacity={1.0}
-        onPressOut={onPressOut}
-        style={[
-          styles.whiteWrap,
-          opacityAnim,
-          shouldAppearBtns ? {} : { display: "none" },
-        ]}
-      />
+      {shouldAppearBtns ? (
+        <AnimatedTouchableOpacity
+          activeOpacity={1.0}
+          onPressOut={onPressOut}
+          style={[
+            styles.whiteWrap,
+            opacityAnim,
+            shouldAppearBtns ? {} : { display: "none" },
+          ]}
+        />
+      ) : (
+        <></>
+      )}
       <View style={styles.footerBackgroundWrap}>
         <FooterBackgroundSvg
           style={styles.footerBackground}
