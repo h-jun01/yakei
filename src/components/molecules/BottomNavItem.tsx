@@ -8,7 +8,7 @@ import NotificationButtonTintedSvg from "../atoms/svg/NotificationButtonTintedSv
 import PickUpButtonStrokedSvg from "../atoms/svg/PickUpButtonStrokedSvg";
 import PlusButtonSvg from "../atoms/svg/PlusButtonSvg";
 import NotificationButtonStrokedSvg from "../atoms/svg/NotificationButtonStrokedSvg";
-import RoundedUserImage from "../atoms/RoundedUserImage";
+import RoundedUserImage from "../../containers/atoms/RoundedUserImage";
 import MapButtonStrokedSvg from "../atoms/svg/MapButtonStrokedSvg";
 
 type Props = {
@@ -107,18 +107,9 @@ const BottomNavItem: FC<Props> = (props) => {
       );
     }
     default: {
-      const widthRatio = 28 / iPhone11width;
-      const aspect = displayWidth * widthRatio;
-      const borderRatio = 2 / iPhone11width;
-      const borderWidth = displayWidth * borderRatio;
-
       return (
         <>
-          <RoundedUserImage
-            aspect={aspect}
-            borderWidth={borderWidth}
-            color={isFocused ? activeColor : normalColor}
-          />
+          <RoundedUserImage color={isFocused ? activeColor : normalColor} />
           <Text style={styles.label}>{label}</Text>
         </>
       );

@@ -276,7 +276,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
 
       const selectedPhotoData = { allPhotoDataList, myPhotoDataList };
       dispatchPhotoData(dispatch, selectedPhotoData, photoData);
-      console.log(photoData.photo_id);
+      console.log(photoData.photo_id); // 本番では削除
       navigation.navigate("postedImageDetail", {
         imageData: photoData,
         shouldHeaderLeftBeCross: true,
@@ -290,8 +290,10 @@ const PostContainer: FC<Props> = ({ ...props }) => {
           onPress={() => onPress()}
           disabled={isDisabled}
         >
-          <View style={styles.postBtn}>
-            <PaperAirplaneSvg color={baseColor.accent} />
+          <View style={styles.headerBtn}>
+            <View style={styles.postBtnIcon}>
+              <PaperAirplaneSvg color={baseColor.accent} />
+            </View>
           </View>
         </TouchableWithoutFeedback>
       ),
@@ -309,8 +311,9 @@ const PostContainer: FC<Props> = ({ ...props }) => {
               ? () => onPressOfCamera(dispatch)
               : () => onPressOfAlbum(dispatch)
           }
+          style={styles.headerBtn}
         >
-          <FontAwesome name="times" style={styles.crossButton} />
+          <FontAwesome name="times" style={styles.crossBtnIcon} />
         </TouchableOpacity>
       ),
     });

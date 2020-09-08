@@ -5,6 +5,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { Size } from "./thema/fonts";
+import { Row } from "native-base";
 
 const eiffelSvgViewBoxRatio = 18 / 23;
 const mapSvgViewBoxRatio = 22 / 28;
@@ -61,16 +62,21 @@ export const styles = StyleSheet.create({
     fontSize: Size.Large,
   },
   // 閉じるボタン
-  crossButton: {
+  headerBtn: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: wp("4%"),
+  },
+  // 閉じるボタン内のアイコン
+  crossBtnIcon: {
     color: baseColor.text,
     fontSize: wp("5.6%"),
     fontWeight: "bold",
-    paddingLeft: wp("4%"),
   },
-  // 投稿ボタン
-  postBtn: {
-    width: wp("9%"),
-    paddingRight: wp("4%"),
+  // 投稿ボタン内のアイコン
+  postBtnIcon: {
+    width: wp("5.5%"),
     aspectRatio: postBtnViewBoxRatio,
   },
 });
