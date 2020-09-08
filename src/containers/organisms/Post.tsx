@@ -217,10 +217,11 @@ const PostContainer: FC<Props> = ({ ...props }) => {
 
   // 撮影場所を初期化
   useEffect(() => {
+    setIsDisable(false);
+    setPhotogenicSubject("");
+    setLocation({ address: "撮影場所を入力" });
     if (type === "camera") {
       getLocationAddressAsync(setLocation);
-    } else {
-      setLocation({ address: "撮影場所を入力" });
     }
   }, [uri]);
 
@@ -315,6 +316,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
         scrollViewRef={scrollViewRef}
         setSpaceHeight={setSpaceHeight}
         handleContentSizeChange={handleContentSizeChange}
+        photogenicSubject={photogenicSubject}
         setPhotogenicSubject={setPhotogenicSubject}
       />
       <Spinner
