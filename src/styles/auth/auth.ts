@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { baseColor, utilityColor } from "../thema/colors";
 import { Size } from "../thema/fonts";
-import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
+import { deviceWidth } from "../../utilities/dimensions";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   allWrap: {
     width: deviceWidth,
     position: "absolute",
-    top: hp('13%'),
+    top: hp('10%'),
   },
   authWrap: {
     width: wp('90%'),
@@ -33,20 +33,6 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  //アプリ名
-  titleWrap: {
-    alignItems: "center",
-    marginBottom: hp('4%'),
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-  yakeiLogo: {
-    color: "#fff",
-    width: wp('57%'),
-    height: hp('8%'),
-    zIndex: 1,
-  },
-
   //input
   authInputItemName: {
     color: baseColor.text,
@@ -54,8 +40,8 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
   },
   authInput: {
-    marginBottom: hp('2.5%'),
-    padding: wp('2%'),
+    marginBottom: hp('2.3%'),
+    padding: wp('1.5%'),
     borderRadius: 5,
     borderBottomWidth: 1,
     borderBottomColor: utilityColor.border,
@@ -67,7 +53,7 @@ export const styles = StyleSheet.create({
     backgroundColor: baseColor.accent,
     borderRadius: 5,
     paddingVertical: hp('1.5%'),
-    marginBottom: hp('1%'),
+    marginBottom: hp('.5%'),
   },
   buttonText: {
     color: baseColor.text,
@@ -78,7 +64,7 @@ export const styles = StyleSheet.create({
 
   // 利用規約
   text: {
-    marginTop: hp('1%'),
+    marginTop: hp('.5%'),
   },
   textColor: {
     color: baseColor.text,
@@ -90,27 +76,6 @@ export const styles = StyleSheet.create({
     color: baseColor.accent,
     fontWeight: "bold",
     fontSize: Size.NormalS,
-  },
-
-  //または
-  borderBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginVertical: hp('1.6%'),
-  },
-  orText: {
-    color: baseColor.text,
-    paddingHorizontal: wp('8%'),
-    fontSize: Size.Small,
-  },
-  borderItem: {
-    width: wp('25%'),
-    height: 1,
-    borderWidth: 0.3,
-    borderColor: utilityColor.border,
-    opacity: 0.5,
   },
 
   //連携ログイン
@@ -134,6 +99,6 @@ export const styles = StyleSheet.create({
   authChangeText: {
     color: baseColor.text,
     fontSize: Size.Small,
-    padding: 20,
+    padding: wp("3.5%"),
   },
 });

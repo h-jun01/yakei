@@ -147,17 +147,24 @@ const checkError = (
   return false;
 };
 
-const uploadPostImage = async (
+const uploadToStorage = async (
   uid: string,
-  uri: string,
-  photogenicSubject: string,
-  location: Location
-): Promise<undefined | DocumentData> => {
+  uri: string
+): Promise<undefined | string> => {
   const ref = postFirebaseStorage.getUploadRef(uid);
   const storageResult = await postFirebaseStorage.uploadPostImage(ref, uri);
   if (storageResult === "error") return;
   const url = await postFirebaseStorage.getImageUrl(ref);
   if (url === "error") return;
+  return url;
+};
+
+const uploadToFirestore = async (
+  uid: string,
+  url: string,
+  photogenicSubject: string,
+  location: Location
+): Promise<undefined | DocumentData> => {
   if (location.latitude === undefined) return;
   if (location.longitude === undefined) return;
   const firestoreResult = await postFireStore.addImageData({
@@ -176,6 +183,18 @@ const uploadPostImage = async (
     // アプリの再起動をかけるべき?
     return;
   }
+  return data;
+};
+
+const uploadPostImage = async (
+  uid: string,
+  uri: string,
+  photogenicSubject: string,
+  location: Location
+): Promise<undefined | DocumentData> => {
+  const url = await uploadToStorage(uid, uri);
+  if (!url) return;
+  const data = await uploadToFirestore(uid, url, photogenicSubject, location);
   return data;
 };
 
@@ -215,8 +234,9 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     (state: RootState) => state.myPhotoReducer.photoDataList
   );
 
-  // 撮影場所を初期化
+  // 投稿情報を初期化
   useEffect(() => {
+    dispatch(setShouldDisplayBottomNav(false));
     setIsDisable(false);
     setPhotogenicSubject("");
     setLocation({ address: "撮影場所を入力" });
@@ -271,16 +291,15 @@ const PostContainer: FC<Props> = ({ ...props }) => {
           disabled={isDisabled}
         >
           <View style={styles.postBtn}>
-            <PaperAirplaneSvg color={baseColor.text} />
+            <PaperAirplaneSvg color={baseColor.accent} />
           </View>
         </TouchableWithoutFeedback>
       ),
     });
   }, [uid, uri, photogenicSubject, location]);
 
-  // 閉じるボタン押下時の処理
   useEffect(() => {
-    dispatch(setShouldDisplayBottomNav(false));
+    // 閉じるボタン押下時の処理
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity
@@ -299,6 +318,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
 
   const scrollViewRef = useRef<null | ScrollView>(null);
   const handleContentSizeChange = (width, height) => {
+    // TextInputがキーボードで隠れてしまう問題の対策
     if (spaceHeight === 0) return;
     scrollViewRef.current?.scrollTo({
       y: height - spaceHeight,

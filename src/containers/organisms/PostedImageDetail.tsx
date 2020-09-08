@@ -1,20 +1,17 @@
-import React, { FC, useEffect, useRef, useCallback } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { TextInput, TouchableOpacity } from "react-native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
-import firebase from "firebase";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { StackActions } from "@react-navigation/native";
-import {
-  NavigationProp,
-  RouteProp,
-} from "@react-navigation/core/lib/typescript/src/types";
+import { RouteProp } from "@react-navigation/native";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { setShouldNavigateMap } from "../../actions/mapNavigate";
+import { styles } from "../../styles/post";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { styles } from "../../styles/post";
 
 type routeObj = {
   imageData: firebase.firestore.DocumentData;
@@ -23,7 +20,7 @@ type routeObj = {
 
 type Props = {
   route: RouteProp<Record<string, routeObj>, string>;
-  navigation: NavigationProp<Record<string, object>>;
+  navigation: StackNavigationProp<Record<string, object>>;
 };
 
 const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {

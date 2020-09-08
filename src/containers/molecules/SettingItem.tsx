@@ -8,7 +8,7 @@ type ItemList = {
   leftIcon: JSX.Element;
   rightIcon?: JSX.Element;
   label: string;
-  navigation?: () => void;
+  navigation: () => void;
 };
 
 type Props = {
@@ -50,6 +50,7 @@ const SettingItemContainer: FC<Props> = ({ navigation }) => {
         <MaterialCommunityIcons name="chevron-right" size={Size.Xlarge} />
       ),
       label: "ヘルプ",
+      navigation: () => navigation.navigate("help"),
     },
     {
       leftIcon: (

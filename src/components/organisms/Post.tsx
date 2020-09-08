@@ -41,6 +41,10 @@ const Post: FC<Props> = ({ ...props }) => {
 
   const width = Dimensions.get("window").width;
   const height = width * aspectRatio;
+  const addressColorStyle =
+    address === "撮影場所を入力"
+      ? { color: utilityColor.placeholderText }
+      : { color: baseColor.text };
 
   return (
     <ScrollView
@@ -50,13 +54,7 @@ const Post: FC<Props> = ({ ...props }) => {
     >
       <View style={styles.allWrap}>
         <Image
-          style={[
-            {
-              width: width,
-              height: height,
-            },
-            styles.image,
-          ]}
+          style={[{ width: width, height: width }, styles.image]}
           source={{ uri }}
         />
 
@@ -88,7 +86,9 @@ const Post: FC<Props> = ({ ...props }) => {
             style={styles.locationTextWrap}
             onPress={() => onPressLocationRow()}
           >
-            <Text style={styles.locationText}>{address}</Text>
+            <Text style={[styles.locationText, addressColorStyle]}>
+              {address}
+            </Text>
           </TouchableOpacity>
         </View>
 
