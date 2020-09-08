@@ -23,6 +23,7 @@ type Props = {
   handleContentSizeChange: (width: number, height: number) => void;
   photogenicSubject: string;
   setPhotogenicSubject: React.Dispatch<React.SetStateAction<string>>;
+  onPressLocationRow: () => void;
 };
 
 const Post: FC<Props> = ({ ...props }) => {
@@ -35,6 +36,7 @@ const Post: FC<Props> = ({ ...props }) => {
     handleContentSizeChange,
     photogenicSubject,
     setPhotogenicSubject,
+    onPressLocationRow,
   } = props;
 
   const width = Dimensions.get("window").width;
@@ -81,7 +83,11 @@ const Post: FC<Props> = ({ ...props }) => {
           <View style={[styles.svgWrap, styles.mapSvgWrap]}>
             <MapTintedSvg color={baseColor.text} />
           </View>
-          <TouchableOpacity activeOpacity={1} style={styles.locationTextWrap}>
+          <TouchableOpacity
+            activeOpacity={1}
+            style={styles.locationTextWrap}
+            onPress={() => onPressLocationRow()}
+          >
             <Text style={styles.locationText}>{address}</Text>
           </TouchableOpacity>
         </View>
