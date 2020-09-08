@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { Animated } from "react-native";
-import WhiteWrap from "../../components/atoms/TouchableOpacityUsedHook";
+import WhiteWrap from "../../components/atoms/WhiteWrap";
 
 type Props = {
   onPressOut: () => void;

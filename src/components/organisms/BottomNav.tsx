@@ -5,7 +5,7 @@ import { baseColor } from "../../styles/thema/colors";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavTouchableOpacity from "../../containers/molecules/BottomNavTouchableOpacity";
-import WhiteWrap from "../../containers/atoms/TouchableOpacityUsedHook";
+import WhiteWrap from "../../containers/atoms/WhiteWrap";
 
 type Props = {
   state: BottomTabBarProps["state"];
