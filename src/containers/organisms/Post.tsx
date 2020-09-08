@@ -147,6 +147,8 @@ const checkError = (
   return false;
 };
 
+const uploadToStorage = () => {};
+
 const uploadPostImage = async (
   uid: string,
   uri: string,
@@ -215,8 +217,9 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     (state: RootState) => state.myPhotoReducer.photoDataList
   );
 
-  // 撮影場所を初期化
+  // 投稿情報を初期化
   useEffect(() => {
+    dispatch(setShouldDisplayBottomNav(false));
     setIsDisable(false);
     setPhotogenicSubject("");
     setLocation({ address: "撮影場所を入力" });
@@ -278,9 +281,8 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     });
   }, [uid, uri, photogenicSubject, location]);
 
-  // 閉じるボタン押下時の処理
   useEffect(() => {
-    dispatch(setShouldDisplayBottomNav(false));
+    // 閉じるボタン押下時の処理
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity
@@ -299,6 +301,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
 
   const scrollViewRef = useRef<null | ScrollView>(null);
   const handleContentSizeChange = (width, height) => {
+    // TextInputがキーボードで隠れてしまう問題の対策
     if (spaceHeight === 0) return;
     scrollViewRef.current?.scrollTo({
       y: height - spaceHeight,
