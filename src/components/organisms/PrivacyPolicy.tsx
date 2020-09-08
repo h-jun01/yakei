@@ -1,18 +1,12 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import { useDispatch } from "react-redux";
-import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { Size } from "../../styles/thema/fonts";
 
-const PrivacyPolicy: FC = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(setShouldDisplayBottomNav(false));
-    return () => {
-      dispatch(setShouldDisplayBottomNav(true));
-    };
-  }, []);
+type Props = {
+  _handleOpenWithLinking: () => void;
+};
 
+const PrivacyPolicy: FC<Props> = ({ _handleOpenWithLinking }) => {
   return (
     <ScrollView style={styles.container}>
       <View>
@@ -148,7 +142,11 @@ const PrivacyPolicy: FC = () => {
       <View>
         <Text style={styles.item}>第9条（お問い合わせ窓口）</Text>
         <Text style={styles.contents}>
-          本ポリシーに関するお問い合わせは，問い合わせフォームからお願致します。
+          本ポリシーに関するお問い合わせは，
+          <Text style={styles.mail} onPress={() => _handleOpenWithLinking()}>
+            こちら
+          </Text>
+          からお願致します。
         </Text>
       </View>
       <Text style={styles.fin}>以上</Text>
@@ -189,6 +187,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     lineHeight: 15,
     letterSpacing: 0.5,
+  },
+  mail: {
+    color: "#1D89C6",
   },
   fin: {
     textAlign: "right",
