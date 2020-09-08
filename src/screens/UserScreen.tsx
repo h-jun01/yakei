@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { baseColor } from "../styles/thema/colors";
 import User from "../containers/organisms/User";
 import Setting from "../containers/organisms/Setting";
 import EditProfile from "../containers/organisms/EditProfile";
@@ -10,7 +11,7 @@ import Faq from "../containers/organisms/Faq";
 import TermsOfService from "../containers/organisms/TermsOfService";
 import PrivacyPolicy from "../containers/organisms/PrivacyPolicy";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
-import { baseColor } from "../styles/thema/colors";
+import OtherUser from "../containers/organisms/OtherUser";
 
 const UserScreen: FC = () => {
   const Stack = createStackNavigator();
@@ -124,6 +125,18 @@ const UserScreen: FC = () => {
         component={PostedImageDetail}
         options={{
           title: "投稿",
+          headerBackTitleVisible: false,
+          headerTintColor: baseColor.text,
+          headerStyle: {
+            backgroundColor: baseColor.darkNavy,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="otherUser"
+        component={OtherUser}
+        options={{
+          title: "違うユーザ",
           headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {

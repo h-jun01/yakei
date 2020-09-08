@@ -18,12 +18,12 @@ const FaqContainer: FC<Props> = ({ route }) => {
   const scrollViewRef = useRef<ScrollView>(null);
 
   const _handleOpenWithLinking = () => {
-    Linking.openURL("mailto:teamyakei@gmail.com?subject=【退会申請】").catch(
-      () => {
-        callingAlert(
-          "メールを開くことができませんでした。退会申請の宛先はこちらになります。teamyakei@gmail.com"
-        );
-      }
+    Linking.openURL(
+      "mailto:teamyakei@gmail.com?subject=【退会申請】"
+    ).catch(() =>
+      callingAlert(
+        "メールを開くことができませんでした。退会申請の宛先はこちらになります。teamyakei@gmail.com"
+      )
     );
   };
 

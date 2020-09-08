@@ -1,14 +1,17 @@
 import React, { FC, useState, useEffect } from "react";
+import { RootState } from "../../reducers/index";
+import { useSelector, useDispatch } from "react-redux";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 
 type Props = {
+  navigation: any;
   uid: string;
   photogenic_subject: string;
 };
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
-  const { uid, photogenic_subject } = props;
+  const { uid, photogenic_subject, navigation } = props;
   const [postUserName, setPostUserName] = useState<string>("");
   const [postUserImage, setPostUserImage] = useState<string>(
     "https://example.com"
@@ -40,6 +43,8 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
 
   return (
     <InformationUserPosted
+      navigation={navigation}
+      uid={uid}
       postUserName={postUserName}
       postUserImage={postUserImage}
       photogenic_subject={photogenic_subject}
