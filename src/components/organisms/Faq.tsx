@@ -106,6 +106,7 @@ const Faq: FC<Props> = ({ _handleOpenWithLinking }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom: 130,
   },
   wrapper: {
     width: deviceWidth / 1.1,
