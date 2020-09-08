@@ -53,8 +53,12 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     };
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity activeOpacity={0.6} onPress={() => onPress()}>
-          <FontAwesome name="times" style={styles.crossButton} />
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => onPress()}
+          style={styles.headerBtn}
+        >
+          <FontAwesome name="times" style={styles.crossBtnIcon} />
         </TouchableOpacity>
       ),
     });
