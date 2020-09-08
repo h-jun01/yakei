@@ -5,6 +5,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { deviceWidth } from "../../utilities/dimensions";
 
 export const styles = StyleSheet.create({
   container: {
@@ -86,9 +87,10 @@ export const styles = StyleSheet.create({
   },
   imgItem: {
     width: wp("32.3%"),
+    // width: deviceWidth / 3,
     height: wp("32.%"),
     margin: wp("0.5%"),
-    alignSelf: "center",
-    justifyContent: "center",
+    // alignSelf: "center",
+    // justifyContent: "center",
   },
 });
