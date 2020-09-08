@@ -2,7 +2,6 @@ import React, { FC, useEffect } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
-import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
 
 const PrivacyPolicy: FC = () => {
@@ -165,6 +164,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: Size.Xxlarge,
+    fontWeight: "600",
     paddingTop: 15,
     paddingBottom: 15,
   },
