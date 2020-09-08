@@ -61,7 +61,7 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       setIsFavoriteStatus(true);
 
       await accountFireStore.updateFavoriteList(photo_id);
-      await photoFireStore.IncrementFavoriteNumber(photo_id);
+      await photoFireStore.IncrementFavoriteNumber(photo_id, favoriteNumber);
       await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
         setFavoriteNumber(res);
       });
@@ -90,7 +90,7 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       }
     } else {
       await accountFireStore.deleteFavoriteItem(photo_id);
-      await photoFireStore.DecrementFavoriteNumber(photo_id);
+      await photoFireStore.DecrementFavoriteNumber(photo_id, favoriteNumber);
       await photoFireStore.getFavoriteNumber(photo_id).then((res) => {
         setFavoriteNumber(res);
       });
