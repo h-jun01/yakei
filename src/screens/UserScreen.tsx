@@ -6,7 +6,7 @@ import EditProfile from "../containers/organisms/EditProfile";
 import PasswordReset from "../components/organisms/PasswordReset";
 import News from "../containers/organisms/News";
 import Help from "../components/organisms/Help";
-import Faq from "../components/organisms/Faq";
+import Faq from "../containers/organisms/Faq";
 import TermsOfService from "../components/organisms/TermsOfService";
 import PrivacyPolicy from "../components/organisms/PrivacyPolicy";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";

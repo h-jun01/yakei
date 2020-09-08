@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
-import * as Linking from "expo-linking";
 import FaqHeading from "../atoms/FaqHeading";
 
 const Faq: FC = () => {
