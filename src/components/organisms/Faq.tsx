@@ -1,18 +1,33 @@
-import React, { FC } from "react";
+import React, { FC, useRef, RefObject } from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 import FaqHeading from "../atoms/FaqHeading";
 
 type Props = {
+  elementHeight: number;
+  scrollViewRef: RefObject<ScrollView>;
   _handleOpenWithLinking: () => void;
+  onLayout: (e) => void;
 };
 
-const Faq: FC<Props> = ({ _handleOpenWithLinking }) => {
+const Faq: FC<Props> = ({ ...props }) => {
+  const {
+    elementHeight,
+    scrollViewRef,
+    _handleOpenWithLinking,
+    onLayout,
+  } = props;
+
   return (
-    <ScrollView>
+    <ScrollView
+      ref={scrollViewRef}
+      onContentSizeChange={() =>
+        scrollViewRef.current!.scrollTo({ x: 0, y: elementHeight })
+      }
+    >
       <View style={styles.container}>
         {/* 1 */}
-        <View style={styles.wrapper}>
+        <View style={styles.wrapper} onLayout={(e) => onLayout(e)}>
           <FaqHeading heading="登録しているメールアドレスを変更したい" />
           <Text>
             現在の仕様上、登録されたメールアドレスの変更はできません。今後のアップデートでの実装を予定しています。
