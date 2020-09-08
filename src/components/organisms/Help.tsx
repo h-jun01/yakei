@@ -26,21 +26,48 @@ const Help: FC<Props> = ({ navigation }) => {
         {"\u3000"}侵害をしてはいけません
       </Text>
       <HelpHeading heading="よくある質問" />
-      <Text style={styles.questionText}>
+      <Text
+        style={styles.questionText}
+        onPress={() => navigation.navigate("faq")}
+      >
         登録しているメールアドレスを変更したい
       </Text>
-      <Text style={styles.questionText}>
+      <Text
+        style={styles.questionText}
+        onPress={() => navigation.navigate("faq")}
+      >
         登録しているパスワードを変更したい
       </Text>
-      <Text style={styles.questionText}>
+      <Text
+        style={styles.questionText}
+        onPress={() => navigation.navigate("faq")}
+      >
         パスワード変更時にメールが届きません
       </Text>
-      <Text style={styles.questionText}>YAKEIを退会したい</Text>
-      <Text style={styles.questionText}>
+      <Text
+        style={styles.questionText}
+        onPress={() => navigation.navigate("faq")}
+      >
+        YAKEIを退会したい
+      </Text>
+      <Text
+        style={styles.questionText}
+        onPress={() => navigation.navigate("faq")}
+      >
         投稿写真を保存するにはどのようにすればいいですか？
       </Text>
-      <Text style={styles.questionText}>スポットとはなんですか？</Text>
-      <Text style={styles.questionText}>ピックアップとはなんですか？</Text>
+      <Text
+        style={styles.questionText}
+        onPress={() => navigation.navigate("faq")}
+      >
+        スポットとはなんですか？
+      </Text>
+      <Text
+        style={styles.questionText}
+        onPress={() => navigation.navigate("faq")}
+      >
+        ピックアップとはなんですか？
+      </Text>
     </View>
   );
 };
