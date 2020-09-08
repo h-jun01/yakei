@@ -291,7 +291,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
           disabled={isDisabled}
         >
           <View style={styles.postBtn}>
-            <PaperAirplaneSvg color={baseColor.text} />
+            <PaperAirplaneSvg color={baseColor.accent} />
           </View>
         </TouchableWithoutFeedback>
       ),
