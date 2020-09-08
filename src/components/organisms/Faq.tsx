@@ -16,7 +16,7 @@ const Faq: FC<Props> = ({ ...props }) => {
     <ScrollView
       ref={scrollViewRef}
       onContentSizeChange={() =>
-        scrollViewRef.current!.scrollTo({ x: 0, y: yAxis })
+        scrollViewRef.current!.scrollTo({ x: 0, y: yAxis, animated: false })
       }
     >
       <View style={styles.container}>
