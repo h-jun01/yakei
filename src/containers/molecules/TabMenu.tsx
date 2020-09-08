@@ -36,8 +36,6 @@ const TabMenuContainer: FC<Props> = ({ navigation }) => {
     dispatch(setFavoriteItems(fechDataList));
   }, [favoriteList]);
 
-  console.log(favoriteItems);
-
   return (
     <TabMenu
       navigation={navigation}

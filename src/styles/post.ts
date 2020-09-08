@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     marginVertical: hp("1.25%"),
     paddingHorizontal: wp("2%"),
-    fontSize: Size.Large,
+    fontSize: Size.NormalL,
     color: baseColor.text,
   },
   locationTextWrap: {
@@ -58,8 +58,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp("2%"),
   },
   locationText: {
-    width: "100%",
-    fontSize: Size.Large,
+    width: "90%",
+    fontSize: Size.NormalL,
   },
   // 閉じるボタン
   headerBtn: {
