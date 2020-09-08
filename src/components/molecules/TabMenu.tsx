@@ -49,7 +49,7 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                 }
               >
                 <Image
-                  style={styles.imgItem}
+                  style={styles.image}
                   PlaceholderContent={<ActivityIndicator />}
                   source={{
                     uri: item.url,
@@ -88,7 +88,7 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                 }
               >
                 <Image
-                  style={styles.imgItem}
+                  style={styles.image}
                   PlaceholderContent={<ActivityIndicator />}
                   source={{
                     uri: item.url,
