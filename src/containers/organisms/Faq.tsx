@@ -1,11 +1,20 @@
 import React, { FC, useState, useRef } from "react";
+import { RouteProp } from "@react-navigation/native";
 import { ScrollView } from "react-native";
 import { callingAlert } from "../../utilities/alert";
 import * as Linking from "expo-linking";
 import Faq from "../../components/organisms/Faq";
 
-const FaqContainer: FC = () => {
-  const [elementHeight, setElementHright] = useState<number>(0);
+type YAxis = {
+  yAxis: number;
+};
+
+type Props = {
+  route: RouteProp<Record<string, YAxis>, string>;
+};
+
+const FaqContainer: FC<Props> = ({ route }) => {
+  const yAxis = route.params.yAxis;
   const scrollViewRef = useRef<ScrollView>(null);
 
   const _handleOpenWithLinking = () => {
@@ -18,18 +27,11 @@ const FaqContainer: FC = () => {
     );
   };
 
-  const onLayout = (e) => {
-    setElementHright(e.nativeEvent.layout.height);
-  };
-
-  console.log(elementHeight);
-
   return (
     <Faq
-      elementHeight={elementHeight}
       scrollViewRef={scrollViewRef}
       _handleOpenWithLinking={_handleOpenWithLinking}
-      onLayout={onLayout}
+      yAxis={yAxis}
     />
   );
 };

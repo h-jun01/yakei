@@ -28,43 +28,71 @@ const Help: FC<Props> = ({ navigation }) => {
       <HelpHeading heading="よくある質問" />
       <Text
         style={styles.questionText}
-        onPress={() => navigation.navigate("faq")}
+        onPress={() =>
+          navigation.navigate("faq", {
+            yAxis: 0,
+          })
+        }
       >
         登録しているメールアドレスを変更したい
       </Text>
       <Text
         style={styles.questionText}
-        onPress={() => navigation.navigate("faq")}
+        onPress={() =>
+          navigation.navigate("faq", {
+            yAxis: 120,
+          })
+        }
       >
         登録しているパスワードを変更したい
       </Text>
       <Text
         style={styles.questionText}
-        onPress={() => navigation.navigate("faq")}
+        onPress={() =>
+          navigation.navigate("faq", {
+            yAxis: 320,
+          })
+        }
       >
         パスワード変更時にメールが届きません
       </Text>
       <Text
         style={styles.questionText}
-        onPress={() => navigation.navigate("faq")}
+        onPress={() =>
+          navigation.navigate("faq", {
+            yAxis: 700,
+          })
+        }
       >
         YAKEIを退会したい
       </Text>
       <Text
         style={styles.questionText}
-        onPress={() => navigation.navigate("faq")}
+        onPress={() =>
+          navigation.navigate("faq", {
+            yAxis: 700,
+          })
+        }
       >
         投稿写真を保存するにはどのようにすればいいですか？
       </Text>
       <Text
         style={styles.questionText}
-        onPress={() => navigation.navigate("faq")}
+        onPress={() =>
+          navigation.navigate("faq", {
+            yAxis: 700,
+          })
+        }
       >
         スポットとはなんですか？
       </Text>
       <Text
         style={styles.questionText}
-        onPress={() => navigation.navigate("faq")}
+        onPress={() =>
+          navigation.navigate("faq", {
+            yAxis: 700,
+          })
+        }
       >
         ピックアップとはなんですか？
       </Text>
