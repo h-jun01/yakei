@@ -15,6 +15,7 @@ import {
 import { Container } from "native-base";
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
+import UserSwitchButtonView from "./UserSwitchButton";
 import LocationButtonView from "./PresentLocationButton";
 import OriginMarker from "../atoms/OriginMarker";
 import { useEffect } from "react";
@@ -310,11 +311,17 @@ const Home: FC<Props> = ({ ...props }) => {
             })}
         </Animated.ScrollView>
       )}
-      <LocationButtonView
+      <UserSwitchButtonView
         onPressIcon={() => {
           setPhotoDisplayFlag(!photoDisplayFlag);
         }}
         photoDisplayFlag={photoDisplayFlag}
+        photoSnapFlag={photoSnapFlag}
+      />
+      <LocationButtonView
+        onPressIcon={() => {
+          _map.current.animateToRegion(region);
+        }}
         photoSnapFlag={photoSnapFlag}
       />
     </Container>
