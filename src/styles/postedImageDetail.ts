@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { deviceWidth, deviceHeight } from "../utilities/dimensions";
+import { deviceWidth } from "../utilities/dimensions";
 import { baseColor } from "./thema/colors";
 import { Size } from "./thema/fonts";
 import {

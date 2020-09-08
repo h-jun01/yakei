@@ -1,17 +1,23 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
-import { styles } from "../../styles/user/setting";
+import { View, Text,StyleSheet } from "react-native";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { useInput } from "../../utilities/hooks/input";
-import { Jiro } from "react-native-textinput-effects";
+import { Hoshi } from "react-native-textinput-effects";
+import { Size } from '../../styles/thema/fonts'
+import { baseColor, utilityColor } from '../../styles/thema/colors';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
+
 
 const PasswordReset: FC = () => {
   const email = useInput("");
   return (
     <View style={styles.container}>
       <View style={styles.passwdChangeWrap}>
-        <Text style={styles.intro}>パスワード再設定用のメールを送信します</Text>
-        <Jiro
+        <Hoshi
           //先頭文字を大文字にしない
           autoCapitalize={"none"}
           //キーボードの設定
@@ -21,9 +27,8 @@ const PasswordReset: FC = () => {
           placeholder=""
           {...email}
           label={"メールアドレスを入力 "}
-          borderColor={"#21A6B8"}
-          inputPadding={14}
-          style={styles.jiro}
+          borderColor={"#fff"}
+          inputPadding={wp("2%")}
           inputStyle={styles.passwdInput}
           labelStyle={styles.passwdLabel}
         />
@@ -31,11 +36,50 @@ const PasswordReset: FC = () => {
           style={styles.submitButton}
           onPress={() => accountFireStore.passwordResetEmail(email.value)}
         >
-          メールを送信する
+          パスワード設定リンクを送信
         </Text>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: wp("100%"),
+    backgroundColor: baseColor.base,
+  },
+  //パスワード再設定
+  passwdChangeWrap: {
+    width: wp("95%"),
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: hp("5%"),
+  },
+  passwdLabel: {
+    color: utilityColor.inputLabel,
+    fontSize: Size.Small,
+    fontWeight: "600",
+  },
+  passwdInput: {
+    color: baseColor.text,
+    fontSize: Size.NormalL,
+    fontWeight: "600",
+  },
+  submitButton: {
+    width: wp("80%"),
+    backgroundColor: baseColor.accent,
+    paddingVertical: hp("1.5%"),
+    color: baseColor.text,
+    fontSize: Size.Large,
+    fontWeight: "700",
+    textAlign: "center",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: hp("8%"),
+    borderRadius: 6,
+    overflow: "hidden",
+  },
+});
 
 export default PasswordReset;

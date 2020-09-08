@@ -20,46 +20,45 @@ const UserInput: FC<Props> = ({ ...props }) => {
   const { label, placeholder, value, setValue, inputLength } = props;
   return (
     <Fragment>
-      <Hoshi
-        onChangeText={(name) => setValue(name)}
-        //値
+      {/* インプットの説明 */}
+      <Text style={styles.labelItem}>{label}</Text>
+      <TextInput
         value={value}
-        label={label}
-        //先頭文字を大文字にしない
-        autoCapitalize={"none"}
-        //キーボードの設定
+        placeholder={placeholder}
+        keyboardType="default"
         returnKeyType="done"
-        blurOnSubmit={true}
-        //改行
         multiline={true}
-        maxLength={inputLength}
-        //編集を可能に
+        blurOnSubmit={true}
         editable={true}
-        //アクティブな境界線およびラベルの色
-        //どうしても赤線が出る。影響なし
-        // borderHeight={1}
-        inputPadding={24}
-        borderColor={utilityColor.border}
-        inputStyle={styles.editInput}
-        labelStyle={styles.labelItem}
+        placeholderTextColor={utilityColor.placeholderText}
+        onChangeText={(name) => setValue(name)}
+        style={styles.editInput}
       />
     </Fragment>
   );
 };
 
 const styles = StyleSheet.create({
+  //fontWeightを変数指定すると赤線が出る。影響はなし
   labelItem: {
-    color: utilityColor.inputLabel,
-    fontSize: Size.Small,
+    color: baseColor.text,
+    fontSize: Size.Normal,
     fontWeight: "600",
+    marginBottom: wp("1.5%"),
+    paddingLeft: wp("3%"),
+    borderBottomWidth: 1,
+    borderColor: utilityColor.border,
   },
   editInput: {
-    color: baseColor.text,
-    fontSize: Size.NormalL,
+    color: utilityColor.editBox,
+    fontSize: Size.Large,
     fontWeight: "600",
     lineHeight: Size.lineHeight,
-    paddingLeft: wp("2.5%"),
+    paddingBottom: wp("3%"),
+    paddingLeft: wp("6%"),
     paddingRight: wp("5%"),
+    borderBottomWidth: 1,
+    borderColor: utilityColor.border,
   },
 });
 
