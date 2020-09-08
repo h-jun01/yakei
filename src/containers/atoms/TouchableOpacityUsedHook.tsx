@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { Animated } from "react-native";
-import TouchableOpacityUsedHook from "../../components/atoms/TouchableOpacityUsedHook";
+import WhiteWrap from "../../components/atoms/TouchableOpacityUsedHook";
 
 type Props = {
   onPressOut: () => void;
@@ -8,7 +8,7 @@ type Props = {
   styles: object[];
 };
 
-const TouchableOpacityUsedHookContainer: FC<Props> = ({ ...props }) => {
+const WhiteWrapContainer: FC<Props> = ({ ...props }) => {
   const { onPressOut, whiteWrapAnim, styles } = props;
 
   const [isMounted, setIsMounted] = useState(false);
@@ -25,12 +25,8 @@ const TouchableOpacityUsedHookContainer: FC<Props> = ({ ...props }) => {
   });
 
   return (
-    <TouchableOpacityUsedHook
-      isMounted={isMounted}
-      onPressOut={onPressOut}
-      styles={styles}
-    />
+    <WhiteWrap isMounted={isMounted} onPressOut={onPressOut} styles={styles} />
   );
 };
 
-export default TouchableOpacityUsedHookContainer;
+export default WhiteWrapContainer;

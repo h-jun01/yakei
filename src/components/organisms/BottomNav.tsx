@@ -5,7 +5,7 @@ import { baseColor } from "../../styles/thema/colors";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavTouchableOpacity from "../../containers/molecules/BottomNavTouchableOpacity";
-import TouchableOpacityUsedHook from "../../containers/atoms/TouchableOpacityUsedHook";
+import WhiteWrap from "../../containers/atoms/TouchableOpacityUsedHook";
 
 type Props = {
   state: BottomTabBarProps["state"];
@@ -34,7 +34,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
   return (
     <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
       {shouldAppearBtns ? (
-        <TouchableOpacityUsedHook
+        <WhiteWrap
           onPressOut={onPressOut}
           whiteWrapAnim={whiteWrapAnim}
           styles={[styles.whiteWrap, opacityAnim]}

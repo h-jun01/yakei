@@ -7,7 +7,7 @@ type Props = {
   styles: object[];
 };
 
-const TouchableOpacityUsedHook: FC<Props> = ({ ...props }) => {
+const WhiteWrap: FC<Props> = ({ ...props }) => {
   const { onPressOut, styles } = props;
   const { isMounted } = props;
 
@@ -21,4 +21,4 @@ const TouchableOpacityUsedHook: FC<Props> = ({ ...props }) => {
   );
 };
 
-export default TouchableOpacityUsedHook;
+export default WhiteWrap;
