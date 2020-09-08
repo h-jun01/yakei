@@ -3,7 +3,11 @@ import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 import FaqHeading from "../atoms/FaqHeading";
 
-const Faq: FC = () => {
+type Props = {
+  _handleOpenWithLinking: () => void;
+};
+
+const Faq: FC<Props> = ({ _handleOpenWithLinking }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -45,16 +49,17 @@ const Faq: FC = () => {
             <Text>・ メールアドレスが正しいかご確認ください</Text>
             <Text>・ 迷惑メール設定をご確認ください</Text>
           </View>
-          <Text>
-            なお、変更が確認できない場合はこちらよりお問い合わせください。
-          </Text>
         </View>
         <View style={styles.border} />
         {/* ４ */}
         <View style={styles.wrapper}>
           <FaqHeading heading="YAKEIを退会したい" />
           <Text>
-            お問い合わせフォームからYAKEI運営宛てのGmailアドレスに、件名を【退会申請】とした上で空メールを送信してください。退会申請を確認後、順次、退会処理をさせていただきます。
+            件名を【退会申請】とした上で{" "}
+            <Text style={styles.mail} onPress={() => _handleOpenWithLinking()}>
+              こちら
+            </Text>
+            にメールを送信してください。退会申請を確認後、順次、退会処理をさせていただきます。
             {"\n"}
           </Text>
           <Text>
@@ -117,6 +122,9 @@ const styles = StyleSheet.create({
     padding: 15,
     marginTop: 15,
     marginBottom: 15,
+  },
+  mail: {
+    color: "#1D89C6",
   },
 });
 
