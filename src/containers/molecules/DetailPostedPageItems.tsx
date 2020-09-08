@@ -8,6 +8,7 @@ import { accountFireStore } from "../../firebase/accountFireStore";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { notificationFireStore } from "../../firebase/notificationFireStore";
 import { upDateFavoriteList } from "../../actions/user";
+import { sendPushFavoriteNotification } from "../../utilities/sendPushNotification";
 import DetailPostedPageItems from "../../components/molecules/DetailPostedPageItems";
 
 type Props = {
@@ -49,11 +50,9 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
 
   // お気に入りチェック
   useEffect(() => {
-    if (favoriteList.indexOf(photo_id) !== -1) {
-      setIsFavoriteStatus(true);
-    } else {
-      setIsFavoriteStatus(false);
-    }
+    favoriteList.indexOf(photo_id) !== -1
+      ? setIsFavoriteStatus(true)
+      : setIsFavoriteStatus(false);
   });
 
   // お気に入り押下時
@@ -85,6 +84,9 @@ const DetailPostedPageItemsContainer: FC<Props> = ({ ...props }) => {
         await notificationFireStore.notificationOpponentFavorite(
           notificationItems
         );
+        await accountFireStore.getDeviceToken(uid).then(async (res) => {
+          await sendPushFavoriteNotification(res, opponentName);
+        });
       }
     } else {
       await accountFireStore.deleteFavoriteItem(photo_id);

@@ -3,6 +3,7 @@ import { TextInput, TouchableOpacity } from "react-native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 import firebase from "firebase";
+import { StackActions } from "@react-navigation/native";
 import {
   NavigationProp,
   RouteProp,
@@ -48,8 +49,10 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   useEffect(() => {
     if (shouldHeaderLeftBeCross === undefined) return;
     const onPress = () => {
+      // マップ画面に遷移
       dispatch(setShouldDisplayBottomNav(true));
       dispatch(setShouldNavigateMap(true));
+      navigation.dispatch(StackActions.popToTop());
     };
     navigation.setOptions({
       headerLeft: () => (

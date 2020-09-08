@@ -21,7 +21,9 @@ type Props = {
   scrollViewRef: React.MutableRefObject<ScrollView | null>;
   setSpaceHeight: React.Dispatch<React.SetStateAction<number>>;
   handleContentSizeChange: (width: number, height: number) => void;
+  photogenicSubject: string;
   setPhotogenicSubject: React.Dispatch<React.SetStateAction<string>>;
+  onPressLocationRow: () => void;
 };
 
 const Post: FC<Props> = ({ ...props }) => {
@@ -32,7 +34,9 @@ const Post: FC<Props> = ({ ...props }) => {
     scrollViewRef,
     setSpaceHeight,
     handleContentSizeChange,
+    photogenicSubject,
     setPhotogenicSubject,
+    onPressLocationRow,
   } = props;
 
   const width = Dimensions.get("window").width;
@@ -64,6 +68,7 @@ const Post: FC<Props> = ({ ...props }) => {
             style={styles.photgenicSubjectInput}
             placeholder={"被写体を入力（例 : 東京スカイツリー）"}
             maxLength={25}
+            value={photogenicSubject}
             onChangeText={(text) => setPhotogenicSubject(text)}
             autoCapitalize={"none"}
             keyboardType="default"
@@ -78,7 +83,11 @@ const Post: FC<Props> = ({ ...props }) => {
           <View style={[styles.svgWrap, styles.mapSvgWrap]}>
             <MapTintedSvg color={baseColor.text} />
           </View>
-          <TouchableOpacity activeOpacity={1} style={styles.locationTextWrap}>
+          <TouchableOpacity
+            activeOpacity={1}
+            style={styles.locationTextWrap}
+            onPress={() => onPressLocationRow()}
+          >
             <Text style={styles.locationText}>{address}</Text>
           </TouchableOpacity>
         </View>

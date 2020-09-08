@@ -21,7 +21,6 @@ type Props = {
   userSelfIntroduction: string;
   setUserName: React.Dispatch<React.SetStateAction<string>>;
   setUserSelfIntroduction: React.Dispatch<React.SetStateAction<string>>;
-  saveData: () => Promise<void>;
   onAddImagePressed: () => Promise<void>;
   onAddHeaderImagePressed: () => Promise<void>;
 };
@@ -34,7 +33,6 @@ const EditProfile: FC<Props> = ({ ...props }) => {
     userSelfIntroduction,
     setUserName,
     setUserSelfIntroduction,
-    saveData,
     onAddImagePressed,
     onAddHeaderImagePressed,
   } = props;

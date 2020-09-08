@@ -13,6 +13,7 @@ import ForgotPassword from "../atoms/ForgotPassword";
 type ItemList = {
   item: string;
   placeholder: string;
+  maxLength: number;
   secureTextEntry: boolean;
   signUpUserData: UseInputResult;
 };
@@ -63,6 +64,7 @@ const SignIn: FC<Props> = ({ ...props }) => {
                   key={index}
                   item={item.item}
                   placeholder={item.placeholder}
+                  maxLength={item.maxLength}
                   secureTextEntry={item.secureTextEntry}
                   signUpUserData={item.signUpUserData}
                 />

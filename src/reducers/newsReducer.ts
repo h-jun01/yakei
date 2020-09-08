@@ -1,31 +1,31 @@
 import { Reducer } from "redux";
 import { ActionTypes, UnionedAction } from "../actions/index";
 
-type NoticeDataList = {
+type NewsDataList = {
   title: string;
   message: string;
   time: string;
 };
 
 type State = {
-  noticeDataList: NoticeDataList[];
+  newsDataList: NewsDataList[];
 };
 
-type NoticeReducer = Reducer<State, UnionedAction>;
+type NewsReducer = Reducer<State, UnionedAction>;
 
 const initialState: State = {
-  noticeDataList: [],
+  newsDataList: [],
 };
 
-export const noticeReducer: NoticeReducer = (
+export const newsReducer: NewsReducer = (
   state = initialState,
   action: UnionedAction
 ): State => {
   switch (action.type) {
-    case ActionTypes.NOTICE_DATA_LIST:
+    case ActionTypes.NEWS_DATA_LIST:
       return {
         ...state,
-        noticeDataList: action.payload.noticeDataList,
+        newsDataList: action.payload.newsDataList,
       };
     default: {
       return state;

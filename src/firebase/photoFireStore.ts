@@ -20,7 +20,10 @@ export const photoFireStore: PhotoFireStore = {
   //自分の投稿した写真を取得
   getPhotoList: async (uid: string) => {
     const photoDataList: firebase.firestore.DocumentData[] = [];
-    const querySnapshot = await photo.where("uid", "==", uid).get();
+    const querySnapshot = await photo
+      .where("uid", "==", uid)
+      .orderBy("create_time", "asc")
+      .get();
     querySnapshot.forEach((doc) => {
       photoDataList.push(doc.data());
     });
@@ -29,7 +32,7 @@ export const photoFireStore: PhotoFireStore = {
   // 全てのユーザーの写真取得
   getAllPhotoList: async () => {
     const allPhotoList: firebase.firestore.DocumentData[] = [];
-    const querySnapshot = await photo.get();
+    const querySnapshot = await photo.orderBy("create_time", "asc").get();
     querySnapshot.forEach((doc) => {
       allPhotoList.push(doc.data());
     });

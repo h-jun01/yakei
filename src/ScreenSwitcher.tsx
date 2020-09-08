@@ -7,14 +7,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { auth } from "./firebase/firebase";
 import { accountFireStore } from "./firebase/accountFireStore";
 import { photoFireStore } from "./firebase/photoFireStore";
-import { noticeFireStore } from "./firebase/noticeFireStore";
+import { newsFireStore } from "./firebase/newsFireStore";
 import { notificationFireStore } from "./firebase/notificationFireStore";
 import { RootState } from "./reducers/index";
 import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import { setAllPhotoListData } from "./actions/allPhoto";
-import { setNoticeListData } from "./actions/notice";
+import { setNewsDataList } from "./actions/news ";
 import { setNotificationDataList } from "./actions/notification";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
@@ -49,35 +49,46 @@ const ScreenSwitcher: FC = () => {
   const Tab = createBottomTabNavigator();
 
   const registerForPushNotificationsAsync = async () => {
-    // パーミッションを取得
-    if (Constants.isDevice) {
-      const { status: existingStatus } = await Permissions.getAsync(
-        Permissions.NOTIFICATIONS
-      );
-      // 既に許可されている場合何もしない
-      let finalStatus = existingStatus;
-      if (existingStatus !== "granted") {
-        const { status } = await Permissions.askAsync(
+    try {
+      // パーミッションを取得
+      if (Constants.isDevice) {
+        const { status: existingStatus } = await Permissions.getAsync(
           Permissions.NOTIFICATIONS
         );
-        finalStatus = status;
+        // 既に許可されている場合何もしない
+        let finalStatus = existingStatus;
+        if (existingStatus !== "granted") {
+          const { status } = await Permissions.askAsync(
+            Permissions.NOTIFICATIONS
+          );
+          finalStatus = status;
+        }
+        // 許可されなかった場合何もしない
+        if (finalStatus !== "granted") {
+          return;
+        }
+        // トークン生成
+        await Notifications.getExpoPushTokenAsync()
+          .then((token) => {
+            accountFireStore.saveDeviceToken(uid, token).catch(() => {
+              return;
+            });
+          })
+          .catch(() => {
+            return;
+          });
       }
-      // 許可されなかった場合何もしない
-      if (finalStatus !== "granted") {
-        return;
+      // androidの設定
+      if (Platform.OS === "android") {
+        Notifications.createChannelAndroidAsync("default", {
+          name: "default",
+          sound: true,
+          priority: "max",
+          vibrate: [0, 250, 250, 250],
+        });
       }
-      // トークン生成
-      const token = await Notifications.getExpoPushTokenAsync();
-      accountFireStore.saveDeviceToken(uid, token);
-    }
-    // androidの設定
-    if (Platform.OS === "android") {
-      Notifications.createChannelAndroidAsync("default", {
-        name: "default",
-        sound: true,
-        priority: "max",
-        vibrate: [0, 250, 250, 250],
-      });
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -97,8 +108,8 @@ const ScreenSwitcher: FC = () => {
         await photoFireStore.getPhotoList(user.uid).then((res) => {
           dispatch(setPhotoListData(res));
         });
-        await noticeFireStore.getNoticeList().then((res) => {
-          dispatch(setNoticeListData(res.data()));
+        await newsFireStore.getNewsDataList().then((res) => {
+          dispatch(setNewsDataList(res.data()));
         });
         dispatch(loadingStatusChange(true));
         dispatch(loginStatusChange(true));
