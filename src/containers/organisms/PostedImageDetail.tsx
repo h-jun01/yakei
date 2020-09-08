@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
 import { TextInput, TouchableOpacity } from "react-native";
-import { StackActions } from "@react-navigation/native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 import { StackNavigationProp } from "@react-navigation/stack";
