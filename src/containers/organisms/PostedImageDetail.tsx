@@ -4,6 +4,7 @@ import { StackActions } from "@react-navigation/native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { StackActions } from "@react-navigation/native";
 import { RouteProp } from "@react-navigation/native";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
