@@ -1,11 +1,5 @@
 import React, { FC } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-  Animated,
-} from "react-native";
+import { View, Dimensions, StyleSheet, Animated } from "react-native";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
@@ -41,7 +35,6 @@ const BottomNav: FC<Props> = ({ ...props }) => {
     <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
       {shouldAppearBtns ? (
         <TouchableOpacityUsedHook
-          activeOpacity={1.0}
           onPressOut={onPressOut}
           whiteWrapAnim={whiteWrapAnim}
           styles={[styles.whiteWrap, opacityAnim]}

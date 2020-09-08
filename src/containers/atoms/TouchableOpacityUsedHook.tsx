@@ -3,14 +3,13 @@ import { Animated } from "react-native";
 import TouchableOpacityUsedHook from "../../components/atoms/TouchableOpacityUsedHook";
 
 type Props = {
-  activeOpacity: number;
   onPressOut: () => void;
   whiteWrapAnim: Animated.Value;
   styles: object[];
 };
 
 const TouchableOpacityUsedHookContainer: FC<Props> = ({ ...props }) => {
-  const { activeOpacity, onPressOut, whiteWrapAnim, styles } = props;
+  const { onPressOut, whiteWrapAnim, styles } = props;
 
   const [isMounted, setIsMounted] = useState(false);
 
@@ -28,7 +27,6 @@ const TouchableOpacityUsedHookContainer: FC<Props> = ({ ...props }) => {
   return (
     <TouchableOpacityUsedHook
       isMounted={isMounted}
-      activeOpacity={activeOpacity}
       onPressOut={onPressOut}
       styles={styles}
     />

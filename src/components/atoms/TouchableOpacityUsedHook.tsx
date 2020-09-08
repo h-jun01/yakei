@@ -1,26 +1,23 @@
 import React, { FC } from "react";
-import { TouchableOpacity, Animated } from "react-native";
+import { TouchableWithoutFeedback, Animated } from "react-native";
 
 type Props = {
   isMounted: boolean;
-  activeOpacity: number;
   onPressOut: () => void;
   styles: object[];
 };
 
 const TouchableOpacityUsedHook: FC<Props> = ({ ...props }) => {
-  const { activeOpacity, onPressOut, styles } = props;
+  const { onPressOut, styles } = props;
   const { isMounted } = props;
-  const AnimatedTouchableOpacity = Animated.createAnimatedComponent(
-    TouchableOpacity
-  );
 
   return (
-    <AnimatedTouchableOpacity
-      activeOpacity={activeOpacity}
+    <TouchableWithoutFeedback
       onPressOut={onPressOut}
-      style={[...styles, isMounted ? {} : { display: "none" }]}
-    />
+      style={isMounted ? {} : { display: "none" }}
+    >
+      <Animated.View style={[...styles]} />
+    </TouchableWithoutFeedback>
   );
 };
 
