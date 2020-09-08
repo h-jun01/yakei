@@ -85,12 +85,9 @@ export const styles = StyleSheet.create({
     flexWrap: "wrap",
     backgroundColor: baseColor.base,
   },
-  imgItem: {
-    width: wp("32.3%"),
-    // width: deviceWidth / 3,
-    height: wp("32.%"),
-    margin: wp("0.5%"),
-    // alignSelf: "center",
-    // justifyContent: "center",
+  image: {
+    width: deviceWidth / 3.05,
+    height: deviceWidth / 3.05,
+    margin: deviceWidth / 370,
   },
 });
