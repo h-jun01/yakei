@@ -16,7 +16,7 @@ if (!global.atob) {
 if (Platform.OS === "ios") {
   StatusBar.setBarStyle("light-content", true);
 } else if (Platform.OS === "android") {
-  StatusBar.setBackgroundColor("#fff", true);
+  StatusBar.setBackgroundColor("#181f32", true);
 }
 
 const store = createStore(rootReducer);
