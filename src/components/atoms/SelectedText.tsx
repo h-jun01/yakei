@@ -2,13 +2,9 @@ import React, { FC } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
-
-const AuthChoiceText: FC = () => {
+const SelectedText: FC = () => {
   return (
     <View style={styles.borderBox}>
       <View style={styles.borderItem} />
@@ -19,7 +15,6 @@ const AuthChoiceText: FC = () => {
 };
 
 const styles = StyleSheet.create({
-  //または
   borderBox: {
     flexDirection: "row",
     alignItems: "center",
@@ -41,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AuthChoiceText;
+export default SelectedText;

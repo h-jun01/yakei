@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: hp("4%"),
+    marginBottom: hp("5%"),
     marginLeft: "auto",
     marginRight: "auto",
   },
   yakeiLogo: {
-    width: wp("15%"),
-    height: wp("15%"),
+    width: wp("12%"),
+    height: wp("12%"),
     zIndex: 1,
     borderRadius: 6,
   },
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     fontSize: Size.titleSize,
     fontWeight: "600",
     marginLeft: wp("4%"),
+    letterSpacing: 5,
   },
 });
 

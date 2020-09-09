@@ -2,6 +2,7 @@ import React, { FC, MutableRefObject } from "react";
 import { ScrollView, View, ActivityIndicator, TextInput } from "react-native";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { styles } from "../../styles/postedImageDetail";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../../containers/molecules/DetailPostedPageItems";
@@ -10,6 +11,7 @@ import CommentInputField from "../../containers/molecules/CommentInputField";
 import CommentField from "../../containers/molecules/CommentField";
 
 type Props = {
+  navigation: StackNavigationProp<Record<string, object>>;
   photo_id: string;
   uid: string;
   create_time: Timestamp;
@@ -24,6 +26,7 @@ type Props = {
 
 const PostedImageDetail: FC<Props> = ({ ...props }) => {
   const {
+    navigation,
     photo_id,
     uid,
     create_time,
@@ -41,6 +44,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
       <ScrollView style={styles.allWrap}>
         <View>
           <InformationUserPosted
+            navigation={navigation}
             uid={uid}
             photogenic_subject={photogenic_subject}
           />

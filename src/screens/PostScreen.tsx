@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { baseColor } from "../styles/thema/colors";
 import Post from "../containers/organisms/Post";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
-import { baseColor } from "../styles/thema/colors";
 
 const PostScreen: FC = () => {
   const Stack = createStackNavigator();

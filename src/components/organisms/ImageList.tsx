@@ -35,6 +35,7 @@ const ImageList: FC<Props> = ({ ...props }) => {
         {photoDataList.map((item, index) => (
           <View style={styles.itemWrap} key={index}>
             <InformationUserPosted
+              navigation={navigation}
               uid={item.uid}
               photogenic_subject={item.photogenic_subject}
             />
