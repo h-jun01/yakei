@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { baseColor } from "../styles/thema/colors";
 import User from "../containers/organisms/User";
 import Setting from "../containers/organisms/Setting";
@@ -13,12 +14,26 @@ import PrivacyPolicy from "../containers/organisms/PrivacyPolicy";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
 import OtherUser from "../containers/organisms/OtherUser";
 
+type UserScreenStackParamList = {
+  user: undefined;
+  setting: undefined;
+  editProfile: undefined;
+  passwordReset: undefined;
+  notice: undefined;
+  help: undefined;
+  faq: undefined;
+  termsOfService: undefined;
+  post: undefined;
+  privacyPolicy: undefined;
+  otherUser: { name: string };
+};
+
 const UserScreen: FC = () => {
-  const Stack = createStackNavigator();
+  const Stack = createStackNavigator<UserScreenStackParamList>();
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="User"
+        name="user"
         component={User}
         options={{
           headerShown: false,
@@ -135,14 +150,14 @@ const UserScreen: FC = () => {
       <Stack.Screen
         name="otherUser"
         component={OtherUser}
-        options={{
-          title: "違うユーザ",
+        options={({ route }) => ({
+          title: `${route?.params?.name}`,
           headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {
             backgroundColor: baseColor.darkNavy,
           },
-        }}
+        })}
       />
     </Stack.Navigator>
   );

@@ -5,32 +5,18 @@ import { styles } from "../../styles/imageList";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 type Props = {
-  navigation: any;
-  uid: string;
   postUserName: string;
   postUserImage: string;
   photogenic_subject: string;
+  test: () => void;
 };
 
 const InformationUserPosted: FC<Props> = ({ ...props }) => {
-  const {
-    navigation,
-    uid,
-    postUserName,
-    postUserImage,
-    photogenic_subject,
-  } = props;
+  const { postUserName, postUserImage, photogenic_subject, test } = props;
 
   return (
     <View style={styles.userData}>
-      <TouchableOpacity
-        activeOpacity={1}
-        onPress={() =>
-          navigation.navigate("otherUser", {
-            uid,
-          })
-        }
-      >
+      <TouchableOpacity activeOpacity={1} onPress={() => test()}>
         <Image
           style={styles.userIcon}
           source={{

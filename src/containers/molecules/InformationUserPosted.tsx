@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 import { RootState } from "../../reducers/index";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 
@@ -12,6 +12,10 @@ type Props = {
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   const { uid, photogenic_subject, navigation } = props;
+
+  const selectMyuid = (state: RootState) => state.userReducer.uid;
+  const myUid = useSelector(selectMyuid);
+
   const [postUserName, setPostUserName] = useState<string>("");
   const [postUserImage, setPostUserImage] = useState<string>(
     "https://example.com"
@@ -41,13 +45,20 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       });
   }, []);
 
+  const test = () => {
+    if (uid !== myUid)
+      navigation.navigate("otherUser", {
+        name: postUserName,
+        uid,
+      });
+  };
+
   return (
     <InformationUserPosted
-      navigation={navigation}
-      uid={uid}
       postUserName={postUserName}
       postUserImage={postUserImage}
       photogenic_subject={photogenic_subject}
+      test={test}
     />
   );
 };

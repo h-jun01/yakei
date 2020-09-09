@@ -3,14 +3,6 @@ import { RouteProp } from "@react-navigation/native";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import OtherUser from "../../components/organisms/OtherUser";
 
-type UserData = {
-  name: string;
-  selfIntroduction: string;
-  userImage: string;
-  userHeaderImage: string;
-  favoriteList: string[];
-};
-
 type Route = {
   uid: string;
 };
@@ -25,11 +17,9 @@ const OtherUserContainer: FC<Props> = ({ route }) => {
 
   useEffect(() => {
     accountFireStore.getUser(uid).then((res) => {
-      setUserData(res);
+      setUserData(res.data());
     });
   }, []);
-
-  console.log(userData);
 
   return <OtherUser />;
 };
