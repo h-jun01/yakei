@@ -56,14 +56,14 @@ const PickUpScreen: FC = () => {
       <Stack.Screen
         name="post"
         component={PostedImageDetail}
-        options={{
-          title: "投稿",
+        options={({ route }) => ({
+          title: route.params.imageData.photogenic_subject,
           headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {
             backgroundColor: baseColor.darkNavy,
           },
-        }}
+        })}
       />
       <Stack.Screen
         name="otherUser"
