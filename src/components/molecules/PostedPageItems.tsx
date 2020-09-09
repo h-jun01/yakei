@@ -1,8 +1,13 @@
 import React, { FC, Fragment } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Timestamp } from "@google-cloud/firestore";
-import { styles } from "../../styles/imageList";
 import { iconSize } from "../../styles/thema/fonts";
+import { baseColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -88,5 +93,36 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
     </Fragment>
   );
 };
+
+const styles = StyleSheet.create({
+  postItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: hp("1%"),
+    marginRight: "auto",
+  },
+  PostIcon: {
+    color: baseColor.text,
+    fontSize: Size.Small,
+    fontWeight: "500",
+    marginRight: wp(".5%"),
+    marginLeft: wp(".5%"),
+  },
+  stateNum: {
+    color: baseColor.text,
+    fontSize: Size.Small,
+    fontWeight: "400",
+    marginRight: wp("3%"),
+  },
+  timeStamp: {
+    paddingLeft: hp("1.4%"),
+    color: baseColor.grayText,
+    fontSize: Size.Small,
+    fontWeight: "400",
+  },
+  touchableOpacity: {
+    flexDirection: "row",
+  },
+});
 
 export default PostedPageItems;

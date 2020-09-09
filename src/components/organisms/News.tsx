@@ -4,10 +4,7 @@ import { StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 import { Size } from "../../styles/thema/fonts";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 type NewsDataList = {
   title: string;

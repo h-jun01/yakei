@@ -4,13 +4,18 @@ import {
   Text,
   KeyboardAvoidingView,
   Platform,
+  StyleSheet,
 } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { baseColor, utilityColor } from "../../styles/thema/colors";
+import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 import UserImage from "../atoms/UserImage";
 import UserInput from "../atoms/UserInput";
 import HeaderImage from "../atoms/HeaderImage";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
-import { styles } from "../../styles/user/editProfile";
 
 type Props = {
   userName: string;
@@ -87,5 +92,51 @@ const EditProfile: FC<Props> = ({ ...props }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    height: hp("100%"),
+    backgroundColor: baseColor.base,
+  },
+  allWrap: {
+    flex: 1,
+    width: wp("100%"),
+    height: hp("100%"),
+  },
+  userImgWrap: {
+    position: "relative",
+  },
+  iconImg: {
+    position: "absolute",
+    alignSelf: "center",
+    bottom: wp("18%"),
+    zIndex: 1,
+  },
+  overlay: {
+    width: wp("20.3%"),
+    height: wp("20.3%"),
+    position: "absolute",
+    bottom: wp("18.2%"),
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 180,
+    backgroundColor: utilityColor.strongOverlay,
+    zIndex: 2,
+  },
+  inputWrap: {
+    width: wp("95%"),
+    alignSelf: "center",
+    paddingTop: 10,
+  },
+  margin: {
+    marginVertical: hp("1.5%"),
+  },
+  headerIcon: {
+    position: "absolute",
+    bottom: hp("2%"),
+    right: wp("2%"),
+  },
+});
 
 export default EditProfile;

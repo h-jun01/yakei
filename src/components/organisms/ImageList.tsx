@@ -4,10 +4,15 @@ import {
   View,
   ActivityIndicator,
   TouchableOpacity,
+  StyleSheet,
 } from "react-native";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
-import { styles } from "../../styles/imageList";
+import { baseColor } from "../../styles/thema/colors";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import PostedPageItems from "../../containers/molecules/PostedPageItems";
 
@@ -76,5 +81,24 @@ const ImageList: FC<Props> = ({ ...props }) => {
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: hp("100%"),
+    backgroundColor: baseColor.base,
+  },
+  allWrap: {
+    width: wp("100%"),
+    paddingBottom: 101,
+  },
+  itemWrap: {
+    marginBottom: hp("1.5%"),
+  },
+  imageSize: {
+    width: wp("100%"),
+    height: hp("25%"),
+  },
+});
 
 export default ImageList;

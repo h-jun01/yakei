@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
-import { TextInput, TouchableOpacity } from "react-native";
+import { TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -12,7 +12,8 @@ import { setShouldNavigateMap } from "../../actions/mapNavigate";
 import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
 import { UserScreenStackParamList } from "../../screens/UserScreen";
-import { styles } from "../../styles/post";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { baseColor } from "../../styles/thema/colors";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
@@ -103,5 +104,21 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  // 閉じるボタン
+  headerBtn: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: wp("4%"),
+  },
+  // 閉じるボタン内のアイコン
+  crossBtnIcon: {
+    color: baseColor.text,
+    fontSize: wp("5.6%"),
+    fontWeight: "bold",
+  },
+});
 
 export default PostedImageDetailContainer;

@@ -1,7 +1,18 @@
 import React, { FC } from "react";
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  StyleSheet,
+} from "react-native";
 import { Image } from "react-native-elements";
-import { styles } from "../../styles/imageList";
+import { baseColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 type Props = {
@@ -43,5 +54,40 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  userIcon: {
+    width: wp("10%"),
+    height: wp("10%"),
+    borderRadius: 180,
+    marginRight: wp("3%"),
+  },
+  userData: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: hp("1.5%"),
+    marginBottom: hp("1%"),
+    marginLeft: wp("2.5%"),
+  },
+  userName: {
+    color: baseColor.text,
+    fontSize: Size.Normal,
+    fontWeight: "600",
+    marginBottom: hp(".3%"),
+  },
+  photogenicSubjec: {
+    width: 300,
+    color: baseColor.grayText,
+    fontSize: Size.Small,
+    fontWeight: "400",
+  },
+  dotsVertical: {
+    color: baseColor.text,
+    fontSize: Size.Small,
+    marginTop: hp(".5%"),
+    marginLeft: "auto",
+    marginRight: wp("2.5%"),
+  },
+});
 
 export default InformationUserPosted;

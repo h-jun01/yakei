@@ -1,7 +1,12 @@
 import React, { FC } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import { Image } from "react-native-elements";
-import { styles } from "../../styles/postedImageDetail";
+import { baseColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 type Props = {
   userImage: string;
@@ -26,5 +31,35 @@ const CommentInputField: FC<Props> = ({ userImage, focusOnInput }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  commentInputField: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: hp("1%"),
+    marginBottom: hp("1%"),
+    marginLeft: wp("3%"),
+  },
+  tapInputField: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: wp("80%"),
+    minHeight: 30,
+    borderRadius: 15,
+    paddingVertical: hp("1.3%"),
+    paddingLeft: wp("3%"),
+    marginLeft: wp("3%"),
+    backgroundColor: "#fff",
+  },
+  tapInputText: {
+    width: wp("100%"),
+    color: "#505050",
+  },
+  userIcon: {
+    width: wp("10%"),
+    height: wp("10%"),
+    borderRadius: 180,
+  },
+});
 
 export default CommentInputField;
