@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { AppLoading } from "expo";
 import { Size } from "../../styles/thema/fonts";
-import { baseColor, utilityColor } from "../../styles/thema/colors";
+import { baseColor } from "../../styles/thema/colors";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     width: wp("12%"),
     height: wp("12%"),
     zIndex: 1,
-    borderRadius: 6,
+    borderRadius: 8,
   },
   title: {
     color: baseColor.text,

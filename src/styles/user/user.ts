@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
 
   overlay: {
     width: wp("100%"),
-    height: hp("35%"),
+    height: wp("65%"),
     backgroundColor: utilityColor.overlay,
   },
 

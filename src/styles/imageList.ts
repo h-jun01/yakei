@@ -50,6 +50,7 @@ export const styles = StyleSheet.create({
   },
   dotsVertical: {
     color: baseColor.text,
+    fontSize: Size.Small,
     marginTop: hp(".5%"),
     marginLeft: "auto",
     marginRight: wp("2.5%"),
@@ -68,12 +69,14 @@ export const styles = StyleSheet.create({
   },
   PostIcon: {
     color: baseColor.text,
+    fontSize: Size.Small,
     fontWeight: "500",
     marginRight: wp(".5%"),
     marginLeft: wp(".5%"),
   },
   stateNum: {
     color: baseColor.text,
+    fontSize: Size.Small,
     fontWeight: "400",
     marginRight: wp("3%"),
   },

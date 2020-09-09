@@ -2,6 +2,7 @@ import React, { FC, Fragment } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Timestamp } from "@google-cloud/firestore";
 import { styles } from "../../styles/imageList";
+import { iconSize } from "../../styles/thema/fonts";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -47,9 +48,9 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
         >
           <Text style={styles.PostIcon}>
             {isFavoriteStatus ? (
-              <AntDesign name="heart" size={15} color="#E0245E" />
+              <AntDesign name="heart" size={iconSize.Small} color="#E0245E" />
             ) : (
-              <AntDesign name="hearto" size={15} />
+              <AntDesign name="hearto" size={iconSize.Small} />
             )}
           </Text>
           <Text style={styles.stateNum}>{favoriteNumber}</Text>
@@ -72,12 +73,15 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
           }
         >
           <Text style={styles.PostIcon}>
-            <MaterialCommunityIcons name="comment-outline" size={15.5} />
+            <MaterialCommunityIcons
+              name="comment-outline"
+              size={iconSize.Small}
+            />
           </Text>
           <Text style={styles.stateNum}>{commentCount}</Text>
         </TouchableOpacity>
         <Text style={styles.PostIcon}>
-          <EvilIcons name="location" size={21} />
+          <EvilIcons name="location" size={iconSize.NormalS} />
         </Text>
       </View>
       <Text style={styles.timeStamp}>{date}</Text>

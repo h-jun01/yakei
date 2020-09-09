@@ -27,8 +27,8 @@ const PasswordReset: FC = () => {
           placeholder=""
           {...email}
           label={"メールアドレスを入力 "}
-          borderColor={"#fff"}
-          inputPadding={wp("2%")}
+          borderColor={"#202840"}
+          inputPadding={wp("2.5%")}
           inputStyle={styles.passwdInput}
           labelStyle={styles.passwdLabel}
         />

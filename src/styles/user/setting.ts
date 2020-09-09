@@ -34,6 +34,7 @@ export const styles = StyleSheet.create({
   },
   rightIcon: {
     fontSize: Size.Large,
+    fontWeight: "400",
     color: baseColor.text,
     marginLeft: "auto",
   },
