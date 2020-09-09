@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Timestamp } from "@google-cloud/firestore";
 import { useDisplayTime } from "../../utilities/hooks/date";
-import { StyleSheet } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
 
@@ -31,23 +31,21 @@ const NotificationText: FC<Props> = ({ ...props }) => {
 
 export const styles = StyleSheet.create({
   text: {
-    width: 230,
-    color: "#fff",
+    width: wp("60%"),
+    color: baseColor.text,
     letterSpacing: 0.8,
     lineHeight: 16,
-    paddingLeft: 17,
-    paddingRight: 17,
-    paddingBottom: 10,
+    paddingHorizontal: wp("4.1%"),
+    paddingBottom: wp("2.6%"),
   },
   timeStamp: {
-    paddingLeft: 17,
-    paddingRight: 17,
+    paddingHorizontal: wp("4.1%"),
     color: baseColor.grayText,
     fontSize: Size.Small,
     fontWeight: "400",
   },
   nameSize: {
-    fontSize: 15,
+    fontSize: Size.NormalL,
     fontWeight: "700",
   },
 });

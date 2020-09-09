@@ -1,7 +1,11 @@
 import React, { FC } from "react";
-import { Text, TextInput } from "react-native";
+import { Text, TextInput, StyleSheet } from "react-native";
 import { UseInputResult } from "../../utilities/hooks/input";
-import { styles } from "../../styles/postedImageDetail";
+import { deviceWidth } from "../../utilities/dimensions";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import KeyboardStickyView from "rn-keyboard-sticky-view";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
@@ -35,5 +39,48 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
     </KeyboardStickyView>
   );
 };
+
+const styles = StyleSheet.create({
+  keyboardViewFalse: {
+    display: "none",
+    flexDirection: "row",
+    width: wp("100%"),
+    height: "auto",
+    paddingTop: 7,
+    paddingLeft: 7,
+    backgroundColor: "#fff",
+  },
+  keyboardViewTrue: {
+    flexDirection: "row",
+    width: deviceWidth,
+    height: "auto",
+    paddingTop: 7,
+    paddingLeft: 7,
+    backgroundColor: "#fff",
+  },
+  input: {
+    width: deviceWidth / 1.15,
+    minHeight: 30,
+    maxHeight: 150,
+    height: "auto",
+    marginBottom: 7,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    alignItems: "center",
+    borderWidth: 0.5,
+    borderRadius: 25,
+    color: "#505050",
+    borderColor: "#f0f0f0",
+    backgroundColor: "#f0f0f0",
+  },
+  sendIcon: {
+    marginLeft: "auto",
+    paddingRight: 15,
+    paddingBottom: 5,
+    color: "#606060",
+  },
+});
 
 export default KeyboardInputView;

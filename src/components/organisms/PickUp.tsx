@@ -70,27 +70,27 @@ const styles = StyleSheet.create({
   },
   image: {
     width: wp("100%"),
-    height: hp("32%"),
+    height: wp("70%"),
   },
   itemInfoWrap: {
-    height: hp("7%"),
-    width: hp("100%"),
+    height: wp("20%"),
+    width: wp("100%"),
     position: "absolute",
     bottom: 0,
     justifyContent: "space-around",
     backgroundColor: utilityColor.itemFilter,
-    padding: hp("1.5%"),
+    padding: wp("4%"),
   },
   itemTitle: {
     color: baseColor.text,
     fontSize: Size.NormalL,
     fontWeight: "500",
-    paddingBottom: hp("1.3%"),
+    paddingBottom: wp("2%"),
   },
   itemTime: {
+    color: baseColor.text,
     fontSize: Size.Normal,
     fontWeight: "400",
-    color: baseColor.text,
   },
 });
 

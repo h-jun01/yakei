@@ -2,7 +2,6 @@ import React, { FC, Fragment } from "react";
 import { Text, TextInput, StyleSheet } from "react-native";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
-import { Hoshi } from "react-native-textinput-effects";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,

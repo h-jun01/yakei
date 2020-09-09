@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   authInputItemName: {
     color: baseColor.text,
     fontSize: Size.Small,
-    fontWeight: "600",
+    fontWeight: "400",
   },
   authInput: {
     marginBottom: hp("2.3%"),
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderBottomWidth: 1,
     borderBottomColor: utilityColor.border,
-    fontSize: Size.Large,
+    fontSize: Size.Normal,
     color: baseColor.text,
   },
 });

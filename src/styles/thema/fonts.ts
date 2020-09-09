@@ -5,7 +5,7 @@ import { deviceWidth } from "../../utilities/dimensions";
 const scale = deviceWidth / 414;
 
 //fontSizeを可変
-const normalize = (size) => {
+const normalize = (size: number) => {
   const newSize = size * scale;
   if (Platform.OS === "ios") {
     return Math.round(PixelRatio.roundToNearestPixel(newSize));
@@ -24,6 +24,7 @@ export const Size = {
   Large: normalize(16),
   Xlarge: normalize(18),
   Xxlarge: normalize(20),
+  noNotificationSize: 22,
   userNameSize: normalize(24),
   titleSize: normalize(43),
   lineHeight: normalize(16),
