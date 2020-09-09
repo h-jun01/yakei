@@ -5,7 +5,6 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { Size } from "./thema/fonts";
-import { Row } from "native-base";
 
 const eiffelSvgViewBoxRatio = 18 / 23;
 const mapSvgViewBoxRatio = 22 / 28;
@@ -46,19 +45,23 @@ export const styles = StyleSheet.create({
   photgenicSubjectInput: {
     flexDirection: "row",
     alignItems: "center",
-    width: "100%",
+    flexGrow: 1,
+    flexWrap: "wrap",
+    width: wp("80%"),
     marginVertical: hp("1.25%"),
-    paddingHorizontal: wp("2%"),
+    marginHorizontal: wp("2%"),
     fontSize: Size.NormalL,
     color: baseColor.text,
   },
   locationTextWrap: {
-    width: "100%",
+    flexDirection: "row",
+    flexGrow: 1,
+    flexWrap: "wrap",
     marginVertical: hp("1.25%"),
     paddingHorizontal: wp("2%"),
   },
   locationText: {
-    width: "90%",
+    width: wp("80%"),
     fontSize: Size.NormalL,
   },
   // 閉じるボタン
