@@ -24,7 +24,7 @@ export const Size = {
   Large: normalize(16),
   Xlarge: normalize(18),
   Xxlarge: normalize(20),
-  noNotificationSize: 22,
+  noNotificationSize: normalize(22),
   userNameSize: normalize(24),
   titleSize: normalize(43),
   lineHeight: normalize(16),
