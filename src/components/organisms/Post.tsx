@@ -42,7 +42,7 @@ const Post: FC<Props> = ({ ...props }) => {
   const width = Dimensions.get("window").width;
   const height = width * aspectRatio;
   const addressColorStyle =
-    address === "撮影場所を入力"
+    address === "撮影場所を選択"
       ? { color: utilityColor.placeholderText }
       : { color: baseColor.text };
 
@@ -65,9 +65,10 @@ const Post: FC<Props> = ({ ...props }) => {
           <TextInput
             style={styles.photgenicSubjectInput}
             placeholder={"被写体を入力（例 : 東京スカイツリー）"}
-            maxLength={25}
             value={photogenicSubject}
             onChangeText={(text) => setPhotogenicSubject(text)}
+            maxLength={25}
+            multiline={true}
             autoCapitalize={"none"}
             keyboardType="default"
             returnKeyType="done"
