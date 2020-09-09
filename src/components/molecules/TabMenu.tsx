@@ -4,7 +4,7 @@ import { Tab, Tabs, TabHeading } from "native-base";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/user/user";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { baseColor, utilityColor } from "../../styles/thema/colors";
+import { baseColor } from "../../styles/thema/colors";
 
 type Props = {
   navigation: any;
@@ -49,7 +49,7 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                 }
               >
                 <Image
-                  style={styles.imgItem}
+                  style={styles.image}
                   PlaceholderContent={<ActivityIndicator />}
                   source={{
                     uri: item.url,
@@ -88,7 +88,7 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                 }
               >
                 <Image
-                  style={styles.imgItem}
+                  style={styles.image}
                   PlaceholderContent={<ActivityIndicator />}
                   source={{
                     uri: item.url,

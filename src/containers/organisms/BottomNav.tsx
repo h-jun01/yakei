@@ -18,19 +18,6 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
     (state: RootState) => state.postBtnsReducer.shouldAppear
   );
 
-  if (shouldAppearBtns) {
-    Animated.timing(whiteWrapAnim, {
-      toValue: 1,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
-  } else {
-    Animated.timing(whiteWrapAnim, {
-      toValue: 0,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
-  }
   const opacityInterpolate = whiteWrapAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 1],
@@ -46,6 +33,7 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
       navigation={navigation}
       shouldDisplay={shouldDisplay}
       shouldAppearBtns={shouldAppearBtns}
+      whiteWrapAnim={whiteWrapAnim}
       opacityAnim={opacityAnim}
       onPressOut={onPressOut}
     />

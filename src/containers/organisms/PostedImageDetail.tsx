@@ -1,29 +1,31 @@
-import React, { FC, useEffect, useRef, useCallback } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { TextInput, TouchableOpacity } from "react-native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
-import firebase from "firebase";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { StackActions } from "@react-navigation/native";
-import {
-  NavigationProp,
-  RouteProp,
-} from "@react-navigation/core/lib/typescript/src/types";
+import { RouteProp } from "@react-navigation/native";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { setShouldNavigateMap } from "../../actions/mapNavigate";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
+import { styles } from "../../styles/post";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { styles } from "../../styles/post";
 
-type routeObj = {
-  imageData: firebase.firestore.DocumentData;
-  shouldHeaderLeftBeCross?: boolean;
-};
+type PostScreenRouteProp = RouteProp<
+  | HomeScreenStackParamList
+  | PickUpScreenStackParamList
+  | UserScreenStackParamList,
+  "post"
+>;
 
 type Props = {
-  route: RouteProp<Record<string, routeObj>, string>;
-  navigation: NavigationProp<Record<string, object>>;
+  route: PostScreenRouteProp;
+  navigation: StackNavigationProp<Record<string, object>>;
 };
 
 const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
@@ -42,7 +44,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     state.postedDataReducer.commentDataList;
 
   const commentDataList = useSelector(selrctCommentDataList);
-  const textInputRef = useRef<null | TextInput>(null);
+  const textInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
 
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える
@@ -56,8 +58,12 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     };
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity activeOpacity={0.6} onPress={() => onPress()}>
-          <FontAwesome name="times" style={styles.crossButton} />
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => onPress()}
+          style={styles.headerBtn}
+        >
+          <FontAwesome name="times" style={styles.crossBtnIcon} />
         </TouchableOpacity>
       ),
     });
@@ -83,6 +89,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
 
   return (
     <PostedImageDetail
+      navigation={navigation}
       photo_id={photo_id}
       uid={uid}
       create_time={create_time}

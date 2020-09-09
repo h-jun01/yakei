@@ -1,16 +1,11 @@
 import React, { FC } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-  Animated,
-} from "react-native";
+import { View, Dimensions, StyleSheet, Animated } from "react-native";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavTouchableOpacity from "../../containers/molecules/BottomNavTouchableOpacity";
+import WhiteWrap from "../../containers/atoms/WhiteWrap";
 
 type Props = {
   state: BottomTabBarProps["state"];
@@ -19,6 +14,7 @@ type Props = {
   shouldDisplay: boolean;
   shouldAppearBtns: boolean;
   opacityAnim: Object;
+  whiteWrapAnim: Animated.Value;
   onPressOut: () => void;
 };
 
@@ -30,24 +26,22 @@ const BottomNav: FC<Props> = ({ ...props }) => {
     shouldDisplay,
     shouldAppearBtns,
     opacityAnim,
+    whiteWrapAnim,
     onPressOut,
   } = props;
-  const AnimatedTouchableOpacity = Animated.createAnimatedComponent(
-    TouchableOpacity
-  );
   const postScreenIndex = 4;
 
   return (
     <View style={[styles.container, shouldDisplay ? {} : { display: "none" }]}>
-      <AnimatedTouchableOpacity
-        activeOpacity={1.0}
-        onPressOut={onPressOut}
-        style={[
-          styles.whiteWrap,
-          opacityAnim,
-          shouldAppearBtns ? {} : { display: "none" },
-        ]}
-      />
+      {shouldAppearBtns ? (
+        <WhiteWrap
+          onPressOut={onPressOut}
+          whiteWrapAnim={whiteWrapAnim}
+          styles={[styles.whiteWrap, opacityAnim]}
+        />
+      ) : (
+        <></>
+      )}
       <View style={styles.footerBackgroundWrap}>
         <FooterBackgroundSvg
           style={styles.footerBackground}

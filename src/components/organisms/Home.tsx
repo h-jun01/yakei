@@ -297,7 +297,26 @@ const Home: FC<Props> = ({ ...props }) => {
                   setPostUserName("Anonymous");
                 });
               return (
-                <View key={data.photo_id} style={styles.card}>
+                <TouchableOpacity
+                  activeOpacity={0.85}
+                  onPress={() => {
+                    const photoDataList: firebase.firestore.DocumentData[] = [];
+                    photoDataList.push(data);
+                    navigation.navigate("post", {
+                      imageData: {
+                        photo_id: data.photo_id,
+                        uid: data.uid,
+                        create_time: data.create_time,
+                        url: data.url,
+                        latitude: data.latitude,
+                        longitude: data.longitude,
+                        photogenic_subject: data.photogenic_subject,
+                      },
+                    });
+                  }}
+                  key={data.photo_id}
+                  style={styles.card}
+                >
                   <Image
                     source={{
                       uri: data.url,
@@ -309,7 +328,7 @@ const Home: FC<Props> = ({ ...props }) => {
                     {postUserName}
                     <Text style={styles.cardTextSub}>さんの投稿</Text>
                   </Text>
-                </View>
+                </TouchableOpacity>
               );
             })}
         </Animated.ScrollView>

@@ -1,18 +1,12 @@
-import React, { FC, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
-import { ScrollView, View, Text } from "react-native";
-import { styles } from "../../styles/user/terms";
+import React, { FC } from "react";
+import { ScrollView, View, Text, StyleSheet } from "react-native";
+import { Size } from "../../styles/thema/fonts";
 
-const TermsOfService: FC = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(setShouldDisplayBottomNav(false));
-    return () => {
-      dispatch(setShouldDisplayBottomNav(true));
-    };
-  }, []);
+type Props = {
+  _handleOpenWithLinking: () => void;
+};
 
+const TermsOfService: FC<Props> = ({ _handleOpenWithLinking }) => {
   return (
     <ScrollView style={styles.container}>
       <View>
@@ -241,9 +235,64 @@ const TermsOfService: FC = () => {
           2.本サービスに関して紛争が生じた場合には，当社の本店所在地を管轄する裁判所を専属的合意管轄とします。
         </Text>
       </View>
+      {/* 第十六条 */}
+      <View>
+        <Text style={styles.item}>第16条（お問い合わせ窓口）</Text>
+        <Text style={styles.contents}>
+          本利用規約に関するお問い合わせは，
+          <Text style={styles.mail} onPress={() => _handleOpenWithLinking()}>
+            こちら
+          </Text>
+          からお願致します。
+        </Text>
+      </View>
       <Text style={styles.fin}>以上</Text>
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingRight: 15,
+    paddingLeft: 15,
+  },
+  title: {
+    fontSize: Size.Xxlarge,
+    fontWeight: "600",
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
+  explanation: {
+    lineHeight: 15,
+    letterSpacing: 0.5,
+  },
+  item: {
+    fontSize: Size.Xlarge,
+    fontWeight: "bold",
+    paddingTop: 15,
+    paddingBottom: 5,
+  },
+  contents: {
+    marginTop: 5,
+    marginBottom: 5,
+    lineHeight: 15,
+    letterSpacing: 0.5,
+  },
+  details: {
+    marginLeft: 10,
+    marginBottom: 5,
+    lineHeight: 15,
+    letterSpacing: 0.5,
+  },
+  mail: {
+    color: "#1D89C6",
+  },
+  fin: {
+    textAlign: "right",
+    paddingTop: 20,
+    paddingBottom: 15,
+  },
+});
 
 export default TermsOfService;

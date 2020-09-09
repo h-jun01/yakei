@@ -21,12 +21,16 @@ export const styles = StyleSheet.create({
     width: wp("100%"),
   },
   image: {
-    marginBottom: wp("4%"),
+    marginBottom: wp("1%"),
   },
   rowWrap: {
-    width: "90%",
+    width: "100%",
     flexDirection: "row",
     alignItems: "center",
+    paddingVertical: wp("1.6%"),
+    paddingHorizontal: "5%",
+    borderBottomWidth: 0.5,
+    borderBottomColor: utilityColor.postInputBorder,
   },
   svgWrap: {
     width: Size.Xxlarge,
@@ -39,43 +43,43 @@ export const styles = StyleSheet.create({
     aspectRatio: mapSvgViewBoxRatio,
   },
   photgenicSubjectInput: {
-    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    flexGrow: 1,
+    flexWrap: "wrap",
+    width: wp("80%"),
     marginVertical: hp("1.25%"),
-    paddingHorizontal: wp("2%"),
-    paddingTop: wp("2%"),
-    paddingBottom: wp("5%"),
-    borderRadius: 5,
-    borderBottomWidth: 0.5,
-    borderBottomColor: utilityColor.postInputBorder,
-    fontSize: Size.Large,
+    marginHorizontal: wp("2%"),
+    fontSize: Size.NormalL,
     color: baseColor.text,
   },
   locationTextWrap: {
-    width: "100%",
+    flexDirection: "row",
+    flexGrow: 1,
+    flexWrap: "wrap",
     marginVertical: hp("1.25%"),
     paddingHorizontal: wp("2%"),
-    paddingTop: wp("2%"),
-    paddingBottom: wp("5.5%"),
-    borderRadius: 5,
-    borderBottomWidth: 0.5,
-    borderBottomColor: utilityColor.postInputBorder,
   },
   locationText: {
-    width: "100%",
-    fontSize: Size.Large,
-    color: baseColor.text,
+    width: wp("80%"),
+    fontSize: Size.NormalL,
   },
   // 閉じるボタン
-  crossButton: {
+  headerBtn: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: wp("4%"),
+  },
+  // 閉じるボタン内のアイコン
+  crossBtnIcon: {
     color: baseColor.text,
     fontSize: wp("5.6%"),
     fontWeight: "bold",
-    paddingLeft: wp("4%"),
   },
-  // 投稿ボタン
-  postBtn: {
-    width: wp("9%"),
-    paddingRight: wp("4%"),
+  // 投稿ボタン内のアイコン
+  postBtnIcon: {
+    width: wp("5.5%"),
     aspectRatio: postBtnViewBoxRatio,
   },
 });

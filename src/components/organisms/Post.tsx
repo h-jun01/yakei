@@ -41,6 +41,10 @@ const Post: FC<Props> = ({ ...props }) => {
 
   const width = Dimensions.get("window").width;
   const height = width * aspectRatio;
+  const addressColorStyle =
+    address === "撮影場所を選択"
+      ? { color: utilityColor.placeholderText }
+      : { color: baseColor.text };
 
   return (
     <ScrollView
@@ -50,13 +54,7 @@ const Post: FC<Props> = ({ ...props }) => {
     >
       <View style={styles.allWrap}>
         <Image
-          style={[
-            {
-              width: width,
-              height: height,
-            },
-            styles.image,
-          ]}
+          style={[{ width: width, height: width }, styles.image]}
           source={{ uri }}
         />
 
@@ -67,9 +65,10 @@ const Post: FC<Props> = ({ ...props }) => {
           <TextInput
             style={styles.photgenicSubjectInput}
             placeholder={"被写体を入力（例 : 東京スカイツリー）"}
-            maxLength={25}
             value={photogenicSubject}
             onChangeText={(text) => setPhotogenicSubject(text)}
+            maxLength={25}
+            multiline={true}
             autoCapitalize={"none"}
             keyboardType="default"
             returnKeyType="done"
@@ -88,7 +87,9 @@ const Post: FC<Props> = ({ ...props }) => {
             style={styles.locationTextWrap}
             onPress={() => onPressLocationRow()}
           >
-            <Text style={styles.locationText}>{address}</Text>
+            <Text style={[styles.locationText, addressColorStyle]}>
+              {address}
+            </Text>
           </TouchableOpacity>
         </View>
 

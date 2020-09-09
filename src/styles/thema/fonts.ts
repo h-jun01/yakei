@@ -1,6 +1,5 @@
 import { Platform, PixelRatio } from "react-native";
-import { deviceWidth, } from "../../utilities/dimensions";
-
+import { deviceWidth } from "../../utilities/dimensions";
 
 // based on iphone 11 pro/ MAX scale
 const scale = deviceWidth / 414;
@@ -26,7 +25,7 @@ export const Size = {
   Xlarge: normalize(18),
   Xxlarge: normalize(20),
   userNameSize: normalize(24),
-  titleSize: normalize(40),
+  titleSize: normalize(43),
   lineHeight: normalize(16),
 };
 export const iconSize = {
