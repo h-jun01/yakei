@@ -58,8 +58,6 @@ const PickUp: FC<Props> = ({ navigation, pickUpItemList }) => {
   );
 };
 
-export default PickUp;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -95,3 +93,5 @@ const styles = StyleSheet.create({
     color: baseColor.text,
   },
 });
+
+export default PickUp;

@@ -21,7 +21,7 @@ export const utilityColor = {
   selectLine: "#dfe6ee",
   borderSub: "#e0e0e0",
   attention: "#e8ac51",
-  authNav: "rgba(62,64,75,0.8)",
+  authNav: "rgba(62,64,75,0.85)",
   inputBack: "rgba(62,64,75,0.9)",
   itemFilter: "rgba(0,0,0,0.7)",
   editBox: "rgb(51, 124, 234)",
