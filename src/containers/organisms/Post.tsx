@@ -224,6 +224,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const [photogenicSubject, setPhotogenicSubject] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDisabled, setIsDisable] = useState<boolean>(false);
+  const [isPressing, setIsPressing] = useState<boolean>(false);
   const [spaceHeight, setSpaceHeight] = useState(0);
   const [aspectRatio, setAspectRatio] = useState<number>(0);
   const uid = useSelector((state: RootState) => state.userReducer.uid);
@@ -288,9 +289,18 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       headerRight: () => (
         <TouchableWithoutFeedback
           onPress={() => onPress()}
+          onPressIn={() => {
+            setIsPressing(true);
+          }}
+          onPressOut={() => setIsPressing(false)}
           disabled={isDisabled}
         >
-          <View style={styles.headerBtn}>
+          <View
+            style={[
+              styles.headerBtn,
+              isPressing ? { opacity: 0.6 } : { opacity: 1 },
+            ]}
+          >
             <View style={styles.postBtnIcon}>
               <PaperAirplaneSvg color={baseColor.accent} />
             </View>
@@ -298,7 +308,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
         </TouchableWithoutFeedback>
       ),
     });
-  }, [uid, uri, photogenicSubject, location]);
+  }, [uid, uri, photogenicSubject, location, isDisabled, isPressing]);
 
   useEffect(() => {
     // 閉じるボタン押下時の処理
