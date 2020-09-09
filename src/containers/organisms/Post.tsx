@@ -345,7 +345,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       />
       <Spinner
         visible={isLoading}
-        textContent="保存中..."
+        textContent="投稿中..."
         textStyle={{ color: "#fff", fontSize: 13 }}
         overlayColor="rgba(0,0,0,0.5)"
       />

@@ -69,7 +69,7 @@ const PickUpScreen: FC = () => {
         name="otherUser"
         component={OtherUser}
         options={({ route }) => ({
-          title: `${route.params.name}`,
+          title: route.params.name,
           headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {

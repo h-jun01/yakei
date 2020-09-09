@@ -44,7 +44,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     state.postedDataReducer.commentDataList;
 
   const commentDataList = useSelector(selrctCommentDataList);
-  const textInputRef = useRef<null | TextInput>(null);
+  const textInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
 
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える

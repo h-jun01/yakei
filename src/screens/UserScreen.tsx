@@ -21,7 +21,9 @@ export type UserScreenStackParamList = {
   passwordReset: undefined;
   notice: undefined;
   help: undefined;
-  faq: undefined;
+  termsOfService: undefined;
+  privacyPolicy: undefined;
+  faq: { yAxis: number };
   post: {
     imageData: {
       photo_id: string;
@@ -34,8 +36,6 @@ export type UserScreenStackParamList = {
     };
     shouldHeaderLeftBeCross?: boolean;
   };
-  termsOfService: undefined;
-  privacyPolicy: undefined;
   otherUser: { name: string; uid: string };
 };
 
@@ -162,7 +162,7 @@ const UserScreen: FC = () => {
         name="otherUser"
         component={OtherUser}
         options={({ route }) => ({
-          title: `${route.params.name}`,
+          title: route.params.name,
           headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {
