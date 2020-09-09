@@ -47,8 +47,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     flexGrow: 1,
     flexWrap: "wrap",
+    width: wp("80%"),
     marginVertical: hp("1.25%"),
-    paddingHorizontal: wp("2%"),
+    marginHorizontal: wp("2%"),
     fontSize: Size.NormalL,
     color: baseColor.text,
   },
@@ -60,7 +61,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: wp("2%"),
   },
   locationText: {
-    width: "90%",
+    width: wp("80%"),
     fontSize: Size.NormalL,
   },
   // 閉じるボタン
