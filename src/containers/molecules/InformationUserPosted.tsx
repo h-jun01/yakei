@@ -45,11 +45,11 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       });
   }, []);
 
-  const test = () => {
+  const transitionToAnotherUser = () => {
     if (uid !== myUid)
       navigation.navigate("otherUser", {
-        name: postUserName,
         uid,
+        name: postUserName,
       });
   };
 
@@ -58,7 +58,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       postUserName={postUserName}
       postUserImage={postUserImage}
       photogenic_subject={photogenic_subject}
-      test={test}
+      transitionToAnotherUser={transitionToAnotherUser}
     />
   );
 };

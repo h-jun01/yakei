@@ -8,15 +8,23 @@ type Props = {
   postUserName: string;
   postUserImage: string;
   photogenic_subject: string;
-  test: () => void;
+  transitionToAnotherUser: () => void;
 };
 
 const InformationUserPosted: FC<Props> = ({ ...props }) => {
-  const { postUserName, postUserImage, photogenic_subject, test } = props;
+  const {
+    postUserName,
+    postUserImage,
+    photogenic_subject,
+    transitionToAnotherUser,
+  } = props;
 
   return (
     <View style={styles.userData}>
-      <TouchableOpacity activeOpacity={1} onPress={() => test()}>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => transitionToAnotherUser()}
+      >
         <Image
           style={styles.userIcon}
           source={{

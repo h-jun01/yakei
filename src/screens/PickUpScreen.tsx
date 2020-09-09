@@ -1,12 +1,20 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { baseColor } from "../styles/thema/colors";
 import PickUp from "../containers/organisms/PickUp";
 import ImageList from "../containers/organisms/ImageList";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
-import { baseColor } from "../styles/thema/colors";
+import OtherUser from "../containers/organisms/OtherUser";
+
+type PickUpScreenStackParamList = {
+  pickup: undefined;
+  detail: undefined;
+  post: undefined;
+  otherUser: { name: string; uid: string };
+};
 
 const PickUpScreen: FC = () => {
-  const Stack = createStackNavigator();
+  const Stack = createStackNavigator<PickUpScreenStackParamList>();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -44,6 +52,18 @@ const PickUpScreen: FC = () => {
             backgroundColor: baseColor.darkNavy,
           },
         }}
+      />
+      <Stack.Screen
+        name="otherUser"
+        component={OtherUser}
+        options={({ route }) => ({
+          title: `${route.params.name}`,
+          headerBackTitleVisible: false,
+          headerTintColor: baseColor.text,
+          headerStyle: {
+            backgroundColor: baseColor.darkNavy,
+          },
+        })}
       />
     </Stack.Navigator>
   );

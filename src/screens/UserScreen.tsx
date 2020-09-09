@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { baseColor } from "../styles/thema/colors";
 import User from "../containers/organisms/User";
 import Setting from "../containers/organisms/Setting";
@@ -14,7 +13,7 @@ import PrivacyPolicy from "../containers/organisms/PrivacyPolicy";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
 import OtherUser from "../containers/organisms/OtherUser";
 
-type UserScreenStackParamList = {
+export type UserScreenStackParamList = {
   user: undefined;
   setting: undefined;
   editProfile: undefined;
@@ -25,7 +24,7 @@ type UserScreenStackParamList = {
   termsOfService: undefined;
   post: undefined;
   privacyPolicy: undefined;
-  otherUser: { name: string };
+  otherUser: { name: string; uid: string };
 };
 
 const UserScreen: FC = () => {
@@ -151,7 +150,7 @@ const UserScreen: FC = () => {
         name="otherUser"
         component={OtherUser}
         options={({ route }) => ({
-          title: `${route?.params?.name}`,
+          title: `${route.params.name}`,
           headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {

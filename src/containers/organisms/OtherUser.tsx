@@ -1,14 +1,13 @@
 import React, { FC, useState, useEffect } from "react";
 import { RouteProp } from "@react-navigation/native";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import OtherUser from "../../components/organisms/OtherUser";
 
-type Route = {
-  uid: string;
-};
+type UserScreenRouteProp = RouteProp<UserScreenStackParamList, "otherUser">;
 
 type Props = {
-  route: RouteProp<Record<string, Route>, string>;
+  route: UserScreenRouteProp;
 };
 
 const OtherUserContainer: FC<Props> = ({ route }) => {
