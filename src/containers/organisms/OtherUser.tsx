@@ -1,13 +1,22 @@
 import React, { FC, useState, useEffect } from "react";
 import { RouteProp } from "@react-navigation/native";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
+import { NotificationScreenStackParamList } from "../../screens/NotificationScreen";
 import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import OtherUser from "../../components/organisms/OtherUser";
 
-type UserScreenRouteProp = RouteProp<UserScreenStackParamList, "otherUser">;
+type OtherScreenRouteProp = RouteProp<
+  | HomeScreenStackParamList
+  | PickUpScreenStackParamList
+  | NotificationScreenStackParamList
+  | UserScreenStackParamList,
+  "otherUser"
+>;
 
 type Props = {
-  route: UserScreenRouteProp;
+  route: OtherScreenRouteProp;
 };
 
 const OtherUserContainer: FC<Props> = ({ route }) => {

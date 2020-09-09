@@ -4,7 +4,7 @@ import { baseColor } from "../styles/thema/colors";
 import Notification from "../containers/organisms/Notification";
 import OtherUser from "../containers/organisms/OtherUser";
 
-type NotificationScreenStackParamList = {
+export type NotificationScreenStackParamList = {
   notification: undefined;
   otherUser: { name: string; uid: string };
 };

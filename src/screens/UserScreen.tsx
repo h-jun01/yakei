@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Timestamp } from "@google-cloud/firestore";
 import { baseColor } from "../styles/thema/colors";
 import User from "../containers/organisms/User";
 import Setting from "../containers/organisms/Setting";
@@ -21,8 +22,19 @@ export type UserScreenStackParamList = {
   notice: undefined;
   help: undefined;
   faq: undefined;
+  post: {
+    imageData: {
+      photo_id: string;
+      uid: string;
+      create_time: Timestamp;
+      url: string;
+      latitude: number;
+      longitude: number;
+      photogenic_subject: string;
+    };
+    shouldHeaderLeftBeCross?: boolean;
+  };
   termsOfService: undefined;
-  post: undefined;
   privacyPolicy: undefined;
   otherUser: { name: string; uid: string };
 };
