@@ -10,7 +10,7 @@ import {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: deviceWidth,
+    width: wp("100%"),
     height: hp('100%'),
     backgroundColor: baseColor.base,
   },
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   allWrap: {
     width: deviceWidth,
     position: "absolute",
-    top: hp('11%'),
+    top: hp('13%'),
   },
   authWrap: {
     width: wp('90%'),
