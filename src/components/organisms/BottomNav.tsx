@@ -15,6 +15,7 @@ type Props = {
   shouldAppearBtns: boolean;
   opacityAnim: Object;
   whiteWrapAnim: Animated.Value;
+  onLayout: (height: number) => void;
   onPressOut: () => void;
 };
 
@@ -27,6 +28,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
     shouldAppearBtns,
     opacityAnim,
     whiteWrapAnim,
+    onLayout,
     onPressOut,
   } = props;
   const postScreenIndex = 4;
@@ -55,7 +57,10 @@ const BottomNav: FC<Props> = ({ ...props }) => {
           navigation={navigation}
         />
       </View>
-      <View style={styles.footerItemsWrap}>
+      <View
+        style={styles.footerItemsWrap}
+        onLayout={(e) => onLayout(e.nativeEvent.layout.height)}
+      >
         {state.routes.map((route, index) => {
           if (index > postScreenIndex) return;
           return (

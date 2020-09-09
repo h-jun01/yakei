@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { RootState } from "../../reducers/index";
 import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
+import { setBottomNavHeight } from "../../actions/bottomNav";
 
 import BottomNav from "../../components/organisms/BottomNav";
 
@@ -24,6 +25,7 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
   });
   const opacityAnim = { opacity: opacityInterpolate };
 
+  const onLayout = (height) => dispatch(setBottomNavHeight(height));
   const onPressOut = () => dispatch(setShouldAppearPostBtns(false));
 
   return (
@@ -35,6 +37,7 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
       shouldAppearBtns={shouldAppearBtns}
       whiteWrapAnim={whiteWrapAnim}
       opacityAnim={opacityAnim}
+      onLayout={onLayout}
       onPressOut={onPressOut}
     />
   );
