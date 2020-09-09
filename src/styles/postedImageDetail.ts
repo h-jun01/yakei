@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     height: wp("10%"),
     borderRadius: 180,
   },
-  //2層目
+  // 2層目
   image: {
     width: wp("100%"),
     height: hp("25%"),
@@ -37,12 +37,14 @@ export const styles = StyleSheet.create({
   },
   favorite: {
     color: baseColor.text,
+    fontSize: Size.Small,
     fontWeight: "500",
     marginRight: wp(".5%"),
     marginLeft: wp(".5%"),
   },
   favoriteNumber: {
     color: baseColor.text,
+    fontSize: Size.Small,
     fontWeight: "400",
     marginRight: wp("5%"),
   },

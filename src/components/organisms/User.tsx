@@ -2,10 +2,15 @@ import React, { FC } from "react";
 import { View, Text, ActivityIndicator, ScrollView } from "react-native";
 import { Image } from "react-native-elements";
 import { styles } from "../../styles/user/user";
+import { iconSize } from "../../styles/thema/fonts";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 import UserImage from "../atoms/UserImage";
 import TabMenu from "../../containers/molecules/TabMenu";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 type Props = {
   navigation: any;
@@ -34,7 +39,7 @@ const User: FC<Props> = ({ ...props }) => {
         <View style={styles.userInfoWrap}>
           <Image
             source={{ uri: headerImage }}
-            style={{ width: deviceWidth, height: deviceHeight / 3 }}
+            style={{ width: wp("100%"), height: wp("65%") }}
             PlaceholderContent={<ActivityIndicator />}
           >
             <View style={styles.overlay}></View>
@@ -53,7 +58,7 @@ const User: FC<Props> = ({ ...props }) => {
               style={styles.buttonItem}
               onPress={() => navigation.navigate("setting")}
             >
-              <Icon name="cog" size={23} color={"#fff"} />
+              <Icon name="cog" size={iconSize.Normal} color={"#fff"} />
             </Text>
           </View>
         </View>

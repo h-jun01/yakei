@@ -29,6 +29,12 @@ export const Size = {
   titleSize: normalize(40),
   lineHeight: normalize(16),
 };
+export const iconSize = {
+  Small: normalize(16),
+  NormalS: normalize(21),
+  Normal: normalize(24),
+  Large: normalize(32),
+};
 
 // export const Weights = {
 //   Thin: "100",
