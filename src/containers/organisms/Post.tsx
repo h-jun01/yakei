@@ -141,7 +141,7 @@ const checkError = (
   if (
     location.latitude === undefined ||
     location.longitude === undefined ||
-    location.address === "撮影場所を入力"
+    location.address === "撮影場所を選択"
   )
     return "位置情報を選択してください。";
   return false;
@@ -219,7 +219,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
   const { uri, type } = useSelector((state: RootState) => state.postReducer);
   const [location, setLocation] = useState<Location>({
-    address: "撮影場所を入力",
+    address: "撮影場所を選択",
   });
   const [photogenicSubject, setPhotogenicSubject] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -239,7 +239,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     dispatch(setShouldDisplayBottomNav(false));
     setIsDisable(false);
     setPhotogenicSubject("");
-    setLocation({ address: "撮影場所を入力" });
+    setLocation({ address: "撮影場所を選択" });
     if (type === "camera") {
       getLocationAddressAsync(setLocation);
     }
