@@ -24,8 +24,8 @@ import Intro from "./containers/organisms/Intro";
 import SignUp from "./containers/organisms/SignUp";
 import SignIn from "./containers/organisms/SignIn";
 import BottomNav from "./containers/organisms/BottomNav";
-import TermsOfService from "./components/organisms/TermsOfService";
-import PrivacyPolicy from "./components/organisms/PrivacyPolicy";
+import TermsOfService from "./containers/organisms/TermsOfService";
+import PrivacyPolicy from "./containers/organisms/PrivacyPolicy";
 import PasswordReset from "./components/organisms/PasswordReset";
 import LodingScreen from "./components/organisms/LoadingScreen";
 import HomeScreen from "./screens/HomeScreen";
@@ -49,46 +49,42 @@ const ScreenSwitcher: FC = () => {
   const Tab = createBottomTabNavigator();
 
   const registerForPushNotificationsAsync = async () => {
-    try {
-      // パーミッションを取得
-      if (Constants.isDevice) {
-        const { status: existingStatus } = await Permissions.getAsync(
+    // パーミッションを取得
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
+      // 既に許可されている場合何もしない
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Permissions.askAsync(
           Permissions.NOTIFICATIONS
         );
-        // 既に許可されている場合何もしない
-        let finalStatus = existingStatus;
-        if (existingStatus !== "granted") {
-          const { status } = await Permissions.askAsync(
-            Permissions.NOTIFICATIONS
-          );
-          finalStatus = status;
-        }
-        // 許可されなかった場合何もしない
-        if (finalStatus !== "granted") {
-          return;
-        }
-        // トークン生成
-        await Notifications.getExpoPushTokenAsync()
-          .then((token) => {
-            accountFireStore.saveDeviceToken(uid, token).catch(() => {
-              return;
-            });
-          })
-          .catch(() => {
+        finalStatus = status;
+      }
+      // 許可されなかった場合何もしない
+      if (finalStatus !== "granted") {
+        return;
+      }
+      // トークン生成
+      await Notifications.getExpoPushTokenAsync()
+        .then((token) => {
+          accountFireStore.saveDeviceToken(uid, token).catch(() => {
             return;
           });
-      }
-      // androidの設定
-      if (Platform.OS === "android") {
-        Notifications.createChannelAndroidAsync("default", {
-          name: "default",
-          sound: true,
-          priority: "max",
-          vibrate: [0, 250, 250, 250],
+        })
+        .catch(() => {
+          return;
         });
-      }
-    } catch (e) {
-      console.log(e);
+    }
+    // androidの設定
+    if (Platform.OS === "android") {
+      Notifications.createChannelAndroidAsync("default", {
+        name: "default",
+        sound: true,
+        priority: "max",
+        vibrate: [0, 250, 250, 250],
+      });
     }
   };
 

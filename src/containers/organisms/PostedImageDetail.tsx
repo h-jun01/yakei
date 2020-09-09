@@ -9,17 +9,22 @@ import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { setShouldNavigateMap } from "../../actions/mapNavigate";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { styles } from "../../styles/post";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-type routeObj = {
-  imageData: firebase.firestore.DocumentData;
-  shouldHeaderLeftBeCross?: boolean;
-};
+type PostScreenRouteProp = RouteProp<
+  | HomeScreenStackParamList
+  | PickUpScreenStackParamList
+  | UserScreenStackParamList,
+  "post"
+>;
 
 type Props = {
-  route: RouteProp<Record<string, routeObj>, string>;
+  route: PostScreenRouteProp;
   navigation: StackNavigationProp<Record<string, object>>;
 };
 
@@ -39,7 +44,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     state.postedDataReducer.commentDataList;
 
   const commentDataList = useSelector(selrctCommentDataList);
-  const textInputRef = useRef<null | TextInput>(null);
+  const textInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
 
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える

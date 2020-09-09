@@ -268,7 +268,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
       await uploadPostHeaderImage();
     }
     setIsLoading(false);
-    navigation.navigate("User");
+    navigation.navigate("user");
   };
 
   return (

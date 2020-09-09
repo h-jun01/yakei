@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Timestamp } from "@google-cloud/firestore";
 import { baseColor } from "../styles/thema/colors";
 import User from "../containers/organisms/User";
 import Setting from "../containers/organisms/Setting";
@@ -20,10 +21,21 @@ export type UserScreenStackParamList = {
   passwordReset: undefined;
   notice: undefined;
   help: undefined;
-  faq: undefined;
   termsOfService: undefined;
-  post: undefined;
   privacyPolicy: undefined;
+  faq: { yAxis: number };
+  post: {
+    imageData: {
+      photo_id: string;
+      uid: string;
+      create_time: Timestamp;
+      url: string;
+      latitude: number;
+      longitude: number;
+      photogenic_subject: string;
+    };
+    shouldHeaderLeftBeCross?: boolean;
+  };
   otherUser: { name: string; uid: string };
 };
 
@@ -137,20 +149,20 @@ const UserScreen: FC = () => {
       <Stack.Screen
         name="post"
         component={PostedImageDetail}
-        options={{
-          title: "投稿",
+        options={({ route }) => ({
+          title: route.params.imageData.photogenic_subject,
           headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {
             backgroundColor: baseColor.darkNavy,
           },
-        }}
+        })}
       />
       <Stack.Screen
         name="otherUser"
         component={OtherUser}
         options={({ route }) => ({
-          title: `${route.params.name}`,
+          title: route.params.name,
           headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {
