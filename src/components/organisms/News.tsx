@@ -9,7 +9,6 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-
 type NewsDataList = {
   title: string;
   message: string;
@@ -42,29 +41,29 @@ export default News;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: wp('100%'),
+    width: wp("100%"),
     backgroundColor: baseColor.base,
   },
   articleWrap: {
-    width: wp('95%'),
+    width: wp("95%"),
     marginLeft: "auto",
     marginRight: "auto",
     paddingTop: wp("4%"),
   },
   newsTitle: {
-    fontSize: Size.Normal,
+    fontSize: Size.Large,
     fontWeight: "600",
     color: baseColor.text,
     padding: wp("1.5%"),
   },
   newsTimestamp: {
-    fontSize: Size.Xxsmall,
+    fontSize: Size.Small,
     fontWeight: "300",
     color: baseColor.text,
     padding: wp("1.5%"),
   },
   newsArticle: {
-    fontSize: Size.Small,
+    fontSize: Size.Normal,
     fontWeight: "400",
     color: baseColor.text,
     padding: wp("1.5%"),
