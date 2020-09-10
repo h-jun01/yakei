@@ -23,6 +23,7 @@ import { useTheme } from "@react-navigation/native";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { baseColor } from "../../styles/thema/colors";
+import * as Location from "expo-location";
 
 type Region = {
   latitude: number;
@@ -33,7 +34,6 @@ type Region = {
 
 type Props = {
   navigation: any;
-  region: Region;
   allPhotoList: firebase.firestore.DocumentData[];
   myPhotoList: firebase.firestore.DocumentData[];
 };
@@ -50,52 +50,68 @@ let nowLatitudeDelta;
 let nowLongitudeDelta;
 
 const Home: FC<Props> = ({ ...props }) => {
-  const { navigation, region, allPhotoList, myPhotoList } = props;
+  const { navigation, allPhotoList, myPhotoList } = props;
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
   const [photoSnapFlag, setPhotoSnapFlag] = useState(false);
   const [photoPinFlag, setPhotoPinFlag] = useState(false);
   const [postUserName, setPostUserName] = useState<string>("");
   const [photoSnapList, setPhotoSnapList] = useState<any>();
   const mapAnimation = useRef(new Animated.Value(0)).current;
+  const [region, setRegion] = useState({
+    latitude: 35.6340873,
+    longitude: 139.525187,
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.1,
+  });
 
   _map = React.useRef(null);
   const _scrollView = React.useRef(null);
 
   // photoSnap参考資料　https://www.youtube.com/watch?v=2vILzRmEqGI
   useEffect(() => {
-    mapAnimation.addListener(({ value }) => {
-      let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-      if (photoSnapList) {
-        if (index >= photoSnapList.length) {
-          index = photoSnapList.length - 1;
-        }
-        if (index <= 0) {
-          index = 0;
-        }
-
-        clearTimeout(regionTimeout);
-
-        regionTimeout = setTimeout(() => {
-          if (mapIndex !== index) {
-            mapIndex = index;
-            const latitude = photoSnapList[index]["latitude"];
-            const longitude = photoSnapList[index]["longitude"];
-            const coordinate = {
-              latitude,
-              longitude,
-            };
-            _map.current.animateToRegion(
-              {
-                ...coordinate,
-                latitudeDelta: nowLatitudeDelta,
-                longitudeDelta: nowLongitudeDelta,
-              },
-              350
-            );
+    const fetch = async () => {
+      mapAnimation.addListener(({ value }) => {
+        let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
+        if (photoSnapList) {
+          if (index >= photoSnapList.length) {
+            index = photoSnapList.length - 1;
           }
-        }, 10);
-      }
-    });
+          if (index <= 0) {
+            index = 0;
+          }
+
+          clearTimeout(regionTimeout);
+
+          regionTimeout = setTimeout(() => {
+            if (mapIndex !== index) {
+              mapIndex = index;
+              const latitude = photoSnapList[index]["latitude"];
+              const longitude = photoSnapList[index]["longitude"];
+              const coordinate = {
+                latitude,
+                longitude,
+              };
+              _map.current.animateToRegion(
+                {
+                  ...coordinate,
+                  latitudeDelta: nowLatitudeDelta,
+                  longitudeDelta: nowLongitudeDelta,
+                },
+                350
+              );
+            }
+          }, 10);
+        }
+      });
+      const location = await Location.getCurrentPositionAsync({});
+      setRegion({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001,
+      });
+    };
+    fetch();
   });
 
   // 地図移動時付近1マイルの情報取得
