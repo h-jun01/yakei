@@ -2,6 +2,8 @@ import React, { FC, useRef } from "react";
 import { RouteProp } from "@react-navigation/native";
 import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { ScrollView } from "react-native";
+import { useSelector } from "react-redux";
+import { RootState } from "../../reducers/index";
 import { callingAlert } from "../../utilities/alert";
 import * as Linking from "expo-linking";
 import Faq from "../../components/organisms/Faq";
@@ -15,6 +17,9 @@ type Props = {
 const FaqContainer: FC<Props> = ({ route }) => {
   const yAxis = route.params.yAxis;
   const scrollViewRef = useRef<ScrollView>(null);
+  const bottomHeight = useSelector(
+    (state: RootState) => state.bottomNavReducer.height
+  );
 
   const _handleOpenWithLinking = () => {
     Linking.openURL(
@@ -31,6 +36,7 @@ const FaqContainer: FC<Props> = ({ route }) => {
       scrollViewRef={scrollViewRef}
       _handleOpenWithLinking={_handleOpenWithLinking}
       yAxis={yAxis}
+      bottomHeight={bottomHeight}
     />
   );
 };
