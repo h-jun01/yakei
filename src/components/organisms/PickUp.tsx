@@ -26,12 +26,13 @@ type PickUpItemList = {
 type Props = {
   navigation: any;
   pickUpItemList: PickUpItemList[];
+  bottomHeight: number;
 };
 
-const PickUp: FC<Props> = ({ navigation, pickUpItemList }) => {
+const PickUp: FC<Props> = ({ navigation, pickUpItemList, bottomHeight }) => {
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.allWrap}>
+      <View style={[styles.allWrap, { paddingBottom: bottomHeight }]}>
         {pickUpItemList.map((item, index) => (
           <TouchableOpacity
             key={index}
@@ -66,7 +67,6 @@ const styles = StyleSheet.create({
   },
   allWrap: {
     width: wp("100%"),
-    paddingBottom: 101,
   },
   image: {
     width: wp("100%"),
