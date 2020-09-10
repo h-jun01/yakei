@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC, useRef, useState } from "react";
 import { Animated } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
@@ -11,6 +11,8 @@ import BottomNav from "../../components/organisms/BottomNav";
 const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
   const dispatch = useDispatch();
   const whiteWrapAnim = useRef(new Animated.Value(0)).current;
+  const [bottomNavBgHeight, setBottomNavBgHeihgt] = useState(0);
+  const [safeAreaHeihgt, setSafeAreaHeihgt] = useState(0);
 
   const shouldDisplay = useSelector(
     (state: RootState) => state.bottomNavReducer.shouldDisplay
@@ -25,11 +27,15 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
   });
   const opacityAnim = { opacity: opacityInterpolate };
 
-  const onLayout = (height) => {
-    const footerItemBottom = 15;
-    const plusBtnBottom = 17; // src/components/molecules/BottomNavTouchableOpacity.tsxのstyleを参照
-    const bottomNavHeight = height + footerItemBottom + plusBtnBottom;
-    console.log(`height: ${bottomNavHeight}`);
+  const onLayoutBottomNavBg = (height) => {
+    const bottomNavHeight = height - safeAreaHeihgt;
+    setBottomNavBgHeihgt(height);
+    dispatch(setBottomNavHeight(bottomNavHeight));
+  };
+  const onLayoutSafeAreaHeight = (height) => {
+    const heightOnDisplay = height === 0 ? 0 : height - 21;
+    const bottomNavHeight = bottomNavBgHeight - heightOnDisplay;
+    setSafeAreaHeihgt(heightOnDisplay);
     dispatch(setBottomNavHeight(bottomNavHeight));
   };
   const onPressOut = () => dispatch(setShouldAppearPostBtns(false));
@@ -43,7 +49,9 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
       shouldAppearBtns={shouldAppearBtns}
       whiteWrapAnim={whiteWrapAnim}
       opacityAnim={opacityAnim}
-      onLayout={onLayout}
+      safeAreaHeihgt={safeAreaHeihgt}
+      onLayoutBottomNavBg={onLayoutBottomNavBg}
+      onLayoutSafeAreaHeight={onLayoutSafeAreaHeight}
       onPressOut={onPressOut}
     />
   );

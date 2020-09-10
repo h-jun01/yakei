@@ -12,7 +12,6 @@ type Props = {
 
 const Faq: FC<Props> = ({ ...props }) => {
   const { yAxis, scrollViewRef, _handleOpenWithLinking, bottomHeight } = props;
-  console.log(bottomHeight);
 
   return (
     <ScrollView
