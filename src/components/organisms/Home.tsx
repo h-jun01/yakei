@@ -36,6 +36,7 @@ type Props = {
   navigation: any;
   allPhotoList: firebase.firestore.DocumentData[];
   myPhotoList: firebase.firestore.DocumentData[];
+  bottomHeight: number;
 };
 
 const { width, height } = Dimensions.get("window");
@@ -50,7 +51,7 @@ let nowLatitudeDelta;
 let nowLongitudeDelta;
 
 const Home: FC<Props> = ({ ...props }) => {
-  const { navigation, allPhotoList, myPhotoList } = props;
+  const { navigation, allPhotoList, myPhotoList, bottomHeight } = props;
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
   const [photoSnapFlag, setPhotoSnapFlag] = useState(false);
   const [photoPinFlag, setPhotoPinFlag] = useState(false);
@@ -273,7 +274,7 @@ const Home: FC<Props> = ({ ...props }) => {
           horizontal
           scrollEventThrottle={1}
           showsHorizontalScrollIndicator={false}
-          style={styles.scrollView}
+          style={[styles.scrollView, { bottom: bottomHeight }]}
           pagingEnabled
           snapToInterval={CARD_WIDTH + 20}
           snapToAlignment="center"
@@ -369,7 +370,6 @@ const Home: FC<Props> = ({ ...props }) => {
 const styles = StyleSheet.create({
   scrollView: {
     position: "absolute",
-    bottom: 100,
     left: 0,
     right: 0,
     paddingVertical: 10,
