@@ -1,5 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import { ImageSourcePropType } from "react-native";
+import { useSelector } from "react-redux";
+import { RootState } from "../../reducers/index";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { squeezeSpot } from "../../utilities/spot";
 import PickUp from "../../components/organisms/PickUp";
@@ -19,6 +21,10 @@ const PickUpContainer: FC<Props> = ({ navigation }) => {
   const [pickUpDataList, setPickUpDataList] = useState<
     firebase.firestore.DocumentData[]
   >([]);
+
+  const bottomHeight = useSelector(
+    (state: RootState) => state.bottomNavReducer.height
+  );
 
   useEffect(() => {
     photoFireStore.getPhotoList("ZTrOCwegHXOYUrPa2OfRXxlOXpt2").then((res) => {
@@ -53,7 +59,13 @@ const PickUpContainer: FC<Props> = ({ navigation }) => {
     },
   ];
 
-  return <PickUp navigation={navigation} pickUpItemList={pickUpItemList} />;
+  return (
+    <PickUp
+      navigation={navigation}
+      pickUpItemList={pickUpItemList}
+      bottomHeight={bottomHeight}
+    />
+  );
 };
 
 export default PickUpContainer;

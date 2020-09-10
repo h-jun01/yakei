@@ -41,10 +41,13 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   } = route.params.imageData;
   const shouldHeaderLeftBeCross = route.params.shouldHeaderLeftBeCross;
 
-  const selrctCommentDataList = (state: RootState) =>
+  const selectCommentDataList = (state: RootState) =>
     state.postedDataReducer.commentDataList;
+  const selectBottomHeight = (state: RootState) =>
+    state.bottomNavReducer.height;
 
-  const commentDataList = useSelector(selrctCommentDataList);
+  const commentDataList = useSelector(selectCommentDataList);
+  const bottomHeight = useSelector(selectBottomHeight);
   const textInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
 
@@ -101,6 +104,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
       commentDataList={commentDataList}
       textInputRef={textInputRef}
       focusOnInput={focusOnInput}
+      bottomHeight={bottomHeight}
     />
   );
 };

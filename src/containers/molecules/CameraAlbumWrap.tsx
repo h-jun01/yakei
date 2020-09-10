@@ -61,24 +61,25 @@ const useAnimation = () => {
   return animStyle;
 };
 
+const navigateToPostScreen = (props: Props) => {
+  const { state, routes, navigation } = props;
+  const isFocused = state.index === 5;
+  const route = routes[5];
+
+  const event = navigation.emit({
+    type: "tabPress",
+    target: route["key"],
+    canPreventDefault: true,
+  });
+  if (!isFocused && !event.defaultPrevented) {
+    navigation.navigate(route["name"]);
+  }
+};
+
 const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
   const { state, routes, navigation } = props;
   const dispatch = useDispatch();
   const animStyle = useAnimation();
-
-  const navigateToPostScreen = () => {
-    const isFocused = state.index === 5;
-    const route = routes[5];
-
-    const event = navigation.emit({
-      type: "tabPress",
-      target: route["key"],
-      canPreventDefault: true,
-    });
-    if (!isFocused && !event.defaultPrevented) {
-      navigation.navigate(route["name"]);
-    }
-  };
 
   const onPressOfCamera = async () => {
     // カメラへのアクセス許可を申請
@@ -97,7 +98,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
 
     if (!result.cancelled) {
       dispatch(setPostData(result.uri, "camera"));
-      navigateToPostScreen();
+      navigateToPostScreen({ state, routes, navigation });
       dispatch(setShouldAppearPostBtns(false));
     }
   };
@@ -120,7 +121,7 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
 
     if (!result.cancelled) {
       dispatch(setPostData(result.uri, "album"));
-      navigateToPostScreen();
+      navigateToPostScreen({ state, routes, navigation });
       dispatch(setShouldAppearPostBtns(false));
     }
   };

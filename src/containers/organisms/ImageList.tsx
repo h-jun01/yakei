@@ -1,4 +1,6 @@
 import React, { FC } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../reducers/index";
 import { RouteProp } from "@react-navigation/native";
 import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
@@ -16,8 +18,17 @@ type Props = {
 
 const ImageListContainer: FC<Props> = ({ route, navigation }) => {
   const photoDataList = route.params.photoDataList;
+  const bottomHeight = useSelector(
+    (state: RootState) => state.bottomNavReducer.height
+  );
 
-  return <ImageList photoDataList={photoDataList} navigation={navigation} />;
+  return (
+    <ImageList
+      photoDataList={photoDataList}
+      navigation={navigation}
+      bottomHeight={bottomHeight}
+    />
+  );
 };
 
 export default ImageListContainer;

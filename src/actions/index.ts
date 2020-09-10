@@ -2,7 +2,7 @@ import { loadingStatusChange, loginStatusChange } from "./auth";
 import { setPhotoListData } from "./photo";
 import { setNewsDataList } from "./news ";
 import { setAllPhotoListData } from "./allPhoto";
-import { setShouldDisplayBottomNav } from "./bottomNav";
+import { setShouldDisplayBottomNav, setBottomNavHeight } from "./bottomNav";
 import { setShouldAppearPostBtns } from "./cameraAndAlbum";
 import { setPostData } from "./post";
 import { setShouldNavigateMap } from "./mapNavigate";
@@ -37,6 +37,7 @@ export enum ActionTypes {
   UPDATE_HEADER_IMG_INDEX = "UPDATE_HEADER_IMG_INDEX",
   UPDATE_FAVORITE_LIST = "UPDATE_FAVORITE_LIST",
   SET_SHOULD_DISPLAY_BOTTOM_NAV = "SET_SHOULD_DISPLAY_BOTTOM_NAV",
+  SET_BOTTOM_NAV_HEIGHT = "SET_BOTTOM_NAV_HEIGHT",
   SET_SHOULD_APPEAR_POST_BTNS = "SET_SHOULD_APPEAR_POST_BTNS",
   SET_POST_DATA = "SET_POST_DATA",
   SET_SHOULD_NAVIGATE = "SET_SHOULD_NAVIGATE",
@@ -61,6 +62,7 @@ export type UnionedAction =
   | ReturnType<typeof upDateUserHeaderImgIndex>
   | ReturnType<typeof upDateFavoriteList>
   | ReturnType<typeof setShouldDisplayBottomNav>
+  | ReturnType<typeof setBottomNavHeight>
   | ReturnType<typeof setShouldAppearPostBtns>
   | ReturnType<typeof setPostData>
   | ReturnType<typeof setShouldNavigateMap>

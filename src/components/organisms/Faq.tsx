@@ -7,10 +7,11 @@ type Props = {
   yAxis: number;
   scrollViewRef: RefObject<ScrollView>;
   _handleOpenWithLinking: () => void;
+  bottomHeight: number;
 };
 
 const Faq: FC<Props> = ({ ...props }) => {
-  const { yAxis, scrollViewRef, _handleOpenWithLinking } = props;
+  const { yAxis, scrollViewRef, _handleOpenWithLinking, bottomHeight } = props;
 
   return (
     <ScrollView
@@ -19,7 +20,7 @@ const Faq: FC<Props> = ({ ...props }) => {
         scrollViewRef.current!.scrollTo({ x: 0, y: yAxis, animated: false })
       }
     >
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingBottom: bottomHeight }]}>
         {/* 1 */}
         <View style={styles.wrapper}>
           <FaqHeading heading="登録しているメールアドレスを変更したい" />
@@ -115,7 +116,6 @@ const Faq: FC<Props> = ({ ...props }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 130,
   },
   wrapper: {
     width: deviceWidth / 1.1,

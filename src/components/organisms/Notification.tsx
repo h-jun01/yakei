@@ -15,15 +15,20 @@ import NoNotificationTex from "../atoms/NoNotificationText";
 type Props = {
   navigation: any;
   notificationDataList: firebase.firestore.DocumentData[];
+  bottomHeight: number;
 };
 
-const Notification: FC<Props> = ({ navigation, notificationDataList }) => {
+const Notification: FC<Props> = ({
+  navigation,
+  notificationDataList,
+  bottomHeight,
+}) => {
   return (
     <React.Fragment>
       {notificationDataList.length !== 0 &&
       notificationDataList !== undefined ? (
         <ScrollView style={styles.container}>
-          <View style={styles.box}>
+          <View style={[styles.box, { paddingBottom: bottomHeight }]}>
             {notificationDataList.map((item, index) => (
               <Fragment key={index}>
                 <TouchableOpacity
