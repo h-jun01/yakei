@@ -15,14 +15,19 @@ import NoNotificationTex from "../atoms/NoNotificationText";
 type Props = {
   navigation: any;
   notificationDataList: firebase.firestore.DocumentData[];
+  bottomHeight: number;
 };
 
-const Notification: FC<Props> = ({ navigation, notificationDataList }) => {
+const Notification: FC<Props> = ({
+  navigation,
+  notificationDataList,
+  bottomHeight,
+}) => {
   return (
     <React.Fragment>
       {notificationDataList.length !== 0 &&
       notificationDataList !== undefined ? (
-        <ScrollView style={styles.container}>
+        <ScrollView style={[styles.container, { paddingBottom: bottomHeight }]}>
           <View style={styles.box}>
             {notificationDataList.map((item, index) => (
               <Fragment key={index}>

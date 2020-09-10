@@ -13,9 +13,12 @@ const ContainerNotification: FC<Props> = ({ navigation }) => {
   const selectNotificationDataList = (state: RootState) =>
     state.notificationReducer.notificationDataList;
   const selectUid = (state: RootState) => state.userReducer.uid;
+  const selectBottomHeight = (state: RootState) =>
+    state.bottomNavReducer.height;
 
   const notificationDataList = useSelector(selectNotificationDataList);
   const uid = useSelector(selectUid);
+  const bottomHeight = useSelector(selectBottomHeight);
 
   const dispatch = useDispatch();
   const [temporaryArray, setTemporaryArray] = useState(notificationDataList);
@@ -55,6 +58,7 @@ const ContainerNotification: FC<Props> = ({ navigation }) => {
     <Notification
       navigation={navigation}
       notificationDataList={notificationDataList}
+      bottomHeight={bottomHeight}
     />
   );
 };
