@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Home from "../../components/organisms/Home";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
@@ -34,18 +34,18 @@ type Props = {
 const ContainerHome: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
   const dispatch = useDispatch();
-  let region: Region = {
-    latitude: 35.6340873,
-    longitude: 139.525187,
-    latitudeDelta: 0.1,
-    longitudeDelta: 0.1,
-  };
   const selectAllPhotoDataList = (state: RootState) =>
     state.allPhotoReducer.allPhotoDataList;
   const selectPhotoDataList = (state: RootState) =>
     state.myPhotoReducer.photoDataList;
   const allPhotoList = useSelector(selectAllPhotoDataList);
   const myPhotoDataList = useSelector(selectPhotoDataList);
+  const [region, setRegion] = useState({
+    latitude: 35.6340873,
+    longitude: 139.525187,
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.1,
+  });
 
   useEffect(() => {
     const fetch = async () => {
@@ -60,12 +60,12 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
           dispatch(setAllPhotoListData(res));
         });
         const location = await Location.getCurrentPositionAsync({});
-        region = {
+        setRegion({
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
-          latitudeDelta: 8.5,
-          longitudeDelta: 8.5,
-        };
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.001,
+        });
       } catch (error) {
         // to do
       }
@@ -76,7 +76,6 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
   return (
     <Home
       navigation={navigation}
-      region={region}
       allPhotoList={allPhotoList}
       myPhotoList={myPhotoDataList}
     />
