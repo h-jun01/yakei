@@ -25,7 +25,13 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
   });
   const opacityAnim = { opacity: opacityInterpolate };
 
-  const onLayout = (height) => dispatch(setBottomNavHeight(height));
+  const onLayout = (height) => {
+    const footerItemBottom = 15;
+    const plusBtnBottom = 17; // src/components/molecules/BottomNavTouchableOpacity.tsxのstyleを参照
+    const bottomNavHeight = height + footerItemBottom + plusBtnBottom;
+    console.log(`height: ${bottomNavHeight}`);
+    dispatch(setBottomNavHeight(bottomNavHeight));
+  };
   const onPressOut = () => dispatch(setShouldAppearPostBtns(false));
 
   return (

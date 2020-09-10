@@ -44,7 +44,10 @@ const BottomNav: FC<Props> = ({ ...props }) => {
       ) : (
         <></>
       )}
-      <View style={styles.footerBackgroundWrap}>
+      <View
+        style={styles.footerBackgroundWrap}
+        onLayout={(e) => onLayout(e.nativeEvent.layout.height)}
+      >
         <FooterBackgroundSvg
           style={styles.footerBackground}
           backColor={baseColor.darkNavy}
@@ -57,10 +60,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
           navigation={navigation}
         />
       </View>
-      <View
-        style={styles.footerItemsWrap}
-        onLayout={(e) => onLayout(e.nativeEvent.layout.height)}
-      >
+      <View style={styles.footerItemsWrap}>
         {state.routes.map((route, index) => {
           if (index > postScreenIndex) return;
           return (
