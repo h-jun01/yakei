@@ -2,21 +2,18 @@ import React, { FC, Fragment } from "react";
 import { Text, TextInput, StyleSheet } from "react-native";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 type Props = {
   label: string;
   placeholder: string;
   value: string;
-  inputLength: number;
+  maxLength: number;
   setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const UserInput: FC<Props> = ({ ...props }) => {
-  const { label, placeholder, value, setValue, inputLength } = props;
+  const { label, placeholder, value, setValue, maxLength } = props;
   return (
     <Fragment>
       {/* インプットの説明 */}
@@ -29,6 +26,7 @@ const UserInput: FC<Props> = ({ ...props }) => {
         multiline={true}
         blurOnSubmit={true}
         editable={true}
+        maxLength={maxLength}
         placeholderTextColor={utilityColor.placeholderText}
         onChangeText={(name) => setValue(name)}
         style={styles.editInput}
