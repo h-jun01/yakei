@@ -100,11 +100,13 @@ const BottomNav: FC<Props> = ({ ...props }) => {
   );
 };
 
+const iPhone11Width = 414;
 const displayWidth = Dimensions.get("window").width;
 const displayHeight = Dimensions.get("window").height;
 const itemsFloatingRatio = 0.00966;
 const viewboxRatio = 4.4588; // viewbox.width / viewbox.height
-const footerBGBottom = -19;
+const footerBgBtmRatio = -19 / iPhone11Width;
+const footerBgBtm = displayWidth * footerBgBtmRatio;
 
 const styles = StyleSheet.create({
   container: {
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
   },
   footerBackgroundWrap: {
     position: "absolute",
-    bottom: footerBGBottom,
+    bottom: footerBgBtm,
     left: -2.75,
     width: displayWidth + 10,
     aspectRatio: viewboxRatio, // これがないと画面サイズぴったりのボトムナビにならない
