@@ -1,29 +1,36 @@
 import React, { FC, useState, useRef } from "react";
 import {
-  AppRegistry,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   Animated,
   Image,
   Dimensions,
   TouchableOpacity,
   Platform,
-  ImageBackground,
 } from "react-native";
 import { Container } from "native-base";
+import { Timestamp } from "@google-cloud/firestore";
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import MapView from "react-native-map-clustering";
-import UserSwitchButtonView from "./UserSwitchButton";
-import LocationButtonView from "./PresentLocationButton";
-import OriginMarker from "../atoms/OriginMarker";
 import { useEffect } from "react";
 import { useTheme } from "@react-navigation/native";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { baseColor } from "../../styles/thema/colors";
 import * as Location from "expo-location";
+import MapView from "react-native-map-clustering";
+import UserSwitchButtonView from "./UserSwitchButton";
+import LocationButtonView from "./PresentLocationButton";
+import OriginMarker from "../atoms/OriginMarker";
+
+type PhotoDataList = {
+  photo_id: string;
+  uid: string;
+  create_time: Timestamp;
+  url: string;
+  latitude: number;
+  longitude: number;
+  photogenic_subject: string;
+};
 
 type Region = {
   latitude: number;
@@ -182,7 +189,7 @@ const Home: FC<Props> = ({ ...props }) => {
           initialRegion={region}
           onRegionChangeComplete={handleRegionChange}
           onClusterPress={(cluster, markers) => {
-            const photoDataList: firebase.firestore.DocumentData[] = [];
+            const photoDataList: PhotoDataList[] = [];
             markers?.forEach((value) => {
               photoDataList.push(value["properties"]["markerDate"]);
             });
@@ -231,7 +238,7 @@ const Home: FC<Props> = ({ ...props }) => {
           initialRegion={region}
           onRegionChangeComplete={handleRegionChange}
           onClusterPress={(cluster, markers) => {
-            const photoDataList: firebase.firestore.DocumentData[] = [];
+            const photoDataList: PhotoDataList[] = [];
             markers?.forEach((value) => {
               photoDataList.push(value["properties"]["markerDate"]);
             });
@@ -317,7 +324,7 @@ const Home: FC<Props> = ({ ...props }) => {
                 <TouchableOpacity
                   activeOpacity={0.85}
                   onPress={() => {
-                    const photoDataList: firebase.firestore.DocumentData[] = [];
+                    const photoDataList: PhotoDataList[] = [];
                     photoDataList.push(data);
                     navigation.navigate("post", {
                       imageData: {

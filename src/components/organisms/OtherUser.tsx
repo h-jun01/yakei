@@ -100,14 +100,14 @@ const styles = StyleSheet.create({
   },
   iconBox: {
     alignSelf: "center",
-    marginBottom: hp("2%"),
+    marginBottom: hp("1%"),
   },
   userName: {
     alignSelf: "center",
     color: baseColor.text,
     fontSize: Size.userNameSize,
     fontWeight: "600",
-    marginBottom: hp("2%"),
+    marginBottom: hp("1%"),
   },
   userIntro: {
     width: wp("65%"),
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     fontSize: Size.NormalS,
     fontWeight: "500",
     lineHeight: Size.lineHeight,
-    marginBottom: hp("2.5"),
+    marginBottom: hp("3.5"),
     textAlign: "center",
   },
   userState: {

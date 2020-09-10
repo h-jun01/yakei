@@ -32,7 +32,7 @@ const Notification: FC<Props> = ({
             {notificationDataList.map((item, index) => (
               <Fragment key={index}>
                 <TouchableOpacity
-                  activeOpacity={1}
+                  activeOpacity={0.8}
                   onPress={() =>
                     navigation.navigate("otherUser", {
                       uid: item.opponent_uid,

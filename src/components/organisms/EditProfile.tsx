@@ -74,7 +74,7 @@ const EditProfile: FC<Props> = ({ ...props }) => {
             <UserInput
               label="ユーザ名"
               placeholder="ユーザ名を入力"
-              inputLength={6}
+              maxLength={6}
               value={userName}
               setValue={setUserName}
             />
@@ -82,7 +82,7 @@ const EditProfile: FC<Props> = ({ ...props }) => {
             <UserInput
               label="自己紹介"
               placeholder="自己紹介を入力"
-              inputLength={40}
+              maxLength={40}
               value={userSelfIntroduction}
               setValue={setUserSelfIntroduction}
             />

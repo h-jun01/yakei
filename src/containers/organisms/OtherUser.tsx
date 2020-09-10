@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 import { RouteProp } from "@react-navigation/native";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../reducers/index";
 import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
