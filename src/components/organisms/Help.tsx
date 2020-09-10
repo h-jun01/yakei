@@ -5,11 +5,12 @@ import HelpHeading from "../atoms/HelpHeading";
 
 type Props = {
   navigation: any;
+  bottomHeight: number;
 };
 
-const Help: FC<Props> = ({ navigation }) => {
+const Help: FC<Props> = ({ navigation, bottomHeight }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: bottomHeight }]}>
       <HelpHeading heading="注意事項" />
       <Text style={styles.considerationsText}>
         ・他人の写真をYAKEIに投稿してはいけません。
