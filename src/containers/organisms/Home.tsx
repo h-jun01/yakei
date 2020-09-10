@@ -38,8 +38,13 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
     state.allPhotoReducer.allPhotoDataList;
   const selectPhotoDataList = (state: RootState) =>
     state.myPhotoReducer.photoDataList;
+  const selectBottomHeight = (state: RootState) =>
+    state.bottomNavReducer.height;
+
   const allPhotoList = useSelector(selectAllPhotoDataList);
   const myPhotoDataList = useSelector(selectPhotoDataList);
+  const bottomHeight = useSelector(selectBottomHeight);
+
   const [region, setRegion] = useState({
     latitude: 35.6340873,
     longitude: 139.525187,
@@ -78,6 +83,7 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
       navigation={navigation}
       allPhotoList={allPhotoList}
       myPhotoList={myPhotoDataList}
+      bottomHeight={bottomHeight}
     />
   );
 };
