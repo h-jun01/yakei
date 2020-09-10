@@ -45,7 +45,12 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
         />
       </TouchableOpacity>
       <View style={styles.userName}>
-        <Text style={styles.userName}>{postUserName}</Text>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => transitionToAnotherUser()}
+        >
+          <Text style={styles.userName}>{postUserName}</Text>
+        </TouchableOpacity>
         <Text style={styles.photogenicSubjec}>{photogenic_subject}</Text>
       </View>
       <Text style={styles.dotsVertical}>

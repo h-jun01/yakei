@@ -1,17 +1,28 @@
-import { Platform, PixelRatio } from "react-native";
+import { Platform, PixelRatio, PlatformIOSStatic } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 
 // based on iphone 11 pro/ MAX scale
 const scale = deviceWidth / 414;
 
 //fontSizeを可変
+// const normalize = (size: number) => {
+//   const newSize = size * scale;
+//   if (Platform.OS === "ios") {
+//     return Math.round(PixelRatio.roundToNearestPixel(newSize));
+//   } else {
+//     return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
+//   }
+// };
+
 const normalize = (size: number) => {
+  const platformIOS = Platform as PlatformIOSStatic;
   const newSize = size * scale;
-  if (Platform.OS === "ios") {
-    return Math.round(PixelRatio.roundToNearestPixel(newSize));
-  } else {
+
+  if (platformIOS.isPad) {
     return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
   }
+
+  return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };
 
 export const Size = {

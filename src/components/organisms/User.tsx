@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import {
   View,
+  ScrollView,
   Text,
   ActivityIndicator,
-  ScrollView,
   StyleSheet,
 } from "react-native";
 import {
