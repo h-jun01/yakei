@@ -1,10 +1,16 @@
 import React, { FC } from "react";
-import { View, ActivityIndicator, TouchableOpacity } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { Tab, Tabs, TabHeading } from "native-base";
 import { Image } from "react-native-elements";
-import { styles } from "../../styles/user/user";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { baseColor } from "../../styles/thema/colors";
+import { deviceWidth } from "../../utilities/dimensions";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { baseColor, utilityColor } from "../../styles/thema/colors";
 
 type Props = {
   navigation: any;
@@ -101,5 +107,20 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
     </Tabs>
   );
 };
+
+const styles = StyleSheet.create({
+  imgItemWrap: {
+    flex: 3,
+    width: wp("100%"),
+    flexDirection: "row",
+    flexWrap: "wrap",
+    backgroundColor: baseColor.base,
+  },
+  image: {
+    width: deviceWidth / 3.05,
+    height: deviceWidth / 3.05,
+    margin: deviceWidth / 370,
+  },
+});
 
 export default TabMenu;

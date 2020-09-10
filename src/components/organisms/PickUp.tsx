@@ -6,9 +6,15 @@ import {
   View,
   ActivityIndicator,
   ImageSourcePropType,
+  StyleSheet,
 } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { Image } from "react-native-elements";
-import { styles } from "../../styles/pickUp/pickUp";
+import { baseColor, utilityColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
 
 type PickUpItemList = {
   title: string;
@@ -51,5 +57,41 @@ const PickUp: FC<Props> = ({ navigation, pickUpItemList }) => {
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: hp("100%"),
+    backgroundColor: baseColor.base,
+  },
+  allWrap: {
+    width: wp("100%"),
+    paddingBottom: 101,
+  },
+  image: {
+    width: wp("100%"),
+    height: wp("70%"),
+  },
+  itemInfoWrap: {
+    height: wp("20%"),
+    width: wp("100%"),
+    position: "absolute",
+    bottom: 0,
+    justifyContent: "space-around",
+    backgroundColor: utilityColor.itemFilter,
+    padding: wp("4%"),
+  },
+  itemTitle: {
+    color: baseColor.text,
+    fontSize: Size.NormalL,
+    fontWeight: "500",
+    paddingBottom: wp("2%"),
+  },
+  itemTime: {
+    color: baseColor.text,
+    fontSize: Size.Normal,
+    fontWeight: "400",
+  },
+});
 
 export default PickUp;

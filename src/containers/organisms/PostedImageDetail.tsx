@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
-import { TextInput, TouchableOpacity } from "react-native";
+import { TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -9,17 +9,23 @@ import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { setShouldNavigateMap } from "../../actions/mapNavigate";
-import { styles } from "../../styles/post";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { baseColor } from "../../styles/thema/colors";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-type routeObj = {
-  imageData: firebase.firestore.DocumentData;
-  shouldHeaderLeftBeCross?: boolean;
-};
+type PostScreenRouteProp = RouteProp<
+  | HomeScreenStackParamList
+  | PickUpScreenStackParamList
+  | UserScreenStackParamList,
+  "post"
+>;
 
 type Props = {
-  route: RouteProp<Record<string, routeObj>, string>;
+  route: PostScreenRouteProp;
   navigation: StackNavigationProp<Record<string, object>>;
 };
 
@@ -39,7 +45,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     state.postedDataReducer.commentDataList;
 
   const commentDataList = useSelector(selrctCommentDataList);
-  const textInputRef = useRef<null | TextInput>(null);
+  const textInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
 
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える
@@ -84,6 +90,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
 
   return (
     <PostedImageDetail
+      navigation={navigation}
       photo_id={photo_id}
       uid={uid}
       create_time={create_time}
@@ -97,5 +104,21 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  // 閉じるボタン
+  headerBtn: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: wp("4%"),
+  },
+  // 閉じるボタン内のアイコン
+  crossBtnIcon: {
+    color: baseColor.text,
+    fontSize: wp("5.6%"),
+    fontWeight: "bold",
+  },
+});
 
 export default PostedImageDetailContainer;

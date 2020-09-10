@@ -1,7 +1,12 @@
 import React, { FC } from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import { utilityColor } from "../../styles/thema/colors";
-import { styles } from "../../styles/auth/auth";
+import { baseColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 type UseInput = {
   value: string;
@@ -16,7 +21,7 @@ type Props = {
   signUpUserData: UseInput;
 };
 
-const FormInput: FC<Props> = ({ ...props }) => {
+const InputForm: FC<Props> = ({ ...props }) => {
   const {
     item,
     placeholder,
@@ -24,6 +29,7 @@ const FormInput: FC<Props> = ({ ...props }) => {
     secureTextEntry,
     signUpUserData,
   } = props;
+
   return (
     <View>
       <Text style={styles.authInputItemName}>{item}</Text>
@@ -44,4 +50,21 @@ const FormInput: FC<Props> = ({ ...props }) => {
   );
 };
 
-export default FormInput;
+const styles = StyleSheet.create({
+  authInputItemName: {
+    color: baseColor.text,
+    fontSize: Size.Small,
+    fontWeight: "400",
+  },
+  authInput: {
+    marginBottom: hp("2.3%"),
+    padding: wp("1.5%"),
+    borderRadius: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: utilityColor.border,
+    fontSize: Size.Normal,
+    color: baseColor.text,
+  },
+});
+
+export default InputForm;

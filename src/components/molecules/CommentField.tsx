@@ -1,7 +1,12 @@
 import React, { FC } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import { Image } from "react-native-elements";
-import { styles } from "../../styles/postedImageDetail";
+import { baseColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 type Props = {
   postUserName: string;
@@ -30,5 +35,38 @@ const CommentField: FC<Props> = ({ ...props }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  commentBox: {
+    flexDirection: "row",
+    width: wp("100%"),
+    paddingVertical: hp("1.5%"),
+    paddingLeft: wp("3%"),
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#808080",
+  },
+  commentData: {
+    marginLeft: wp("3%"),
+  },
+  userIcon: {
+    width: wp("10%"),
+    height: wp("10%"),
+    borderRadius: 180,
+  },
+  userName: {
+    color: baseColor.text,
+    fontWeight: "600",
+    marginBottom: hp("1%"),
+  },
+  message: {
+    color: "#e0e0e0",
+    marginBottom: hp(".8%"),
+    width: wp("80%"),
+  },
+  time: {
+    fontSize: Size.Small,
+    color: "#C0C0C0",
+  },
+});
 
 export default CommentField;

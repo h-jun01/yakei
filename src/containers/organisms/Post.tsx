@@ -6,30 +6,31 @@ import {
   Alert,
   Image,
   ScrollView,
+  StyleSheet,
 } from "react-native";
-import Spinner from "react-native-loading-spinner-overlay";
-import { useDispatch, useSelector } from "react-redux";
 import type { Dispatch } from "redux";
-import firebase from "firebase";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
-import * as Permissions from "expo-permissions";
-import * as ImagePicker from "expo-image-picker";
-import * as Location from "expo-location";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers/index";
 import { setPostData } from "../../actions/post";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { setShouldNavigateMap } from "../../actions/mapNavigate";
 import { setPhotoListData } from "../../actions/photo";
 import { setAllPhotoListData } from "../../actions/allPhoto";
-import env from "../../../env.json";
-import { styles } from "../../styles/post";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { baseColor } from "../../styles/thema/colors";
 import { postFirebaseStorage } from "../../firebase/postFirebaseStorage";
 import { postFireStore } from "../../firebase/postFireStore";
 import { callingAlert } from "../../utilities/alert";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+import * as Location from "expo-location";
+import firebase from "firebase";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import env from "../../../env.json";
 import Post from "../../components/organisms/Post";
 import PaperAirplaneSvg from "../../components/atoms/svg/PaperAirplaneSvg";
+import Spinner from "react-native-loading-spinner-overlay";
 
 type Props = {
   navigation: NavigationProp<Record<string, object>>;
@@ -355,12 +356,35 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       />
       <Spinner
         visible={isLoading}
-        textContent="保存中..."
+        textContent="投稿中..."
         textStyle={{ color: "#fff", fontSize: 13 }}
         overlayColor="rgba(0,0,0,0.5)"
       />
     </>
   );
 };
+
+const postBtnViewBoxRatio = 1;
+
+const styles = StyleSheet.create({
+  // 閉じるボタン
+  headerBtn: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: wp("4%"),
+  },
+  // 閉じるボタン内のアイコン
+  crossBtnIcon: {
+    color: baseColor.text,
+    fontSize: wp("5.6%"),
+    fontWeight: "bold",
+  },
+  // 投稿ボタン内のアイコン
+  postBtnIcon: {
+    width: wp("5.5%"),
+    aspectRatio: postBtnViewBoxRatio,
+  },
+});
 
 export default PostContainer;

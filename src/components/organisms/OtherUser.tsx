@@ -13,63 +13,58 @@ import {
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
 import { Image } from "react-native-elements";
-import { iconSize } from "../../styles/thema/fonts";
-import { deviceWidth } from "../../utilities/dimensions";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 import UserImage from "../atoms/UserImage";
-import TabMenu from "../../containers/molecules/TabMenu";
+import TabMenu from "../../components/molecules/TabMenu";
 
 type Props = {
   navigation: any;
-  name: string;
-  image: string;
-  headerImage: string;
-  selfIntroduction: string;
-  myPhotoDataListCount: number;
-  favoriteListCount: number;
+  userData: firebase.firestore.DocumentData | undefined;
+  postDataList: firebase.firestore.DocumentData[];
+  favoriteDataList: firebase.firestore.DocumentData[];
 };
 
-const User: FC<Props> = ({ ...props }) => {
-  const {
-    navigation,
-    name,
-    image,
-    headerImage,
-    selfIntroduction,
-    myPhotoDataListCount,
-    favoriteListCount,
-  } = props;
-
+const OtherUser: FC<Props> = ({ ...props }) => {
+  const { navigation, userData, postDataList, favoriteDataList } = props;
   return (
     <ScrollView style={styles.container}>
       <View style={styles.allWrap}>
         <View style={styles.userInfoWrap}>
           <Image
-            source={{ uri: headerImage }}
-            style={{ width: wp("100%"), height: wp("65%") }}
+            source={{ uri: userData?.user_header_img }}
+            style={{ width: deviceWidth, height: deviceHeight / 3 }}
             PlaceholderContent={<ActivityIndicator />}
           >
             <View style={styles.overlay}></View>
           </Image>
           <View style={styles.infoWrap}>
             <View style={styles.iconBox}>
-              <UserImage userImage={image} size={deviceWidth / 5} />
+              <UserImage
+                userImage={userData?.user_img}
+                size={deviceWidth / 5}
+              />
             </View>
-            <Text style={styles.userName}>{name}</Text>
-            <Text style={styles.userIntro}>{selfIntroduction}</Text>
-            <View style={styles.userState}>
-              <Text style={styles.stateText}>{myPhotoDataListCount}投稿</Text>
-              <Text style={styles.stateText}>{favoriteListCount}いいね</Text>
-            </View>
-            <Text
-              style={styles.buttonItem}
-              onPress={() => navigation.navigate("setting")}
-            >
-              <Icon name="cog" size={iconSize.Normal} color={"#fff"} />
+            <Text style={styles.userName}>
+              {userData ? userData.name : "anonymous"}
             </Text>
+            <Text style={styles.userIntro}>
+              {userData && userData.self_introduction}
+            </Text>
+            <View style={styles.userState}>
+              <Text style={styles.stateText}>
+                {String(postDataList.length)}投稿
+              </Text>
+              <Text style={styles.stateText}>
+                {String(favoriteDataList.length)}いいね
+              </Text>
+            </View>
           </View>
         </View>
-        <TabMenu navigation={navigation} />
+        <TabMenu
+          navigation={navigation}
+          photoDataList={postDataList}
+          favoriteItems={favoriteDataList}
+        />
       </View>
     </ScrollView>
   );
@@ -89,7 +84,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     width: wp("100%"),
-    height: wp("65%"),
+    height: wp("75%"),
     backgroundColor: utilityColor.overlay,
   },
   //ユーザー情報
@@ -105,14 +100,14 @@ const styles = StyleSheet.create({
   },
   iconBox: {
     alignSelf: "center",
-    marginBottom: hp("1%"),
+    marginBottom: hp("2%"),
   },
   userName: {
     alignSelf: "center",
     color: baseColor.text,
     fontSize: Size.userNameSize,
     fontWeight: "600",
-    marginBottom: hp("1%"),
+    marginBottom: hp("2%"),
   },
   userIntro: {
     width: wp("65%"),
@@ -135,12 +130,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     borderColor: "#fff",
   },
-  //設定への遷移
-  buttonItem: {
-    position: "absolute",
-    top: hp("0%"),
-    right: wp("5%"),
-  },
 });
 
-export default User;
+export default OtherUser;

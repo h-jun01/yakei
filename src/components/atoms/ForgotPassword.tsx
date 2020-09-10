@@ -1,6 +1,8 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
-import { styles } from "../../styles/auth/auth";
+import { View, Text, StyleSheet } from "react-native";
+import { baseColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 type Props = {
   navigation: any;
@@ -8,9 +10,9 @@ type Props = {
 
 const ForgotPassword: FC<Props> = ({ navigation }) => {
   return (
-    <View style={styles.text}>
+    <View style={styles.ForgotPasswordText}>
       <Text
-        style={styles.textColor}
+        style={styles.ForgotPasswordTextColor}
         onPress={() => navigation.navigate("passwordReset")}
       >
         パスワードをお忘れの場合はこちら
@@ -18,5 +20,17 @@ const ForgotPassword: FC<Props> = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  ForgotPasswordText: {
+    marginTop: hp(".5%"),
+  },
+  ForgotPasswordTextColor: {
+    color: baseColor.text,
+    fontSize: Size.Small,
+    textAlign: "center",
+    lineHeight: Size.lineHeight,
+  },
+});
 
 export default ForgotPassword;

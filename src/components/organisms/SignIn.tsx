@@ -1,13 +1,18 @@
 import React, { FC, Fragment } from "react";
-import { View, ImageBackground, Image } from "react-native";
+import { View, ImageBackground, StyleSheet } from "react-native";
 import { UseInputResult } from "../../utilities/hooks/input";
-import { styles } from "../../styles/auth/auth";
-import FormInput from "../atoms/FormInput";
+import { baseColor, utilityColor } from "../../styles/thema/colors";
+import { deviceWidth } from "../../utilities/dimensions";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import InputForm from "../atoms/InputForm";
 import ServiceTitle from "../atoms/ServiceTitle";
 import GoogleAuthButton from "../atoms/GoogleAuthButton";
-import AuthChoiceText from "../atoms/AuthChoiceText";
-import AuthStatusChange from "../atoms/AuthStatusChange";
-import AuthScreenButton from "../atoms/AuthScreenButton";
+import SelectedText from "../atoms/SelectedText";
+import AuthSwitching from "../atoms/AuthSwitching";
+import AuthButton from "../atoms/AuthButton";
 import ForgotPassword from "../atoms/ForgotPassword";
 
 type ItemList = {
@@ -55,12 +60,10 @@ const SignIn: FC<Props> = ({ ...props }) => {
           style={styles.authBack}
         >
           <View style={styles.allWrap}>
-            {/* ロゴ */}
             <ServiceTitle />
             <View style={styles.authWrap}>
-              {/* 入力フォーム */}
               {itemList.map((item, index) => (
-                <FormInput
+                <InputForm
                   key={index}
                   item={item.item}
                   placeholder={item.placeholder}
@@ -69,30 +72,52 @@ const SignIn: FC<Props> = ({ ...props }) => {
                   signUpUserData={item.signUpUserData}
                 />
               ))}
-              {/* 新規登録とログインボタン */}
-              <AuthScreenButton
+              <AuthButton
                 label="ログイン"
-                authFunction={() => signInUser(email.value, pass.value)}
+                handleAuth={() => signInUser(email.value, pass.value)}
               />
-              {/* パスワードお忘れですか */}
               <ForgotPassword navigation={navigation} />
-              {/* またはのとこ */}
-              <AuthChoiceText />
-              {/* Google認証ボタン */}
+              <SelectedText />
               <GoogleAuthButton signInWithGoogle={signInWithGoogle} />
             </View>
           </View>
-          {/* ログインか新規登録に切り替え */}
-          <View style={styles.authChangeWrap}>
-            <AuthStatusChange
-              text="アカウントをお持ちでない場合、新規登録はこちら"
-              navigation={() => navigation.navigate("signUp")}
-            />
-          </View>
+          <AuthSwitching
+            switchingText="アカウントをお持ちでない場合、新規登録はこちら"
+            navigation={() => navigation.navigate("signUp")}
+          />
         </ImageBackground>
       </View>
     </Fragment>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: deviceWidth,
+    height: hp("100%"),
+    backgroundColor: baseColor.base,
+  },
+  authBack: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    // paddingBottom: hp("5%"),
+  },
+  allWrap: {
+    width: deviceWidth,
+    // position: "relative",
+    position: "absolute",
+    top: hp("20%"),
+  },
+  authWrap: {
+    width: wp("90%"),
+    marginLeft: "auto",
+    marginRight: "auto",
+    padding: hp("3%"),
+    backgroundColor: utilityColor.inputBack,
+    borderRadius: 10,
+  },
+});
 
 export default SignIn;
