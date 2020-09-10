@@ -14,11 +14,12 @@ type NewsDataList = {
 
 type Props = {
   newsDataList: NewsDataList[];
+  bottomHeight: number;
 };
 
-const News: FC<Props> = ({ newsDataList }) => {
+const News: FC<Props> = ({ newsDataList, bottomHeight }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: bottomHeight }]}>
       {newsDataList.map((item, index) => (
         <Fragment key={index}>
           <View style={styles.articleWrap}>
