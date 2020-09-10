@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
-import { styles } from "../../styles/user/setting";
+import { View, StyleSheet } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { baseColor } from "../../styles/thema/colors";
 import SettingItem from "../../containers/molecules/SettingItem";
-import { accountFireStore } from "../../firebase/accountFireStore";
 
 type Props = {
   navigation: any;
@@ -15,5 +15,13 @@ const Setting: FC<Props> = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: wp("100%"),
+    backgroundColor: baseColor.base,
+  },
+});
 
 export default Setting;

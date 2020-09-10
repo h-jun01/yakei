@@ -1,5 +1,10 @@
 import React, { FC, Fragment } from "react";
-import { View, ScrollView, Text, ActivityIndicator } from "react-native";
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { Image } from "react-native-elements";
 import { StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
@@ -10,38 +15,53 @@ import NoNotificationTex from "../atoms/NoNotificationText";
 type Props = {
   navigation: any;
   notificationDataList: firebase.firestore.DocumentData[];
+  bottomHeight: number;
 };
 
-const Notification: FC<Props> = ({ notificationDataList }) => {
+const Notification: FC<Props> = ({
+  navigation,
+  notificationDataList,
+  bottomHeight,
+}) => {
   return (
     <React.Fragment>
       {notificationDataList.length !== 0 &&
       notificationDataList !== undefined ? (
         <ScrollView style={styles.container}>
-          <View style={styles.box}>
+          <View style={[styles.box, { paddingBottom: bottomHeight }]}>
             {notificationDataList.map((item, index) => (
               <Fragment key={index}>
-                <View style={styles.wrapper}>
-                  <Image
-                    style={styles.userImage}
-                    source={{
-                      uri: item.opponent_url,
-                    }}
-                    PlaceholderContent={<ActivityIndicator />}
-                  />
-                  <NotificationText
-                    opponent_name={item.opponent_name}
-                    content={item.content}
-                    create_time={item.create_time}
-                  />
-                  <Image
-                    style={styles.photoImage}
-                    source={{
-                      uri: item.photo_url,
-                    }}
-                    PlaceholderContent={<ActivityIndicator />}
-                  />
-                </View>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() =>
+                    navigation.navigate("otherUser", {
+                      uid: item.opponent_uid,
+                      name: item.opponent_name,
+                    })
+                  }
+                >
+                  <View style={styles.wrapper}>
+                    <Image
+                      style={styles.userImage}
+                      source={{
+                        uri: item.opponent_url,
+                      }}
+                      PlaceholderContent={<ActivityIndicator />}
+                    />
+                    <NotificationText
+                      opponent_name={item.opponent_name}
+                      content={item.content}
+                      create_time={item.create_time}
+                    />
+                    <Image
+                      style={styles.photoImage}
+                      source={{
+                        uri: item.photo_url,
+                      }}
+                      PlaceholderContent={<ActivityIndicator />}
+                    />
+                  </View>
+                </TouchableOpacity>
                 <View style={styles.border} />
               </Fragment>
             ))}

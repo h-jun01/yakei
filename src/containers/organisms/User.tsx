@@ -24,6 +24,8 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
     state.myPhotoReducer.photoDataList;
   const selectFavoriteList = (state: RootState) =>
     state.userReducer.favoriteList;
+  const selectBottomHeight = (state: RootState) =>
+    state.bottomNavReducer.height;
 
   const name = useSelector(selectName);
   const image = useSelector(selectImage);
@@ -31,6 +33,7 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
   const selfIntroduction = useSelector(selectSelfIntroduction);
   const myPhotoDataList = useSelector(selectMyPhotoDataList);
   const favoriteList = useSelector(selectFavoriteList);
+  const bottomHeight = useSelector(selectBottomHeight);
 
   const [myPhotoDataListCount, setMyPhotoDataListCount] = useState<number>(0);
   const [favoriteListCount, setFavoriteListCount] = useState<number>(0);
@@ -67,6 +70,7 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
       selfIntroduction={selfIntroduction}
       myPhotoDataListCount={myPhotoDataListCount}
       favoriteListCount={favoriteListCount}
+      bottomHeight={bottomHeight}
     />
   );
 };

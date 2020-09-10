@@ -4,10 +4,7 @@ import { StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 import { Size } from "../../styles/thema/fonts";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 type NewsDataList = {
   title: string;
@@ -17,11 +14,12 @@ type NewsDataList = {
 
 type Props = {
   newsDataList: NewsDataList[];
+  bottomHeight: number;
 };
 
-const News: FC<Props> = ({ newsDataList }) => {
+const News: FC<Props> = ({ newsDataList, bottomHeight }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: bottomHeight }]}>
       {newsDataList.map((item, index) => (
         <Fragment key={index}>
           <View style={styles.articleWrap}>

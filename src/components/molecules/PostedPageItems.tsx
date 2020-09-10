@@ -1,7 +1,13 @@
 import React, { FC, Fragment } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Timestamp } from "@google-cloud/firestore";
-import { styles } from "../../styles/imageList";
+import { iconSize } from "../../styles/thema/fonts";
+import { baseColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -47,9 +53,9 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
         >
           <Text style={styles.PostIcon}>
             {isFavoriteStatus ? (
-              <AntDesign name="heart" size={15} color="#E0245E" />
+              <AntDesign name="heart" size={iconSize.Small} color="#E0245E" />
             ) : (
-              <AntDesign name="hearto" size={15} />
+              <AntDesign name="hearto" size={iconSize.Small} />
             )}
           </Text>
           <Text style={styles.stateNum}>{favoriteNumber}</Text>
@@ -72,17 +78,51 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
           }
         >
           <Text style={styles.PostIcon}>
-            <MaterialCommunityIcons name="comment-outline" size={15.5} />
+            <MaterialCommunityIcons
+              name="comment-outline"
+              size={iconSize.Small}
+            />
           </Text>
           <Text style={styles.stateNum}>{commentCount}</Text>
         </TouchableOpacity>
         <Text style={styles.PostIcon}>
-          <EvilIcons name="location" size={21} />
+          <EvilIcons name="location" size={iconSize.NormalS} />
         </Text>
       </View>
       <Text style={styles.timeStamp}>{date}</Text>
     </Fragment>
   );
 };
+
+const styles = StyleSheet.create({
+  postItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: hp("1%"),
+    marginRight: "auto",
+  },
+  PostIcon: {
+    color: baseColor.text,
+    fontSize: Size.Small,
+    fontWeight: "500",
+    marginRight: wp(".5%"),
+    marginLeft: wp(".5%"),
+  },
+  stateNum: {
+    color: baseColor.text,
+    fontSize: Size.Small,
+    fontWeight: "400",
+    marginRight: wp("3%"),
+  },
+  timeStamp: {
+    paddingLeft: hp("1.4%"),
+    color: baseColor.grayText,
+    fontSize: Size.Small,
+    fontWeight: "400",
+  },
+  touchableOpacity: {
+    flexDirection: "row",
+  },
+});
 
 export default PostedPageItems;

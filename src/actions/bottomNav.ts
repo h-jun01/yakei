@@ -7,3 +7,11 @@ export const setShouldDisplayBottomNav = (shouldDisplay: boolean) =>
       shouldDisplay,
     },
   } as const);
+
+export const setBottomNavHeight = (height: number) =>
+  ({
+    type: ActionTypes.SET_BOTTOM_NAV_HEIGHT,
+    payload: {
+      height,
+    },
+  } as const);

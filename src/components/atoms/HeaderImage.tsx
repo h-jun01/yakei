@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { Image } from "react-native-elements";
-import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
 import { utilityColor } from "../../styles/thema/colors";
 import {
   widthPercentageToDP as wp,
@@ -26,11 +25,11 @@ const HeaderImage: FC<Props> = ({ userHeaderImage }) => {
 const styles = StyleSheet.create({
   headerImageSize: {
     width: wp("100%"),
-    height: hp("30%"),
+    height: wp("50%"),
   },
   overlay: {
     width: wp("100%"),
-    height: hp("30%"),
+    height: hp("50%"),
     backgroundColor: utilityColor.overlay,
   },
 });

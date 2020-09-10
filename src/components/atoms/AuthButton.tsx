@@ -5,38 +5,29 @@ import { Size } from "../../styles/thema/fonts";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 type Props = {
-  signInWithGoogle: () => Promise<
-    | {
-        cancelled: boolean;
-        error?: undefined;
-      }
-    | {
-        error: boolean;
-        cancelled?: undefined;
-      }
-    | undefined
-  >;
+  label: string;
+  handleAuth: () => void;
 };
 
 const AuthButton: FC<Props> = ({ ...props }) => {
-  const { signInWithGoogle } = props;
+  const { label, handleAuth } = props;
   return (
     <TouchableOpacity
-      style={styles.googleBack}
+      style={styles.buttonBack}
       activeOpacity={0.8}
-      onPress={() => signInWithGoogle()}
+      onPress={handleAuth}
     >
-      <Text style={styles.buttonText}>Googleアカウントでログイン</Text>
+      <Text style={styles.buttonText}>{label}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  googleBack: {
-    backgroundColor: "#DC4E42",
+  buttonBack: {
+    backgroundColor: baseColor.accent,
     borderRadius: 5,
     paddingVertical: hp("1.5%"),
-    marginBottom: hp("1.5%"),
+    marginBottom: hp(".5%"),
   },
   buttonText: {
     color: baseColor.text,

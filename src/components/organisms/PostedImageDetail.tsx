@@ -1,8 +1,19 @@
 import React, { FC, MutableRefObject } from "react";
-import { ScrollView, View, ActivityIndicator, TextInput } from "react-native";
+import {
+  ScrollView,
+  View,
+  ActivityIndicator,
+  TextInput,
+  StyleSheet,
+} from "react-native";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
-import { styles } from "../../styles/postedImageDetail";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { baseColor } from "../../styles/thema/colors";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../../containers/molecules/DetailPostedPageItems";
 import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
@@ -10,6 +21,7 @@ import CommentInputField from "../../containers/molecules/CommentInputField";
 import CommentField from "../../containers/molecules/CommentField";
 
 type Props = {
+  navigation: StackNavigationProp<Record<string, object>>;
   photo_id: string;
   uid: string;
   create_time: Timestamp;
@@ -20,10 +32,12 @@ type Props = {
   commentDataList: firebase.firestore.DocumentData[];
   textInputRef: MutableRefObject<TextInput | null>;
   focusOnInput: () => void;
+  bottomHeight: number;
 };
 
 const PostedImageDetail: FC<Props> = ({ ...props }) => {
   const {
+    navigation,
     photo_id,
     uid,
     create_time,
@@ -34,13 +48,15 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     commentDataList,
     textInputRef,
     focusOnInput,
+    bottomHeight,
   } = props;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: bottomHeight }]}>
       <ScrollView style={styles.allWrap}>
         <View>
           <InformationUserPosted
+            navigation={navigation}
             uid={uid}
             photogenic_subject={photogenic_subject}
           />
@@ -81,5 +97,20 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: baseColor.base,
+  },
+  allWrap: {
+    width: wp("100%"),
+    paddingBottom: 101,
+  },
+  image: {
+    width: wp("100%"),
+    height: hp("25%"),
+  },
+});
 
 export default PostedImageDetail;

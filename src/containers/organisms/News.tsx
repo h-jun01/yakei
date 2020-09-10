@@ -7,7 +7,10 @@ const NewsContainer: FC = () => {
   const newsDataList = useSelector(
     (state: RootState) => state.newsReducer.newsDataList
   );
-  return <News newsDataList={newsDataList} />;
+  const bottomHeight = useSelector(
+    (state: RootState) => state.bottomNavReducer.height
+  );
+  return <News newsDataList={newsDataList} bottomHeight={bottomHeight} />;
 };
 
 export default NewsContainer;

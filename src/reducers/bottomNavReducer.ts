@@ -3,12 +3,14 @@ import { ActionTypes, UnionedAction } from "../actions/index";
 
 export type State = {
   shouldDisplay: boolean;
+  height: number;
 };
 
 type BottomNavReducer = Reducer<State, UnionedAction>;
 
 const initialState: State = {
   shouldDisplay: true,
+  height: 0,
 };
 
 export const bottomNavReducer: BottomNavReducer = (
@@ -20,6 +22,11 @@ export const bottomNavReducer: BottomNavReducer = (
       return {
         ...state,
         shouldDisplay: action.payload.shouldDisplay,
+      };
+    case ActionTypes.SET_BOTTOM_NAV_HEIGHT:
+      return {
+        ...state,
+        height: action.payload.height,
       };
     default: {
       return state;

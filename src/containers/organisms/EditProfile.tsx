@@ -1,16 +1,13 @@
 import React, { FC, Fragment, useState, useEffect } from "react";
-import * as Permissions from "expo-permissions";
-import * as ImagePicker from "expo-image-picker";
-import * as ImageManipulator from "expo-image-manipulator";
-import EditProfile from "../../components/organisms/EditProfile";
-import Spinner from "react-native-loading-spinner-overlay";
-import { TouchableOpacity, Text, Alert } from "react-native";
+import { TouchableOpacity, Text, Alert, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { callingAlert } from "../../utilities/alert";
 import { RootState } from "../../reducers/index";
-import { styles } from "../../styles/user/editProfile";
 import { deviceWidth } from "../../utilities/dimensions";
+import { baseColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import {
   upDateUserName,
   upDateUserProfileImage,
@@ -19,6 +16,11 @@ import {
   upDateUserHeaderImgIndex,
   upDateUserSelfIntroduction,
 } from "../../actions/user";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+import * as ImageManipulator from "expo-image-manipulator";
+import EditProfile from "../../components/organisms/EditProfile";
+import Spinner from "react-native-loading-spinner-overlay";
 
 type StorageImageData = {
   imgUrl: string;
@@ -268,7 +270,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
       await uploadPostHeaderImage();
     }
     setIsLoading(false);
-    navigation.navigate("User");
+    navigation.navigate("user");
   };
 
   return (
@@ -292,5 +294,14 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     </Fragment>
   );
 };
+
+const styles = StyleSheet.create({
+  saveButton: {
+    color: baseColor.accent,
+    fontSize: Size.NormalL,
+    fontWeight: "bold",
+    paddingRight: wp("4%"),
+  },
+});
 
 export default ContainerEditProfile;

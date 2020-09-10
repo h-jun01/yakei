@@ -1,7 +1,8 @@
 import React, { FC } from "react";
-import { View, Text } from "react-native";
-import { StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { baseColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
 import { deviceWidth } from "../../utilities/dimensions";
 
 const NoNotificationText: FC = () => {
@@ -25,18 +26,18 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: baseColor.base,
-    paddingBottom: 70,
+    paddingBottom: hp("9%"),
   },
   noNotification: {
     width: deviceWidth / 1.3,
     alignItems: "center",
   },
   noNotificationText: {
-    fontSize: 22,
-    color: "#fff",
+    fontSize: Size.noNotificationSize,
+    color: baseColor.text,
   },
   supplement: {
-    marginTop: 30,
+    marginTop: hp("4%"),
     color: "#ddd",
   },
 });

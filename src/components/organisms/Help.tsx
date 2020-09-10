@@ -5,11 +5,12 @@ import HelpHeading from "../atoms/HelpHeading";
 
 type Props = {
   navigation: any;
+  bottomHeight: number;
 };
 
-const Help: FC<Props> = ({ navigation }) => {
+const Help: FC<Props> = ({ navigation, bottomHeight }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: bottomHeight }]}>
       <HelpHeading heading="注意事項" />
       <Text style={styles.considerationsText}>
         ・他人の写真をYAKEIに投稿してはいけません。
@@ -19,11 +20,11 @@ const Help: FC<Props> = ({ navigation }) => {
         {"\u3000"}無断で転載してはいけません。
       </Text>
       <Text style={styles.considerationsText}>
-        ・無差別な商業用の宣伝行為をしてはいけません
+        ・無差別な商業用の宣伝行為をしてはいけません。
       </Text>
       <Text style={styles.considerationsText}>
         ・他の利用者に対して誹謗・中傷・プライバシーの{"\n"}
-        {"\u3000"}侵害をしてはいけません
+        {"\u3000"}侵害をしてはいけません。
       </Text>
       <HelpHeading heading="よくある質問" />
       <Text
