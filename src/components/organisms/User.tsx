@@ -27,6 +27,7 @@ type Props = {
   selfIntroduction: string;
   myPhotoDataListCount: number;
   favoriteListCount: number;
+  bottomHeight: number;
 };
 
 const User: FC<Props> = ({ ...props }) => {
@@ -38,11 +39,12 @@ const User: FC<Props> = ({ ...props }) => {
     selfIntroduction,
     myPhotoDataListCount,
     favoriteListCount,
+    bottomHeight,
   } = props;
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.allWrap}>
+      <View style={[styles.allWrap, { paddingBottom: bottomHeight }]}>
         <View style={styles.userInfoWrap}>
           <Image
             source={{ uri: headerImage }}

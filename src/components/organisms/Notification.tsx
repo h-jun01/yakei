@@ -27,8 +27,8 @@ const Notification: FC<Props> = ({
     <React.Fragment>
       {notificationDataList.length !== 0 &&
       notificationDataList !== undefined ? (
-        <ScrollView style={[styles.container, { paddingBottom: bottomHeight }]}>
-          <View style={styles.box}>
+        <ScrollView style={styles.container}>
+          <View style={[styles.box, { paddingBottom: bottomHeight }]}>
             {notificationDataList.map((item, index) => (
               <Fragment key={index}>
                 <TouchableOpacity
