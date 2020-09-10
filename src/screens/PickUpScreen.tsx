@@ -9,7 +9,7 @@ import OtherUser from "../containers/organisms/OtherUser";
 
 export type PickUpScreenStackParamList = {
   pickup: undefined;
-  detail: undefined;
+  detail: { photoDataList: PhotoDataList[] };
   post: {
     imageData: {
       photo_id: string;
@@ -23,6 +23,16 @@ export type PickUpScreenStackParamList = {
     shouldHeaderLeftBeCross?: boolean;
   };
   otherUser: { name: string; uid: string };
+};
+
+type PhotoDataList = {
+  photo_id: string;
+  uid: string;
+  create_time: Timestamp;
+  url: string;
+  latitude: number;
+  longitude: number;
+  photogenic_subject: string;
 };
 
 const PickUpScreen: FC = () => {
