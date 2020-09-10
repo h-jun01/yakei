@@ -32,6 +32,7 @@ type Props = {
   commentDataList: firebase.firestore.DocumentData[];
   textInputRef: MutableRefObject<TextInput | null>;
   focusOnInput: () => void;
+  bottomHeight: number;
 };
 
 const PostedImageDetail: FC<Props> = ({ ...props }) => {
@@ -47,10 +48,11 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     commentDataList,
     textInputRef,
     focusOnInput,
+    bottomHeight,
   } = props;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: bottomHeight }]}>
       <ScrollView style={styles.allWrap}>
         <View>
           <InformationUserPosted
