@@ -1,5 +1,5 @@
 import React, { FC, useRef, useState } from "react";
-import { Animated } from "react-native";
+import { Animated, Dimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { RootState } from "../../reducers/index";
@@ -11,7 +11,7 @@ import BottomNav from "../../components/organisms/BottomNav";
 const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
   const dispatch = useDispatch();
   const whiteWrapAnim = useRef(new Animated.Value(0)).current;
-  const [bottomNavBgHeight, setBottomNavBgHeihgt] = useState(0);
+  const [btmNvBgHeight, setBtmNvBgHeight] = useState(0);
   const [safeAreaHeihgt, setSafeAreaHeihgt] = useState(0);
 
   const shouldDisplay = useSelector(
@@ -27,17 +27,28 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
   });
   const opacityAnim = { opacity: opacityInterpolate };
 
-  const onLayoutBottomNavBg = (height) => {
-    const bottomNavHeight = height - safeAreaHeihgt;
-    setBottomNavBgHeihgt(height);
-    dispatch(setBottomNavHeight(bottomNavHeight));
+  // BottomNavの高さを取得
+  const getBtmNvHeight = (btmNvBgPlusSafeAreaHeight: number) => {
+    const displayWidth = Dimensions.get("window").width;
+    const iPhone11Width = 414;
+    const plusBtnBottomRatio = 17 / iPhone11Width;
+    const plusBtnBottom = displayWidth * plusBtnBottomRatio;
+    return btmNvBgPlusSafeAreaHeight + plusBtnBottom;
+  };
+  const onLayoutBtmNvBg = (height) => {
+    setBtmNvBgHeight(height);
+    const btmNvBgPlusSAHeight = height + safeAreaHeihgt;
+    const btmNvHeight = getBtmNvHeight(btmNvBgPlusSAHeight);
+    dispatch(setBottomNavHeight(btmNvHeight));
   };
   const onLayoutSafeAreaHeight = (height) => {
     const heightOnDisplay = height === 0 ? 0 : height - 21;
-    const bottomNavHeight = bottomNavBgHeight - heightOnDisplay;
     setSafeAreaHeihgt(heightOnDisplay);
+    const btmNvBgPlusSafeAreaHeight = btmNvBgHeight - heightOnDisplay;
+    const bottomNavHeight = getBtmNvHeight(btmNvBgPlusSafeAreaHeight);
     dispatch(setBottomNavHeight(bottomNavHeight));
   };
+
   const onPressOut = () => dispatch(setShouldAppearPostBtns(false));
 
   return (
@@ -50,7 +61,7 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
       whiteWrapAnim={whiteWrapAnim}
       opacityAnim={opacityAnim}
       safeAreaHeihgt={safeAreaHeihgt}
-      onLayoutBottomNavBg={onLayoutBottomNavBg}
+      onLayoutBtmNvBg={onLayoutBtmNvBg}
       onLayoutSafeAreaHeight={onLayoutSafeAreaHeight}
       onPressOut={onPressOut}
     />

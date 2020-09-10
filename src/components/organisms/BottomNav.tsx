@@ -22,7 +22,7 @@ type Props = {
   opacityAnim: Object;
   whiteWrapAnim: Animated.Value;
   safeAreaHeihgt: number;
-  onLayoutBottomNavBg: (height: number) => void;
+  onLayoutBtmNvBg: (height: number) => void;
   onLayoutSafeAreaHeight: (height: number) => void;
   onPressOut: () => void;
 };
@@ -37,7 +37,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
     opacityAnim,
     whiteWrapAnim,
     safeAreaHeihgt,
-    onLayoutBottomNavBg,
+    onLayoutBtmNvBg,
     onLayoutSafeAreaHeight,
     onPressOut,
   } = props;
@@ -59,7 +59,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
         )}
         <View
           style={styles.footerBackgroundWrap}
-          onLayout={(e) => onLayoutBottomNavBg(e.nativeEvent.layout.height)}
+          onLayout={(e) => onLayoutBtmNvBg(e.nativeEvent.layout.height)}
         >
           <FooterBackgroundSvg
             style={styles.footerBackground}
