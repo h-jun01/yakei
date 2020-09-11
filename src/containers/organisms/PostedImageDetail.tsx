@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useRef } from "react";
-import { TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import React, { FC, useState, useEffect, useRef } from "react";
+import { TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { RootState } from "../../reducers/index";
 import { useSelector, useDispatch } from "react-redux";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -29,6 +29,21 @@ type Props = {
   navigation: StackNavigationProp<Record<string, object>>;
 };
 
+const assignImageAspectRatio = (
+  uri: string,
+  set: React.Dispatch<React.SetStateAction<number>>
+) => {
+  Image.getSize(
+    uri,
+    (width, height) => {
+      set(height / width);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
 const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   const {
     photo_id,
@@ -49,6 +64,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   const commentDataList = useSelector(selectCommentDataList);
   const bottomHeight = useSelector(selectBottomHeight);
   const textInputRef = useRef<TextInput>(null);
+  const [aspectRatio, setAspectRatio] = useState<number>(0);
   const dispatch = useDispatch();
 
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える
@@ -91,6 +107,9 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     dispatch(setIsInputForm(true));
   };
 
+  // 画像のwidthとheightを取得
+  assignImageAspectRatio(url, setAspectRatio);
+
   return (
     <PostedImageDetail
       navigation={navigation}
@@ -98,6 +117,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
       uid={uid}
       create_time={create_time}
       url={url}
+      aspectRatio={aspectRatio}
       latitude={latitude}
       longitude={longitude}
       photogenic_subject={photogenic_subject}

@@ -103,9 +103,9 @@ const BottomNav: FC<Props> = ({ ...props }) => {
 const iPhone11Width = 414;
 const displayWidth = Dimensions.get("window").width;
 const displayHeight = Dimensions.get("window").height;
-const itemsFloatingRatio = 0.00966;
+const itemsFloatingRatio = 4 / iPhone11Width;
 const viewboxRatio = 4.4588; // viewbox.width / viewbox.height
-const footerBgBtmRatio = -19 / iPhone11Width;
+const footerBgBtmRatio = -19.5 / iPhone11Width;
 const footerBgBtm = displayWidth * footerBgBtmRatio;
 
 const styles = StyleSheet.create({
