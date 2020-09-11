@@ -1,5 +1,7 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useRef } from "react";
+import { Platform } from "react-native";
 import PostMap from "../../components/organisms/PostedMap";
+import { Marker } from "react-native-maps";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import { photoFireStore } from "../../firebase/photoFireStore";

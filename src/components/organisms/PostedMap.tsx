@@ -1,32 +1,11 @@
-import React, { FC, useState, useRef } from "react";
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Animated,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-  Platform,
-  ImageBackground,
-} from "react-native";
+import React, { FC } from "react";
+import { StyleSheet, Text, TouchableOpacity, Animated } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 import { Container } from "native-base";
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
-import UserSwitchButtonView from "./UserSwitchButton";
-import LocationButtonView from "./PresentLocationButton";
-import OriginMarker from "../atoms/OriginMarker";
-import { useEffect } from "react";
-import { useTheme } from "@react-navigation/native";
-import { photoFireStore } from "../../firebase/photoFireStore";
-import { accountFireStore } from "../../firebase/accountFireStore";
-import { baseColor } from "../../styles/thema/colors";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setPostPhoto } from "../../actions/postPhoto";
-import { RootState } from "../../reducers/index";
 
 type Region = {
   latitude: number;
@@ -56,6 +35,8 @@ const PostMap: FC<Props> = ({ ...props }) => {
     onRegionChangeComplete,
   } = props;
 
+  const AnimatedMarker = Animated.createAnimatedComponent(Marker);
+
   return (
     <Container style={styles.box}>
       {initialRegion === "loading" ? (
@@ -82,7 +63,8 @@ const PostMap: FC<Props> = ({ ...props }) => {
               onRegionChangeComplete(e.latitudeDelta, e.longitudeDelta)
             }
           >
-            <Marker
+            <AnimatedMarker
+              tracksViewChanges
               coordinate={initialRegion !== undefined ? initialRegion : region}
               image={require("../../../assets/pin02.png")}
             />
