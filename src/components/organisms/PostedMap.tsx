@@ -37,44 +37,43 @@ type Region = {
 type Props = {
   navigation: any;
   region: Region;
+  onLongPress: (latitude: number, longitude: number) => void;
+  onRegionChangeComplete: (
+    latitudeDelta: number,
+    longitudeDelta: number
+  ) => void;
 };
 
 const PostMap: FC<Props> = ({ ...props }) => {
   const dispatch = useDispatch();
-  const { navigation, region } = props;
-  let _map;
-  _map = React.useRef(null);
-  useEffect(() => {
-    dispatch(setPostPhoto(region.latitude, region.longitude));
-    _map.current.animateToRegion(region);
-  });
+  const { navigation, region, onLongPress, onRegionChangeComplete } = props;
 
   return (
     <Container style={styles.box}>
       <MapView
-        ref={_map}
         style={{ ...StyleSheet.absoluteFillObject }}
         provider={PROVIDER_GOOGLE}
         showsUserLocation
         initialRegion={region}
+        onLongPress={(e) =>
+          onLongPress(
+            e.nativeEvent.coordinate.latitude,
+            e.nativeEvent.coordinate.longitude
+          )
+        }
+        onRegionChangeComplete={(e) =>
+          onRegionChangeComplete(e.latitudeDelta, e.longitudeDelta)
+        }
       >
         <Marker
-          draggable
           coordinate={region}
           image={require("../../../assets/pin02.png")}
-          onDragEnd={(e) =>
-            dispatch(
-              setPostPhoto(
-                e.nativeEvent.coordinate.latitude,
-                e.nativeEvent.coordinate.longitude
-              )
-            )
-          }
         />
       </MapView>
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
+          dispatch(setPostPhoto(region.latitude, region.longitude));
           navigation.goBack();
         }}
       >

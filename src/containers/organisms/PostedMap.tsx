@@ -36,8 +36,8 @@ const PostedMap: FC<Props> = ({ ...props }) => {
         setRegion({
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
-          latitudeDelta: 0.1,
-          longitudeDelta: 0.1,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.015,
         });
       } catch (error) {
         // to do
@@ -46,7 +46,37 @@ const PostedMap: FC<Props> = ({ ...props }) => {
     fetch();
   }, []);
 
-  return <PostMap navigation={navigation} region={region} />;
+  const onLongPress = (latitude: number, longitude: number) => {
+    setRegion({
+      latitude,
+      longitude,
+      latitudeDelta: region.latitudeDelta,
+      longitudeDelta: region.longitudeDelta,
+    });
+  };
+
+  const onRegionChangeComplete = (
+    latitudeDelta: number,
+    longitudeDelta: number
+  ) => {
+    console.log(latitudeDelta);
+    console.log(longitudeDelta);
+    setRegion({
+      latitude: region.latitude,
+      longitude: region.longitude,
+      latitudeDelta: latitudeDelta,
+      longitudeDelta: longitudeDelta,
+    });
+  };
+
+  return (
+    <PostMap
+      navigation={navigation}
+      region={region}
+      onLongPress={onLongPress}
+      onRegionChangeComplete={onRegionChangeComplete}
+    />
+  );
 };
 
 export default PostedMap;
