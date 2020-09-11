@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState, useRef } from "react";
 import PostMap from "../../components/organisms/PostedMap";
-import Map from "react-native-maps";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import { useDispatch } from "react-redux";
@@ -29,7 +28,6 @@ const PostedMap: FC<Props> = ({ ...props }) => {
   const [initialRegion, setInitialRegion] = useState<
     Region | "loading" | undefined
   >("loading");
-  const map = useRef<Map>(null);
 
   useEffect(() => {
     const getNowRegionAsync = async () => {
@@ -53,10 +51,6 @@ const PostedMap: FC<Props> = ({ ...props }) => {
     };
     getNowRegionAsync();
   }, []);
-
-  useEffect(() => {
-    map.current?.animateToRegion(region, 250);
-  }, [region.latitude, region.longitude]);
 
   const onLongPress = (latitude: number, longitude: number) => {
     if (!!initialRegion) setInitialRegion(undefined);
@@ -88,7 +82,6 @@ const PostedMap: FC<Props> = ({ ...props }) => {
       navigation={navigation}
       region={region}
       initialRegion={initialRegion}
-      map={map}
       onLongPress={onLongPress}
       onRegionChangeComplete={onRegionChangeComplete}
       dispatchPostPhoto={dispatchPostPhoto}

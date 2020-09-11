@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { StyleSheet, Text, TouchableOpacity, Animated } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 import { Container } from "native-base";
-import Map, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
 import { baseColor } from "../../styles/thema/colors";
 
@@ -17,7 +17,6 @@ type Props = {
   navigation: any;
   region: Region;
   initialRegion: Region | "loading" | undefined;
-  map: React.RefObject<Map>;
   onLongPress: (latitude: number, longitude: number) => void;
   onRegionChangeComplete: (
     latitudeDelta: number,
@@ -31,7 +30,6 @@ const PostMap: FC<Props> = ({ ...props }) => {
     navigation,
     region,
     initialRegion,
-    map,
     onLongPress,
     onRegionChangeComplete,
     dispatchPostPhoto,
@@ -51,7 +49,6 @@ const PostMap: FC<Props> = ({ ...props }) => {
       ) : (
         <>
           <MapView
-            ref={map}
             style={{ ...StyleSheet.absoluteFillObject }}
             provider={PROVIDER_GOOGLE}
             initialRegion={initialRegion}
@@ -74,8 +71,7 @@ const PostMap: FC<Props> = ({ ...props }) => {
           </MapView>
           <TouchableOpacity
             style={styles.button}
-            // onPressにするとピンを立てた直後に効かなくなる
-            onPressOut={() => {
+            onPress={() => {
               dispatchPostPhoto();
               navigation.goBack();
             }}
