@@ -55,6 +55,7 @@ const PostScreen: FC = () => {
         component={PostedMap}
         options={{
           title: "撮影場所を選択",
+          headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {
             backgroundColor: baseColor.darkNavy,
