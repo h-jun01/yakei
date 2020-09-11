@@ -28,6 +28,7 @@ const NotificationItem: FC<Props> = ({ navigation, item, data }) => {
                   favoriteNumber: data.favoriteNumber,
                   latitude: data.latitude,
                   longitude: data.longitude,
+                  photogenic_subject: data.photogenic_subject,
                 },
               })
             : callingAlert("投稿が見つかりませんでした。")
