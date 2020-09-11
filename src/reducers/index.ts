@@ -11,6 +11,7 @@ import { postReducer } from "./postReducer";
 import { mapNavigateReducer } from "./mapNavigateReducer";
 import { favoriteReducer } from "./favoriteReducer";
 import { notificationReducer } from "./notificationReducer";
+import { PostPhotoReducer } from "./postPhotoReducer";
 
 export const rootReducer = combineReducers({
   authReducer,
@@ -24,6 +25,7 @@ export const rootReducer = combineReducers({
   postReducer,
   mapNavigateReducer,
   favoriteReducer,
+  PostPhotoReducer,
   notificationReducer,
 });
 

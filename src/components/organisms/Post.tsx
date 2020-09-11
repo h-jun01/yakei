@@ -28,7 +28,7 @@ type Props = {
   handleContentSizeChange: (width: number, height: number) => void;
   photogenicSubject: string;
   setPhotogenicSubject: React.Dispatch<React.SetStateAction<string>>;
-  onPressLocationRow: () => void;
+  navigation: any;
 };
 
 const Post: FC<Props> = ({ ...props }) => {
@@ -41,7 +41,7 @@ const Post: FC<Props> = ({ ...props }) => {
     handleContentSizeChange,
     photogenicSubject,
     setPhotogenicSubject,
-    onPressLocationRow,
+    navigation,
   } = props;
 
   const width = deviceWidth;
@@ -90,7 +90,7 @@ const Post: FC<Props> = ({ ...props }) => {
           <TouchableOpacity
             activeOpacity={1}
             style={styles.locationTextWrap}
-            onPress={() => onPressLocationRow()}
+            onPress={() => navigation.navigate("postedMap")}
           >
             <Text style={[styles.locationText, addressColorStyle]}>
               {address}
