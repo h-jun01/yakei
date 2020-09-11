@@ -1,31 +1,10 @@
-import React, { FC, useState, useRef } from "react";
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Animated,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-  Platform,
-  ImageBackground,
-} from "react-native";
+import React, { FC } from "react";
+import { StyleSheet, Text, TouchableOpacity, Animated } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 import { Container } from "native-base";
-import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import Map, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
-import UserSwitchButtonView from "./UserSwitchButton";
-import LocationButtonView from "./PresentLocationButton";
-import OriginMarker from "../atoms/OriginMarker";
-import { useEffect } from "react";
-import { useTheme } from "@react-navigation/native";
-import { photoFireStore } from "../../firebase/photoFireStore";
-import { accountFireStore } from "../../firebase/accountFireStore";
 import { baseColor } from "../../styles/thema/colors";
-import { useSelector, useDispatch } from "react-redux";
-import { setPostPhoto } from "../../actions/postPhoto";
-import { RootState } from "../../reducers/index";
 
 type Region = {
   latitude: number;
@@ -37,49 +16,74 @@ type Region = {
 type Props = {
   navigation: any;
   region: Region;
+  initialRegion: Region | "loading" | undefined;
+  map: React.RefObject<Map>;
+  onLongPress: (latitude: number, longitude: number) => void;
+  onRegionChangeComplete: (
+    latitudeDelta: number,
+    longitudeDelta: number
+  ) => void;
+  dispatchPostPhoto: () => void;
 };
 
 const PostMap: FC<Props> = ({ ...props }) => {
-  const dispatch = useDispatch();
-  const { navigation, region } = props;
-  let _map;
-  _map = React.useRef(null);
-  useEffect(() => {
-    dispatch(setPostPhoto(region.latitude, region.longitude));
-    _map.current.animateToRegion(region);
-  });
+  const {
+    navigation,
+    region,
+    initialRegion,
+    map,
+    onLongPress,
+    onRegionChangeComplete,
+    dispatchPostPhoto,
+  } = props;
+
+  const AnimatedMarker = Animated.createAnimatedComponent(Marker);
 
   return (
     <Container style={styles.box}>
-      <MapView
-        ref={_map}
-        style={{ ...StyleSheet.absoluteFillObject }}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation
-        initialRegion={region}
-      >
-        <Marker
-          draggable
-          coordinate={region}
-          image={require("../../../assets/pin02.png")}
-          onDragEnd={(e) =>
-            dispatch(
-              setPostPhoto(
+      {initialRegion === "loading" ? (
+        <Spinner
+          visible
+          textContent="読み込み中…"
+          textStyle={{ color: "#fff", fontSize: 13 }}
+          overlayColor="rgba(0,0,0,0.5)"
+        />
+      ) : (
+        <>
+          <MapView
+            ref={map}
+            style={{ ...StyleSheet.absoluteFillObject }}
+            provider={PROVIDER_GOOGLE}
+            initialRegion={initialRegion}
+            showsUserLocation
+            onLongPress={(e) =>
+              onLongPress(
                 e.nativeEvent.coordinate.latitude,
                 e.nativeEvent.coordinate.longitude
               )
-            )
-          }
-        />
-      </MapView>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Text style={styles.buttonText}>ここで決まり</Text>
-      </TouchableOpacity>
+            }
+            onRegionChangeComplete={(e) =>
+              onRegionChangeComplete(e.latitudeDelta, e.longitudeDelta)
+            }
+          >
+            <AnimatedMarker
+              tracksViewChanges
+              coordinate={initialRegion !== undefined ? initialRegion : region}
+              image={require("../../../assets/pin02.png")}
+            />
+          </MapView>
+          <TouchableOpacity
+            style={styles.button}
+            // onPressにするとピンを立てた直後に効かなくなる
+            onPressOut={() => {
+              dispatchPostPhoto();
+              navigation.goBack();
+            }}
+          >
+            <Text style={styles.buttonText}>ここで決定する</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </Container>
   );
 };
@@ -101,11 +105,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    backgroundColor: "#f00",
+    backgroundColor: baseColor.base,
   },
   buttonText: {
     fontSize: 20,
-    color: "#fff",
+    color: baseColor.text,
   },
 });
 export default PostMap;
