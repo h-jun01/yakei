@@ -35,6 +35,7 @@ const ContainerNotification: FC<Props> = ({ navigation }) => {
           const product = change.doc.data({ serverTimestamps: "estimate" });
           const changeType = change.type;
           setTemporaryArray(temporaryArray.slice());
+
           switch (changeType) {
             case "added":
               temporaryArray.unshift(product);

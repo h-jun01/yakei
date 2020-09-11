@@ -1,15 +1,8 @@
-import React, { FC, Fragment } from "react";
-import {
-  View,
-  ScrollView,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
-import { Image } from "react-native-elements";
+import React, { FC } from "react";
+import { View, ScrollView } from "react-native";
 import { StyleSheet } from "react-native";
-import { deviceWidth } from "../../utilities/dimensions";
 import { baseColor } from "../../styles/thema/colors";
-import NotificationText from "../atoms/NotificationText";
+import NotificationItem from "../../containers/molecules/NotificationItem";
 import NoNotificationTex from "../atoms/NoNotificationText";
 
 type Props = {
@@ -30,40 +23,11 @@ const Notification: FC<Props> = ({
         <ScrollView style={styles.container}>
           <View style={[styles.box, { paddingBottom: bottomHeight }]}>
             {notificationDataList.map((item, index) => (
-              <Fragment key={index}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() =>
-                    navigation.navigate("otherUser", {
-                      uid: item.opponent_uid,
-                      name: item.opponent_name,
-                    })
-                  }
-                >
-                  <View style={styles.wrapper}>
-                    <Image
-                      style={styles.userImage}
-                      source={{
-                        uri: item.opponent_url,
-                      }}
-                      PlaceholderContent={<ActivityIndicator />}
-                    />
-                    <NotificationText
-                      opponent_name={item.opponent_name}
-                      content={item.content}
-                      create_time={item.create_time}
-                    />
-                    <Image
-                      style={styles.photoImage}
-                      source={{
-                        uri: item.photo_url,
-                      }}
-                      PlaceholderContent={<ActivityIndicator />}
-                    />
-                  </View>
-                </TouchableOpacity>
-                <View style={styles.border} />
-              </Fragment>
+              <NotificationItem
+                key={index}
+                navigation={navigation}
+                item={item}
+              />
             ))}
           </View>
         </ScrollView>
@@ -82,24 +46,6 @@ const styles = StyleSheet.create({
   box: {
     alignItems: "center",
     paddingBottom: 104,
-  },
-  wrapper: {
-    flexDirection: "row",
-    padding: 15,
-  },
-  userImage: {
-    width: 52,
-    height: 52,
-    borderRadius: 180,
-  },
-  photoImage: {
-    width: 72,
-    height: 72,
-  },
-  border: {
-    width: deviceWidth,
-    borderBottomWidth: 0.5,
-    borderBottomColor: "#808080",
   },
 });
 

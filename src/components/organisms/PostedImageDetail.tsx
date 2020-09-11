@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   TextInput,
   StyleSheet,
+  Dimensions,
 } from "react-native";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
@@ -26,6 +27,7 @@ type Props = {
   uid: string;
   create_time: Timestamp;
   url: string;
+  aspectRatio: number;
   latitude: number;
   longitude: number;
   photogenic_subject: string;
@@ -42,6 +44,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     uid,
     create_time,
     url,
+    aspectRatio,
     latitude,
     longitude,
     photogenic_subject,
@@ -50,6 +53,8 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     focusOnInput,
     bottomHeight,
   } = props;
+
+  const displayWidth = Dimensions.get("window").width;
 
   return (
     <View style={[styles.container, { paddingBottom: bottomHeight }]}>
@@ -61,7 +66,10 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             photogenic_subject={photogenic_subject}
           />
           <Image
-            style={styles.image}
+            style={{
+              width: displayWidth,
+              height: displayWidth * aspectRatio,
+            }}
             source={{
               uri: url,
             }}
@@ -106,10 +114,6 @@ const styles = StyleSheet.create({
   allWrap: {
     width: wp("100%"),
     paddingBottom: 101,
-  },
-  image: {
-    width: wp("100%"),
-    height: hp("25%"),
   },
 });
 

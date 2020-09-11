@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import type { Route } from "@react-navigation/routers/lib/typescript/src/types";
 import { RootState } from "../../reducers/index";
@@ -13,6 +14,22 @@ type Props = {
   descriptors: BottomTabBarProps["descriptors"];
   navigation: BottomTabBarProps["navigation"];
   index: number;
+};
+
+const navigateMap = (
+  index: number,
+  navigation: BottomTabBarProps["navigation"],
+  route: Route<string>,
+  dispatch: Dispatch
+) => {
+  const mapIndex = 0;
+  if (index !== mapIndex) return;
+  const shouldNavigateMap = useSelector(
+    (state: RootState) => state.mapNavigateReducer.shouldNavigateMap
+  );
+  if (!shouldNavigateMap) return;
+  navigation.navigate(route["name"]);
+  dispatch(setShouldNavigateMap(false));
 };
 
 const BottomNavTouchableOpacityContainer: FC<Props> = ({ ...props }) => {
@@ -48,16 +65,7 @@ const BottomNavTouchableOpacityContainer: FC<Props> = ({ ...props }) => {
     });
   };
 
-  const navigateMap = (() => {
-    const mapIndex = 0;
-    if (index !== mapIndex) return;
-    const shouldNavigateMap = useSelector(
-      (state: RootState) => state.mapNavigateReducer.shouldNavigateMap
-    );
-    if (!shouldNavigateMap) return;
-    navigation.navigate(route["name"]);
-    dispatch(setShouldNavigateMap(false));
-  })();
+  navigateMap(index, navigation, route, dispatch);
 
   return (
     <BottomNavTouchableOpacity
