@@ -74,7 +74,8 @@ const PostMap: FC<Props> = ({ ...props }) => {
           </MapView>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => {
+            // onPressにするとピンを立てた直後に効かなくなる
+            onPressOut={() => {
               dispatchPostPhoto();
               navigation.goBack();
             }}
