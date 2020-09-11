@@ -1,13 +1,10 @@
 import React, { FC, useEffect, useState, useRef } from "react";
-import { Platform } from "react-native";
 import PostMap from "../../components/organisms/PostedMap";
-import { Map } from "react-native-maps";
+import Map from "react-native-maps";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
-import { photoFireStore } from "../../firebase/photoFireStore";
-import { useSelector, useDispatch } from "react-redux";
-import { setAllPhotoListData } from "../../actions/allPhoto";
-import { RootState } from "../../reducers/index";
+import { useDispatch } from "react-redux";
+import { setPostPhoto } from "../../actions/postPhoto";
 
 type Region = {
   latitude: number;
@@ -83,6 +80,9 @@ const PostedMap: FC<Props> = ({ ...props }) => {
     });
   };
 
+  const dispatchPostPhoto = () =>
+    dispatch(setPostPhoto(region.latitude, region.longitude));
+
   return (
     <PostMap
       navigation={navigation}
@@ -91,6 +91,7 @@ const PostedMap: FC<Props> = ({ ...props }) => {
       map={map}
       onLongPress={onLongPress}
       onRegionChangeComplete={onRegionChangeComplete}
+      dispatchPostPhoto={dispatchPostPhoto}
     />
   );
 };

@@ -2,10 +2,8 @@ import React, { FC } from "react";
 import { StyleSheet, Text, TouchableOpacity, Animated } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 import { Container } from "native-base";
-import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import Map, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
-import { useDispatch } from "react-redux";
-import { setPostPhoto } from "../../actions/postPhoto";
 
 type Region = {
   latitude: number;
@@ -18,16 +16,16 @@ type Props = {
   navigation: any;
   region: Region;
   initialRegion: Region | "loading" | undefined;
-  map: React.RefObject<MapView>;
+  map: React.RefObject<Map>;
   onLongPress: (latitude: number, longitude: number) => void;
   onRegionChangeComplete: (
     latitudeDelta: number,
     longitudeDelta: number
   ) => void;
+  dispatchPostPhoto: () => void;
 };
 
 const PostMap: FC<Props> = ({ ...props }) => {
-  const dispatch = useDispatch();
   const {
     navigation,
     region,
@@ -35,6 +33,7 @@ const PostMap: FC<Props> = ({ ...props }) => {
     map,
     onLongPress,
     onRegionChangeComplete,
+    dispatchPostPhoto,
   } = props;
 
   const AnimatedMarker = Animated.createAnimatedComponent(Marker);
@@ -75,7 +74,7 @@ const PostMap: FC<Props> = ({ ...props }) => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              dispatch(setPostPhoto(region.latitude, region.longitude));
+              dispatchPostPhoto();
               navigation.goBack();
             }}
           >
