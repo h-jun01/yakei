@@ -28,7 +28,6 @@ type Props = {
   handleContentSizeChange: (width: number, height: number) => void;
   photogenicSubject: string;
   setPhotogenicSubject: React.Dispatch<React.SetStateAction<string>>;
-  onPressLocationRow: () => void;
   navigation: any;
 };
 
@@ -42,7 +41,6 @@ const Post: FC<Props> = ({ ...props }) => {
     handleContentSizeChange,
     photogenicSubject,
     setPhotogenicSubject,
-    onPressLocationRow,
     navigation,
   } = props;
 

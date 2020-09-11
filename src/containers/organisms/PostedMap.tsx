@@ -1,11 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useRef } from "react";
 import PostMap from "../../components/organisms/PostedMap";
+import Map from "react-native-maps";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
-import { photoFireStore } from "../../firebase/photoFireStore";
-import { useSelector, useDispatch } from "react-redux";
-import { setAllPhotoListData } from "../../actions/allPhoto";
-import { RootState } from "../../reducers/index";
+import { useDispatch } from "react-redux";
+import { setPostPhoto } from "../../actions/postPhoto";
 
 type Region = {
   latitude: number;
@@ -27,26 +26,74 @@ const PostedMap: FC<Props> = ({ ...props }) => {
     latitudeDelta: 30,
     longitudeDelta: 30,
   });
+  const [initialRegion, setInitialRegion] = useState<
+    Region | "loading" | undefined
+  >("loading");
+  const map = useRef<Map>(null);
 
   useEffect(() => {
-    const fetch = async () => {
+    const getNowRegionAsync = async () => {
       try {
         await Permissions.askAsync(Permissions.LOCATION);
         const location = await Location.getCurrentPositionAsync({});
-        setRegion({
+        setInitialRegion({
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
-          latitudeDelta: 0.1,
-          longitudeDelta: 0.1,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.015,
         });
       } catch (error) {
-        // to do
+        setInitialRegion({
+          latitude: region.latitude,
+          longitude: region.longitude,
+          latitudeDelta: region.latitudeDelta,
+          longitudeDelta: region.longitudeDelta,
+        });
       }
     };
-    fetch();
+    getNowRegionAsync();
   }, []);
 
-  return <PostMap navigation={navigation} region={region} />;
+  useEffect(() => {
+    map.current?.animateToRegion(region, 250);
+  }, [region.latitude, region.longitude]);
+
+  const onLongPress = (latitude: number, longitude: number) => {
+    if (!!initialRegion) setInitialRegion(undefined);
+    setRegion({
+      latitude,
+      longitude,
+      latitudeDelta: region.latitudeDelta,
+      longitudeDelta: region.longitudeDelta,
+    });
+  };
+
+  const onRegionChangeComplete = (
+    latitudeDelta: number,
+    longitudeDelta: number
+  ) => {
+    setRegion({
+      latitude: region.latitude,
+      longitude: region.longitude,
+      latitudeDelta: latitudeDelta,
+      longitudeDelta: longitudeDelta,
+    });
+  };
+
+  const dispatchPostPhoto = () =>
+    dispatch(setPostPhoto(region.latitude, region.longitude));
+
+  return (
+    <PostMap
+      navigation={navigation}
+      region={region}
+      initialRegion={initialRegion}
+      map={map}
+      onLongPress={onLongPress}
+      onRegionChangeComplete={onRegionChangeComplete}
+      dispatchPostPhoto={dispatchPostPhoto}
+    />
+  );
 };
 
 export default PostedMap;

@@ -20,6 +20,7 @@ export type PostScreenStackParamList = {
     };
     shouldHeaderLeftBeCross?: boolean;
   };
+  postedMap: undefined;
 };
 
 const PostScreen: FC = () => {
@@ -53,7 +54,7 @@ const PostScreen: FC = () => {
         name="postedMap"
         component={PostedMap}
         options={{
-          title: "撮影場所投稿",
+          title: "撮影場所を選択",
           headerTintColor: baseColor.text,
           headerStyle: {
             backgroundColor: baseColor.darkNavy,
