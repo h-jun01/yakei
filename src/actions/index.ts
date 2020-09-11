@@ -9,6 +9,7 @@ import { setShouldNavigateMap } from "./mapNavigate";
 import { setFavoriteItems } from "./favorite";
 import { setNotificationDataList } from "./notification";
 import { setCommentDataList, setIsInputForm } from "./postedData";
+import { setPostPhoto } from "./postPhoto";
 import {
   setUserData,
   upDateUserName,
@@ -43,6 +44,7 @@ export enum ActionTypes {
   SET_SHOULD_NAVIGATE = "SET_SHOULD_NAVIGATE",
   SET_FAVORITE_ITEMS = "SET_FAVORITE_ITEMS",
   SET_NOTIFICATION_DATA_LIST = "SET_NOTIFICATION_DATA_LIST",
+  SET_POST_PHOTO = "SET_POST_PHOTO",
 }
 
 export type UnionedAction =
@@ -67,4 +69,5 @@ export type UnionedAction =
   | ReturnType<typeof setPostData>
   | ReturnType<typeof setShouldNavigateMap>
   | ReturnType<typeof setFavoriteItems>
-  | ReturnType<typeof setNotificationDataList>;
+  | ReturnType<typeof setNotificationDataList>
+  | ReturnType<typeof setPostPhoto>;
