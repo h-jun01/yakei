@@ -353,6 +353,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
         photogenicSubject={photogenicSubject}
         setPhotogenicSubject={setPhotogenicSubject}
         onPressLocationRow={() => {}}
+        navigation={navigation}
       />
       <Spinner
         visible={isLoading}
