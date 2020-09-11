@@ -18,6 +18,7 @@ type Props = {
   navigation: any;
   region: Region;
   initialRegion: Region | "loading" | undefined;
+  map: React.RefObject<MapView>;
   onLongPress: (latitude: number, longitude: number) => void;
   onRegionChangeComplete: (
     latitudeDelta: number,
@@ -31,6 +32,7 @@ const PostMap: FC<Props> = ({ ...props }) => {
     navigation,
     region,
     initialRegion,
+    map,
     onLongPress,
     onRegionChangeComplete,
   } = props;
@@ -49,6 +51,7 @@ const PostMap: FC<Props> = ({ ...props }) => {
       ) : (
         <>
           <MapView
+            ref={map}
             style={{ ...StyleSheet.absoluteFillObject }}
             provider={PROVIDER_GOOGLE}
             initialRegion={initialRegion}
