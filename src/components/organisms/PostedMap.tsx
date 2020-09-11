@@ -4,6 +4,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 import { Container } from "native-base";
 import Map, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
+import { baseColor } from "../../styles/thema/colors";
 
 type Region = {
   latitude: number;
@@ -78,7 +79,7 @@ const PostMap: FC<Props> = ({ ...props }) => {
               navigation.goBack();
             }}
           >
-            <Text style={styles.buttonText}>ここで決まり</Text>
+            <Text style={styles.buttonText}>ここで決定する</Text>
           </TouchableOpacity>
         </>
       )}
@@ -103,11 +104,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    backgroundColor: "#f00",
+    backgroundColor: baseColor.base,
   },
   buttonText: {
     fontSize: 20,
-    color: "#fff",
+    color: baseColor.text,
   },
 });
 export default PostMap;
