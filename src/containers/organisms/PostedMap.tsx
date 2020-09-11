@@ -27,26 +27,35 @@ const PostedMap: FC<Props> = ({ ...props }) => {
     latitudeDelta: 30,
     longitudeDelta: 30,
   });
+  const [initialRegion, setInitialRegion] = useState<
+    Region | "loading" | undefined
+  >("loading");
 
   useEffect(() => {
-    const fetch = async () => {
+    const getNowRegionAsync = async () => {
       try {
         await Permissions.askAsync(Permissions.LOCATION);
         const location = await Location.getCurrentPositionAsync({});
-        setRegion({
+        setInitialRegion({
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
           latitudeDelta: 0.015,
           longitudeDelta: 0.015,
         });
       } catch (error) {
-        // to do
+        setInitialRegion({
+          latitude: region.latitude,
+          longitude: region.longitude,
+          latitudeDelta: region.latitudeDelta,
+          longitudeDelta: region.longitudeDelta,
+        });
       }
     };
-    fetch();
+    getNowRegionAsync();
   }, []);
 
   const onLongPress = (latitude: number, longitude: number) => {
+    if (!!initialRegion) setInitialRegion(undefined);
     setRegion({
       latitude,
       longitude,
@@ -59,8 +68,6 @@ const PostedMap: FC<Props> = ({ ...props }) => {
     latitudeDelta: number,
     longitudeDelta: number
   ) => {
-    console.log(latitudeDelta);
-    console.log(longitudeDelta);
     setRegion({
       latitude: region.latitude,
       longitude: region.longitude,
@@ -73,6 +80,7 @@ const PostedMap: FC<Props> = ({ ...props }) => {
     <PostMap
       navigation={navigation}
       region={region}
+      initialRegion={initialRegion}
       onLongPress={onLongPress}
       onRegionChangeComplete={onRegionChangeComplete}
     />

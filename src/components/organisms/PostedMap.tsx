@@ -12,6 +12,7 @@ import {
   Platform,
   ImageBackground,
 } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 import { Container } from "native-base";
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
@@ -37,6 +38,7 @@ type Region = {
 type Props = {
   navigation: any;
   region: Region;
+  initialRegion: Region | "loading" | undefined;
   onLongPress: (latitude: number, longitude: number) => void;
   onRegionChangeComplete: (
     latitudeDelta: number,
@@ -46,39 +48,56 @@ type Props = {
 
 const PostMap: FC<Props> = ({ ...props }) => {
   const dispatch = useDispatch();
-  const { navigation, region, onLongPress, onRegionChangeComplete } = props;
+  const {
+    navigation,
+    region,
+    initialRegion,
+    onLongPress,
+    onRegionChangeComplete,
+  } = props;
 
   return (
     <Container style={styles.box}>
-      <MapView
-        style={{ ...StyleSheet.absoluteFillObject }}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation
-        initialRegion={region}
-        onLongPress={(e) =>
-          onLongPress(
-            e.nativeEvent.coordinate.latitude,
-            e.nativeEvent.coordinate.longitude
-          )
-        }
-        onRegionChangeComplete={(e) =>
-          onRegionChangeComplete(e.latitudeDelta, e.longitudeDelta)
-        }
-      >
-        <Marker
-          coordinate={region}
-          image={require("../../../assets/pin02.png")}
+      {initialRegion === "loading" ? (
+        <Spinner
+          visible
+          textContent="読み込み中…"
+          textStyle={{ color: "#fff", fontSize: 13 }}
+          overlayColor="rgba(0,0,0,0.5)"
         />
-      </MapView>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          dispatch(setPostPhoto(region.latitude, region.longitude));
-          navigation.goBack();
-        }}
-      >
-        <Text style={styles.buttonText}>ここで決まり</Text>
-      </TouchableOpacity>
+      ) : (
+        <>
+          <MapView
+            style={{ ...StyleSheet.absoluteFillObject }}
+            provider={PROVIDER_GOOGLE}
+            initialRegion={initialRegion}
+            showsUserLocation
+            onLongPress={(e) =>
+              onLongPress(
+                e.nativeEvent.coordinate.latitude,
+                e.nativeEvent.coordinate.longitude
+              )
+            }
+            onRegionChangeComplete={(e) =>
+              onRegionChangeComplete(e.latitudeDelta, e.longitudeDelta)
+            }
+          >
+            <Marker
+              coordinate={initialRegion !== undefined ? initialRegion : region}
+              image={require("../../../assets/pin02.png")}
+            />
+          </MapView>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              dispatch(setPostPhoto(region.latitude, region.longitude));
+              navigation.goBack();
+            }}
+          >
+            <Text style={styles.buttonText}>ここで決まり</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </Container>
   );
 };
