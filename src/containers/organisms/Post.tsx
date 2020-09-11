@@ -12,7 +12,7 @@ import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/t
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers/index";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
-import { setShouldNavigateMap } from "../../actions/mapNavigate";
+import { setShouldNavigate } from "../../actions/bottomNav";
 import { setPhotoListData } from "../../actions/photo";
 import { setAllPhotoListData } from "../../actions/allPhoto";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
@@ -54,10 +54,10 @@ const assignImageAspectRatio = (
   );
 };
 
-const moveToMap = async (dispatch: Dispatch) => {
-  // マップ画面に遷移
+const moveToPreviousTab = async (dispatch: Dispatch) => {
+  // 投稿前に滞在していた画面に遷移
   dispatch(setShouldDisplayBottomNav(true));
-  dispatch(setShouldNavigateMap(true));
+  dispatch(setShouldNavigate(true));
 };
 
 const getNowLocation = async (): Promise<{
@@ -208,7 +208,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       headerLeft: () => (
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={() => moveToMap(dispatch)}
+          onPress={() => moveToPreviousTab(dispatch)}
           style={styles.headerBtn}
         >
           <FontAwesome name="times" style={styles.crossBtnIcon} />

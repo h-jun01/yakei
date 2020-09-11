@@ -4,8 +4,9 @@ import { Dispatch } from "redux";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import type { Route } from "@react-navigation/routers/lib/typescript/src/types";
 import { RootState } from "../../reducers/index";
+import { setTabState } from "../../actions/bottomNav";
 import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
-import { setShouldNavigateMap } from "../../actions/mapNavigate";
+import { setShouldNavigate } from "../../actions/bottomNav";
 import BottomNavTouchableOpacity from "../../components/molecules/BottomNavTouchableOpacity";
 
 type Props = {
@@ -16,20 +17,17 @@ type Props = {
   index: number;
 };
 
-const navigateMap = (
-  index: number,
+const navigate = (
   navigation: BottomTabBarProps["navigation"],
-  route: Route<string>,
   dispatch: Dispatch
 ) => {
-  const mapIndex = 0;
-  if (index !== mapIndex) return;
+  const tab = useSelector((state: RootState) => state.bottomNavReducer.tab);
   const shouldNavigateMap = useSelector(
-    (state: RootState) => state.mapNavigateReducer.shouldNavigateMap
+    (state: RootState) => state.bottomNavReducer.shouldNavigate
   );
   if (!shouldNavigateMap) return;
-  navigation.navigate(route["name"]);
-  dispatch(setShouldNavigateMap(false));
+  navigation.navigate(tab);
+  dispatch(setShouldNavigate(false));
 };
 
 const BottomNavTouchableOpacityContainer: FC<Props> = ({ ...props }) => {
@@ -48,6 +46,7 @@ const BottomNavTouchableOpacityContainer: FC<Props> = ({ ...props }) => {
       dispatch(setShouldAppearPostBtns(false));
       return;
     }
+    dispatch(setTabState(route["name"]));
     const event = navigation.emit({
       type: "tabPress",
       target: route["key"],
@@ -65,7 +64,7 @@ const BottomNavTouchableOpacityContainer: FC<Props> = ({ ...props }) => {
     });
   };
 
-  navigateMap(index, navigation, route, dispatch);
+  navigate(navigation, dispatch);
 
   return (
     <BottomNavTouchableOpacity

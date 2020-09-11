@@ -7,8 +7,9 @@ import { StackActions } from "@react-navigation/native";
 import { RouteProp } from "@react-navigation/native";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
+import { setTabState } from "../../actions/bottomNav";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
-import { setShouldNavigateMap } from "../../actions/mapNavigate";
+import { setShouldNavigate } from "../../actions/bottomNav";
 import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
 import { UserScreenStackParamList } from "../../screens/UserScreen";
@@ -71,9 +72,10 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   useEffect(() => {
     if (shouldHeaderLeftBeCross === undefined) return;
     const onPress = () => {
-      // マップ画面に遷移
+      // スポット画面に遷移
+      dispatch(setTabState("スポット"));
       dispatch(setShouldDisplayBottomNav(true));
-      dispatch(setShouldNavigateMap(true));
+      dispatch(setShouldNavigate(true));
       navigation.dispatch(StackActions.popToTop());
     };
     navigation.setOptions({
