@@ -2,15 +2,15 @@ import { Reducer } from "redux";
 import { ActionTypes, UnionedAction } from "../actions/index";
 
 export type State = {
-  latitude: number;
-  longitude: number;
+  latitude: number | undefined;
+  longitude: number | undefined;
 };
 
 type PostPhotoReducer = Reducer<State, UnionedAction>;
 
 const initialState: State = {
-  latitude: 0,
-  longitude: 0,
+  latitude: undefined,
+  longitude: undefined,
 };
 
 export const PostPhotoReducer: PostPhotoReducer = (

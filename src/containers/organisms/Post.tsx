@@ -60,13 +60,22 @@ const moveToMap = async (dispatch: Dispatch) => {
   dispatch(setShouldNavigateMap(true));
 };
 
-const getLocationAddressAsync = async (
-  set: React.Dispatch<React.SetStateAction<Location>>
-) => {
+const getNowLocation = async (): Promise<{
+  latitude: number;
+  longitude: number;
+}> => {
   await Permissions.askAsync(Permissions.LOCATION);
   const location = await Location.getCurrentPositionAsync({});
   const latitude = location.coords.latitude;
   const longitude = location.coords.longitude;
+  return { latitude, longitude };
+};
+
+const getLocationAddressAsync = async (
+  set: React.Dispatch<React.SetStateAction<Location>>,
+  latitude: number,
+  longitude: number
+) => {
   const api = env.GOOGLE_CLOUD_PLATFORM_ID;
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${api}`;
   fetch(url)
@@ -189,9 +198,12 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const myPhotoDataList = useSelector(
     (state: RootState) => state.myPhotoReducer.photoDataList
   );
+  const locationData = useSelector(
+    (state: RootState) => state.PostPhotoReducer
+  );
 
+  // 閉じるボタン押下時の処理
   useEffect(() => {
-    // 閉じるボタン押下時の処理
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity
@@ -205,6 +217,19 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     });
   }, []);
 
+  // 位置情報を取得
+  useEffect(() => {
+    (() => {
+      if (locationData.latitude === undefined) return;
+      if (locationData.longitude === undefined) return;
+      getLocationAddressAsync(
+        setLocation,
+        locationData.latitude,
+        locationData.longitude
+      );
+    })();
+  }, [locationData]);
+
   // 投稿情報を初期化
   useEffect(() => {
     dispatch(setShouldDisplayBottomNav(false));
@@ -212,7 +237,14 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     setPhotogenicSubject("");
     setLocation({ address: "撮影場所を選択" });
     if (type === "camera") {
-      getLocationAddressAsync(setLocation);
+      (async () => {
+        const location = await getNowLocation();
+        getLocationAddressAsync(
+          setLocation,
+          location.latitude,
+          location.longitude
+        );
+      })();
     }
   }, [uri]);
 
@@ -302,7 +334,6 @@ const PostContainer: FC<Props> = ({ ...props }) => {
         handleContentSizeChange={handleContentSizeChange}
         photogenicSubject={photogenicSubject}
         setPhotogenicSubject={setPhotogenicSubject}
-        onPressLocationRow={() => {}}
         navigation={navigation}
       />
       <Spinner
