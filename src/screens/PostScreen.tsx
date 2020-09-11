@@ -4,6 +4,7 @@ import { baseColor } from "../styles/thema/colors";
 import { Timestamp } from "@google-cloud/firestore";
 import Post from "../containers/organisms/Post";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
+import PostedMap from "../containers/organisms/PostedMap";
 
 export type PostScreenStackParamList = {
   post: undefined;
@@ -47,6 +48,17 @@ const PostScreen: FC = () => {
             backgroundColor: baseColor.darkNavy,
           },
         })}
+      />
+      <Stack.Screen
+        name="postedMap"
+        component={PostedMap}
+        options={{
+          title: "撮影場所投稿",
+          headerTintColor: baseColor.text,
+          headerStyle: {
+            backgroundColor: baseColor.darkNavy,
+          },
+        }}
       />
     </Stack.Navigator>
   );
