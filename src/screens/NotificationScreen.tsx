@@ -7,7 +7,6 @@ import PostedImageDetail from "../containers/organisms/PostedImageDetail";
 
 export type NotificationScreenStackParamList = {
   notification: undefined;
-  otherUser: { name: string; uid: string };
   post: {
     imageData: {
       photo_id: string;
