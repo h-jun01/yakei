@@ -3,7 +3,6 @@ import {
   View,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -12,7 +11,6 @@ import type { Dispatch } from "redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers/index";
-import { setPostData } from "../../actions/post";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { setShouldNavigateMap } from "../../actions/mapNavigate";
 import { setPhotoListData } from "../../actions/photo";
@@ -23,7 +21,6 @@ import { postFirebaseStorage } from "../../firebase/postFirebaseStorage";
 import { postFireStore } from "../../firebase/postFireStore";
 import { callingAlert } from "../../utilities/alert";
 import * as Permissions from "expo-permissions";
-import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
 import firebase from "firebase";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -57,53 +54,10 @@ const assignImageAspectRatio = (
   );
 };
 
-const onPressOfAlbum = async (dispatch: Dispatch) => {
-  // アルバムへのアクセス許可を申請
-  const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-  if (status !== "granted") {
-    Alert.alert(
-      "",
-      "端末の[設定]＞[YAKEI]で、写真へのアクセスを許可してください。"
-    );
-    return;
-  }
-  // アルバムの起動
-  const result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    quality: 1,
-  });
-
-  if (result.cancelled) {
-    // マップ画面に遷移
-    dispatch(setShouldDisplayBottomNav(true));
-    dispatch(setShouldNavigateMap(true));
-  } else {
-    dispatch(setPostData(result.uri, "album"));
-  }
-};
-
-const onPressOfCamera = async (dispatch: Dispatch) => {
-  // カメラへのアクセス許可を申請
-  const { status } = await Permissions.askAsync(Permissions.CAMERA);
-  if (status !== "granted") {
-    Alert.alert(
-      "",
-      "端末の[設定]＞[YAKEI]で、カメラへのアクセスを許可してください。"
-    );
-    return;
-  }
-  // カメラの起動
-  const result = await ImagePicker.launchCameraAsync({
-    allowsEditing: false,
-  });
-
-  if (result.cancelled) {
-    // マップ画面に遷移
-    dispatch(setShouldDisplayBottomNav(true));
-    dispatch(setShouldNavigateMap(true));
-  } else {
-    dispatch(setPostData(result.uri, "camera"));
-  }
+const moveToMap = async (dispatch: Dispatch) => {
+  // マップ画面に遷移
+  dispatch(setShouldDisplayBottomNav(true));
+  dispatch(setShouldNavigateMap(true));
 };
 
 const getLocationAddressAsync = async (
@@ -236,6 +190,21 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     (state: RootState) => state.myPhotoReducer.photoDataList
   );
 
+  useEffect(() => {
+    // 閉じるボタン押下時の処理
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => moveToMap(dispatch)}
+          style={styles.headerBtn}
+        >
+          <FontAwesome name="times" style={styles.crossBtnIcon} />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
+
   // 投稿情報を初期化
   useEffect(() => {
     dispatch(setShouldDisplayBottomNav(false));
@@ -310,25 +279,6 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       ),
     });
   }, [uid, uri, photogenicSubject, location, isDisabled, isPressing]);
-
-  useEffect(() => {
-    // 閉じるボタン押下時の処理
-    navigation.setOptions({
-      headerLeft: () => (
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={
-            type === "camera"
-              ? () => onPressOfCamera(dispatch)
-              : () => onPressOfAlbum(dispatch)
-          }
-          style={styles.headerBtn}
-        >
-          <FontAwesome name="times" style={styles.crossBtnIcon} />
-        </TouchableOpacity>
-      ),
-    });
-  }, [type]);
 
   const scrollViewRef = useRef<null | ScrollView>(null);
   const handleContentSizeChange = (width, height) => {
