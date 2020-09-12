@@ -4,6 +4,7 @@ import { Timestamp } from "@google-cloud/firestore";
 import { baseColor } from "../styles/thema/colors";
 import Notification from "../containers/organisms/Notification";
 import PostedImageDetail from "../containers/organisms/PostedImageDetail";
+import OtherUser from "../containers/organisms/OtherUser";
 
 export type NotificationScreenStackParamList = {
   notification: undefined;
@@ -19,6 +20,7 @@ export type NotificationScreenStackParamList = {
     };
     shouldHeaderLeftBeCross?: boolean;
   };
+  otherUser: { name: string; uid: string };
 };
 
 const NotificationScreen: FC = () => {
@@ -41,6 +43,18 @@ const NotificationScreen: FC = () => {
         component={PostedImageDetail}
         options={({ route }) => ({
           title: route.params.imageData.photogenic_subject,
+          headerBackTitleVisible: false,
+          headerTintColor: baseColor.text,
+          headerStyle: {
+            backgroundColor: baseColor.darkNavy,
+          },
+        })}
+      />
+      <Stack.Screen
+        name="otherUser"
+        component={OtherUser}
+        options={({ route }) => ({
+          title: route.params.name,
           headerBackTitleVisible: false,
           headerTintColor: baseColor.text,
           headerStyle: {
