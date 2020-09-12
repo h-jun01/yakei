@@ -7,17 +7,17 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Feather from "react-native-vector-icons/Feather";
 
 type Props = {
-  navigation: () => void;
   entry: string;
+  _handleOnPress: () => void;
 };
 
-const Spam: FC<Props> = ({ navigation, entry }) => {
+const ReportEntry: FC<Props> = ({ entry, _handleOnPress }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.wrap}
         activeOpacity={1}
-        onPress={navigation}
+        onPress={() => _handleOnPress()}
       >
         <Text style={styles.entryText}>{entry}</Text>
         <Feather name="chevron-right" size={20} style={styles.entryIcon} />
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Spam;
+export default ReportEntry;

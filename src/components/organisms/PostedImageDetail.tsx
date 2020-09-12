@@ -60,6 +60,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
           <InformationUserPosted
             navigation={navigation}
             uid={uid}
+            photo_id={photo_id}
             photogenic_subject={photogenic_subject}
           />
           <Image

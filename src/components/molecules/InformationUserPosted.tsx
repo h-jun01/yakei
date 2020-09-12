@@ -19,6 +19,7 @@ import Report from "../organisms/Report";
 import ReportScreen from "../../screens/ReportScreen";
 
 type Props = {
+  photo_id: string;
   postUserName: string;
   postUserImage: string;
   photogenic_subject: string;
@@ -29,6 +30,7 @@ type Props = {
 
 const InformationUserPosted: FC<Props> = ({ ...props }) => {
   const {
+    photo_id,
     postUserName,
     postUserImage,
     photogenic_subject,
@@ -83,7 +85,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
         }}
       >
         <Report>
-          <ReportScreen />
+          <ReportScreen photo_id={photo_id} />
         </Report>
       </RBSheet>
     </Fragment>

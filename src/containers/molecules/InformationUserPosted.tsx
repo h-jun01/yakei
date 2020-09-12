@@ -9,11 +9,12 @@ import RBSheet from "react-native-raw-bottom-sheet";
 type Props = {
   navigation: any;
   uid: string;
+  photo_id: string;
   photogenic_subject: string;
 };
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
-  const { uid, photogenic_subject, navigation } = props;
+  const { uid, photo_id, photogenic_subject, navigation } = props;
 
   const selectMyuid = (state: RootState) => state.userReducer.uid;
 
@@ -49,7 +50,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       });
   }, []);
 
-  const transitionToAnotherUser = () => {
+  const transitionToAnotherUser = (): void => {
     if (uid !== myUid)
       navigation.navigate("otherUser", {
         uid,
@@ -57,7 +58,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       });
   };
 
-  const _onOpenActionSheet = () => {
+  const _onOpenActionSheet = (): void => {
     const BUTTONS = [uid === myUid ? "削除" : "報告する", "キャンセル"];
     const DESTRUCTIVE_INDEX = 0;
     const CANCEL_INDEX = 1;
@@ -76,12 +77,13 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
     );
   };
 
-  const test = () => {
+  const test = (): void => {
     refRBSheet.current!.open();
   };
 
   return (
     <InformationUserPosted
+      photo_id={photo_id}
       postUserName={postUserName}
       postUserImage={postUserImage}
       photogenic_subject={photogenic_subject}

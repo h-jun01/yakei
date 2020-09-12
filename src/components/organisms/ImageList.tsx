@@ -45,6 +45,7 @@ const ImageList: FC<Props> = ({ ...props }) => {
               <InformationUserPosted
                 navigation={navigation}
                 uid={item.uid}
+                photo_id={item.photo_id}
                 photogenic_subject={item.photogenic_subject}
               />
               <TouchableOpacity
