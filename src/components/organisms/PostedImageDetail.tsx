@@ -5,16 +5,13 @@ import {
   ActivityIndicator,
   TextInput,
   StyleSheet,
-  Dimensions,
 } from "react-native";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { baseColor } from "../../styles/thema/colors";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { deviceWidth } from "../../utilities/dimensions";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../../containers/molecules/DetailPostedPageItems";
 import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
@@ -54,8 +51,6 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     bottomHeight,
   } = props;
 
-  const displayWidth = Dimensions.get("window").width;
-
   return (
     <View style={styles.container}>
       <ScrollView style={styles.allWrap}>
@@ -68,8 +63,8 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             />
             <Image
               style={{
-                width: displayWidth,
-                height: displayWidth * aspectRatio,
+                width: deviceWidth,
+                height: deviceWidth * aspectRatio,
               }}
               source={{
                 uri: url,

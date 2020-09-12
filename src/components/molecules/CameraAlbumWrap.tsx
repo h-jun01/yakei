@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import {
   TouchableOpacity,
   View,
-  Dimensions,
   StyleSheet,
   Platform,
   Animated,

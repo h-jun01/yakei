@@ -1,11 +1,11 @@
 import React, { FC, useRef, useState } from "react";
-import { Animated, Dimensions } from "react-native";
+import { Animated } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { RootState } from "../../reducers/index";
 import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
 import { setBottomNavHeight } from "../../actions/bottomNav";
-
+import { deviceWidth, iPhone11Width } from "../../utilities/dimensions";
 import BottomNav from "../../components/organisms/BottomNav";
 
 const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
@@ -29,10 +29,8 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
 
   // BottomNavの高さを取得
   const getBtmNvHeight = (btmNvBgPlusSafeAreaHeight: number) => {
-    const displayWidth = Dimensions.get("window").width;
-    const iPhone11Width = 414;
     const plusBtnBottomRatio = 17 / iPhone11Width;
-    const plusBtnBottom = displayWidth * plusBtnBottomRatio;
+    const plusBtnBottom = deviceWidth * plusBtnBottomRatio;
     return btmNvBgPlusSafeAreaHeight + plusBtnBottom;
   };
   const onLayoutBtmNvBg = (height) => {
