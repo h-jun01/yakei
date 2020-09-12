@@ -9,6 +9,7 @@ import { commentFireStore } from "../../firebase/commentFireStore";
 import { notificationFireStore } from "../../firebase/notificationFireStore";
 import { useInput } from "../../utilities/hooks/input";
 import { setIsInputForm, setCommentDataList } from "../../actions/postedData";
+import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { sendPushCommentNotification } from "../../utilities/sendPushNotification";
 import KeyboardInputView from "../../components/molecules/KeyboardInputView";
 
@@ -66,12 +67,15 @@ const KeyboardInputViewContainer: FC<Props> = ({ ...props }) => {
     }
 
     dispatch(setIsInputForm(false));
+    dispatch(setShouldDisplayBottomNav(true));
     Keyboard.dismiss();
   };
 
   //キーボードが消えたとき
   const onBlur = () => {
-    isInputForm && dispatch(setIsInputForm(false));
+    isInputForm &&
+      dispatch(setIsInputForm(false)) &&
+      dispatch(setShouldDisplayBottomNav(true));
   };
 
   return (

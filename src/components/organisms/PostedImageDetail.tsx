@@ -57,8 +57,8 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
   const displayWidth = Dimensions.get("window").width;
 
   return (
-    <View style={[styles.container, { paddingBottom: bottomHeight }]}>
-      <ScrollView style={styles.allWrap}>
+    <View style={[styles.container]}>
+      <ScrollView style={[styles.allWrap, { paddingBottom: bottomHeight }]}>
         <View>
           <InformationUserPosted
             navigation={navigation}

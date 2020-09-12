@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import {
   SafeAreaView,
   View,
+  KeyboardAvoidingView,
   Dimensions,
   StyleSheet,
   Animated,
@@ -110,6 +111,7 @@ const footerBgBtm = displayWidth * footerBgBtmRatio;
 
 const styles = StyleSheet.create({
   container: {
+    position: "relative",
     width: "100%",
     height: 0,
   },
