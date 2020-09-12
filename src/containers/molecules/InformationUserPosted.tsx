@@ -1,10 +1,11 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import { RootState } from "../../reducers/index";
 import { useSelector } from "react-redux";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
+import RBSheet from "react-native-raw-bottom-sheet";
 
 type Props = {
   navigation: any;
@@ -17,7 +18,9 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   const { showActionSheetWithOptions } = useActionSheet();
 
   const selectMyuid = (state: RootState) => state.userReducer.uid;
+
   const myUid = useSelector(selectMyuid);
+  const refRBSheet = useRef<RBSheet>(null);
 
   const [postUserName, setPostUserName] = useState<string>("");
   const [postUserImage, setPostUserImage] = useState<string>(
@@ -68,9 +71,15 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
         destructiveButtonIndex,
       },
       (buttonIndex) => {
-        // Do something here depending on the button index selected
+        if (buttonIndex === 0) {
+          test();
+        }
       }
     );
+  };
+
+  const test = () => {
+    refRBSheet.current!.open();
   };
 
   return (
@@ -78,6 +87,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       postUserName={postUserName}
       postUserImage={postUserImage}
       photogenic_subject={photogenic_subject}
+      refRBSheet={refRBSheet}
       transitionToAnotherUser={transitionToAnotherUser}
       _onOpenActionSheet={_onOpenActionSheet}
     />
