@@ -15,6 +15,7 @@ import { Size } from "../../styles/thema/fonts";
 import { Image } from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import RBSheet from "react-native-raw-bottom-sheet";
+import Report from "../organisms/Report";
 import ModalScreen from "../../screens/ModalScreen";
 
 type Props = {
@@ -66,6 +67,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
       </View>
       <RBSheet
         ref={refRBSheet}
+        height={500}
         openDuration={180}
         closeDuration={180}
         closeOnDragDown={true}
@@ -74,9 +76,15 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
           wrapper: {
             backgroundColor: utilityColor.overlay,
           },
+          container: {
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+          },
         }}
       >
-        <ModalScreen />
+        <Report>
+          <ModalScreen />
+        </Report>
       </RBSheet>
     </Fragment>
   );

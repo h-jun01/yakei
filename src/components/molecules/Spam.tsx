@@ -5,13 +5,20 @@ type Props = {
   navigation: any;
 };
 
-const Report: FC<Props> = ({ navigation }) => {
+const Spam: FC<Props> = ({ navigation }) => {
   return (
     <View>
-      <Text>報告</Text>
+      <Text style={styles.heading}>報告</Text>
       <Text onPress={() => navigation.navigate("inappropriate")}>移動</Text>
     </View>
   );
 };
 
-export default Report;
+const styles = StyleSheet.create({
+  heading: {
+    fontWeight: "700",
+    textAlign: "center",
+  },
+});
+
+export default Spam;

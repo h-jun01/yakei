@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Report from "../components/molecules/Report";
+import ReportContent from "../components/molecules/ReportContent";
+import Spam from "../components/molecules/Spam";
 import Inappropriate from "../components/molecules/Inappropriate";
 
 const ModalScreen: FC = () => {
@@ -8,29 +9,16 @@ const ModalScreen: FC = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="report"
-        component={Report}
+        name="reportContent"
+        component={ReportContent}
         options={{
-          title: "報告する",
-          // headerBackTitleVisible: false,
-          // headerTintColor: baseColor.text,
-          // headerStyle: {
-          //   backgroundColor: baseColor.darkNavy,
-          // },
+          cardStyle: {
+            backgroundColor: "#fff",
+          },
         }}
       />
-      <Stack.Screen
-        name="inappropriate"
-        component={Inappropriate}
-        options={{
-          title: "報告する",
-          // headerBackTitleVisible: false,
-          // headerTintColor: baseColor.text,
-          // headerStyle: {
-          //   backgroundColor: baseColor.darkNavy,
-          // },
-        }}
-      />
+      <Stack.Screen name="spam" component={Spam} />
+      <Stack.Screen name="inappropriate" component={Inappropriate} />
     </Stack.Navigator>
   );
 };
