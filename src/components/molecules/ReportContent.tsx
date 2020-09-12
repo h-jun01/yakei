@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View } from "react-native";
 import ReportDescription from "../atoms/ReportDescription";
 import ReportEntry from "../atoms/ReportEntry";
 
@@ -13,7 +13,7 @@ const ReportContent: FC<Props> = ({ navigation }) => {
       <ReportDescription />
       <ReportEntry
         entry="スパムである"
-        navigation={() => navigation.navigate("spam")}
+        navigation={() => navigation.navigate("reportComplete")}
       />
       <ReportEntry
         entry="不適切である"

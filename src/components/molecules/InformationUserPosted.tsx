@@ -67,7 +67,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
       </View>
       <RBSheet
         ref={refRBSheet}
-        height={500}
+        height={600}
         openDuration={180}
         closeDuration={180}
         closeOnDragDown={true}
