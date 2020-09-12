@@ -73,9 +73,10 @@ const KeyboardInputViewContainer: FC<Props> = ({ ...props }) => {
 
   //キーボードが消えたとき
   const onBlur = () => {
-    isInputForm &&
-      dispatch(setIsInputForm(false)) &&
+    if (isInputForm) {
+      dispatch(setIsInputForm(false));
       dispatch(setShouldDisplayBottomNav(true));
+    }
   };
 
   return (
