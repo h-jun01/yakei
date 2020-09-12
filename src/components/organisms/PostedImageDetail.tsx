@@ -5,13 +5,13 @@ import {
   ActivityIndicator,
   TextInput,
   StyleSheet,
-  Dimensions,
 } from "react-native";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { baseColor } from "../../styles/thema/colors";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { deviceWidth } from "../../utilities/dimensions";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../../containers/molecules/DetailPostedPageItems";
 import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
@@ -51,48 +51,47 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     bottomHeight,
   } = props;
 
-  const displayWidth = Dimensions.get("window").width;
-
   return (
-    <View style={[styles.container, { paddingBottom: bottomHeight }]}>
+    <View style={styles.container}>
       <ScrollView style={styles.allWrap}>
-        <View>
-          <InformationUserPosted
-            navigation={navigation}
-            uid={uid}
-            photo_id={photo_id}
-            photogenic_subject={photogenic_subject}
-          />
-          <Image
-            style={{
-              width: displayWidth,
-              height: displayWidth * aspectRatio,
-            }}
-            source={{
-              uri: url,
-            }}
-            PlaceholderContent={<ActivityIndicator />}
-          />
-          <DetailPostedPageItems
-            uid={uid}
-            url={url}
-            photo_id={photo_id}
-            latitude={latitude}
-            longitude={longitude}
-            create_time={create_time}
-          />
+        <View style={{ paddingBottom: bottomHeight }}>
+          <View>
+            <InformationUserPosted
+              navigation={navigation}
+              uid={uid}
+              photogenic_subject={photogenic_subject}
+            />
+            <Image
+              style={{
+                width: deviceWidth,
+                height: deviceWidth * aspectRatio,
+              }}
+              source={{
+                uri: url,
+              }}
+              PlaceholderContent={<ActivityIndicator />}
+            />
+            <DetailPostedPageItems
+              uid={uid}
+              url={url}
+              photo_id={photo_id}
+              latitude={latitude}
+              longitude={longitude}
+              create_time={create_time}
+            />
+          </View>
+          <CommentInputField focusOnInput={focusOnInput} />
+          {commentDataList !== undefined &&
+            commentDataList.map((item, index) => (
+              <View key={index}>
+                <CommentField
+                  uid={item.uid}
+                  message={item.message}
+                  create_time={item.create_time}
+                />
+              </View>
+            ))}
         </View>
-        <CommentInputField focusOnInput={focusOnInput} />
-        {commentDataList !== undefined &&
-          commentDataList.map((item, index) => (
-            <View key={index}>
-              <CommentField
-                uid={item.uid}
-                message={item.message}
-                create_time={item.create_time}
-              />
-            </View>
-          ))}
       </ScrollView>
       <KeyboardInputView
         textInputRef={textInputRef}

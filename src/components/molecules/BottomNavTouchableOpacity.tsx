@@ -1,7 +1,8 @@
 import React, { FC } from "react";
-import { TouchableOpacity, Dimensions, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import type { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import BottomNavItem from "../../containers/molecules/BottomNavItem";
+import { deviceWidth, iPhone11Width } from "../../utilities/dimensions";
 
 type Props = {
   index: number;
@@ -30,24 +31,22 @@ const BottomNavTouchableOpacity: FC<Props> = ({ ...props }) => {
   );
 };
 
-const iPhone11Width = 414;
-const displayWidth = Dimensions.get("window").width;
 const itemsFloatingRatio = 15 / iPhone11Width;
 const plusBtnBttomRatio = 17 / iPhone11Width;
 const viewboxRatio = 4.4588; // viewbox.width / viewbox.height
 
 const styles = StyleSheet.create({
   footerItem: {
-    bottom: displayWidth * itemsFloatingRatio,
+    bottom: deviceWidth * itemsFloatingRatio,
     width: 0,
-    height: displayWidth / viewboxRatio - displayWidth * itemsFloatingRatio * 2,
+    height: deviceWidth / viewboxRatio - deviceWidth * itemsFloatingRatio * 2,
     flexGrow: 1,
     flexDirection: "column",
     justifyContent: "flex-end",
     alignItems: "center",
   },
   plusButton: {
-    bottom: displayWidth * plusBtnBttomRatio,
+    bottom: deviceWidth * plusBtnBttomRatio,
     paddingHorizontal: 10,
   },
 });

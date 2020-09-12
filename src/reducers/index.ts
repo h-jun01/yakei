@@ -8,7 +8,6 @@ import { newsReducer } from "./newsReducer";
 import { bottomNavReducer } from "./bottomNavReducer";
 import { postBtnsReducer } from "./postBtnsReducer";
 import { postReducer } from "./postReducer";
-import { mapNavigateReducer } from "./mapNavigateReducer";
 import { favoriteReducer } from "./favoriteReducer";
 import { notificationReducer } from "./notificationReducer";
 import { PostPhotoReducer } from "./postPhotoReducer";
@@ -23,7 +22,6 @@ export const rootReducer = combineReducers({
   bottomNavReducer,
   postBtnsReducer,
   postReducer,
-  mapNavigateReducer,
   favoriteReducer,
   PostPhotoReducer,
   notificationReducer,

@@ -7,8 +7,11 @@ import { StackActions } from "@react-navigation/native";
 import { RouteProp } from "@react-navigation/native";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
-import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
-import { setShouldNavigateMap } from "../../actions/mapNavigate";
+import {
+  setTabState,
+  setShouldDisplayBottomNav,
+  setShouldNavigate,
+} from "../../actions/bottomNav";
 import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
 import { UserScreenStackParamList } from "../../screens/UserScreen";
@@ -64,16 +67,17 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   const commentDataList = useSelector(selectCommentDataList);
   const bottomHeight = useSelector(selectBottomHeight);
   const textInputRef = useRef<TextInput>(null);
-  const [aspectRatio, setAspectRatio] = useState<number>(0);
+  const [aspectRatio, setAspectRatio] = useState<number>(1);
   const dispatch = useDispatch();
 
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える
   useEffect(() => {
     if (shouldHeaderLeftBeCross === undefined) return;
     const onPress = () => {
-      // マップ画面に遷移
+      // スポット画面に遷移
+      dispatch(setTabState("スポット"));
       dispatch(setShouldDisplayBottomNav(true));
-      dispatch(setShouldNavigateMap(true));
+      dispatch(setShouldNavigate(true));
       navigation.dispatch(StackActions.popToTop());
     };
     navigation.setOptions({
@@ -104,6 +108,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   // コメント入力時にフォーカスさせる
   const focusOnInput = () => {
     textInputRef.current?.focus();
+    dispatch(setShouldDisplayBottomNav(false));
     dispatch(setIsInputForm(true));
   };
 

@@ -1,17 +1,16 @@
 import React, { FC, useState, useRef } from "react";
-import { Animated, Dimensions } from "react-native";
+import { Animated } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
-import BottomNavItem from "../../components/molecules/BottomNavItem";
 import { RootState } from "../../reducers/index";
+import { deviceWidth, iPhone11Width } from "../../utilities/dimensions";
+import BottomNavItem from "../../components/molecules/BottomNavItem";
 
 const generateAnimatedStyle = (anim) => {
-  const displayWidth = Dimensions.get("window").width;
-  const iPhone11width = 414;
-  const bottomMoveRatio = 1 / iPhone11width;
-  const bottomOutputRange = displayWidth * bottomMoveRatio;
-  const leftMoveRatio = 0.15 / iPhone11width;
-  const leftOutputRange = displayWidth * leftMoveRatio;
+  const bottomMoveRatio = 1 / iPhone11Width;
+  const bottomOutputRange = deviceWidth * bottomMoveRatio;
+  const leftMoveRatio = 0.15 / iPhone11Width;
+  const leftOutputRange = deviceWidth * leftMoveRatio;
 
   // フレーム値0から1、1から2にかけて0degから45deg、45degから90degに変化
   const interpolateRotate = anim.interpolate({

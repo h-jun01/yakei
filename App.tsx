@@ -7,6 +7,7 @@ import { rootReducer } from "./src/reducers";
 import { Root } from "native-base";
 import ScreenSwitcher from "./src/ScreenSwitcher";
 import "./src/firebase/firebase";
+import { YellowBox } from "react-native";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -20,6 +21,7 @@ if (Platform.OS === "ios") {
 } else if (Platform.OS === "android") {
   StatusBar.setBackgroundColor("#181f32", true);
   StatusBar.setBarStyle("light-content", true);
+  YellowBox.ignoreWarnings(["Setting a timer"]);
 }
 
 const store = createStore(rootReducer);

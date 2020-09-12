@@ -1,13 +1,12 @@
 import React, { FC } from "react";
-import {
-  SafeAreaView,
-  View,
-  Dimensions,
-  StyleSheet,
-  Animated,
-} from "react-native";
+import { SafeAreaView, View, StyleSheet, Animated } from "react-native";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
+import {
+  deviceWidth,
+  deviceHeight,
+  iPhone11Width,
+} from "../../utilities/dimensions";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavTouchableOpacity from "../../containers/molecules/BottomNavTouchableOpacity";
@@ -100,16 +99,14 @@ const BottomNav: FC<Props> = ({ ...props }) => {
   );
 };
 
-const iPhone11Width = 414;
-const displayWidth = Dimensions.get("window").width;
-const displayHeight = Dimensions.get("window").height;
 const itemsFloatingRatio = 4 / iPhone11Width;
 const viewboxRatio = 4.4588; // viewbox.width / viewbox.height
 const footerBgBtmRatio = -19.5 / iPhone11Width;
-const footerBgBtm = displayWidth * footerBgBtmRatio;
+const footerBgBtm = deviceWidth * footerBgBtmRatio;
 
 const styles = StyleSheet.create({
   container: {
+    position: "relative",
     width: "100%",
     height: 0,
   },
@@ -118,13 +115,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: "rgba(255, 255, 255, 0.5)",
     width: "100%",
-    height: displayHeight,
+    height: deviceHeight,
   },
   footerBackgroundWrap: {
     position: "absolute",
     bottom: footerBgBtm,
     left: -2.75,
-    width: displayWidth + 10,
+    width: deviceWidth + 10,
     aspectRatio: viewboxRatio, // これがないと画面サイズぴったりのボトムナビにならない
   },
   footerBackground: {
@@ -141,16 +138,16 @@ const styles = StyleSheet.create({
     position: "absolute",
     flexDirection: "row",
     justifyContent: "center",
-    bottom: displayWidth * itemsFloatingRatio,
-    width: displayWidth,
+    bottom: deviceWidth * itemsFloatingRatio,
+    width: deviceWidth,
   },
   footerItemsWrap: {
-    zIndex: 0,
+    zIndex: 1,
     position: "absolute",
     flexDirection: "row",
     justifyContent: "space-evenly",
-    bottom: displayWidth * itemsFloatingRatio,
-    width: displayWidth,
+    bottom: deviceWidth * itemsFloatingRatio,
+    width: deviceWidth,
   },
 });
 
