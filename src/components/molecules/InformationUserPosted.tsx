@@ -70,8 +70,8 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
       <RBSheet
         ref={refRBSheet}
         height={600}
-        openDuration={180}
-        closeDuration={180}
+        openDuration={200}
+        closeDuration={200}
         closeOnDragDown={true}
         closeOnPressMask={true}
         customStyles={{
