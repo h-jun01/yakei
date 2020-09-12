@@ -4,6 +4,8 @@ import { ActionTypes, UnionedAction } from "../actions/index";
 export type State = {
   shouldDisplay: boolean;
   height: number;
+  tab: string;
+  shouldNavigate: boolean;
 };
 
 type BottomNavReducer = Reducer<State, UnionedAction>;
@@ -11,6 +13,8 @@ type BottomNavReducer = Reducer<State, UnionedAction>;
 const initialState: State = {
   shouldDisplay: true,
   height: 0,
+  tab: "home",
+  shouldNavigate: false,
 };
 
 export const bottomNavReducer: BottomNavReducer = (
@@ -27,6 +31,16 @@ export const bottomNavReducer: BottomNavReducer = (
       return {
         ...state,
         height: action.payload.height,
+      };
+    case ActionTypes.SET_TAB_STATE:
+      return {
+        ...state,
+        tab: action.payload.tab,
+      };
+    case ActionTypes.SET_SHOULD_NAVIGATE:
+      return {
+        ...state,
+        shouldNavigate: action.payload.shouldNavigate,
       };
     default: {
       return state;

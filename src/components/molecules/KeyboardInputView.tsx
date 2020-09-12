@@ -29,7 +29,7 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
         ref={textInputRef}
         blurOnSubmit={false}
         placeholder="コメントを入力..."
-        style={styles.input}
+        style={isInputForm ? styles.input : styles.keyboardViewFalse}
         onBlur={() => onBlur()}
         {...inputValue}
       />
@@ -43,12 +43,6 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
 const styles = StyleSheet.create({
   keyboardViewFalse: {
     display: "none",
-    flexDirection: "row",
-    width: wp("100%"),
-    height: "auto",
-    paddingTop: 7,
-    paddingLeft: 7,
-    backgroundColor: "#fff",
   },
   keyboardViewTrue: {
     flexDirection: "row",

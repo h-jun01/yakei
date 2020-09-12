@@ -19,7 +19,7 @@ const WhiteWrapContainer: FC<Props> = ({ ...props }) => {
     Animated.timing(whiteWrapAnim, {
       toValue: 1,
       duration: 200,
-      useNativeDriver: false,
+      useNativeDriver: true,
     }).start();
     return () => setIsMounted(false);
   });

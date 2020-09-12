@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import { View, Text, Dimensions, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { baseColor } from "../../styles/thema/colors";
-
+import { deviceWidth, iPhone11Width } from "../../utilities/dimensions";
 import MapButtonTintedSvg from "../atoms/svg/MapButtonTintedSvg";
 import PickUpButtonTintedSvg from "../atoms/svg/PickUpButtonTintedSvg";
 import NotificationButtonTintedSvg from "../atoms/svg/NotificationButtonTintedSvg";
@@ -24,22 +24,20 @@ const BottomNavItem: FC<Props> = (props) => {
   const activeColor = baseColor.primaryRed;
   const normalColor = baseColor.iconGray;
   const backColor = baseColor.darkNavy;
-  const displayWidth = Dimensions.get("window").width;
-  const iPhone11width = 414;
-  const fontSizeRatio = 10 / iPhone11width;
+  const fontSizeRatio = 10 / iPhone11Width;
 
   const styles = StyleSheet.create({
     label: {
       color: isFocused ? "#fff" : baseColor.iconTextGray,
-      fontSize: displayWidth * fontSizeRatio,
+      fontSize: deviceWidth * fontSizeRatio,
       marginTop: 5,
     },
   });
 
   switch (index) {
     case 0: {
-      const widthRatio = 22 / iPhone11width;
-      const width = displayWidth * widthRatio;
+      const widthRatio = 22 / iPhone11Width;
+      const width = deviceWidth * widthRatio;
       const viewBoxRatio = 22 / 28;
       return (
         <>
@@ -58,8 +56,8 @@ const BottomNavItem: FC<Props> = (props) => {
       );
     }
     case 1: {
-      const widthRatio = (isFocused ? 28 : 24) / iPhone11width;
-      const width = displayWidth * widthRatio;
+      const widthRatio = (isFocused ? 28 : 24) / iPhone11Width;
+      const width = deviceWidth * widthRatio;
       const viewBoxRatio = (isFocused ? 28 : 24) / 24;
       return (
         <>
@@ -75,8 +73,8 @@ const BottomNavItem: FC<Props> = (props) => {
       );
     }
     case 2: {
-      const widthRatio = 72 / iPhone11width;
-      const width = displayWidth * widthRatio;
+      const widthRatio = 72 / iPhone11Width;
+      const width = deviceWidth * widthRatio;
       const viewBoxRatio = 72 / 72;
       return (
         <View style={{ width: width, aspectRatio: viewBoxRatio }}>
@@ -90,8 +88,8 @@ const BottomNavItem: FC<Props> = (props) => {
       );
     }
     case 3: {
-      const widthRatio = (isFocused ? 24 : 22) / iPhone11width;
-      const width = displayWidth * widthRatio;
+      const widthRatio = (isFocused ? 24 : 22) / iPhone11Width;
+      const width = deviceWidth * widthRatio;
       const viewBoxRatio = isFocused ? 24 / 25 : 22 / 24;
       return (
         <>
