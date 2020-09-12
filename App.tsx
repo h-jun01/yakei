@@ -4,6 +4,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { decode, encode } from "base-64";
 import { rootReducer } from "./src/reducers";
+import { Root } from "native-base";
 import ScreenSwitcher from "./src/ScreenSwitcher";
 import "./src/firebase/firebase";
 
@@ -26,7 +27,9 @@ const store = createStore(rootReducer);
 const App: FC = () => {
   return (
     <Provider store={store}>
-      <ScreenSwitcher />
+      <Root>
+        <ScreenSwitcher />
+      </Root>
     </Provider>
   );
 };

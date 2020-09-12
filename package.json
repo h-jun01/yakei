@@ -39,6 +39,7 @@
     "react-native-loading-spinner-overlay": "^1.1.0",
     "react-native-map-clustering": "^3.3.9",
     "react-native-maps": "^0.27.1",
+    "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "~1.9.0",
     "react-native-responsive-screen": "^1.4.1",
     "react-native-safe-area-context": "~3.0.7",
