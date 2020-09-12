@@ -3,7 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ReportContent from "../components/molecules/ReportContent";
 import ReportComplete from "../components/molecules/ReportComplete";
 import Inappropriate from "../components/molecules/Inappropriate";
-import SexualAct from "../components/molecules/SexualAct";
 
 export type ReportScreenStackParamList = {
   reportContent: { photo_id: string };
@@ -43,15 +42,6 @@ const ReportScreen: FC<Props> = ({ photo_id }) => {
       <Stack.Screen
         name="reportComplete"
         component={ReportComplete}
-        options={{
-          cardStyle: {
-            backgroundColor: "#fff",
-          },
-        }}
-      />
-      <Stack.Screen
-        name="sexualAct"
-        component={SexualAct}
         options={{
           cardStyle: {
             backgroundColor: "#fff",
