@@ -2,8 +2,7 @@ import React, { FC, useState, useEffect, useRef } from "react";
 import { RootState } from "../../reducers/index";
 import { useSelector } from "react-redux";
 import { accountFireStore } from "../../firebase/accountFireStore";
-import { connectActionSheet } from "@expo/react-native-action-sheet";
-import { useActionSheet } from "@expo/react-native-action-sheet";
+import { ActionSheet } from "native-base";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 import RBSheet from "react-native-raw-bottom-sheet";
 
@@ -15,7 +14,7 @@ type Props = {
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   const { uid, photogenic_subject, navigation } = props;
-  const { showActionSheetWithOptions } = useActionSheet();
+  // const { showActionSheetWithOptions } = useActionSheet();
 
   const selectMyuid = (state: RootState) => state.userReducer.uid;
 
@@ -60,15 +59,19 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   };
 
   const _onOpenActionSheet = () => {
-    const options = [uid === myUid ? "削除" : "報告する", "キャンセル"];
-    const destructiveButtonIndex = 0;
-    const cancelButtonIndex = 1;
+    // const options = [uid === myUid ? "削除" : "報告する", "キャンセル"];
+    // const destructiveButtonIndex = 0;
+    // const cancelButtonIndex = 1;
+    const BUTTONS = [uid === myUid ? "削除" : "報告する", "キャンセル"];
+    const DESTRUCTIVE_INDEX = 0;
+    const CANCEL_INDEX = 1;
 
-    showActionSheetWithOptions(
+    ActionSheet.show(
       {
-        options,
-        cancelButtonIndex,
-        destructiveButtonIndex,
+        options: BUTTONS,
+        cancelButtonIndex: CANCEL_INDEX,
+        destructiveButtonIndex: DESTRUCTIVE_INDEX,
+        // title: "Testing ActionSheet",
       },
       (buttonIndex) => {
         if (buttonIndex === 0) {
@@ -94,8 +97,9 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   );
 };
 
-const ConnectedInformationUserPostedContainer = connectActionSheet(
-  InformationUserPostedContainer
-);
+// const ConnectedInformationUserPostedContainer = connectActionSheet(
+//   InformationUserPostedContainer
+// );
 
-export default ConnectedInformationUserPostedContainer;
+// export default ConnectedInformationUserPostedContainer;
+export default InformationUserPostedContainer;

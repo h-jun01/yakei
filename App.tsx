@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { decode, encode } from "base-64";
 import { rootReducer } from "./src/reducers";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
+import { Root } from "native-base";
 import ScreenSwitcher from "./src/ScreenSwitcher";
 import "./src/firebase/firebase";
 
@@ -27,9 +28,9 @@ const store = createStore(rootReducer);
 const App: FC = () => {
   return (
     <Provider store={store}>
-      <ActionSheetProvider>
+      <Root>
         <ScreenSwitcher />
-      </ActionSheetProvider>
+      </Root>
     </Provider>
   );
 };

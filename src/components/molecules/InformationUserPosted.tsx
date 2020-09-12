@@ -15,6 +15,7 @@ import { Size } from "../../styles/thema/fonts";
 import { Image } from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import RBSheet from "react-native-raw-bottom-sheet";
+import Report from "../molecules/Report";
 
 type Props = {
   postUserName: string;
@@ -75,9 +76,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
           },
         }}
       >
-        <View>
-          <Text>aaa</Text>
-        </View>
+        <Report />
       </RBSheet>
     </Fragment>
   );
