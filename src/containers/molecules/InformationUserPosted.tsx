@@ -14,7 +14,6 @@ type Props = {
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   const { uid, photogenic_subject, navigation } = props;
-  // const { showActionSheetWithOptions } = useActionSheet();
 
   const selectMyuid = (state: RootState) => state.userReducer.uid;
 
@@ -59,9 +58,6 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   };
 
   const _onOpenActionSheet = () => {
-    // const options = [uid === myUid ? "削除" : "報告する", "キャンセル"];
-    // const destructiveButtonIndex = 0;
-    // const cancelButtonIndex = 1;
     const BUTTONS = [uid === myUid ? "削除" : "報告する", "キャンセル"];
     const DESTRUCTIVE_INDEX = 0;
     const CANCEL_INDEX = 1;
@@ -71,7 +67,6 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
         options: BUTTONS,
         cancelButtonIndex: CANCEL_INDEX,
         destructiveButtonIndex: DESTRUCTIVE_INDEX,
-        // title: "Testing ActionSheet",
       },
       (buttonIndex) => {
         if (buttonIndex === 0) {
@@ -97,9 +92,4 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   );
 };
 
-// const ConnectedInformationUserPostedContainer = connectActionSheet(
-//   InformationUserPostedContainer
-// );
-
-// export default ConnectedInformationUserPostedContainer;
 export default InformationUserPostedContainer;
