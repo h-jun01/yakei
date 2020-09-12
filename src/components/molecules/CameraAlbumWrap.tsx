@@ -7,10 +7,11 @@ import {
   Platform,
   Animated,
 } from "react-native";
+import { TouchableNativeFeedback } from "react-native-gesture-handler";
 import CameraSvg from "../atoms/svg/CameraSvg";
 import AlbumSvg from "../atoms/svg/AlbumSvg";
 import { baseColor } from "../../styles/thema/colors";
-import { TouchableNativeFeedback } from "react-native-gesture-handler";
+import { deviceWidth, iPhone11Width } from "../../utilities/dimensions";
 
 type Props = {
   animStyle: {
@@ -35,12 +36,10 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
     onPressOfCamera,
     onPressOfAlbum,
   } = props;
-  const displayWidth = Dimensions.get("window").width;
-  const iPhone11width = 414;
-  const wrapBottomRatio = 17 / iPhone11width;
-  const iconAspectRatio = 54 / iPhone11width;
-  const wrapBottom = displayWidth * wrapBottomRatio;
-  const iconAspect = displayWidth * iconAspectRatio;
+  const wrapBottomRatio = 17 / iPhone11Width;
+  const iconAspectRatio = 54 / iPhone11Width;
+  const wrapBottom = deviceWidth * wrapBottomRatio;
+  const iconAspect = deviceWidth * iconAspectRatio;
   const textColor = baseColor.catskillWhite;
   const backColor = baseColor.darkNavy;
 

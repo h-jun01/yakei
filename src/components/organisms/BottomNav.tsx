@@ -67,6 +67,13 @@ const BottomNav: FC<Props> = ({ ...props }) => {
             backColor={baseColor.darkNavy}
           />
         </View>
+        <View style={styles.cameraAndAlbumWrap}>
+          <CameraAlbumWrap
+            state={state}
+            routes={state.routes}
+            navigation={navigation}
+          />
+        </View>
         <View style={styles.footerItemsWrap}>
           {state.routes.map((route, index) => {
             if (index > postScreenIndex) return;
@@ -81,13 +88,6 @@ const BottomNav: FC<Props> = ({ ...props }) => {
               />
             );
           })}
-        </View>
-        <View style={styles.cameraAndAlbumWrap}>
-          <CameraAlbumWrap
-            state={state}
-            routes={state.routes}
-            navigation={navigation}
-          />
         </View>
       </View>
       <SafeAreaView
@@ -140,7 +140,6 @@ const styles = StyleSheet.create({
     shadowRadius: 1.5,
   },
   cameraAndAlbumWrap: {
-    zIndex: 0,
     position: "absolute",
     flexDirection: "row",
     justifyContent: "center",
