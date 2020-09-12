@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from "react";
+import React, { FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 import { baseColor } from "../../styles/thema/colors";

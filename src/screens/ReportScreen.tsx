@@ -4,22 +4,19 @@ import ReportContent from "../components/molecules/ReportContent";
 import ReportComplete from "../components/molecules/ReportComplete";
 import Inappropriate from "../components/molecules/Inappropriate";
 
-const ModalScreen: FC = () => {
-  const Stack = createStackNavigator();
+type ReportScreenStackParamList = {
+  reportContent: undefined;
+  inappropriate: undefined;
+  reportComplete: undefined;
+};
+
+const ReportScreen: FC = () => {
+  const Stack = createStackNavigator<ReportScreenStackParamList>();
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="reportContent"
         component={ReportContent}
-        options={{
-          cardStyle: {
-            backgroundColor: "#fff",
-          },
-        }}
-      />
-      <Stack.Screen
-        name="reportComplete"
-        component={ReportComplete}
         options={{
           cardStyle: {
             backgroundColor: "#fff",
@@ -35,8 +32,17 @@ const ModalScreen: FC = () => {
           },
         }}
       />
+      <Stack.Screen
+        name="reportComplete"
+        component={ReportComplete}
+        options={{
+          cardStyle: {
+            backgroundColor: "#fff",
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 };
 
-export default ModalScreen;
+export default ReportScreen;

@@ -16,7 +16,7 @@ import { Image } from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import RBSheet from "react-native-raw-bottom-sheet";
 import Report from "../organisms/Report";
-import ModalScreen from "../../screens/ModalScreen";
+import ReportScreen from "../../screens/ReportScreen";
 
 type Props = {
   postUserName: string;
@@ -83,7 +83,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
         }}
       >
         <Report>
-          <ModalScreen />
+          <ReportScreen />
         </Report>
       </RBSheet>
     </Fragment>
