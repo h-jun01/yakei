@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { Image } from "react-native-elements";
-import { Timestamp } from "@google-cloud/firestore";
-import { baseColor } from "../../styles/thema/colors";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { baseColor } from "../../styles/thema/colors";
+import { Image } from "react-native-elements";
+import { Timestamp } from "@google-cloud/firestore";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import PostedPageItems from "../../containers/molecules/PostedPageItems";
 

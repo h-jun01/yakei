@@ -6,13 +6,13 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from "react-native";
-import { Image } from "react-native-elements";
-import { baseColor } from "../../styles/thema/colors";
-import { Size } from "../../styles/thema/fonts";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { baseColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
+import { Image } from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 type Props = {
@@ -20,6 +20,7 @@ type Props = {
   postUserImage: string;
   photogenic_subject: string;
   transitionToAnotherUser: () => void;
+  _onOpenActionSheet: () => void;
 };
 
 const InformationUserPosted: FC<Props> = ({ ...props }) => {
@@ -28,6 +29,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
     postUserImage,
     photogenic_subject,
     transitionToAnotherUser,
+    _onOpenActionSheet,
   } = props;
 
   return (
@@ -53,7 +55,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
         </TouchableOpacity>
         <Text style={styles.photogenicSubjec}>{photogenic_subject}</Text>
       </View>
-      <Text style={styles.dotsVertical}>
+      <Text style={styles.dotsVertical} onPress={() => _onOpenActionSheet()}>
         <MaterialCommunityIcons name="dots-vertical" size={20} />
       </Text>
     </View>

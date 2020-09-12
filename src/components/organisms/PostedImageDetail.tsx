@@ -11,10 +11,7 @@ import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { baseColor } from "../../styles/thema/colors";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../../containers/molecules/DetailPostedPageItems";
 import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
