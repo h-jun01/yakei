@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -44,8 +45,7 @@ const Post: FC<Props> = ({ ...props }) => {
     navigation,
   } = props;
 
-  const width = deviceWidth;
-  const height = width * aspectRatio;
+  const height = deviceWidth * aspectRatio;
   const addressColorStyle =
     address === "撮影場所を選択"
       ? { color: utilityColor.placeholderText }
@@ -59,7 +59,7 @@ const Post: FC<Props> = ({ ...props }) => {
     >
       <View style={styles.allWrap}>
         <Image
-          style={[{ width: width, height: width }, styles.image]}
+          style={[{ width: deviceWidth, height: deviceWidth }, styles.image]}
           source={{ uri }}
         />
 
@@ -97,12 +97,15 @@ const Post: FC<Props> = ({ ...props }) => {
             </Text>
           </TouchableOpacity>
         </View>
-
-        <KeyboardSpacer
-          onToggle={(keyboardState, keyboardSpace) => {
-            setSpaceHeight(keyboardSpace);
-          }}
-        />
+        {Platform.OS !== "android" ? (
+          <KeyboardSpacer
+            onToggle={(keyboardState, keyboardSpace) => {
+              setSpaceHeight(keyboardSpace);
+            }}
+          />
+        ) : (
+          <></>
+        )}
       </View>
     </ScrollView>
   );
