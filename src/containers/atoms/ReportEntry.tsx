@@ -1,9 +1,7 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { RouteProp } from "@react-navigation/native";
 import { RootState } from "../../reducers/index";
 import { reportFireStore } from "../../firebase/reportFireStore";
-import { ReportScreenStackParamList } from "../../screens/ReportScreen";
 import ReportEntry from "../../components/atoms/ReportEntry";
 
 type Props = {
@@ -18,13 +16,12 @@ const ReportEntryContainer: FC<Props> = ({ ...props }) => {
   const selectUid = (state: RootState) => state.userReducer.uid;
   const uid = useSelector(selectUid);
 
-  const _handleOnPress = () => {
+  const _handleOnPress = (): void => {
     if (entry === "不適切である") {
       navigation.navigate("inappropriate");
-    } else if (entry === "スパムである") {
+    } else {
       reportFireStore.addReport(uid, photo_id, entry);
       navigation.navigate("reportComplete");
-    } else {
     }
   };
 

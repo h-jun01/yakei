@@ -3,11 +3,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ReportContent from "../components/molecules/ReportContent";
 import ReportComplete from "../components/molecules/ReportComplete";
 import Inappropriate from "../components/molecules/Inappropriate";
+import SexualAct from "../components/molecules/SexualAct";
 
 export type ReportScreenStackParamList = {
   reportContent: { photo_id: string };
-  inappropriate: undefined;
+  inappropriate: { photo_id: string };
   reportComplete: undefined;
+  sexualAct: undefined;
 };
 
 type Props = {
@@ -31,6 +33,7 @@ const ReportScreen: FC<Props> = ({ photo_id }) => {
       <Stack.Screen
         name="inappropriate"
         component={Inappropriate}
+        initialParams={{ photo_id }}
         options={{
           cardStyle: {
             backgroundColor: "#fff",
@@ -40,6 +43,15 @@ const ReportScreen: FC<Props> = ({ photo_id }) => {
       <Stack.Screen
         name="reportComplete"
         component={ReportComplete}
+        options={{
+          cardStyle: {
+            backgroundColor: "#fff",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="sexualAct"
+        component={SexualAct}
         options={{
           cardStyle: {
             backgroundColor: "#fff",

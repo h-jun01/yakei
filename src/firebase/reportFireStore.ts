@@ -8,12 +8,13 @@ type ReportFireStore = {
 const report = db.collection("repots");
 
 export const reportFireStore: ReportFireStore = {
+  // 報告内容を格納
   addReport: async (uid, photo_id, entry) => {
     await report
       .add({
         uid,
         photo_id,
-        entry_key: entry,
+        entry,
         created_at: FieldValue.serverTimestamp(),
       })
       .catch((e) => {

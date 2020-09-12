@@ -71,13 +71,13 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       },
       (buttonIndex) => {
         if (buttonIndex === 0) {
-          test();
+          _handleOnPress();
         }
       }
     );
   };
 
-  const test = (): void => {
+  const _handleOnPress = (): void => {
     refRBSheet.current!.open();
   };
 
