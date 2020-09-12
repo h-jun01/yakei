@@ -57,44 +57,46 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
   const displayWidth = Dimensions.get("window").width;
 
   return (
-    <View style={[styles.container]}>
-      <ScrollView style={[styles.allWrap, { paddingBottom: bottomHeight }]}>
-        <View>
-          <InformationUserPosted
-            navigation={navigation}
-            uid={uid}
-            photogenic_subject={photogenic_subject}
-          />
-          <Image
-            style={{
-              width: displayWidth,
-              height: displayWidth * aspectRatio,
-            }}
-            source={{
-              uri: url,
-            }}
-            PlaceholderContent={<ActivityIndicator />}
-          />
-          <DetailPostedPageItems
-            uid={uid}
-            url={url}
-            photo_id={photo_id}
-            latitude={latitude}
-            longitude={longitude}
-            create_time={create_time}
-          />
+    <View style={styles.container}>
+      <ScrollView style={styles.allWrap}>
+        <View style={{ paddingBottom: bottomHeight }}>
+          <View>
+            <InformationUserPosted
+              navigation={navigation}
+              uid={uid}
+              photogenic_subject={photogenic_subject}
+            />
+            <Image
+              style={{
+                width: displayWidth,
+                height: displayWidth * aspectRatio,
+              }}
+              source={{
+                uri: url,
+              }}
+              PlaceholderContent={<ActivityIndicator />}
+            />
+            <DetailPostedPageItems
+              uid={uid}
+              url={url}
+              photo_id={photo_id}
+              latitude={latitude}
+              longitude={longitude}
+              create_time={create_time}
+            />
+          </View>
+          <CommentInputField focusOnInput={focusOnInput} />
+          {commentDataList !== undefined &&
+            commentDataList.map((item, index) => (
+              <View key={index}>
+                <CommentField
+                  uid={item.uid}
+                  message={item.message}
+                  create_time={item.create_time}
+                />
+              </View>
+            ))}
         </View>
-        <CommentInputField focusOnInput={focusOnInput} />
-        {commentDataList !== undefined &&
-          commentDataList.map((item, index) => (
-            <View key={index}>
-              <CommentField
-                uid={item.uid}
-                message={item.message}
-                create_time={item.create_time}
-              />
-            </View>
-          ))}
       </ScrollView>
       <KeyboardInputView
         textInputRef={textInputRef}

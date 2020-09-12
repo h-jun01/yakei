@@ -11,8 +11,10 @@ import type { Dispatch } from "redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers/index";
-import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
-import { setShouldNavigate } from "../../actions/bottomNav";
+import {
+  setShouldDisplayBottomNav,
+  setShouldNavigate,
+} from "../../actions/bottomNav";
 import { setPhotoListData } from "../../actions/photo";
 import { setAllPhotoListData } from "../../actions/allPhoto";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";

@@ -4,9 +4,8 @@ import { Dispatch } from "redux";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import type { Route } from "@react-navigation/routers/lib/typescript/src/types";
 import { RootState } from "../../reducers/index";
-import { setTabState } from "../../actions/bottomNav";
+import { setTabState, setShouldNavigate } from "../../actions/bottomNav";
 import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
-import { setShouldNavigate } from "../../actions/bottomNav";
 import BottomNavTouchableOpacity from "../../components/molecules/BottomNavTouchableOpacity";
 
 type Props = {

@@ -7,8 +7,8 @@ import { StackActions } from "@react-navigation/native";
 import { RouteProp } from "@react-navigation/native";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
-import { setTabState } from "../../actions/bottomNav";
 import {
+  setTabState,
   setShouldDisplayBottomNav,
   setShouldNavigate,
 } from "../../actions/bottomNav";
