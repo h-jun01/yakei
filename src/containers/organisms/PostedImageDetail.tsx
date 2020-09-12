@@ -65,7 +65,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   const commentDataList = useSelector(selectCommentDataList);
   const bottomHeight = useSelector(selectBottomHeight);
   const textInputRef = useRef<TextInput>(null);
-  const [aspectRatio, setAspectRatio] = useState<number>(0);
+  const [aspectRatio, setAspectRatio] = useState<number>(1);
   const dispatch = useDispatch();
 
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える
