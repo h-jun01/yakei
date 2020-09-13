@@ -1,8 +1,9 @@
 import React, { FC, useState, useEffect, useRef } from "react";
-import { RootState } from "../../reducers/index";
 import { useSelector } from "react-redux";
-import { accountFireStore } from "../../firebase/accountFireStore";
 import { ActionSheet } from "native-base";
+import { RootState } from "../../reducers/index";
+import { accountFireStore } from "../../firebase/accountFireStore";
+import { callingDeleteAlert } from "../../utilities/alert";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 import RBSheet from "react-native-raw-bottom-sheet";
 
@@ -50,12 +51,17 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       });
   }, []);
 
+  // 他ユーザページへ遷移
   const transitionToAnotherUser = (): void => {
     if (uid !== myUid)
       navigation.navigate("otherUser", {
         uid,
         name: postUserName,
       });
+  };
+
+  const _handleOnPress = (): void => {
+    uid === myUid ? callingDeleteAlert() : refRBSheet.current!.open();
   };
 
   const _onOpenActionSheet = (): void => {
@@ -75,10 +81,6 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
         }
       }
     );
-  };
-
-  const _handleOnPress = (): void => {
-    refRBSheet.current!.open();
   };
 
   return (
