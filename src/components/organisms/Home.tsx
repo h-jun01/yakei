@@ -25,6 +25,7 @@ import LocationButtonView from "./PresentLocationButton";
 import OriginMarker from "../atoms/OriginMarker";
 import { Region } from "../../entities/map";
 import geohash from "ngeohash";
+import { mapStyle } from "../../styles/map";
 
 type PhotoDataList = {
   photo_id: string;
@@ -238,6 +239,7 @@ const Home: FC<Props> = ({ ...props }) => {
               });
             }}
             preserveClusterPressBehavior={true}
+            customMapStyle={mapStyle}
           >
             {/* 全員 */}
             {photoDisplayFlag &&
