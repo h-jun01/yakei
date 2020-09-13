@@ -79,8 +79,21 @@ const Home: FC<Props> = ({ ...props }) => {
     _map.current.animateToRegion(region);
   }, [_map.current]);
 
-  // photoSnap参考資料　https://www.youtube.com/watch?v=2vILzRmEqGI
+  // photoSnapListが更新される度に実行
   useEffect(() => {
+    // ユーザー名の取得
+    const getUserName = (uid: string) => {
+      accountFireStore
+        .getUserName(uid)
+        .then((res: React.SetStateAction<string>) => {
+          setPostUserName(res);
+        })
+        .catch(() => {
+          setPostUserName("名無し");
+        });
+    };
+
+    // photoSnap参考資料　https://www.youtube.com/watch?v=2vILzRmEqGI
     const fetch = async () => {
       mapAnimation.addListener(({ value }) => {
         let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
@@ -119,8 +132,11 @@ const Home: FC<Props> = ({ ...props }) => {
       });
     };
 
+    photoSnapList.map((data) => {
+      getUserName(data.uid);
+    });
     fetch();
-  });
+  }, [photoSnapList]);
 
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
@@ -197,23 +213,6 @@ const Home: FC<Props> = ({ ...props }) => {
     setPhotoSnapList([data]);
     setPhotoSnapFlag(true);
   };
-
-  // ユーザー名の取得
-  useEffect(() => {
-    const getUserName = (uid: string) => {
-      accountFireStore
-        .getUserName(uid)
-        .then((res: React.SetStateAction<string>) => {
-          setPostUserName(res);
-        })
-        .catch(() => {
-          setPostUserName("名無し");
-        });
-    };
-    photoSnapList.map((data) => {
-      getUserName(data.uid);
-    });
-  }, [photoSnapList]);
 
   return (
     <Container>
