@@ -52,7 +52,7 @@ const EditProfile: FC<Props> = ({ ...props }) => {
           <View style={styles.userImgWrap}>
             {/* ヘッダー画像 */}
             <TouchableOpacity
-              activeOpacity={0.7}
+              activeOpacity={0.8}
               onPress={() => onAddHeaderImagePressed()}
             >
               <HeaderImage userHeaderImage={userHeaderImage} />
@@ -65,7 +65,7 @@ const EditProfile: FC<Props> = ({ ...props }) => {
             </TouchableOpacity>
             {/* ユーザアイコン画像 */}
             <TouchableOpacity
-              activeOpacity={0.7}
+              activeOpacity={0.8}
               style={styles.iconImg}
               onPress={() => onAddImagePressed()}
             >
