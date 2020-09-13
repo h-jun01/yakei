@@ -41,9 +41,23 @@ export const callingLogoutAlert = (): void => {
       {
         text: "ログアウト",
         onPress: () => auth.signOut(),
-        style: "default",
+        style: "destructive",
       },
     ],
     { cancelable: false }
   );
+};
+
+export const callingDeleteAlert = (): void => {
+  Alert.alert("確認", "写真を削除しますか？", [
+    {
+      text: "キャンセル",
+      style: "default",
+    },
+    {
+      text: "削除",
+      onPress: () => console.log("delete"),
+      style: "destructive",
+    },
+  ]);
 };
