@@ -48,7 +48,7 @@ const User: FC<Props> = ({ ...props }) => {
         <View style={styles.userInfoWrap}>
           <Image
             source={{ uri: headerImage }}
-            style={{ width: wp("100%"), height: wp("65%") }}
+            style={{ width: wp("100%"), height: hp("35%") }}
             PlaceholderContent={<ActivityIndicator />}
           >
             <View style={styles.overlay}></View>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     width: wp("100%"),
-    height: wp("65%"),
+    height: hp("35%"),
     backgroundColor: utilityColor.overlay,
   },
   //ユーザー情報
@@ -107,14 +107,14 @@ const styles = StyleSheet.create({
   },
   iconBox: {
     alignSelf: "center",
-    marginBottom: hp("1%"),
+    marginBottom: hp("1.2%"),
   },
   userName: {
     alignSelf: "center",
     color: baseColor.text,
     fontSize: Size.userNameSize,
     fontWeight: "600",
-    marginBottom: hp("1%"),
+    marginBottom: hp("1.2%"),
   },
   userIntro: {
     width: wp("65%"),

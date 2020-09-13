@@ -52,28 +52,28 @@ const EditProfile: FC<Props> = ({ ...props }) => {
           <View style={styles.userImgWrap}>
             {/* ヘッダー画像 */}
             <TouchableOpacity
-              activeOpacity={0.7}
+              activeOpacity={0.8}
               onPress={() => onAddHeaderImagePressed()}
             >
               <HeaderImage userHeaderImage={userHeaderImage} />
+              <Icon
+                style={styles.headerIcon}
+                name="camera"
+                size={24}
+                color={"#fff"}
+              />
             </TouchableOpacity>
-            <Icon
-              style={styles.headerIcon}
-              name="camera"
-              size={24}
-              color={"#fff"}
-            />
             {/* ユーザアイコン画像 */}
             <TouchableOpacity
-              activeOpacity={0.7}
+              activeOpacity={0.8}
               style={styles.iconImg}
               onPress={() => onAddImagePressed()}
             >
               <UserImage userImage={userImage} size={deviceWidth / 5} />
+              <View style={styles.overlay}>
+                <Icon name="camera" size={24} color={"#fff"} />
+              </View>
             </TouchableOpacity>
-            <View style={styles.overlay}>
-              <Icon name="camera" size={24} color={"#fff"} />
-            </View>
           </View>
 
           <View style={styles.inputWrap}>
@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
     width: wp("20.3%"),
     height: wp("20.3%"),
     position: "absolute",
-    bottom: wp("18.2%"),
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
