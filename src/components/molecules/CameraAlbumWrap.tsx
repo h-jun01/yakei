@@ -17,24 +17,12 @@ type Props = {
     UpperLeft: Object;
     UpperRight: Object;
   };
-  cameraOpacity: number;
-  albumOpacity: number;
-  setCameraOpacity: React.Dispatch<React.SetStateAction<number>>;
-  setAlbumOpacity: React.Dispatch<React.SetStateAction<number>>;
   onPressOfCamera: () => void;
   onPressOfAlbum: () => void;
 };
 
 const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
-  const {
-    animStyle,
-    cameraOpacity,
-    albumOpacity,
-    setCameraOpacity,
-    setAlbumOpacity,
-    onPressOfCamera,
-    onPressOfAlbum,
-  } = props;
+  const { animStyle, onPressOfCamera, onPressOfAlbum } = props;
   const wrapBottomRatio = 17 / iPhone11Width;
   const iconAspectRatio = 54 / iPhone11Width;
   const wrapBottom = deviceWidth * wrapBottomRatio;
@@ -45,14 +33,16 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
   const bottomStyle =
     Platform.OS === "android" ? { bottom: 54 } : { bottom: wrapBottom };
 
-  const AnimatedView =
-    Platform.OS === "android" ? Animated.createAnimatedComponent(View) : View;
+  const AnimatedTouchableOpacity =
+    Platform.OS === "android"
+      ? Animated.createAnimatedComponent(TouchableOpacity)
+      : TouchableOpacity;
 
   return (
     <View style={[styles.wrap, bottomStyle]}>
       {Platform.OS === "android" ? (
         <>
-          <AnimatedView
+          <AnimatedTouchableOpacity
             style={[
               animStyle.UpperLeft,
               {
@@ -61,23 +51,19 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
               },
             ]}
           >
-            <TouchableNativeFeedback
-              onPressIn={() => setCameraOpacity(0.6)}
-              onPressOut={() => setCameraOpacity(1)}
-              onPress={onPressOfCamera}
-              style={{ opacity: cameraOpacity }}
-            >
-              <View
+            <TouchableNativeFeedback onPress={onPressOfCamera}>
+              <TouchableOpacity
+                activeOpacity={0.6}
                 style={{
                   width: iconAspect,
                   aspectRatio: 1,
                 }}
               >
                 <CameraSvg textColor={textColor} backColor={backColor} />
-              </View>
+              </TouchableOpacity>
             </TouchableNativeFeedback>
-          </AnimatedView>
-          <AnimatedView
+          </AnimatedTouchableOpacity>
+          <AnimatedTouchableOpacity
             style={[
               animStyle.UpperRight,
               {
@@ -86,21 +72,16 @@ const CameraAlbumWrap: FC<Props> = ({ ...props }) => {
               },
             ]}
           >
-            <TouchableNativeFeedback
-              onPressIn={() => setAlbumOpacity(0.6)}
-              onPressOut={() => setAlbumOpacity(1)}
-              style={{ opacity: albumOpacity }}
-              onPress={onPressOfAlbum}
-            >
-              <View>
+            <TouchableNativeFeedback onPress={onPressOfAlbum}>
+              <TouchableOpacity activeOpacity={0.6}>
                 <AlbumSvg
                   textColor={textColor}
                   backColor={backColor}
                   style={{ width: iconAspect, aspectRatio: 1 }}
                 />
-              </View>
+              </TouchableOpacity>
             </TouchableNativeFeedback>
-          </AnimatedView>
+          </AnimatedTouchableOpacity>
         </>
       ) : (
         <>

@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useRef } from "react";
 import { Animated, Alert, Platform } from "react-native";
 import CameraAlbumWrap from "../../components/molecules/CameraAlbumWrap";
 import { RootState } from "../../reducers/index";
@@ -107,8 +107,6 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
   const { state, routes, navigation } = props;
   const dispatch = useDispatch();
   const animStyle = useAnimation();
-  const [cameraOpacity, setCameraOpacity] = useState(1);
-  const [albumOpacity, setAlbumOpacity] = useState(1);
 
   const onPressOfCamera = async () => {
     // カメラへのアクセス許可を申請
@@ -158,10 +156,6 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
   return (
     <CameraAlbumWrap
       animStyle={animStyle}
-      cameraOpacity={cameraOpacity}
-      albumOpacity={albumOpacity}
-      setCameraOpacity={setCameraOpacity}
-      setAlbumOpacity={setAlbumOpacity}
       onPressOfCamera={onPressOfCamera}
       onPressOfAlbum={onPressOfAlbum}
     />
