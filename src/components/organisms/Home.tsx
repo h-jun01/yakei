@@ -122,6 +122,23 @@ const Home: FC<Props> = ({ ...props }) => {
     fetch();
   });
 
+  // ユーザー名の取得
+  useEffect(() => {
+    const getUserName = (uid: string) => {
+      accountFireStore
+        .getUserName(uid)
+        .then((res: React.SetStateAction<string>) => {
+          setPostUserName(res);
+        })
+        .catch(() => {
+          setPostUserName("名無し");
+        });
+    };
+    photoSnapList.map((data) => {
+      getUserName(data.uid);
+    });
+  }, [photoSnapList]);
+
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
     if (photoPinFlag) {
@@ -197,23 +214,6 @@ const Home: FC<Props> = ({ ...props }) => {
     setPhotoSnapList([data]);
     setPhotoSnapFlag(true);
   };
-
-  // ユーザー名の取得
-  useEffect(() => {
-    const getUserName = (uid: string) => {
-      accountFireStore
-        .getUserName(uid)
-        .then((res: React.SetStateAction<string>) => {
-          setPostUserName(res);
-        })
-        .catch(() => {
-          setPostUserName("名無し");
-        });
-    };
-    photoSnapList.map((data) => {
-      getUserName(data.uid);
-    });
-  }, [photoSnapList]);
 
   return (
     <Container>
