@@ -11,7 +11,6 @@ import { Region } from "../../entities/map";
 type Props = {
   navigation: any;
 };
-let _map;
 
 const ContainerHome: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
@@ -33,23 +32,37 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
     latitudeDelta: 20,
     longitudeDelta: 20,
   });
+  const [initialRegion, setInitialRegion] = useState<Region | "loading">(
+    "loading"
+  );
 
   useEffect(() => {
     const fetch = async () => {
       try {
         await Permissions.askAsync(Permissions.LOCATION);
-        await photoFireStore.getAllPhotoList().then((res) => {
-          dispatch(setAllPhotoListData(res));
-        });
         const location = await Location.getCurrentPositionAsync({});
         setRegion({
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
-          latitudeDelta: 0.001,
-          longitudeDelta: 0.001,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.015,
+        });
+        setInitialRegion({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.015,
+        });
+        photoFireStore.getAllPhotoList().then((res) => {
+          dispatch(setAllPhotoListData(res));
         });
       } catch (error) {
-        // to do
+        setInitialRegion({
+          latitude: region.latitude,
+          longitude: region.longitude,
+          latitudeDelta: region.latitudeDelta,
+          longitudeDelta: region.longitudeDelta,
+        });
       }
     };
     fetch();
@@ -62,6 +75,7 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
       myPhotoList={myPhotoDataList}
       bottomHeight={bottomHeight}
       region={region}
+      initialRegion={initialRegion}
     />
   );
 };

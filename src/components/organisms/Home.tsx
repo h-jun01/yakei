@@ -9,6 +9,7 @@ import {
   Platform,
   View,
 } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 import { Container } from "native-base";
 import { Timestamp } from "@google-cloud/firestore";
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -42,6 +43,7 @@ type Props = {
   myPhotoList: firebase.firestore.DocumentData[];
   bottomHeight: number;
   region: Region;
+  initialRegion: Region | "loading";
 };
 
 const { width, height } = Dimensions.get("window");
@@ -55,7 +57,14 @@ let nowLatitudeDelta;
 let nowLongitudeDelta;
 
 const Home: FC<Props> = ({ ...props }) => {
-  const { navigation, allPhotoList, myPhotoList, bottomHeight, region } = props;
+  const {
+    navigation,
+    allPhotoList,
+    myPhotoList,
+    bottomHeight,
+    region,
+    initialRegion,
+  } = props;
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
   const [photoSnapFlag, setPhotoSnapFlag] = useState(false);
   const [photoPinFlag, setPhotoPinFlag] = useState(false);
@@ -203,172 +212,183 @@ const Home: FC<Props> = ({ ...props }) => {
 
   return (
     <Container>
-      <MapView
-        ref={mapState.isSet ? _map : null}
-        onMapReady={() => setMapState({ isSet: true })}
-        style={{ ...StyleSheet.absoluteFillObject }}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation
-        initialRegion={region}
-        clusterColor={photoDisplayFlag ? "#00B386" : "#f00"}
-        onRegionChangeComplete={handleRegionChange}
-        onClusterPress={(cluster, markers) => {
-          const photoDataList: PhotoDataList[] = [];
-          markers?.forEach((value) => {
-            photoDataList.push(value["properties"]["markerDate"]);
-          });
-          navigation.navigate("detail", {
-            photoDataList,
-          });
-        }}
-        preserveClusterPressBehavior={true}
-      >
-        {/* 全員 */}
-        {photoDisplayFlag &&
-          allPhotoList.map((data) => {
-            return (
-              <OriginMarker
-                key={data.photo_id}
-                markerDate={{
-                  photo_id: data.photo_id,
-                  uid: data.uid,
-                  create_time: data.create_time,
-                  url: data.url,
-                  favoriteNumber: data.favoriteNumber,
-                  latitude: data.latitude,
-                  longitude: data.longitude,
-                  photogenic_subject: data.photogenic_subject,
-                }}
-                coordinate={{
-                  latitude: data.latitude,
-                  longitude: data.longitude,
-                }}
-                image={require("../../../assets/pin02.png")}
-                onPress={() => {
-                  onPressPin(data);
-                }}
-              ></OriginMarker>
-            );
-          })}
-
-        {/* 利用ユーザー */}
-        {!photoDisplayFlag &&
-          myPhotoList.map((data) => {
-            return (
-              <OriginMarker
-                key={data.photo_id}
-                coordinate={{
-                  latitude: data.latitude,
-                  longitude: data.longitude,
-                }}
-                markerDate={{
-                  photo_id: data.photo_id,
-                  uid: data.uid,
-                  create_time: data.create_time,
-                  url: data.url,
-                  favoriteNumber: data.favoriteNumber,
-                  latitude: data.latitude,
-                  longitude: data.longitude,
-                  photogenic_subject: data.photogenic_subject,
-                }}
-                image={require("../../../assets/pin02.png")}
-                onPress={() => {
-                  onPressPin(data);
-                }}
-              ></OriginMarker>
-            );
-          })}
-      </MapView>
-
-      {photoSnapFlag && (
-        <Animated.ScrollView
-          horizontal
-          scrollEventThrottle={1}
-          showsHorizontalScrollIndicator={false}
-          style={[styles.scrollView, { bottom: bottomHeight }]}
-          pagingEnabled
-          snapToInterval={CARD_WIDTH + 20}
-          snapToAlignment="center"
-          contentInset={{
-            top: 0,
-            left: SPACING_FOR_CARD_INSET,
-            bottom: 0,
-            right: SPACING_FOR_CARD_INSET,
-          }}
-          contentContainerStyle={{
-            paddingHorizontal:
-              Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
-          }}
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: {
-                  contentOffset: {
-                    x: mapAnimation,
-                  },
-                },
-              },
-            ],
-            {
-              useNativeDriver: true,
-            }
-          )}
-        >
-          {photoSnapList &&
-            photoSnapList.map((data) => {
-              getUserName(data.uid);
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.85}
-                  onPress={() => {
-                    const photoDataList: PhotoDataList[] = [];
-                    photoDataList.push(data);
-                    navigation.navigate("post", {
-                      imageData: {
-                        photo_id: data.photo_id,
-                        uid: data.uid,
-                        create_time: data.create_time,
-                        url: data.url,
-                        latitude: data.latitude,
-                        longitude: data.longitude,
-                        photogenic_subject: data.photogenic_subject,
-                      },
-                    });
-                  }}
-                  key={data.photo_id}
-                  style={styles.card}
-                >
-                  <Image
-                    source={{
-                      uri: data.url,
+      {initialRegion === "loading" ? (
+        <Spinner
+          visible
+          textContent="読み込み中…"
+          textStyle={{ color: "#fff", fontSize: 13 }}
+          overlayColor="rgba(0,0,0,0.5)"
+        />
+      ) : (
+        <>
+          <MapView
+            ref={mapState.isSet ? _map : null}
+            onMapReady={() => setMapState({ isSet: true })}
+            style={{ ...StyleSheet.absoluteFillObject }}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation
+            initialRegion={initialRegion}
+            clusterColor={photoDisplayFlag ? "#00B386" : "#f00"}
+            onRegionChangeComplete={handleRegionChange}
+            onClusterPress={(cluster, markers) => {
+              const photoDataList: PhotoDataList[] = [];
+              markers?.forEach((value) => {
+                photoDataList.push(value["properties"]["markerDate"]);
+              });
+              navigation.navigate("detail", {
+                photoDataList,
+              });
+            }}
+            preserveClusterPressBehavior={true}
+          >
+            {/* 全員 */}
+            {photoDisplayFlag &&
+              allPhotoList.map((data) => {
+                return (
+                  <OriginMarker
+                    key={data.photo_id}
+                    markerDate={{
+                      photo_id: data.photo_id,
+                      uid: data.uid,
+                      create_time: data.create_time,
+                      url: data.url,
+                      favoriteNumber: data.favoriteNumber,
+                      latitude: data.latitude,
+                      longitude: data.longitude,
+                      photogenic_subject: data.photogenic_subject,
                     }}
-                    style={styles.cardImage}
-                    resizeMode="cover"
-                  />
-                  <Text style={styles.cardText}>
-                    {postUserName}
-                    <Text style={styles.cardTextSub}>さんの投稿</Text>
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-        </Animated.ScrollView>
+                    coordinate={{
+                      latitude: data.latitude,
+                      longitude: data.longitude,
+                    }}
+                    image={require("../../../assets/pin02.png")}
+                    onPress={() => {
+                      onPressPin(data);
+                    }}
+                  ></OriginMarker>
+                );
+              })}
+
+            {/* 利用ユーザー */}
+            {!photoDisplayFlag &&
+              myPhotoList.map((data) => {
+                return (
+                  <OriginMarker
+                    key={data.photo_id}
+                    coordinate={{
+                      latitude: data.latitude,
+                      longitude: data.longitude,
+                    }}
+                    markerDate={{
+                      photo_id: data.photo_id,
+                      uid: data.uid,
+                      create_time: data.create_time,
+                      url: data.url,
+                      favoriteNumber: data.favoriteNumber,
+                      latitude: data.latitude,
+                      longitude: data.longitude,
+                      photogenic_subject: data.photogenic_subject,
+                    }}
+                    image={require("../../../assets/pin02.png")}
+                    onPress={() => {
+                      onPressPin(data);
+                    }}
+                  ></OriginMarker>
+                );
+              })}
+          </MapView>
+
+          {photoSnapFlag && (
+            <Animated.ScrollView
+              horizontal
+              scrollEventThrottle={1}
+              showsHorizontalScrollIndicator={false}
+              style={[styles.scrollView, { bottom: bottomHeight }]}
+              pagingEnabled
+              snapToInterval={CARD_WIDTH + 20}
+              snapToAlignment="center"
+              contentInset={{
+                top: 0,
+                left: SPACING_FOR_CARD_INSET,
+                bottom: 0,
+                right: SPACING_FOR_CARD_INSET,
+              }}
+              contentContainerStyle={{
+                paddingHorizontal:
+                  Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
+              }}
+              onScroll={Animated.event(
+                [
+                  {
+                    nativeEvent: {
+                      contentOffset: {
+                        x: mapAnimation,
+                      },
+                    },
+                  },
+                ],
+                {
+                  useNativeDriver: true,
+                }
+              )}
+            >
+              {photoSnapList &&
+                photoSnapList.map((data) => {
+                  getUserName(data.uid);
+                  return (
+                    <TouchableOpacity
+                      activeOpacity={0.85}
+                      onPress={() => {
+                        const photoDataList: PhotoDataList[] = [];
+                        photoDataList.push(data);
+                        navigation.navigate("post", {
+                          imageData: {
+                            photo_id: data.photo_id,
+                            uid: data.uid,
+                            create_time: data.create_time,
+                            url: data.url,
+                            latitude: data.latitude,
+                            longitude: data.longitude,
+                            photogenic_subject: data.photogenic_subject,
+                          },
+                        });
+                      }}
+                      key={data.photo_id}
+                      style={styles.card}
+                    >
+                      <Image
+                        source={{
+                          uri: data.url,
+                        }}
+                        style={styles.cardImage}
+                        resizeMode="cover"
+                      />
+                      <Text style={styles.cardText}>
+                        {postUserName}
+                        <Text style={styles.cardTextSub}>さんの投稿</Text>
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+            </Animated.ScrollView>
+          )}
+          <UserSwitchButtonView
+            onPressIcon={() => {
+              setPhotoDisplayFlag(!photoDisplayFlag);
+              setPhotoSnapFlag(false);
+            }}
+            photoDisplayFlag={photoDisplayFlag}
+            photoSnapFlag={photoSnapFlag}
+          />
+          <LocationButtonView
+            onPressIcon={() => {
+              if (_map.current === null) return;
+              _map.current.animateToRegion(region);
+            }}
+            photoSnapFlag={photoSnapFlag}
+          />
+        </>
       )}
-      <UserSwitchButtonView
-        onPressIcon={() => {
-          setPhotoDisplayFlag(!photoDisplayFlag);
-          setPhotoSnapFlag(false);
-        }}
-        photoDisplayFlag={photoDisplayFlag}
-        photoSnapFlag={photoSnapFlag}
-      />
-      <LocationButtonView
-        onPressIcon={() => {
-          if (_map.current === null) return;
-          _map.current.animateToRegion(region);
-        }}
-        photoSnapFlag={photoSnapFlag}
-      />
     </Container>
   );
 };
