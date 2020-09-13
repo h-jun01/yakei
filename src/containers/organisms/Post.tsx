@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  BackHandler,
 } from "react-native";
 import type { Dispatch } from "redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
@@ -324,6 +325,13 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   };
 
   assignImageAspectRatio(uri, setAspectRatio);
+
+  const onPressAndroidBack = () => {
+    moveToPreviousTab(dispatch);
+    return true;
+  };
+
+  BackHandler.addEventListener("hardwareBackPress", onPressAndroidBack);
 
   return (
     <>
