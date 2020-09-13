@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { SafeAreaView, View, StyleSheet, Animated } from "react-native";
+import { SafeAreaView, View, StyleSheet, Animated, Image } from "react-native";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { baseColor } from "../../styles/thema/colors";
 import {
@@ -8,7 +8,6 @@ import {
   iPhone11Width,
 } from "../../utilities/dimensions";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
-import FooterBackgroundSvg from "../atoms/svg/FooterBackgroundSvg";
 import BottomNavTouchableOpacity from "../../containers/molecules/BottomNavTouchableOpacity";
 import WhiteWrap from "../../containers/atoms/WhiteWrap";
 
@@ -60,9 +59,9 @@ const BottomNav: FC<Props> = ({ ...props }) => {
           style={styles.footerBackgroundWrap}
           onLayout={(e) => onLayoutBtmNvBg(e.nativeEvent.layout.height)}
         >
-          <FooterBackgroundSvg
-            style={styles.footerBackground}
-            backColor={baseColor.darkNavy}
+          <Image
+            style={{ width: "100%", height: "100%" }}
+            source={require("../../../assets/bottomNavBackground.png")}
           />
         </View>
         <View style={styles.cameraAndAlbumWrap}>
@@ -120,19 +119,8 @@ const styles = StyleSheet.create({
   footerBackgroundWrap: {
     position: "absolute",
     bottom: footerBgBtm,
-    left: -2.75,
-    width: deviceWidth + 10,
+    width: deviceWidth,
     aspectRatio: viewboxRatio, // これがないと画面サイズぴったりのボトムナビにならない
-  },
-  footerBackground: {
-    position: "absolute",
-    shadowColor: "#aaaaaa",
-    shadowOffset: {
-      width: 0,
-      height: -0.5,
-    },
-    shadowOpacity: 0.8,
-    shadowRadius: 1.5,
   },
   cameraAndAlbumWrap: {
     position: "absolute",

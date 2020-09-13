@@ -43,7 +43,7 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
           dispatch(setAllPhotoListData(res));
         });
       } catch (error) {
-        // to do something
+        // do something
       }
     };
     const setLocation = async () => {
