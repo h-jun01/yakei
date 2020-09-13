@@ -5,7 +5,7 @@ type ReportFireStore = {
   addReport: (uid: string, photo_id: string, entry: string) => Promise<void>;
 };
 
-const report = db.collection("repots");
+const report = db.collection("reports");
 
 export const reportFireStore: ReportFireStore = {
   // 報告内容を格納
