@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import {
   View,
-  Text,
+  TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -51,9 +51,12 @@ const EditProfile: FC<Props> = ({ ...props }) => {
           {/* 画像系 */}
           <View style={styles.userImgWrap}>
             {/* ヘッダー画像 */}
-            <Text onPress={() => onAddHeaderImagePressed()}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => onAddHeaderImagePressed()}
+            >
               <HeaderImage userHeaderImage={userHeaderImage} />
-            </Text>
+            </TouchableOpacity>
             <Icon
               style={styles.headerIcon}
               name="camera"
@@ -61,9 +64,13 @@ const EditProfile: FC<Props> = ({ ...props }) => {
               color={"#fff"}
             />
             {/* ユーザアイコン画像 */}
-            <Text style={styles.iconImg} onPress={() => onAddImagePressed()}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.iconImg}
+              onPress={() => onAddImagePressed()}
+            >
               <UserImage userImage={userImage} size={deviceWidth / 5} />
-            </Text>
+            </TouchableOpacity>
             <View style={styles.overlay}>
               <Icon name="camera" size={24} color={"#fff"} />
             </View>
@@ -107,10 +114,10 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   iconImg: {
+    zIndex: 1,
     position: "absolute",
     alignSelf: "center",
     bottom: wp("18%"),
-    zIndex: 1,
   },
   overlay: {
     width: wp("20.3%"),

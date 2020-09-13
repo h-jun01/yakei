@@ -17,7 +17,6 @@ type Props = {
 
 const Inappropriate: FC<Props> = ({ navigation, route }) => {
   const photo_id = route.params.photo_id;
-  console.log(photo_id);
 
   return (
     <View style={styles.container}>
