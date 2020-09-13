@@ -32,7 +32,7 @@ const OtherUser: FC<Props> = ({ ...props }) => {
         <View style={styles.userInfoWrap}>
           <Image
             source={{ uri: userData?.user_header_img }}
-            style={{ width: deviceWidth, height: deviceHeight / 3 }}
+            style={{ width: wp("100%"), height: wp("63%") }}
             PlaceholderContent={<ActivityIndicator />}
           >
             <View style={styles.overlay}></View>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     width: wp("100%"),
-    height: wp("75%"),
+    height: wp("63%"),
     backgroundColor: utilityColor.overlay,
   },
   //ユーザー情報
