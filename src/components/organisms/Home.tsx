@@ -199,16 +199,21 @@ const Home: FC<Props> = ({ ...props }) => {
   };
 
   // ユーザー名の取得
-  // const getUserName = (uid: string) => {
-  //   accountFireStore
-  //     .getUserName(uid)
-  //     .then((res: React.SetStateAction<string>) => {
-  //       setPostUserName(res);
-  //     })
-  //     .catch(() => {
-  //       setPostUserName("名無し");
-  //     });
-  // };
+  useEffect(() => {
+    const getUserName = (uid: string) => {
+      accountFireStore
+        .getUserName(uid)
+        .then((res: React.SetStateAction<string>) => {
+          setPostUserName(res);
+        })
+        .catch(() => {
+          setPostUserName("名無し");
+        });
+    };
+    photoSnapList.map((data) => {
+      getUserName(data.uid);
+    });
+  }, [photoSnapList]);
 
   return (
     <Container>
@@ -366,8 +371,9 @@ const Home: FC<Props> = ({ ...props }) => {
                         resizeMode="cover"
                       />
                       <Text style={styles.cardText}>
-                        {data.photogenic_subject}
-                        {/* <Text style={styles.cardTextSub}>さんの投稿</Text> */}
+                        {/* {data.photogenic_subject} */}
+                        {postUserName}
+                        <Text style={styles.cardTextSub}>さんの投稿</Text>
                       </Text>
                     </TouchableOpacity>
                   );
