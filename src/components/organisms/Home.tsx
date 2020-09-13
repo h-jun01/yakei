@@ -25,6 +25,7 @@ import LocationButtonView from "./PresentLocationButton";
 import OriginMarker from "../atoms/OriginMarker";
 import { Region } from "../../entities/map";
 import geohash from "ngeohash";
+import { mapStyle } from "../../styles/map";
 
 type PhotoDataList = {
   photo_id: string;
@@ -103,6 +104,7 @@ const Home: FC<Props> = ({ ...props }) => {
                 longitude,
               };
               if (_map.current === null) return;
+
               _map.current.animateToRegion(
                 {
                   ...coordinate,
@@ -118,7 +120,7 @@ const Home: FC<Props> = ({ ...props }) => {
     };
 
     fetch();
-  }, [_map.current]);
+  });
 
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
@@ -221,6 +223,8 @@ const Home: FC<Props> = ({ ...props }) => {
         <>
           <MapView
             ref={mapState.isSet ? _map : null}
+            // Androidに対応させるために必要
+            // 参考: https://stackoverflow.com/a/55684763
             onMapReady={() => setMapState({ isSet: true })}
             style={{ ...StyleSheet.absoluteFillObject }}
             provider={PROVIDER_GOOGLE}
@@ -238,6 +242,7 @@ const Home: FC<Props> = ({ ...props }) => {
               });
             }}
             preserveClusterPressBehavior={true}
+            customMapStyle={mapStyle}
           >
             {/* 全員 */}
             {photoDisplayFlag &&
@@ -400,6 +405,8 @@ const styles = StyleSheet.create({
   card: {
     elevation: 2,
     backgroundColor: baseColor.darkNavy,
+    borderColor: "rgba(170, 170, 170, 0.6)",
+    borderWidth: 0.5,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     borderBottomLeftRadius: 5,
