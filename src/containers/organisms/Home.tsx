@@ -37,11 +37,17 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
   );
 
   useEffect(() => {
-    const fetch = async () => {
+    const setPhotos = async () => {
       try {
         photoFireStore.getAllPhotoList().then((res) => {
           dispatch(setAllPhotoListData(res));
         });
+      } catch (error) {
+        // to do something
+      }
+    };
+    const setLocation = async () => {
+      try {
         await Permissions.askAsync(Permissions.LOCATION);
         const location = await Location.getCurrentPositionAsync({});
         setRegion({
@@ -65,7 +71,8 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
         });
       }
     };
-    fetch();
+    setPhotos();
+    setLocation();
   }, []);
 
   return (
