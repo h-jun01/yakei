@@ -19,6 +19,7 @@ import { accountFireStore } from "../../firebase/accountFireStore";
 import { baseColor } from "../../styles/thema/colors";
 import * as Location from "expo-location";
 import MapView from "react-native-map-clustering";
+import MapViewType from "react-native-maps";
 import UserSwitchButtonView from "./UserSwitchButton";
 import LocationButtonView from "./PresentLocationButton";
 import OriginMarker from "../atoms/OriginMarker";
@@ -52,7 +53,6 @@ let mapIndex = 0;
 let regionTimeout;
 let nowLatitudeDelta;
 let nowLongitudeDelta;
-let _map;
 
 const Home: FC<Props> = ({ ...props }) => {
   const { navigation, allPhotoList, myPhotoList, bottomHeight, region } = props;
@@ -61,15 +61,14 @@ const Home: FC<Props> = ({ ...props }) => {
   const [photoPinFlag, setPhotoPinFlag] = useState(false);
   const [postUserName, setPostUserName] = useState<string>("");
   const [photoSnapList, setPhotoSnapList] = useState<any>([]);
+  const [mapState, setMapState] = useState({ isSet: false });
   const mapAnimation = useRef(new Animated.Value(0)).current;
-
-  // _map.current.animateToRegion(region);
-  _map = React.useRef(null);
+  const _map = React.useRef<MapViewType>(null);
 
   useEffect(() => {
-    console.log("aaa");
+    if (_map.current === null) return;
     _map.current.animateToRegion(region);
-  }, []);
+  }, [_map.current]);
 
   // photoSnap参考資料　https://www.youtube.com/watch?v=2vILzRmEqGI
   useEffect(() => {
@@ -95,6 +94,7 @@ const Home: FC<Props> = ({ ...props }) => {
                 latitude,
                 longitude,
               };
+              if (_map.current === null) return;
               _map.current.animateToRegion(
                 {
                   ...coordinate,
@@ -108,8 +108,9 @@ const Home: FC<Props> = ({ ...props }) => {
         }
       });
     };
+
     fetch();
-  });
+  }, [_map.current]);
 
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
@@ -156,6 +157,7 @@ const Home: FC<Props> = ({ ...props }) => {
 
   // ピンが押された時
   const onPressPin = async (data) => {
+    if (_map.current === null) return;
     setPhotoPinFlag(false);
     const latitude = data.latitude;
     const longitude = data.longitude;
@@ -202,7 +204,8 @@ const Home: FC<Props> = ({ ...props }) => {
   return (
     <Container>
       <MapView
-        ref={_map}
+        ref={mapState.isSet ? _map : null}
+        onMapReady={() => setMapState({ isSet: true })}
         style={{ ...StyleSheet.absoluteFillObject }}
         provider={PROVIDER_GOOGLE}
         showsUserLocation
@@ -361,6 +364,7 @@ const Home: FC<Props> = ({ ...props }) => {
       />
       <LocationButtonView
         onPressIcon={() => {
+          if (_map.current === null) return;
           _map.current.animateToRegion(region);
         }}
         photoSnapFlag={photoSnapFlag}
