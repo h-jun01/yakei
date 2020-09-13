@@ -405,6 +405,8 @@ const styles = StyleSheet.create({
   card: {
     elevation: 2,
     backgroundColor: baseColor.darkNavy,
+    borderColor: "rgba(170, 170, 170, 0.6)",
+    borderWidth: 0.5,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     borderBottomLeftRadius: 5,
