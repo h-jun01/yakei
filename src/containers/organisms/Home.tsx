@@ -6,33 +6,16 @@ import { photoFireStore } from "../../firebase/photoFireStore";
 import { useSelector, useDispatch } from "react-redux";
 import { setAllPhotoListData } from "../../actions/allPhoto";
 import { RootState } from "../../reducers/index";
-
-// const getLocationAsync = async () => {
-//   const { status } = await Permissions.askAsync(Permissions.LOCATION);
-//   const location = await Location.getCurrentPositionAsync({});
-
-//   const region: Region = {
-//     latitude: location.coords.latitude,
-//     longitude: location.coords.longitude,
-//     latitudeDelta: 8.5,
-//     longitudeDelta: 8.5,
-//   };
-//   return region;
-// };
-
-type Region = {
-  latitude: number;
-  longitude: number;
-  latitudeDelta: number;
-  longitudeDelta: number;
-};
+import { Region } from "../../entities/map";
 
 type Props = {
   navigation: any;
 };
+let _map;
 
 const ContainerHome: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
+
   const dispatch = useDispatch();
   const selectAllPhotoDataList = (state: RootState) =>
     state.allPhotoReducer.allPhotoDataList;
@@ -44,23 +27,17 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
   const allPhotoList = useSelector(selectAllPhotoDataList);
   const myPhotoDataList = useSelector(selectPhotoDataList);
   const bottomHeight = useSelector(selectBottomHeight);
-
-  const [region, setRegion] = useState({
-    latitude: 35.6340873,
-    longitude: 139.525187,
-    latitudeDelta: 0.1,
-    longitudeDelta: 0.1,
+  const [region, setRegion] = useState<Region>({
+    latitude: 35.6809591,
+    longitude: 139.7673068,
+    latitudeDelta: 20,
+    longitudeDelta: 20,
   });
 
   useEffect(() => {
     const fetch = async () => {
       try {
         await Permissions.askAsync(Permissions.LOCATION);
-        // await photoFireStore.getAllPhotoList().then((documentSnapshot) => {
-        //   documentSnapshot.forEach((value) => {
-        //     dispatch(setAllPhotoListData(value.data()));
-        //   });
-        // });
         await photoFireStore.getAllPhotoList().then((res) => {
           dispatch(setAllPhotoListData(res));
         });
@@ -84,6 +61,7 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
       allPhotoList={allPhotoList}
       myPhotoList={myPhotoDataList}
       bottomHeight={bottomHeight}
+      region={region}
     />
   );
 };

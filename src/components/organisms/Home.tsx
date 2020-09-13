@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Platform,
+  View,
 } from "react-native";
 import { Container } from "native-base";
 import { Timestamp } from "@google-cloud/firestore";
@@ -21,6 +22,8 @@ import MapView from "react-native-map-clustering";
 import UserSwitchButtonView from "./UserSwitchButton";
 import LocationButtonView from "./PresentLocationButton";
 import OriginMarker from "../atoms/OriginMarker";
+import { Region } from "../../entities/map";
+import geohash from "ngeohash";
 
 type PhotoDataList = {
   photo_id: string;
@@ -32,18 +35,12 @@ type PhotoDataList = {
   photogenic_subject: string;
 };
 
-type Region = {
-  latitude: number;
-  longitude: number;
-  latitudeDelta: number;
-  longitudeDelta: number;
-};
-
 type Props = {
   navigation: any;
   allPhotoList: firebase.firestore.DocumentData[];
   myPhotoList: firebase.firestore.DocumentData[];
   bottomHeight: number;
+  region: Region;
 };
 
 const { width, height } = Dimensions.get("window");
@@ -53,34 +50,33 @@ const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 let mapIndex = 0;
 let regionTimeout;
-let _map;
 let nowLatitudeDelta;
 let nowLongitudeDelta;
+let _map;
 
 const Home: FC<Props> = ({ ...props }) => {
-  const { navigation, allPhotoList, myPhotoList, bottomHeight } = props;
+  const { navigation, allPhotoList, myPhotoList, bottomHeight, region } = props;
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
   const [photoSnapFlag, setPhotoSnapFlag] = useState(false);
   const [photoPinFlag, setPhotoPinFlag] = useState(false);
   const [postUserName, setPostUserName] = useState<string>("");
-  const [photoSnapList, setPhotoSnapList] = useState<any>();
+  const [photoSnapList, setPhotoSnapList] = useState<any>([]);
   const mapAnimation = useRef(new Animated.Value(0)).current;
-  const [region, setRegion] = useState({
-    latitude: 35.6340873,
-    longitude: 139.525187,
-    latitudeDelta: 0.1,
-    longitudeDelta: 0.1,
-  });
 
+  // _map.current.animateToRegion(region);
   _map = React.useRef(null);
-  const _scrollView = React.useRef(null);
+
+  useEffect(() => {
+    console.log("aaa");
+    _map.current.animateToRegion(region);
+  }, []);
 
   // photoSnap参考資料　https://www.youtube.com/watch?v=2vILzRmEqGI
   useEffect(() => {
     const fetch = async () => {
       mapAnimation.addListener(({ value }) => {
         let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-        if (photoSnapList) {
+        if (photoSnapList.length !== 0) {
           if (index >= photoSnapList.length) {
             index = photoSnapList.length - 1;
           }
@@ -111,38 +107,51 @@ const Home: FC<Props> = ({ ...props }) => {
           }, 10);
         }
       });
-      const location = await Location.getCurrentPositionAsync({});
-      setRegion({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001,
-      });
     };
     fetch();
-  }, []);
+  });
 
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
     if (photoPinFlag) {
-      nowLatitudeDelta = region.latitudeDelta;
-      nowLongitudeDelta = region.longitudeDelta;
       if (region.longitudeDelta < 0.2) {
-        await photoFireStore
-          .getAreaPhotoList(region.latitude, region.longitude)
-          .then((res) => {
-            if (res.length === 0) {
-              setPhotoSnapFlag(false);
-            } else {
-              setPhotoSnapFlag(true);
-              setPhotoSnapList(res);
-            }
-          });
+        nowLatitudeDelta = 0.005;
+        nowLongitudeDelta = 0.005;
+        await getAreaPhotoList(region.latitude, region.longitude);
+        if (photoSnapList.length !== 0) {
+          setPhotoSnapFlag(true);
+        } else {
+          setPhotoSnapFlag(false);
+        }
       } else {
         setPhotoSnapFlag(false);
       }
     }
     setPhotoPinFlag(true);
+  };
+
+  // 付近の写真を絞り込み
+  const getAreaPhotoList = async (latitude: number, longitude: number) => {
+    // 1マイル分の緯度経度(1マイル＝1.60934km)
+    const lat = 0.0144927536231884;
+    const lon = 0.0181818181818182;
+    const lowerLat = latitude - lat / 3;
+    const lowerLon = longitude - lon / 3;
+    const upperLat = latitude + lat / 3;
+    const upperLon = longitude + lon / 3;
+
+    const lower = geohash.encode(lowerLat, lowerLon);
+    const upper = geohash.encode(upperLat, upperLon);
+
+    setPhotoSnapList(
+      photoDisplayFlag
+        ? allPhotoList.filter(
+            (photo) => photo.geohash > lower && photo.geohash < upper
+          )
+        : myPhotoList.filter(
+            (photo) => photo.geohash > lower && photo.geohash < upper
+          )
+    );
   };
 
   // ピンが押された時
@@ -177,105 +186,97 @@ const Home: FC<Props> = ({ ...props }) => {
     setPhotoSnapFlag(true);
   };
 
+  // ユーザー名の取得
+  const getUserName = (uid: string) => {
+    var name;
+    accountFireStore
+      .getUserName(uid)
+      .then((res: React.SetStateAction<string>) => {
+        setPostUserName(res);
+      })
+      .catch(() => {
+        setPostUserName("名無し");
+      });
+  };
+
   return (
     <Container>
-      {/* 全員 */}
-      {photoDisplayFlag && (
-        <MapView
-          ref={_map}
-          style={{ ...StyleSheet.absoluteFillObject }}
-          provider={PROVIDER_GOOGLE}
-          showsUserLocation
-          initialRegion={region}
-          onRegionChangeComplete={handleRegionChange}
-          onClusterPress={(cluster, markers) => {
-            const photoDataList: PhotoDataList[] = [];
-            markers?.forEach((value) => {
-              photoDataList.push(value["properties"]["markerDate"]);
-            });
-            navigation.navigate("detail", {
-              photoDataList,
-            });
-          }}
-          preserveClusterPressBehavior={true}
-        >
-          {allPhotoList !== undefined &&
-            allPhotoList.map((data) => {
-              return (
-                <OriginMarker
-                  key={data.photo_id}
-                  markerDate={{
-                    photo_id: data.photo_id,
-                    uid: data.uid,
-                    create_time: data.create_time,
-                    url: data.url,
-                    favoriteNumber: data.favoriteNumber,
-                    latitude: data.latitude,
-                    longitude: data.longitude,
-                    photogenic_subject: data.photogenic_subject,
-                  }}
-                  coordinate={{
-                    latitude: data.latitude,
-                    longitude: data.longitude,
-                  }}
-                  image={require("../../../assets/pin02.png")}
-                  onPress={() => {
-                    onPressPin(data);
-                  }}
-                ></OriginMarker>
-              );
-            })}
-        </MapView>
-      )}
-      {/* 利用ユーザー */}
-      {!photoDisplayFlag && (
-        <MapView
-          ref={_map}
-          style={{ ...StyleSheet.absoluteFillObject }}
-          clusterColor="#ff0000"
-          provider={PROVIDER_GOOGLE}
-          showsUserLocation
-          initialRegion={region}
-          onRegionChangeComplete={handleRegionChange}
-          onClusterPress={(cluster, markers) => {
-            const photoDataList: PhotoDataList[] = [];
-            markers?.forEach((value) => {
-              photoDataList.push(value["properties"]["markerDate"]);
-            });
-            navigation.navigate("detail", {
-              photoDataList,
-            });
-          }}
-          preserveClusterPressBehavior={true}
-        >
-          {myPhotoList !== undefined &&
-            myPhotoList.map((data) => {
-              return (
-                <OriginMarker
-                  key={data.photo_id}
-                  coordinate={{
-                    latitude: data.latitude,
-                    longitude: data.longitude,
-                  }}
-                  markerDate={{
-                    photo_id: data.photo_id,
-                    uid: data.uid,
-                    create_time: data.create_time,
-                    url: data.url,
-                    favoriteNumber: data.favoriteNumber,
-                    latitude: data.latitude,
-                    longitude: data.longitude,
-                    photogenic_subject: data.photogenic_subject,
-                  }}
-                  image={require("../../../assets/pin02.png")}
-                  onPress={() => {
-                    onPressPin(data);
-                  }}
-                ></OriginMarker>
-              );
-            })}
-        </MapView>
-      )}
+      <MapView
+        ref={_map}
+        style={{ ...StyleSheet.absoluteFillObject }}
+        provider={PROVIDER_GOOGLE}
+        showsUserLocation
+        initialRegion={region}
+        clusterColor={photoDisplayFlag ? "#00B386" : "#f00"}
+        onRegionChangeComplete={handleRegionChange}
+        onClusterPress={(cluster, markers) => {
+          const photoDataList: PhotoDataList[] = [];
+          markers?.forEach((value) => {
+            photoDataList.push(value["properties"]["markerDate"]);
+          });
+          navigation.navigate("detail", {
+            photoDataList,
+          });
+        }}
+        preserveClusterPressBehavior={true}
+      >
+        {/* 全員 */}
+        {photoDisplayFlag &&
+          allPhotoList.map((data) => {
+            return (
+              <OriginMarker
+                key={data.photo_id}
+                markerDate={{
+                  photo_id: data.photo_id,
+                  uid: data.uid,
+                  create_time: data.create_time,
+                  url: data.url,
+                  favoriteNumber: data.favoriteNumber,
+                  latitude: data.latitude,
+                  longitude: data.longitude,
+                  photogenic_subject: data.photogenic_subject,
+                }}
+                coordinate={{
+                  latitude: data.latitude,
+                  longitude: data.longitude,
+                }}
+                image={require("../../../assets/pin02.png")}
+                onPress={() => {
+                  onPressPin(data);
+                }}
+              ></OriginMarker>
+            );
+          })}
+
+        {/* 利用ユーザー */}
+        {!photoDisplayFlag &&
+          myPhotoList.map((data) => {
+            return (
+              <OriginMarker
+                key={data.photo_id}
+                coordinate={{
+                  latitude: data.latitude,
+                  longitude: data.longitude,
+                }}
+                markerDate={{
+                  photo_id: data.photo_id,
+                  uid: data.uid,
+                  create_time: data.create_time,
+                  url: data.url,
+                  favoriteNumber: data.favoriteNumber,
+                  latitude: data.latitude,
+                  longitude: data.longitude,
+                  photogenic_subject: data.photogenic_subject,
+                }}
+                image={require("../../../assets/pin02.png")}
+                onPress={() => {
+                  onPressPin(data);
+                }}
+              ></OriginMarker>
+            );
+          })}
+      </MapView>
+
       {photoSnapFlag && (
         <Animated.ScrollView
           horizontal
@@ -312,14 +313,7 @@ const Home: FC<Props> = ({ ...props }) => {
         >
           {photoSnapList &&
             photoSnapList.map((data) => {
-              accountFireStore
-                .getUserName(data.uid)
-                .then((res: React.SetStateAction<string>) => {
-                  res && setPostUserName(res);
-                })
-                .catch(() => {
-                  setPostUserName("Anonymous");
-                });
+              getUserName(data.uid);
               return (
                 <TouchableOpacity
                   activeOpacity={0.85}
@@ -360,6 +354,7 @@ const Home: FC<Props> = ({ ...props }) => {
       <UserSwitchButtonView
         onPressIcon={() => {
           setPhotoDisplayFlag(!photoDisplayFlag);
+          setPhotoSnapFlag(false);
         }}
         photoDisplayFlag={photoDisplayFlag}
         photoSnapFlag={photoSnapFlag}

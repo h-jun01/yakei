@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, Fragment, RefObject } from "react";
 import {
   View,
   Text,
@@ -6,57 +6,89 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from "react-native";
-import { Image } from "react-native-elements";
-import { baseColor } from "../../styles/thema/colors";
-import { Size } from "../../styles/thema/fonts";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { baseColor, utilityColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
+import { Image } from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import RBSheet from "react-native-raw-bottom-sheet";
+import Report from "../organisms/Report";
+import ReportScreen from "../../screens/ReportScreen";
 
 type Props = {
+  photo_id: string;
   postUserName: string;
   postUserImage: string;
   photogenic_subject: string;
+  refRBSheet: RefObject<RBSheet>;
   transitionToAnotherUser: () => void;
+  _onOpenActionSheet: () => void;
 };
 
 const InformationUserPosted: FC<Props> = ({ ...props }) => {
   const {
+    photo_id,
     postUserName,
     postUserImage,
     photogenic_subject,
+    refRBSheet,
     transitionToAnotherUser,
+    _onOpenActionSheet,
   } = props;
 
   return (
-    <View style={styles.userData}>
-      <TouchableOpacity
-        activeOpacity={1}
-        onPress={() => transitionToAnotherUser()}
-      >
-        <Image
-          style={styles.userIcon}
-          source={{
-            uri: postUserImage,
-          }}
-          PlaceholderContent={<ActivityIndicator />}
-        />
-      </TouchableOpacity>
-      <View style={styles.userName}>
+    <Fragment>
+      <View style={styles.userData}>
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => transitionToAnotherUser()}
         >
-          <Text style={styles.userName}>{postUserName}</Text>
+          <Image
+            style={styles.userIcon}
+            source={{
+              uri: postUserImage,
+            }}
+            PlaceholderContent={<ActivityIndicator />}
+          />
         </TouchableOpacity>
-        <Text style={styles.photogenicSubjec}>{photogenic_subject}</Text>
+        <View style={styles.userName}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => transitionToAnotherUser()}
+          >
+            <Text style={styles.userName}>{postUserName}</Text>
+          </TouchableOpacity>
+          <Text style={styles.photogenicSubjec}>{photogenic_subject}</Text>
+        </View>
+        <Text style={styles.dotsVertical} onPress={() => _onOpenActionSheet()}>
+          <MaterialCommunityIcons name="dots-vertical" size={20} />
+        </Text>
       </View>
-      <Text style={styles.dotsVertical}>
-        <MaterialCommunityIcons name="dots-vertical" size={20} />
-      </Text>
-    </View>
+      <RBSheet
+        ref={refRBSheet}
+        height={600}
+        openDuration={200}
+        closeDuration={200}
+        closeOnDragDown={true}
+        closeOnPressMask={true}
+        customStyles={{
+          wrapper: {
+            backgroundColor: utilityColor.overlay,
+          },
+          container: {
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+          },
+        }}
+      >
+        <Report>
+          <ReportScreen photo_id={photo_id} />
+        </Report>
+      </RBSheet>
+    </Fragment>
   );
 };
 
