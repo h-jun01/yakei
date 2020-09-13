@@ -104,6 +104,7 @@ const Home: FC<Props> = ({ ...props }) => {
                 longitude,
               };
               if (_map.current === null) return;
+
               _map.current.animateToRegion(
                 {
                   ...coordinate,
@@ -119,7 +120,7 @@ const Home: FC<Props> = ({ ...props }) => {
     };
 
     fetch();
-  }, [_map.current]);
+  });
 
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
@@ -222,6 +223,8 @@ const Home: FC<Props> = ({ ...props }) => {
         <>
           <MapView
             ref={mapState.isSet ? _map : null}
+            // Androidに対応させるために必要
+            // 参考: https://stackoverflow.com/a/55684763
             onMapReady={() => setMapState({ isSet: true })}
             style={{ ...StyleSheet.absoluteFillObject }}
             provider={PROVIDER_GOOGLE}
