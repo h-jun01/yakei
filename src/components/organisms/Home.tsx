@@ -108,13 +108,8 @@ const Home: FC<Props> = ({ ...props }) => {
         }
       });
     };
-<<<<<<< HEAD
-    // fetch();
-  }, []);
-=======
     fetch();
   });
->>>>>>> minor_fix
 
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
