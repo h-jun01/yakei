@@ -12,7 +12,7 @@ import {
 import Spinner from "react-native-loading-spinner-overlay";
 import { Container } from "native-base";
 import { Timestamp } from "@google-cloud/firestore";
-import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import MapViewType, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { useEffect } from "react";
 import { useTheme } from "@react-navigation/native";
 import { photoFireStore } from "../../firebase/photoFireStore";
@@ -20,7 +20,6 @@ import { accountFireStore } from "../../firebase/accountFireStore";
 import { baseColor } from "../../styles/thema/colors";
 import * as Location from "expo-location";
 import MapView from "react-native-map-clustering";
-import MapViewType from "react-native-maps";
 import UserSwitchButtonView from "./UserSwitchButton";
 import LocationButtonView from "./PresentLocationButton";
 import OriginMarker from "../atoms/OriginMarker";
