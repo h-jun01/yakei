@@ -5,6 +5,7 @@ import { Container } from "native-base";
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
 import { baseColor } from "../../styles/thema/colors";
+import { mapStyle } from "../../styles/map";
 
 type Region = {
   latitude: number;
@@ -62,6 +63,7 @@ const PostMap: FC<Props> = ({ ...props }) => {
             onRegionChangeComplete={(e) =>
               onRegionChangeComplete(e.latitudeDelta, e.longitudeDelta)
             }
+            customMapStyle={mapStyle}
           >
             <AnimatedMarker
               tracksViewChanges
