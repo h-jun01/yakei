@@ -40,10 +40,10 @@ type PhotoDataList = {
 type Props = {
   navigation: any;
   allPhotoList: firebase.firestore.DocumentData[];
-  myPhotoList: firebase.firestore.DocumentData[];
   bottomHeight: number;
   region: Region;
   initialRegion: Region | "loading";
+  myUid: string;
 };
 
 const { width, height } = Dimensions.get("window");
@@ -60,11 +60,12 @@ const Home: FC<Props> = ({ ...props }) => {
   const {
     navigation,
     allPhotoList,
-    myPhotoList,
     bottomHeight,
     region,
     initialRegion,
+    myUid,
   } = props;
+  const [myPhotoList, setMyPhotoList] = useState<any>();
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
   const [photoSnapFlag, setPhotoSnapFlag] = useState(false);
   const [photoPinFlag, setPhotoPinFlag] = useState(false);
@@ -77,6 +78,10 @@ const Home: FC<Props> = ({ ...props }) => {
     if (_map.current === null) return;
     _map.current.animateToRegion(region);
   }, [_map.current]);
+
+  useEffect(() => {
+    setMyPhotoList(allPhotoList.filter((photo) => photo.uid === myUid));
+  }, [allPhotoList]);
 
   // photoSnapListが更新される度に実行
   useEffect(() => {

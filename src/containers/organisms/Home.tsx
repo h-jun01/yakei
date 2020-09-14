@@ -18,14 +18,13 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
   const dispatch = useDispatch();
   const selectAllPhotoDataList = (state: RootState) =>
     state.allPhotoReducer.allPhotoDataList;
-  const selectPhotoDataList = (state: RootState) =>
-    state.myPhotoReducer.photoDataList;
   const selectBottomHeight = (state: RootState) =>
     state.bottomNavReducer.height;
+  const selectMyuid = (state: RootState) => state.userReducer.uid;
 
   const allPhotoList = useSelector(selectAllPhotoDataList);
-  const myPhotoDataList = useSelector(selectPhotoDataList);
   const bottomHeight = useSelector(selectBottomHeight);
+  const myUid = useSelector(selectMyuid);
   const [region, setRegion] = useState<Region>({
     latitude: 35.6809591,
     longitude: 139.7673068,
@@ -79,10 +78,10 @@ const ContainerHome: FC<Props> = ({ ...props }) => {
     <Home
       navigation={navigation}
       allPhotoList={allPhotoList}
-      myPhotoList={myPhotoDataList}
       bottomHeight={bottomHeight}
       region={region}
       initialRegion={initialRegion}
+      myUid={myUid}
     />
   );
 };
