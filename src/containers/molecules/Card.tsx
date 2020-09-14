@@ -21,9 +21,11 @@ type Props = {
 const CardContainer: FC<Props> = ({ ...props }) => {
   const { navigation, data } = props;
   const [postUserName, setPostUserName] = useState<string>("");
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   // ユーザー名の取得
   const getUserName = (uid: string) => {
+    if (!isMounted) return;
     accountFireStore
       .getUserName(uid)
       .then((res: React.SetStateAction<string>) => {
@@ -35,8 +37,10 @@ const CardContainer: FC<Props> = ({ ...props }) => {
   };
 
   useEffect(() => {
+    setIsMounted(true);
     getUserName(data.uid);
-  }, [data]);
+    return () => setIsMounted(false);
+  }, [data, isMounted]);
 
   return (
     <Card navigation={navigation} data={data} postUserName={postUserName} />
