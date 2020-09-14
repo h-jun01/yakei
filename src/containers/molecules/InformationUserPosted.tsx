@@ -60,6 +60,28 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       });
   };
 
+  const deletingPosts = async () => {
+    const url =
+      "https://asia-northeast1-hal-yakei.cloudfunctions.net/deleteAtPath";
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        collection: "photos",
+        doc: photo_id,
+        subCollection: "comment",
+      }),
+    })
+      .then(() => {
+        console.log("success");
+      })
+      .catch(() => {
+        console.log("reject");
+      });
+  };
+
   const _handleOnPress = (): void => {
     uid === myUid ? callingDeleteAlert() : refRBSheet.current!.open();
   };
