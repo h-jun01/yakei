@@ -88,29 +88,11 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
     await photoFireStore
       .deletingPostedPhoto(photo_id)
       .then(async () => {
-        const url =
-          "https://asia-northeast1-hal-yakei.cloudfunctions.net/deleteAtPath";
-        await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            collection: "photos",
-            doc: photo_id,
-            subCollection: "comment",
-          }),
-        })
-          .then(() => {
-            dispatchPhotoData();
-            navigation.goBack();
-          })
-          .catch((e) => {
-            alert(e);
-          });
+        dispatchPhotoData();
+        navigation.goBack();
       })
       .catch((e) => {
-        alert(e);
+        console.log(e + "aa");
       });
   };
 
@@ -138,12 +120,6 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       }
     );
   };
-  const test = () => {
-    const a = allPhotoDataList.findIndex(
-      (value) => value.photo_id === photo_id
-    );
-    console.log(a);
-  };
 
   return (
     <InformationUserPosted
@@ -154,7 +130,6 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       refRBSheet={refRBSheet}
       transitionToAnotherUser={transitionToAnotherUser}
       _onOpenActionSheet={_onOpenActionSheet}
-      test={test}
     />
   );
 };

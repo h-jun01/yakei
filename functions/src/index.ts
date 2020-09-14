@@ -82,61 +82,73 @@ exports.signUp = functions
     });
   });
 
-const deleteCollection = (db, collectionRef, batchSize) => {
-  const query = collectionRef.orderBy("__name__").limit(batchSize);
-  return new Promise((resolve, reject) => {
-    deleteQueryBatch(db, query, batchSize, resolve, reject);
-  });
-};
+// const deleteCollection = (
+//   db: FirebaseFirestore.Firestore,
+//   collectionRef: FirebaseFirestore.CollectionReference<
+//     FirebaseFirestore.DocumentData
+//   >,
+//   batchSize: number
+// ) => {
+//   const query = collectionRef.limit(batchSize);
+//   return new Promise((resolve, reject) => {
+//     deleteQueryBatch(db, query, batchSize, resolve, reject);
+//   });
+// };
 
-const deleteQueryBatch = (db, query, batchSize, resolve, reject) => {
-  query
-    .get()
-    .then((snapshot) => {
-      //検索結果が0件なら処理終わり
-      if (snapshot.size == 0) {
-        return 0;
-      }
+// const deleteQueryBatch = (
+//   db: { batch: () => any },
+//   query: { get: () => Promise<any> },
+//   batchSize: any,
+//   resolve: { (value?: unknown): void; (): void },
+//   reject: (reason?: any) => void
+// ) => {
+//   query
+//     .get()
+//     .then((snapshot: { size: number; docs: any[] }) => {
+//       //検索結果が0件なら処理終わり
+//       if (snapshot.size == 0) {
+//         return 0;
+//       }
 
-      //削除のメイン処理
-      const batch = db.batch();
-      snapshot.docs.forEach((doc) => {
-        batch.delete(doc.ref);
-      });
+//       //削除のメイン処理
+//       const batch = db.batch();
+//       snapshot.docs.forEach((doc: { ref: any }) => {
+//         batch.delete(doc.ref);
+//       });
 
-      //一旦処理サイズをreturn
-      return batch.commit().then(() => {
-        return snapshot.size;
-      });
-    })
-    .then((numDeleted) => {
-      //もう対象のデータが0なら処理終わり
-      if (numDeleted == 0) {
-        resolve();
-        return;
-      }
+//       //一旦処理サイズをreturn
+//       return batch.commit().then(() => {
+//         return snapshot.size;
+//       });
+//     })
+//     .then((numDeleted: number) => {
+//       //もう対象のデータが0なら処理終わり
+//       if (numDeleted == 0) {
+//         resolve();
+//         return;
+//       }
 
-      //あだあるなら、再度処理
-      process.nextTick(() => {
-        deleteQueryBatch(db, query, batchSize, resolve, reject);
-      });
-    })
-    .catch(reject);
-};
+//       //あだあるなら、再度処理
+//       process.nextTick(() => {
+//         deleteQueryBatch(db, query, batchSize, resolve, reject);
+//       });
+//     })
+//     .catch(reject);
+// };
 
-exports.deleteAtPath = functions
-  .region("asia-northeast1")
-  .https.onRequest((request, response) => {
-    cors(request, response, () => {
-      try {
-        const colRef = admin
-          .firestore()
-          .collection(request.body.collection)
-          .doc(request.body.doc)
-          .collection(request.body.subCollection);
-        deleteCollection(admin.firestore(), colRef, 500);
-      } catch (error) {
-        send(response, 500, { error: error.message });
-      }
-    });
-  });
+// exports.deleteAtPath = functions
+//   .region("asia-northeast1")
+//   .https.onRequest((request, response) => {
+//     cors(request, response, () => {
+//       try {
+//         const colRef = admin
+//           .firestore()
+//           .collection(request.body.collection)
+//           .doc(request.body.doc)
+//           .collection(request.body.subCollection);
+//         deleteCollection(admin.firestore(), colRef, 500);
+//       } catch (error) {
+//         send(response, 500, { error: error.message });
+//       }
+//     });
+//   });

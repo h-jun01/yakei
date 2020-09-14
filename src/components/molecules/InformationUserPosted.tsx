@@ -26,7 +26,6 @@ type Props = {
   refRBSheet: RefObject<RBSheet>;
   transitionToAnotherUser: () => void;
   _onOpenActionSheet: () => void;
-  test;
 };
 
 const InformationUserPosted: FC<Props> = ({ ...props }) => {
@@ -38,12 +37,10 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
     refRBSheet,
     transitionToAnotherUser,
     _onOpenActionSheet,
-    test,
   } = props;
 
   return (
     <Fragment>
-      <Text onPress={() => test()}>ああああ</Text>
       <View style={styles.userData}>
         <TouchableOpacity
           activeOpacity={1}
