@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, Dispatch, SetStateAction } from "react";
 import { Text, TextInput, StyleSheet } from "react-native";
 import { UseInputResult } from "../../utilities/hooks/input";
 import { deviceWidth } from "../../utilities/dimensions";
@@ -11,14 +11,22 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 type Props = {
   textInputRef: React.MutableRefObject<TextInput | null>;
-  inputValue: UseInputResult;
+  inputValue: string;
+  setInputValue: Dispatch<SetStateAction<string>>;
   isInputForm: boolean;
   addComment: () => void;
   onBlur: () => void;
 };
 
 const KeyboardInputView: FC<Props> = ({ ...props }) => {
-  const { textInputRef, inputValue, isInputForm, addComment, onBlur } = props;
+  const {
+    textInputRef,
+    inputValue,
+    setInputValue,
+    isInputForm,
+    addComment,
+    onBlur,
+  } = props;
 
   return (
     <KeyboardStickyView
@@ -30,8 +38,9 @@ const KeyboardInputView: FC<Props> = ({ ...props }) => {
         blurOnSubmit={false}
         placeholder="コメントを入力..."
         style={isInputForm ? styles.input : styles.keyboardViewFalse}
+        value={inputValue}
+        onChangeText={(value) => setInputValue(value)}
         onBlur={() => onBlur()}
-        {...inputValue}
       />
       <Text style={styles.sendIcon} onPress={() => addComment()}>
         <FontAwesome name="send" size={20} />
