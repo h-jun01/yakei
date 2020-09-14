@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
@@ -22,6 +23,8 @@ const AuthButton: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   buttonBack: {
     backgroundColor: baseColor.accent,
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: baseColor.text,
-    fontSize: Size.Large,
+    fontSize: platformIOS.isPad ? Size.Small : Size.Large,
     fontWeight: "700",
     textAlign: "center",
   },

@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { SafeAreaView, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
@@ -28,6 +29,8 @@ const AuthSwitching: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   switchingWrap: {
     height: hp("7%"),
@@ -47,7 +50,7 @@ const styles = StyleSheet.create({
   },
   switchingText: {
     color: baseColor.text,
-    fontSize: Size.Small,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Small,
     padding: wp("3.5%"),
   },
 });

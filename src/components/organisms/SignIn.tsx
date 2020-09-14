@@ -1,4 +1,5 @@
 import React, { FC, Fragment } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, ImageBackground, StyleSheet } from "react-native";
 import { UseInputResult } from "../../utilities/hooks/input";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
@@ -91,6 +92,8 @@ const SignIn: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -106,15 +109,14 @@ const styles = StyleSheet.create({
   },
   allWrap: {
     width: deviceWidth,
-    // position: "relative",
     position: "absolute",
-    top: hp("20%"),
+    top: platformIOS.isPad ? hp("14%") : hp("16%"),
   },
   authWrap: {
-    width: wp("90%"),
+    width: platformIOS.isPad ? wp("70%") : wp("90%"),
     marginLeft: "auto",
     marginRight: "auto",
-    padding: hp("3%"),
+    padding: platformIOS.isPad ? hp("3.5%") : hp("3%"),
     backgroundColor: utilityColor.inputBack,
     borderRadius: 10,
   },

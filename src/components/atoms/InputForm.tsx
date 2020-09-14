@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { utilityColor } from "../../styles/thema/colors";
 import { baseColor } from "../../styles/thema/colors";
@@ -50,10 +51,12 @@ const InputForm: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   authInputItemName: {
     color: baseColor.text,
-    fontSize: Size.Small,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Small,
     fontWeight: "400",
   },
   authInput: {
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderBottomWidth: 1,
     borderBottomColor: utilityColor.border,
-    fontSize: Size.Normal,
+    fontSize: platformIOS.isPad ? Size.Small : Size.Normal,
     color: baseColor.text,
   },
 });

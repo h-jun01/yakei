@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
@@ -21,13 +22,15 @@ const ForgotPassword: FC<Props> = ({ navigation }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   ForgotPasswordText: {
     marginTop: hp(".5%"),
   },
   ForgotPasswordTextColor: {
     color: baseColor.text,
-    fontSize: Size.Small,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Small,
     textAlign: "center",
     lineHeight: Size.lineHeight,
   },
