@@ -55,6 +55,7 @@ export const photoFireStore: PhotoFireStore = {
       favoriteNumber: favoriteNumber += 1,
     });
   },
+  // お気に入り数を減少
   DecrementFavoriteNumber: async (photo_id: string, favoriteNumber: number) => {
     photo.doc(photo_id).update({
       favoriteNumber: favoriteNumber -= 1,
