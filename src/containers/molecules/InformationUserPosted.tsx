@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { ActionSheet } from "native-base";
 import { RootState } from "../../reducers/index";
 import { accountFireStore } from "../../firebase/accountFireStore";
+import { photoFireStore } from "../../firebase/photoFireStore";
 import { callingDeleteAlert } from "../../utilities/alert";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -61,29 +62,33 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   };
 
   const deletingPosts = async () => {
-    const url =
-      "https://asia-northeast1-hal-yakei.cloudfunctions.net/deleteAtPath";
-    await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        collection: "photos",
-        doc: photo_id,
-        subCollection: "comment",
-      }),
-    })
-      .then(() => {
-        console.log("success");
+    await photoFireStore.deletingPostedPhoto(photo_id).then(async () => {
+      const url =
+        "https://asia-northeast1-hal-yakei.cloudfunctions.net/deleteAtPath";
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          collection: "photos",
+          doc: photo_id,
+          subCollection: "comment",
+        }),
       })
-      .catch(() => {
-        console.log("reject");
-      });
+        .then(() => {
+          console.log("success");
+        })
+        .catch(() => {
+          console.log("reject");
+        });
+    });
   };
 
   const _handleOnPress = (): void => {
-    uid === myUid ? callingDeleteAlert() : refRBSheet.current!.open();
+    uid === myUid
+      ? callingDeleteAlert(deletingPosts)
+      : refRBSheet.current!.open();
   };
 
   const _onOpenActionSheet = (): void => {
