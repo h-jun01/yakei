@@ -1,7 +1,7 @@
 import { Reference, storageRef } from "./firebase";
 
 type PostFirebaseStorage = {
-  getUploadRef: (uid: string) => Reference;
+  getUploadRef: (uid: string) => { uploadRef: Reference; filename: string };
   uploadPostImage: (ref: Reference, uri: string) => Promise<string>;
   getImageUrl: (ref: Reference) => Promise<string>;
 };
@@ -11,7 +11,7 @@ export const postFirebaseStorage: PostFirebaseStorage = {
   getUploadRef: (uid: string) => {
     const filename = Date.now().toString();
     const uploadRef = storageRef.child(`photo/${uid}/${filename}`);
-    return uploadRef;
+    return { uploadRef, filename };
   },
   // 画像をstorageに保存
   uploadPostImage: async (ref: Reference, uri: string) => {
@@ -21,7 +21,7 @@ export const postFirebaseStorage: PostFirebaseStorage = {
     return new Promise((resolve) => {
       ref
         .put(blob, metadata)
-        .then((snapshot) => {
+        .then(() => {
           resolve("success");
         })
         .catch((error) => {

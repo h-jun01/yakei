@@ -16,7 +16,6 @@ import MapViewType, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { useEffect } from "react";
 import { useTheme } from "@react-navigation/native";
 import { photoFireStore } from "../../firebase/photoFireStore";
-import { accountFireStore } from "../../firebase/accountFireStore";
 import { baseColor } from "../../styles/thema/colors";
 import * as Location from "expo-location";
 import MapView from "react-native-map-clustering";
@@ -26,6 +25,7 @@ import OriginMarker from "../atoms/OriginMarker";
 import { Region } from "../../entities/map";
 import geohash from "ngeohash";
 import { mapStyle } from "../../styles/map";
+import Card from "../../containers/molecules/Card";
 
 type PhotoDataList = {
   photo_id: string;
@@ -68,7 +68,6 @@ const Home: FC<Props> = ({ ...props }) => {
   const [photoDisplayFlag, setPhotoDisplayFlag] = useState(true);
   const [photoSnapFlag, setPhotoSnapFlag] = useState(false);
   const [photoPinFlag, setPhotoPinFlag] = useState(false);
-  const [postUserName, setPostUserName] = useState<string>("");
   const [photoSnapList, setPhotoSnapList] = useState<any>([]);
   const [mapState, setMapState] = useState({ isSet: false });
   const mapAnimation = useRef(new Animated.Value(0)).current;
@@ -79,8 +78,9 @@ const Home: FC<Props> = ({ ...props }) => {
     _map.current.animateToRegion(region);
   }, [_map.current]);
 
-  // photoSnap参考資料　https://www.youtube.com/watch?v=2vILzRmEqGI
+  // photoSnapListが更新される度に実行
   useEffect(() => {
+    // photoSnap参考資料　https://www.youtube.com/watch?v=2vILzRmEqGI
     const fetch = async () => {
       mapAnimation.addListener(({ value }) => {
         let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
@@ -120,7 +120,7 @@ const Home: FC<Props> = ({ ...props }) => {
     };
 
     fetch();
-  });
+  }, [photoSnapList]);
 
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
@@ -146,10 +146,10 @@ const Home: FC<Props> = ({ ...props }) => {
     // 1マイル分の緯度経度(1マイル＝1.60934km)
     const lat = 0.0144927536231884;
     const lon = 0.0181818181818182;
-    const lowerLat = latitude - lat / 3;
-    const lowerLon = longitude - lon / 3;
-    const upperLat = latitude + lat / 3;
-    const upperLon = longitude + lon / 3;
+    const lowerLat = latitude - lat;
+    const lowerLon = longitude - lon;
+    const upperLat = latitude + lat;
+    const upperLon = longitude + lon;
 
     const lower = geohash.encode(lowerLat, lowerLon);
     const upper = geohash.encode(upperLat, upperLon);
@@ -197,18 +197,6 @@ const Home: FC<Props> = ({ ...props }) => {
     setPhotoSnapList([data]);
     setPhotoSnapFlag(true);
   };
-
-  // ユーザー名の取得
-  // const getUserName = (uid: string) => {
-  //   accountFireStore
-  //     .getUserName(uid)
-  //     .then((res: React.SetStateAction<string>) => {
-  //       setPostUserName(res);
-  //     })
-  //     .catch(() => {
-  //       setPostUserName("名無し");
-  //     });
-  // };
 
   return (
     <Container>
@@ -336,40 +324,9 @@ const Home: FC<Props> = ({ ...props }) => {
               )}
             >
               {photoSnapList &&
-                photoSnapList.map((data) => {
+                photoSnapList.map((data, index) => {
                   return (
-                    <TouchableOpacity
-                      activeOpacity={0.85}
-                      onPress={() => {
-                        const photoDataList: PhotoDataList[] = [];
-                        photoDataList.push(data);
-                        navigation.navigate("post", {
-                          imageData: {
-                            photo_id: data.photo_id,
-                            uid: data.uid,
-                            create_time: data.create_time,
-                            url: data.url,
-                            latitude: data.latitude,
-                            longitude: data.longitude,
-                            photogenic_subject: data.photogenic_subject,
-                          },
-                        });
-                      }}
-                      key={data.photo_id}
-                      style={styles.card}
-                    >
-                      <Image
-                        source={{
-                          uri: data.url,
-                        }}
-                        style={styles.cardImage}
-                        resizeMode="cover"
-                      />
-                      <Text style={styles.cardText}>
-                        {data.photogenic_subject}
-                        {/* <Text style={styles.cardTextSub}>さんの投稿</Text> */}
-                      </Text>
-                    </TouchableOpacity>
+                    <Card key={index} navigation={navigation} data={data} />
                   );
                 })}
             </Animated.ScrollView>
@@ -401,38 +358,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     paddingVertical: 10,
-  },
-  card: {
-    elevation: 2,
-    backgroundColor: baseColor.darkNavy,
-    borderColor: "rgba(170, 170, 170, 0.6)",
-    borderWidth: 0.5,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
-    marginHorizontal: 10,
-    shadowColor: "#000",
-    shadowRadius: 5,
-    shadowOpacity: 0.3,
-    height: CARD_HEIGHT - 50,
-    width: CARD_WIDTH,
-    overflow: "hidden",
-  },
-  cardImage: {
-    flex: 3,
-    width: "100%",
-    height: "80%",
-    alignSelf: "center",
-  },
-  cardText: {
-    fontSize: 17,
-    color: baseColor.text,
-    fontWeight: "bold",
-    padding: 15,
-  },
-  cardTextSub: {
-    fontWeight: "normal",
   },
 });
 export default Home;
