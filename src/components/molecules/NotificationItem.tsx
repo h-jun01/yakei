@@ -1,10 +1,15 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
 import { StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
-import NotificationText from "../atoms/NotificationText";
 import { callingAlert } from "../../utilities/alert";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import NotificationText from "../atoms/NotificationText";
 
 type Props = {
   navigation: any;
@@ -61,19 +66,21 @@ const NotificationItem: FC<Props> = ({ navigation, item, data }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   wrapper: {
     flexDirection: "row",
-    padding: 15,
+    padding: platformIOS.isPad ? wp("2.7%") : wp("3.7%"),
   },
   userImage: {
-    width: 52,
-    height: 52,
+    width: platformIOS.isPad ? wp("10.5%") : wp("12.5%"),
+    height: platformIOS.isPad ? wp("10.5%") : wp("12.5%"),
     borderRadius: 180,
   },
   photoImage: {
-    width: 72,
-    height: 72,
+    width: platformIOS.isPad ? wp("16%") : wp("17.5%"),
+    height: platformIOS.isPad ? wp("16%") : wp("17.5%"),
   },
   border: {
     width: deviceWidth,
