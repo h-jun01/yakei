@@ -8,6 +8,7 @@ type PhotoData = {
   photogenicSubject: string;
   uid: string;
   url: string;
+  filename: string;
 };
 type PostFireStore = {
   addImageData: (data: PhotoData) => Promise<{ state: string; docId?: string }>;
@@ -22,7 +23,7 @@ const photosRef = db.collection("photos");
 export const postFireStore: PostFireStore = {
   // photosコレクションにデータを追加
   addImageData: (data: PhotoData) => {
-    const { latitude, longitude, photogenicSubject, uid, url } = data;
+    const { latitude, longitude, photogenicSubject, uid, url, filename } = data;
     const geohashStr = geohash.encode(latitude, longitude);
     return new Promise((resolve) => {
       photosRef
@@ -35,6 +36,7 @@ export const postFireStore: PostFireStore = {
           photogenic_subject: photogenicSubject,
           uid,
           url,
+          img_index: filename,
         })
         .then(async (docRef) => {
           const addIdResult = await postFireStore.addPhotoId(docRef.id);
