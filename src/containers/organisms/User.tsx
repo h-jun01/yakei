@@ -1,8 +1,8 @@
 import React, { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../reducers/index";
-import User from "../../components/organisms/User";
 import { useState } from "react";
+import User from "../../components/organisms/User";
 
 type Props = {
   navigation: any;

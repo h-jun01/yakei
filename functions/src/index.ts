@@ -82,29 +82,6 @@ exports.signUp = functions
     });
   });
 
-// exports.googleLogin = functions
-//   .region("asia-northeast1")
-//   .auth.user()
-//   .onCreate(async (user) => {
-//     const userRef = admin.firestore().collection("users").doc(user.uid);
-//     return await userRef
-//       .set({
-//         uid: user.uid,
-//         name: user.displayName,
-//         user_img: user.photoURL,
-//         user_header_img: userHeaderImage,
-//         img_index: "",
-//         header_img_index: "",
-//         self_introduction: "",
-//         favorite_list: [],
-//         create_time: admin.firestore.FieldValue.serverTimestamp(),
-//         update_time: admin.firestore.FieldValue.serverTimestamp(),
-//       })
-//       .catch(() => {
-//         throw new Error("Profile doesn't exist");
-//       });
-//   });
-
 const deleteCollection = (db, collectionRef, batchSize) => {
   const query = collectionRef.orderBy("__name__").limit(batchSize);
   return new Promise((resolve, reject) => {
