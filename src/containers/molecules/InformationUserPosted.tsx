@@ -1,9 +1,12 @@
 import React, { FC, useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ActionSheet } from "native-base";
 import { RootState } from "../../reducers/index";
 import { accountFireStore } from "../../firebase/accountFireStore";
+import { photoFireStore } from "../../firebase/photoFireStore";
 import { callingDeleteAlert } from "../../utilities/alert";
+import { setPhotoListData } from "../../actions/photo";
+import { setAllPhotoListData } from "../../actions/allPhoto";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 import RBSheet from "react-native-raw-bottom-sheet";
 
@@ -18,14 +21,22 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   const { uid, photo_id, photogenic_subject, navigation } = props;
 
   const selectMyuid = (state: RootState) => state.userReducer.uid;
+  const selectAllPhotoDataList = (state: RootState) =>
+    state.allPhotoReducer.allPhotoDataList;
+  const selectMyPhotoDataList = (state: RootState) =>
+    state.myPhotoReducer.photoDataList;
 
   const myUid = useSelector(selectMyuid);
-  const refRBSheet = useRef<RBSheet>(null);
+  const allPhotoDataList = useSelector(selectAllPhotoDataList);
+  const myPhotoDataList = useSelector(selectMyPhotoDataList);
 
   const [postUserName, setPostUserName] = useState<string>("");
   const [postUserImage, setPostUserImage] = useState<string>(
     "https://example.com"
   );
+
+  const refRBSheet = useRef<RBSheet>(null);
+  const dispatch = useDispatch();
 
   //投稿したユーザ名の取得
   useEffect(() => {
@@ -60,8 +71,35 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       });
   };
 
+  const dispatchPhotoData = (): void => {
+    const newAllPhotos = allPhotoDataList.slice();
+    const filterAllPhoto = newAllPhotos.filter(
+      (value) => value.photo_id !== photo_id
+    );
+    const newMyPhotos = myPhotoDataList.slice();
+    const filterMyPhoto = newMyPhotos.filter(
+      (value) => value.photo_id !== photo_id
+    );
+    dispatch(setAllPhotoListData(filterAllPhoto));
+    dispatch(setPhotoListData(filterMyPhoto));
+  };
+
+  const deletingPosts = async () => {
+    await photoFireStore
+      .deletingPostedPhoto(photo_id)
+      .then(async () => {
+        dispatchPhotoData();
+        navigation.goBack();
+      })
+      .catch((e) => {
+        console.log(e + "aa");
+      });
+  };
+
   const _handleOnPress = (): void => {
-    uid === myUid ? callingDeleteAlert() : refRBSheet.current!.open();
+    uid === myUid
+      ? callingDeleteAlert(deletingPosts)
+      : refRBSheet.current!.open();
   };
 
   const _onOpenActionSheet = (): void => {

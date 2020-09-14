@@ -48,7 +48,9 @@ export const callingLogoutAlert = (): void => {
   );
 };
 
-export const callingDeleteAlert = (): void => {
+export const callingDeleteAlert = (
+  deletingPosts: () => Promise<void>
+): void => {
   Alert.alert("確認", "写真を削除しますか？", [
     {
       text: "キャンセル",
@@ -56,7 +58,7 @@ export const callingDeleteAlert = (): void => {
     },
     {
       text: "削除",
-      onPress: () => console.log("delete"),
+      onPress: () => deletingPosts(),
       style: "destructive",
     },
   ]);

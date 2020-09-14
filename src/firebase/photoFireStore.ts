@@ -6,14 +6,15 @@ type PhotoFireStore = {
   getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
   getAllPhotoList: () => Promise<firebase.firestore.DocumentData[]>;
   getFavoriteNumber: (photo_id: string) => Promise<number>;
-  IncrementFavoriteNumber: (
+  incrementFavoriteNumber: (
     photo_id: string,
     favoriteNumber: number
   ) => Promise<void>;
-  DecrementFavoriteNumber: (
+  decrementFavoriteNumber: (
     photo_id: string,
     favoriteNumber: number
   ) => Promise<void>;
+  deletingPostedPhoto: (photo_id: string) => Promise<void>;
 };
 
 const photo = db.collection("photos");
@@ -50,14 +51,24 @@ export const photoFireStore: PhotoFireStore = {
       });
   },
   // お気に入り数の増加
-  IncrementFavoriteNumber: async (photo_id: string, favoriteNumber: number) => {
+  incrementFavoriteNumber: async (photo_id: string, favoriteNumber: number) => {
     photo.doc(photo_id).update({
       favoriteNumber: favoriteNumber += 1,
     });
   },
-  DecrementFavoriteNumber: async (photo_id: string, favoriteNumber: number) => {
+  // お気に入り数を減少
+  decrementFavoriteNumber: async (photo_id: string, favoriteNumber: number) => {
     photo.doc(photo_id).update({
       favoriteNumber: favoriteNumber -= 1,
     });
+  },
+  // 投稿した写真を削除
+  deletingPostedPhoto: async (photo_id: string) => {
+    await photo
+      .doc(photo_id)
+      .delete()
+      .catch((e) => {
+        alert(e);
+      });
   },
 };

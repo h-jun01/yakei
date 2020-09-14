@@ -182,11 +182,8 @@ const dispatchPhotoData = (
   photoData: DocumentData
 ) => {
   const newAllPhotos = selectedPhotoData.allPhotoDataList.slice();
-  const newMyPhotos = selectedPhotoData.myPhotoDataList.slice();
   newAllPhotos.push(photoData);
-  newMyPhotos.push(photoData);
   dispatch(setAllPhotoListData(newAllPhotos));
-  dispatch(setPhotoListData(newMyPhotos));
 };
 
 const PostContainer: FC<Props> = ({ ...props }) => {
