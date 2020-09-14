@@ -87,7 +87,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     if (status !== "granted") {
       Alert.alert(
         "",
-        "端末の[設定]＞[YAKEI]で、写真へのアクセスを許可してください。"
+        "端末の[設定]>[YAKEI]で、写真へのアクセスを許可してください。"
       );
       return;
     }
@@ -124,13 +124,14 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     if (status !== "granted") {
       Alert.alert(
         "",
-        "端末の[設定]＞[YAKEI]で、写真へのアクセスを許可してください。"
+        "端末の[設定]>[YAKEI]で、写真へのアクセスを許可してください。"
       );
       return;
     }
     const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      // Androidはここ指定でトリミングできるはず↓
       // aspect: [4, 1],
       quality: 1,
     });
