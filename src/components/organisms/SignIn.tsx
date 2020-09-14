@@ -105,12 +105,11 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
-    // paddingBottom: hp("5%"),
   },
   allWrap: {
     width: deviceWidth,
     position: "absolute",
-    top: platformIOS.isPad ? hp("14%") : hp("16%"),
+    top: platformIOS.isPad ? hp("14%") : hp("18%"),
   },
   authWrap: {
     width: platformIOS.isPad ? wp("70%") : wp("90%"),
