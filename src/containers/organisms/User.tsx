@@ -1,11 +1,6 @@
 import React, { FC, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../reducers/index";
-import { auth } from "../../firebase/firebase";
-import { accountFireStore } from "../../firebase/accountFireStore";
-import { setUserData } from "../../actions/user";
-import { photoFireStore } from "../../firebase/photoFireStore";
-import { setPhotoListData } from "../../actions/photo";
 import User from "../../components/organisms/User";
 import { useState } from "react";
 
@@ -37,21 +32,6 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
 
   const [myPhotoDataListCount, setMyPhotoDataListCount] = useState<number>(0);
   const [favoriteListCount, setFavoriteListCount] = useState<number>(0);
-
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   auth.onAuthStateChanged(async (user) => {
-  //     if (user) {
-  //       await accountFireStore.getUser(user.uid).then((res) => {
-  //         dispatch(setUserData(res.data()));
-  //       });
-  //       await photoFireStore.getPhotoList(user.uid).then((res) => {
-  //         dispatch(setPhotoListData(res));
-  //       });
-  //     }
-  //   });
-  // }, []);
 
   useEffect(() => {
     setMyPhotoDataListCount(myPhotoDataList.length);

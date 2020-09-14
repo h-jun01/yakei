@@ -117,10 +117,18 @@ const ContainerSignUp: FC<Props> = ({ navigation }) => {
       });
       setIsLoading(true);
       if (result.type === "success") {
-        await accountFireStore.loginGoogleUser(
-          result.idToken as string,
-          result.accessToken as string
-        );
+        await accountFireStore
+          .loginGoogleUser(
+            result.idToken as string,
+            result.accessToken as string
+          )
+          .then(async (res: any) => {
+            await accountFireStore.addGoogleLoginUser(
+              res.user.uid,
+              res.user.displayName,
+              res.user.photoURL
+            );
+          });
       } else {
         return { cancelled: true };
       }
