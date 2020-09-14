@@ -120,7 +120,7 @@ const Home: FC<Props> = ({ ...props }) => {
     };
 
     fetch();
-  }, [photoSnapList]);
+  }, [photoSnapList, region]);
 
   // 地図移動時付近1マイルの情報取得
   const handleRegionChange = async (region: Region) => {
