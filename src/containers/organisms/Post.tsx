@@ -202,6 +202,11 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const [isPressing, setIsPressing] = useState<boolean>(false);
   const [spaceHeight, setSpaceHeight] = useState(0);
   const [aspectRatio, setAspectRatio] = useState<number>(0);
+  const [shouldShowPreview, setShouldShowPreview] = useState<boolean>(false);
+  const [containerAspect, setContainerAspect] = useState({
+    width: 1,
+    height: 1,
+  });
   const uid = useSelector((state: RootState) => state.userReducer.uid);
   const allPhotoDataList = useSelector(
     (state: RootState) => state.allPhotoReducer.allPhotoDataList
@@ -352,6 +357,10 @@ const PostContainer: FC<Props> = ({ ...props }) => {
         photogenicSubject={photogenicSubject}
         setPhotogenicSubject={setPhotogenicSubject}
         navigation={navigation}
+        shouldShowPreview={shouldShowPreview}
+        setShouldShowPreview={setShouldShowPreview}
+        containerAspect={containerAspect}
+        setContainerAspect={setContainerAspect}
       />
       <Spinner
         visible={isLoading}
