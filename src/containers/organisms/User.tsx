@@ -40,18 +40,18 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        await accountFireStore.getUser(user.uid).then((res) => {
-          dispatch(setUserData(res.data()));
-        });
-        await photoFireStore.getPhotoList(user.uid).then((res) => {
-          dispatch(setPhotoListData(res));
-        });
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   auth.onAuthStateChanged(async (user) => {
+  //     if (user) {
+  //       await accountFireStore.getUser(user.uid).then((res) => {
+  //         dispatch(setUserData(res.data()));
+  //       });
+  //       await photoFireStore.getPhotoList(user.uid).then((res) => {
+  //         dispatch(setPhotoListData(res));
+  //       });
+  //     }
+  //   });
+  // }, []);
 
   useEffect(() => {
     setMyPhotoDataListCount(myPhotoDataList.length);

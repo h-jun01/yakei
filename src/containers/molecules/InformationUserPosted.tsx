@@ -73,37 +73,45 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
 
   const dispatchPhotoData = (): void => {
     const newAllPhotos = allPhotoDataList.slice();
-    newAllPhotos.filter((value) => value.photo_id !== photo_id);
+    const filterAllPhoto = newAllPhotos.filter(
+      (value) => value.photo_id !== photo_id
+    );
     const newMyPhotos = myPhotoDataList.slice();
-    newMyPhotos.filter((value) => value.photo_id !== photo_id);
-    dispatch(setAllPhotoListData(newAllPhotos));
-    dispatch(setPhotoListData(newMyPhotos));
+    const filterMyPhoto = newMyPhotos.filter(
+      (value) => value.photo_id !== photo_id
+    );
+    dispatch(setAllPhotoListData(filterAllPhoto));
+    dispatch(setPhotoListData(filterMyPhoto));
   };
 
   const deletingPosts = async () => {
-    await photoFireStore.deletingPostedPhoto(photo_id).then(async () => {
-      const url =
-        "https://asia-northeast1-hal-yakei.cloudfunctions.net/deleteAtPath";
-      await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          collection: "photos",
-          doc: photo_id,
-          subCollection: "comment",
-        }),
-      })
-        .then(() => {
-          console.log("success");
+    await photoFireStore
+      .deletingPostedPhoto(photo_id)
+      .then(async () => {
+        const url =
+          "https://asia-northeast1-hal-yakei.cloudfunctions.net/deleteAtPath";
+        await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            collection: "photos",
+            doc: photo_id,
+            subCollection: "comment",
+          }),
         })
-        .catch(() => {
-          console.log("reject");
-        });
-
-      dispatchPhotoData();
-    });
+          .then(() => {
+            dispatchPhotoData();
+            navigation.goBack();
+          })
+          .catch((e) => {
+            alert(e);
+          });
+      })
+      .catch((e) => {
+        alert(e);
+      });
   };
 
   const _handleOnPress = (): void => {
