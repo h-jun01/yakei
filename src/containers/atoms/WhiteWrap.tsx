@@ -4,17 +4,20 @@ import WhiteWrap from "../../components/atoms/WhiteWrap";
 
 type Props = {
   onPressOut: () => void;
-  whiteWrapAnim: Animated.Value;
+  whiteWrapAnim?: Animated.Value;
   styles: object[];
 };
 
-const WhiteWrapContainer: FC<Props> = ({ ...props }) => {
-  const { onPressOut, whiteWrapAnim, styles } = props;
-
+const WhiteWrapContainer: FC<Props> = ({
+  onPressOut,
+  whiteWrapAnim = null,
+  styles,
+}) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
+    if (!whiteWrapAnim) return;
     whiteWrapAnim.setValue(0);
     Animated.timing(whiteWrapAnim, {
       toValue: 1,
