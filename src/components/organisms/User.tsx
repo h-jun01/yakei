@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import {
   View,
   ScrollView,
@@ -48,14 +49,20 @@ const User: FC<Props> = ({ ...props }) => {
         <View style={styles.userInfoWrap}>
           <Image
             source={{ uri: headerImage }}
-            style={{ width: wp("100%"), height: hp("35%") }}
+            style={{
+              width: wp("100%"),
+              height: platformIOS.isPad ? hp("38") : hp("35%"),
+            }}
             PlaceholderContent={<ActivityIndicator />}
           >
             <View style={styles.overlay}></View>
           </Image>
           <View style={styles.infoWrap}>
             <View style={styles.iconBox}>
-              <UserImage userImage={image} size={deviceWidth / 5} />
+              <UserImage
+                userImage={image}
+                size={platformIOS.isPad ? deviceWidth / 6.5 : deviceWidth / 5}
+              />
             </View>
             <Text style={styles.userName}>{name}</Text>
             <Text style={styles.userIntro}>{selfIntroduction}</Text>
@@ -67,7 +74,11 @@ const User: FC<Props> = ({ ...props }) => {
               style={styles.buttonItem}
               onPress={() => navigation.navigate("setting")}
             >
-              <Icon name="cog" size={iconSize.Normal} color={"#fff"} />
+              <Icon
+                name="cog"
+                size={platformIOS.isPad ? iconSize.Small : iconSize.Normal}
+                color={"#fff"}
+              />
             </Text>
           </View>
         </View>
@@ -76,6 +87,8 @@ const User: FC<Props> = ({ ...props }) => {
     </ScrollView>
   );
 };
+
+const platformIOS = Platform as PlatformIOSStatic;
 
 const styles = StyleSheet.create({
   container: {
@@ -91,7 +104,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     width: wp("100%"),
-    height: hp("35%"),
+    height: platformIOS.isPad ? hp("38") : hp("35%"),
     backgroundColor: utilityColor.overlay,
   },
   //ユーザー情報
@@ -112,7 +125,7 @@ const styles = StyleSheet.create({
   userName: {
     alignSelf: "center",
     color: baseColor.text,
-    fontSize: Size.userNameSize,
+    fontSize: platformIOS.isPad ? Size.Xlarge : Size.userNameSize,
     fontWeight: "600",
     marginBottom: hp("1.2%"),
   },
@@ -120,7 +133,7 @@ const styles = StyleSheet.create({
     width: wp("65%"),
     alignSelf: "center",
     color: baseColor.text,
-    fontSize: Size.NormalS,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.NormalS,
     fontWeight: "500",
     lineHeight: Size.lineHeight,
     marginBottom: hp("2.5"),
@@ -133,7 +146,7 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     color: baseColor.text,
-    fontSize: Size.NormalS,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.NormalS,
     fontWeight: "600",
     borderColor: "#fff",
   },
