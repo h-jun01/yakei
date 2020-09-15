@@ -32,14 +32,23 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
 
   const [myPhotoDataListCount, setMyPhotoDataListCount] = useState<number>(0);
   const [favoriteListCount, setFavoriteListCount] = useState<number>(0);
+  // "Can only update a mounted or mounting component"Warningエラーを起こさないために必要
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   useEffect(() => {
-    setMyPhotoDataListCount(myPhotoDataList.length);
-  });
+    (() => {
+      if (!isMounted) return;
+      setMyPhotoDataListCount(myPhotoDataList.length);
+    })();
+    return () => setIsMounted(false);
+  }, [myPhotoDataList, isMounted]);
 
   useEffect(() => {
-    setFavoriteListCount(favoriteList.length);
-  });
+    (() => {
+      if (!isMounted) return;
+      setFavoriteListCount(favoriteList.length);
+    })();
+  }, [favoriteList, isMounted]);
 
   return (
     <User
