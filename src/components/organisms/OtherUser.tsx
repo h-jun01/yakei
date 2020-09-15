@@ -1,19 +1,12 @@
 import React, { FC } from "react";
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-} from "react-native";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { Platform, PlatformIOSStatic, StyleSheet } from "react-native";
+import { View, Text, ActivityIndicator, ScrollView } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
 import { Image } from "react-native-elements";
-import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
+import { deviceWidth } from "../../utilities/dimensions";
 import UserImage from "../atoms/UserImage";
 import TabMenu from "../../components/molecules/TabMenu";
 
@@ -32,7 +25,10 @@ const OtherUser: FC<Props> = ({ ...props }) => {
         <View style={styles.userInfoWrap}>
           <Image
             source={{ uri: userData?.user_header_img }}
-            style={{ width: wp("100%"), height: wp("63%") }}
+            style={{
+              width: wp("100%"),
+              height: platformIOS.isPad ? wp("47%") : wp("63%"),
+            }}
             PlaceholderContent={<ActivityIndicator />}
           >
             <View style={styles.overlay}></View>
@@ -41,7 +37,7 @@ const OtherUser: FC<Props> = ({ ...props }) => {
             <View style={styles.iconBox}>
               <UserImage
                 userImage={userData?.user_img}
-                size={deviceWidth / 5}
+                size={platformIOS.isPad ? deviceWidth / 6.5 : deviceWidth / 5}
               />
             </View>
             <Text style={styles.userName}>
@@ -69,6 +65,8 @@ const OtherUser: FC<Props> = ({ ...props }) => {
     </ScrollView>
   );
 };
+
+const platformIOS = Platform as PlatformIOSStatic;
 
 const styles = StyleSheet.create({
   container: {
@@ -105,7 +103,7 @@ const styles = StyleSheet.create({
   userName: {
     alignSelf: "center",
     color: baseColor.text,
-    fontSize: Size.userNameSize,
+    fontSize: platformIOS.isPad ? Size.Xlarge : Size.userNameSize,
     fontWeight: "600",
     marginBottom: hp("1%"),
   },
@@ -113,7 +111,7 @@ const styles = StyleSheet.create({
     width: wp("65%"),
     alignSelf: "center",
     color: baseColor.text,
-    fontSize: Size.NormalS,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.NormalS,
     fontWeight: "500",
     lineHeight: Size.lineHeight,
     marginBottom: hp("3.5"),
@@ -126,7 +124,7 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     color: baseColor.text,
-    fontSize: Size.NormalS,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.NormalS,
     fontWeight: "600",
     borderColor: "#fff",
   },
