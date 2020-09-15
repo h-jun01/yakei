@@ -90,6 +90,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
       <SafeAreaView
         style={[
           { backgroundColor: baseColor.darkNavy },
+          shouldDisplay ? {} : { display: "none" },
           safeAreaHeihgt === 0 ? {} : { marginBottom: -21 },
         ]}
         onLayout={(e) => onLayoutSafeAreaHeight(e.nativeEvent.layout.height)}
