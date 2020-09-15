@@ -1,17 +1,10 @@
 import React, { FC } from "react";
-import {
-  View,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-} from "react-native";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { Platform, PlatformIOSStatic, StyleSheet } from "react-native";
+import { View, TouchableOpacity, KeyboardAvoidingView } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
-import { deviceWidth, deviceHeight } from "../../utilities/dimensions";
+import { deviceHeight } from "../../utilities/dimensions";
 import UserImage from "../atoms/UserImage";
 import UserInput from "../atoms/UserInput";
 import HeaderImage from "../atoms/HeaderImage";
@@ -69,7 +62,10 @@ const EditProfile: FC<Props> = ({ ...props }) => {
               style={styles.iconImg}
               onPress={() => onAddImagePressed()}
             >
-              <UserImage userImage={userImage} size={deviceWidth / 5} />
+              <UserImage
+                userImage={userImage}
+                size={platformIOS.isPad ? wp("16.7%") : wp("20.3%")}
+              />
               <View style={styles.overlay}>
                 <Icon name="camera" size={24} color={"#fff"} />
               </View>
@@ -100,6 +96,8 @@ const EditProfile: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   container: {
     height: hp("100%"),
@@ -120,8 +118,8 @@ const styles = StyleSheet.create({
     bottom: wp("18%"),
   },
   overlay: {
-    width: wp("20.3%"),
-    height: wp("20.3%"),
+    width: platformIOS.isPad ? wp("16.7%") : wp("20.3%"),
+    height: platformIOS.isPad ? wp("16.7%") : wp("20.3%"),
     position: "absolute",
     alignSelf: "center",
     alignItems: "center",

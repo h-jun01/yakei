@@ -1,4 +1,5 @@
 import React, { FC, Fragment, useState, useEffect } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { TouchableOpacity, Text, Alert, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { accountFireStore } from "../../firebase/accountFireStore";
@@ -296,10 +297,12 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   saveButton: {
     color: baseColor.accent,
-    fontSize: Size.NormalL,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.NormalL,
     fontWeight: "bold",
     paddingRight: wp("4%"),
   },
