@@ -1,12 +1,11 @@
 import React, { FC, Fragment } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, ImageBackground, StyleSheet } from "react-native";
 import { UseInputResult } from "../../utilities/hooks/input";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { deviceWidth } from "../../utilities/dimensions";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import InputForm from "../atoms/InputForm";
 import ServiceTitle from "../atoms/ServiceTitle";
 import GoogleAuthButton from "../atoms/GoogleAuthButton";
@@ -91,6 +90,8 @@ const SignIn: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -102,19 +103,17 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
-    // paddingBottom: hp("5%"),
   },
   allWrap: {
     width: deviceWidth,
-    // position: "relative",
     position: "absolute",
-    top: hp("20%"),
+    top: platformIOS.isPad ? hp("14%") : hp("18%"),
   },
   authWrap: {
-    width: wp("90%"),
+    width: platformIOS.isPad ? wp("70%") : wp("90%"),
     marginLeft: "auto",
     marginRight: "auto",
-    padding: hp("3%"),
+    padding: platformIOS.isPad ? hp("3.5%") : hp("3%"),
     backgroundColor: utilityColor.inputBack,
     borderRadius: 10,
   },

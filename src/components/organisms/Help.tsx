@@ -1,6 +1,9 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { Size } from "../../styles/thema/fonts";
 import HelpHeading from "../atoms/HelpHeading";
 
 type Props = {
@@ -101,6 +104,8 @@ const Help: FC<Props> = ({ navigation, bottomHeight }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -108,13 +113,14 @@ const styles = StyleSheet.create({
   },
   considerationsText: {
     width: deviceWidth / 1.2,
-    marginBottom: 15,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Normal,
+    marginBottom: hp("1.6%"),
   },
   questionText: {
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Normal,
     color: "#1D89C6",
     width: deviceWidth / 1.2,
-    marginLeft: 5,
-    marginBottom: 15,
+    marginBottom: hp("1.6%"),
   },
 });
 

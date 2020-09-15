@@ -1,15 +1,8 @@
 import React, { FC } from "react";
-import {
-  ScrollView,
-  View,
-  ActivityIndicator,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { ScrollView, View, TouchableOpacity } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { baseColor } from "../../styles/thema/colors";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";

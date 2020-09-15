@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { baseColor } from "../../styles/thema/colors";
@@ -20,6 +21,8 @@ const NoNotificationText: FC = () => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -29,14 +32,15 @@ export const styles = StyleSheet.create({
     paddingBottom: hp("9%"),
   },
   noNotification: {
-    width: deviceWidth / 1.3,
+    width: platformIOS.isPad ? deviceWidth / 1.6 : deviceWidth / 1.3,
     alignItems: "center",
   },
   noNotificationText: {
-    fontSize: Size.noNotificationSize,
+    fontSize: platformIOS.isPad ? Size.Large : Size.noNotificationSize,
     color: baseColor.text,
   },
   supplement: {
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Normal,
     marginTop: hp("4%"),
     color: "#ddd",
   },

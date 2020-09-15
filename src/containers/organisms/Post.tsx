@@ -64,14 +64,18 @@ const moveToPreviousTab = async (dispatch: Dispatch) => {
 };
 
 const getNowLocation = async (): Promise<{
-  latitude: number;
-  longitude: number;
+  latitude: number | null;
+  longitude: number | null;
 }> => {
-  await Permissions.askAsync(Permissions.LOCATION);
-  const location = await Location.getCurrentPositionAsync({});
-  const latitude = location.coords.latitude;
-  const longitude = location.coords.longitude;
-  return { latitude, longitude };
+  try {
+    await Permissions.askAsync(Permissions.LOCATION);
+    const location = await Location.getCurrentPositionAsync({});
+    const latitude = location.coords.latitude;
+    const longitude = location.coords.longitude;
+    return { latitude, longitude };
+  } catch {
+    return { latitude: null, longitude: null };
+  }
 };
 
 const getLocationAddressAsync = async (
@@ -182,11 +186,8 @@ const dispatchPhotoData = (
   photoData: DocumentData
 ) => {
   const newAllPhotos = selectedPhotoData.allPhotoDataList.slice();
-  const newMyPhotos = selectedPhotoData.myPhotoDataList.slice();
   newAllPhotos.push(photoData);
-  newMyPhotos.push(photoData);
   dispatch(setAllPhotoListData(newAllPhotos));
-  dispatch(setPhotoListData(newMyPhotos));
 };
 
 const PostContainer: FC<Props> = ({ ...props }) => {
@@ -255,6 +256,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     if (type === "camera") {
       (async () => {
         const location = await getNowLocation();
+        if (!location.latitude || !location.longitude) return;
         getLocationAddressAsync(
           setLocation,
           location.latitude,

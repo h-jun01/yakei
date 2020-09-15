@@ -5,12 +5,12 @@ import { deviceWidth } from "../../utilities/dimensions";
 const scale = deviceWidth / 414;
 
 //fontSizeを可変
-const normalize = (size: number) => {
-  const platformIOS = Platform as PlatformIOSStatic;
+const normalize = (size: number): number => {
+  // const platformIOS = Platform as PlatformIOSStatic;
   const newSize = size * scale;
-  if (platformIOS.isPad) {
-    return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
-  }
+  // if (platformIOS.isPad) {
+  //   return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
+  // }
 
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };
@@ -28,6 +28,7 @@ export const Size = {
   noNotificationSize: normalize(22),
   userNameSize: normalize(24),
   titleSize: normalize(43),
+  iPadTitleSize: normalize(31),
   lineHeight: normalize(16),
 };
 export const iconSize = {

@@ -146,10 +146,10 @@ const Home: FC<Props> = ({ ...props }) => {
     // 1マイル分の緯度経度(1マイル＝1.60934km)
     const lat = 0.0144927536231884;
     const lon = 0.0181818181818182;
-    const lowerLat = latitude - lat / 3;
-    const lowerLon = longitude - lon / 3;
-    const upperLat = latitude + lat / 3;
-    const upperLon = longitude + lon / 3;
+    const lowerLat = latitude - lat;
+    const lowerLon = longitude - lon;
+    const upperLat = latitude + lat;
+    const upperLon = longitude + lon;
 
     const lower = geohash.encode(lowerLat, lowerLon);
     const upper = geohash.encode(upperLat, upperLon);

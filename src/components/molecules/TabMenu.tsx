@@ -1,10 +1,6 @@
 import React, { FC } from "react";
-import {
-  View,
-  ActivityIndicator,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, ActivityIndicator, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { Tab, Tabs, TabHeading } from "native-base";
 import { Image } from "react-native-elements";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";

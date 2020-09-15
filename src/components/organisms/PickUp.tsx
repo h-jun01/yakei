@@ -1,17 +1,10 @@
 import React, { FC } from "react";
-import {
-  ScrollView,
-  TouchableOpacity,
-  Text,
-  View,
-  ActivityIndicator,
-  ImageSourcePropType,
-  StyleSheet,
-} from "react-native";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { Platform, PlatformIOSStatic } from "react-native";
+import { ScrollView, TouchableOpacity, Text, View } from "react-native";
+import { ActivityIndicator, ImageSourcePropType } from "react-native";
+import { StyleSheet } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { Image } from "react-native-elements";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
@@ -59,6 +52,8 @@ const PickUp: FC<Props> = ({ navigation, pickUpItemList, bottomHeight }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -70,10 +65,10 @@ const styles = StyleSheet.create({
   },
   image: {
     width: wp("100%"),
-    height: wp("70%"),
+    height: platformIOS.isPad ? wp("65") : wp("70%"),
   },
   itemInfoWrap: {
-    height: wp("20%"),
+    height: platformIOS.isPad ? wp("18") : wp("20%"),
     width: wp("100%"),
     position: "absolute",
     bottom: 0,
@@ -83,13 +78,13 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     color: baseColor.text,
-    fontSize: Size.NormalL,
+    fontSize: platformIOS.isPad ? Size.Normal : Size.NormalL,
     fontWeight: "500",
-    paddingBottom: wp("2%"),
+    paddingBottom: platformIOS.isPad ? wp("1") : wp("2%"),
   },
   itemTime: {
     color: baseColor.text,
-    fontSize: Size.Normal,
+    fontSize: platformIOS.isPad ? Size.Small : Size.Normal,
     fontWeight: "400",
   },
 });

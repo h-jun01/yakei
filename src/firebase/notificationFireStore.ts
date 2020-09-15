@@ -13,9 +13,9 @@ type NotificationItems = {
 };
 
 type NotificationFireStore = {
-  //   getUserNotification: (
-  //     uid: string
-  //   ) => Promise<firebase.firestore.DocumentData[]>;
+  getUserNotification: (
+    uid: string
+  ) => Promise<firebase.firestore.DocumentData[]>;
   notificationOpponentFavorite: (
     notificationItems: NotificationItems
   ) => Promise<void>;
@@ -26,20 +26,20 @@ const user = db.collection("users");
 
 export const notificationFireStore: NotificationFireStore = {
   // 自分の通知を取得
-  //   getUserNotification: async (uid: string) => {
-  //     const notificationDataList: firebase.firestore.DocumentData[] = [];
-  //     const querySnapshot = await user
-  //       .doc(uid)
-  //       .collection("notification")
-  //       .orderBy("create_time", "desc")
-  //       .limit(20)
-  //       .get();
-  //     querySnapshot.forEach((doc) => {
-  //       notificationDataList.push(doc.data());
-  //     });
+  getUserNotification: async (uid: string) => {
+    const notificationDataList: firebase.firestore.DocumentData[] = [];
+    const querySnapshot = await user
+      .doc(uid)
+      .collection("notification")
+      .orderBy("create_time", "desc")
+      .limit(20)
+      .get();
+    querySnapshot.forEach((doc) => {
+      notificationDataList.push(doc.data());
+    });
 
-  //     return notificationDataList;
-  //   },
+    return notificationDataList;
+  },
   // お気に入り時の通知を更新
   notificationOpponentFavorite: async ({ ...notificationItems }) => {
     await user

@@ -1,16 +1,13 @@
 import React, { FC } from "react";
-import { View, Text,StyleSheet } from "react-native";
+import { Platform, PlatformIOSStatic } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { useInput } from "../../utilities/hooks/input";
 import { Hoshi } from "react-native-textinput-effects";
-import { Size } from '../../styles/thema/fonts'
-import { baseColor, utilityColor } from '../../styles/thema/colors';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-
-
+import { Size } from "../../styles/thema/fonts";
+import { baseColor, utilityColor } from "../../styles/thema/colors";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const PasswordReset: FC = () => {
   const email = useInput("");
@@ -25,12 +22,12 @@ const PasswordReset: FC = () => {
           returnKeyType="done"
           blurOnSubmit={true}
           placeholder=""
-          {...email}
           label={"メールアドレスを入力 "}
           borderColor={"#202840"}
-          inputPadding={wp("2.5%")}
+          inputPadding={platformIOS.isPad ? wp("3%") : wp("2.5%")}
           inputStyle={styles.passwdInput}
           labelStyle={styles.passwdLabel}
+          {...email}
         />
         <Text
           style={styles.submitButton}
@@ -42,6 +39,8 @@ const PasswordReset: FC = () => {
     </View>
   );
 };
+
+const platformIOS = Platform as PlatformIOSStatic;
 
 const styles = StyleSheet.create({
   container: {
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
   },
   passwdLabel: {
     color: utilityColor.inputLabel,
-    fontSize: Size.Small,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Small,
     fontWeight: "600",
   },
   passwdInput: {
@@ -67,16 +66,16 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   submitButton: {
-    width: wp("80%"),
+    width: platformIOS.isPad ? wp("65%") : wp("80%"),
     backgroundColor: baseColor.accent,
-    paddingVertical: hp("1.5%"),
+    paddingVertical: platformIOS.isPad ? hp("2%") : hp("1.5%"),
     color: baseColor.text,
-    fontSize: Size.Large,
+    fontSize: platformIOS.isPad ? Size.Small : Size.Large,
     fontWeight: "700",
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: hp("8%"),
+    marginTop: platformIOS.isPad ? hp("10%") : hp("8%"),
     borderRadius: 6,
     overflow: "hidden",
   },

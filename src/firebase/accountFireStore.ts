@@ -25,6 +25,7 @@ type AccountFireStore = {
     idToken: string,
     accessToken: string
   ) => Promise<void | firebase.auth.UserCredential>;
+  addGoogleLoginUser;
   signOutUser: () => void;
   updateName: (name: string) => Promise<void>;
   upDateSelfIntroduction: (self_introduction: string) => Promise<void>;
@@ -92,6 +93,21 @@ export const accountFireStore: AccountFireStore = {
       accessToken
     );
     return await auth.signInWithCredential(credential);
+  },
+  addGoogleLoginUser: async (uid, displayName, photoURL) => {
+    await user.doc(uid).set({
+      uid,
+      name: displayName,
+      user_img: photoURL,
+      user_header_img:
+        "https://firebasestorage.googleapis.com/v0/b/hal-yakei.appspot.com/o/sky.jpeg?alt=media&token=88028b26-76c8-4bd4-9066-bbda8c0aeb44",
+      img_index: "",
+      header_img_index: "",
+      self_introduction: "",
+      favorite_list: [],
+      create_time: FieldValue.serverTimestamp(),
+      update_time: FieldValue.serverTimestamp(),
+    });
   },
   //ログアウト処理
   signOutUser: () => {

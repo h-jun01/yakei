@@ -1,11 +1,6 @@
 import React, { FC, MutableRefObject } from "react";
-import {
-  ScrollView,
-  View,
-  ActivityIndicator,
-  TextInput,
-  StyleSheet,
-} from "react-native";
+import { ScrollView, View, TextInput } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
 import { StackNavigationProp } from "@react-navigation/stack";

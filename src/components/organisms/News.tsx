@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from "react";
-import { View, Text } from "react-native";
-import { StyleSheet } from "react-native";
+import { Platform, PlatformIOSStatic } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 import { Size } from "../../styles/thema/fonts";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
@@ -34,7 +34,7 @@ const News: FC<Props> = ({ newsDataList, bottomHeight }) => {
   );
 };
 
-export default News;
+const platformIOS = Platform as PlatformIOSStatic;
 
 export const styles = StyleSheet.create({
   container: {
@@ -49,19 +49,19 @@ export const styles = StyleSheet.create({
     paddingTop: wp("4%"),
   },
   newsTitle: {
-    fontSize: Size.Large,
+    fontSize: platformIOS.isPad ? Size.Normal : Size.Large,
     fontWeight: "600",
     color: baseColor.text,
     padding: wp("1.5%"),
   },
   newsTimestamp: {
-    fontSize: Size.Small,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Small,
     fontWeight: "300",
     color: baseColor.text,
     padding: wp("1.5%"),
   },
   newsArticle: {
-    fontSize: Size.Normal,
+    fontSize: platformIOS.isPad ? Size.Small : Size.Normal,
     fontWeight: "400",
     color: baseColor.text,
     padding: wp("1.5%"),
@@ -75,3 +75,5 @@ export const styles = StyleSheet.create({
     opacity: 0.5,
   },
 });
+
+export default News;

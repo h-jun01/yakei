@@ -8,14 +8,12 @@ import { auth } from "./firebase/firebase";
 import { accountFireStore } from "./firebase/accountFireStore";
 import { photoFireStore } from "./firebase/photoFireStore";
 import { newsFireStore } from "./firebase/newsFireStore";
-import { notificationFireStore } from "./firebase/notificationFireStore";
 import { RootState } from "./reducers/index";
 import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import { setAllPhotoListData } from "./actions/allPhoto";
 import { setNewsDataList } from "./actions/news ";
-import { setNotificationDataList } from "./actions/notification";
 import { Notifications } from "expo";
 import { baseColor } from "./styles/thema/colors";
 import * as Permissions from "expo-permissions";
@@ -38,10 +36,13 @@ const ScreenSwitcher: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
   const selectIsLogin = (state: RootState) => state.authReducer.isLogin;
   const selectUid = (state: RootState) => state.userReducer.uid;
+  const selectAllPhotoDataList = (state: RootState) =>
+    state.allPhotoReducer.allPhotoDataList;
 
   const isLoading = useSelector(selectIsLoading);
   const isLogin = useSelector(selectIsLogin);
   const uid = useSelector(selectUid);
+  const allPhotoDataList = useSelector(selectAllPhotoDataList);
 
   const dispatch = useDispatch();
 
@@ -98,11 +99,8 @@ const ScreenSwitcher: FC = () => {
         await accountFireStore.getUser(user.uid).then((res) => {
           dispatch(setUserData(res.data()));
         });
-        // await photoFireStore.getAllPhotoList().then((res) => {
-        //   dispatch(setAllPhotoListData(res));
-        // });
-        await photoFireStore.getPhotoList(user.uid).then((res) => {
-          dispatch(setPhotoListData(res));
+        await photoFireStore.getAllPhotoList().then((res) => {
+          dispatch(setAllPhotoListData(res));
         });
         await newsFireStore.getNewsDataList().then((res) => {
           dispatch(setNewsDataList(res.data()));
@@ -115,6 +113,11 @@ const ScreenSwitcher: FC = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    const filter = allPhotoDataList.filter((value) => value.uid === uid);
+    dispatch(setPhotoListData(filter));
+  }, [allPhotoDataList]);
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {

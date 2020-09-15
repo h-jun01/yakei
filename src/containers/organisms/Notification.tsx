@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../reducers/index";
 import { setNotificationDataList } from "../../actions/notification";
 import { db } from "../../firebase/firebase";
+import { notificationFireStore } from "../../firebase/notificationFireStore";
 import Notification from "../../components/organisms/Notification";
 
 type Props = {
@@ -43,6 +44,11 @@ const ContainerNotification: FC<Props> = ({ navigation }) => {
             case "modified":
               break;
             case "removed":
+              // notificationFireStore.getUserNotification(uid).then((res) => {
+              //   console.log("ok");
+              //   dispatch(setNotificationDataList(res));
+              //   setTemporaryArray(res);
+              // });
               break;
             default:
               break;

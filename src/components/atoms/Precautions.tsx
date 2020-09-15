@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
@@ -32,20 +33,22 @@ const Precautions: FC<Props> = ({ navigation }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   precautions: {
     marginTop: hp(".5%"),
   },
   PrecautionsTextColor: {
     color: baseColor.text,
-    fontSize: Size.Small,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Small,
     textAlign: "center",
     lineHeight: Size.lineHeight,
   },
   attention: {
     color: baseColor.accent,
     fontWeight: "bold",
-    fontSize: Size.NormalS,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.NormalS,
   },
 });
 
