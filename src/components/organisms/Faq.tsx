@@ -3,8 +3,6 @@ import { Platform, PlatformIOSStatic } from "react-native";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 import { Size } from "../../styles/thema/fonts";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import FaqHeading from "../atoms/FaqHeading";
 
 type Props = {
