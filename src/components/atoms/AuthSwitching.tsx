@@ -4,10 +4,8 @@ import { SafeAreaView, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 type Props = {
   switchingText: string;

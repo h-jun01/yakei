@@ -4,10 +4,8 @@ import { Timestamp } from "@google-cloud/firestore";
 import { iconSize } from "../../styles/thema/fonts";
 import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";

@@ -4,10 +4,8 @@ import { View, ImageBackground, StyleSheet } from "react-native";
 import { UseInputResult } from "../../utilities/hooks/input";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { deviceWidth } from "../../utilities/dimensions";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import InputForm from "../atoms/InputForm";
 import ServiceTitle from "../atoms/ServiceTitle";
 import GoogleAuthButton from "../atoms/GoogleAuthButton";

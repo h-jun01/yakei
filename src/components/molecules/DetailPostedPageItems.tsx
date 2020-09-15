@@ -2,10 +2,8 @@ import React, { FC, Fragment } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 

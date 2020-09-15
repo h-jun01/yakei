@@ -2,10 +2,8 @@ import React, { FC } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { Image } from "react-native-elements";
 import { utilityColor } from "../../styles/thema/colors";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 type Props = {
   userHeaderImage: string;

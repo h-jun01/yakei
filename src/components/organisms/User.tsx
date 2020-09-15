@@ -1,16 +1,8 @@
 import React, { FC } from "react";
-import { Platform, PlatformIOSStatic } from "react-native";
-import {
-  View,
-  ScrollView,
-  Text,
-  ActivityIndicator,
-  StyleSheet,
-} from "react-native";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { Platform, PlatformIOSStatic, StyleSheet } from "react-native";
+import { View, ScrollView, Text, ActivityIndicator } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
 import { Image } from "react-native-elements";

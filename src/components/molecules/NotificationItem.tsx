@@ -5,10 +5,7 @@ import { Image } from "react-native-elements";
 import { StyleSheet } from "react-native";
 import { deviceWidth } from "../../utilities/dimensions";
 import { callingAlert } from "../../utilities/alert";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import NotificationText from "../atoms/NotificationText";
 
 type Props = {
