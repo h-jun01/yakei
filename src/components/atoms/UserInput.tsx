@@ -1,4 +1,5 @@
 import React, { FC, Fragment } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { Text, TextInput, StyleSheet } from "react-native";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
@@ -35,24 +36,26 @@ const UserInput: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
-  //fontWeightを変数指定すると赤線が出る。影響はなし
   labelItem: {
     color: baseColor.text,
-    fontSize: Size.Normal,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Normal,
     fontWeight: "600",
-    marginBottom: wp("1.5%"),
+    marginBottom: platformIOS.isPad ? wp("1%") : wp("1.5%"),
+    marginTop: platformIOS.isPad ? wp("1.5%") : 0,
     paddingLeft: wp("3%"),
     borderBottomWidth: 1,
     borderColor: utilityColor.border,
   },
   editInput: {
     color: utilityColor.editBox,
-    fontSize: Size.Large,
+    fontSize: platformIOS.isPad ? Size.Normal : Size.Large,
     fontWeight: "600",
     lineHeight: Size.lineHeight,
     paddingBottom: wp("3%"),
-    paddingLeft: wp("6%"),
+    paddingLeft: wp("3%"),
     paddingRight: wp("5%"),
     borderBottomWidth: 1,
     borderColor: utilityColor.border,

@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
@@ -14,6 +15,8 @@ const SelectedText: FC = () => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   borderBox: {
     flexDirection: "row",
@@ -25,10 +28,10 @@ const styles = StyleSheet.create({
   orText: {
     color: baseColor.text,
     paddingHorizontal: wp("8%"),
-    fontSize: Size.Small,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Small,
   },
   borderItem: {
-    width: wp("25%"),
+    width: platformIOS.isPad ? wp("19%") : wp("25%"),
     height: 1,
     borderWidth: 0.3,
     borderColor: utilityColor.border,

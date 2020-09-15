@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 import { Timestamp } from "@google-cloud/firestore";
 import { useDisplayTime } from "../../utilities/hooks/date";
@@ -29,23 +30,26 @@ const NotificationText: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 export const styles = StyleSheet.create({
   text: {
     width: wp("60%"),
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Normal,
     color: baseColor.text,
     letterSpacing: 0.8,
-    lineHeight: 16,
+    lineHeight: platformIOS.isPad ? 30 : 16,
     paddingHorizontal: wp("4.1%"),
-    paddingBottom: wp("2.6%"),
+    paddingBottom: platformIOS.isPad ? wp("2%") : wp("2.6%"),
   },
   timeStamp: {
     paddingHorizontal: wp("4.1%"),
     color: baseColor.grayText,
-    fontSize: Size.Small,
+    fontSize: platformIOS.isPad ? Size.Xxsmall : Size.Small,
     fontWeight: "400",
   },
   nameSize: {
-    fontSize: Size.NormalL,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.NormalL,
     fontWeight: "700",
   },
 });

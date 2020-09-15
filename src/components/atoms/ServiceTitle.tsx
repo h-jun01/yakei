@@ -1,13 +1,12 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { AppLoading } from "expo";
 import { Size } from "../../styles/thema/fonts";
 import { baseColor } from "../../styles/thema/colors";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 import { useFonts, Flamenco_400Regular } from "@expo-google-fonts/flamenco";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const ServiceTitle: FC = () => {
   let [fontsLoaded] = useFonts({
@@ -28,6 +27,8 @@ const ServiceTitle: FC = () => {
   }
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   //アプリ名
   titleWrap: {
@@ -39,18 +40,18 @@ const styles = StyleSheet.create({
     marginRight: "auto",
   },
   yakeiLogo: {
-    width: wp("12%"),
-    height: wp("12%"),
+    width: platformIOS.isPad ? wp("9%") : wp("12%"),
+    height: platformIOS.isPad ? wp("9%") : wp("12%"),
     zIndex: 1,
     borderRadius: 8,
   },
   title: {
     color: baseColor.text,
     fontFamily: "Flamenco_400Regular",
-    fontSize: Size.titleSize,
+    fontSize: platformIOS.isPad ? Size.iPadTitleSize : Size.titleSize,
     fontWeight: "600",
     marginLeft: wp("4%"),
-    letterSpacing: 5,
+    letterSpacing: platformIOS.isPad ? 6 : 5,
   },
 });
 
