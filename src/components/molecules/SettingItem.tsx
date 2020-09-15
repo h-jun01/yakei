@@ -1,11 +1,12 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { baseColor, utilityColor } from "../../styles/thema/colors";
+import { Size } from "../../styles/thema/fonts";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { baseColor, utilityColor } from "../../styles/thema/colors";
-import { Size } from "../../styles/thema/fonts";
 
 type ItemList = {
   leftIcon: JSX.Element;
@@ -72,6 +73,8 @@ const SettingItem: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
     marginRight: wp("3%"),
   },
   itemLabel: {
-    fontSize: Size.Normal,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Normal,
     fontWeight: "700",
     color: baseColor.text,
   },

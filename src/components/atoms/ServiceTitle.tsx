@@ -4,11 +4,11 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import { AppLoading } from "expo";
 import { Size } from "../../styles/thema/fonts";
 import { baseColor } from "../../styles/thema/colors";
+import { useFonts, Flamenco_400Regular } from "@expo-google-fonts/flamenco";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { useFonts, Flamenco_400Regular } from "@expo-google-fonts/flamenco";
 
 const ServiceTitle: FC = () => {
   let [fontsLoaded] = useFonts({
