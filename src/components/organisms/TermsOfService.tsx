@@ -1,6 +1,8 @@
 import React, { FC } from "react";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import { Size } from "../../styles/thema/fonts";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 type Props = {
   _handleOpenWithLinking: () => void;
@@ -251,6 +253,8 @@ const TermsOfService: FC<Props> = ({ _handleOpenWithLinking }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -258,37 +262,41 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
   },
   title: {
-    fontSize: Size.Xxlarge,
+    fontSize: platformIOS.isPad ? Size.Large : Size.Xxlarge,
     fontWeight: "600",
     paddingTop: 15,
     paddingBottom: 15,
   },
   explanation: {
-    lineHeight: 15,
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Normal,
+    lineHeight: platformIOS.isPad ? hp("2.2%") : 15,
     letterSpacing: 0.5,
   },
   item: {
-    fontSize: Size.Xlarge,
+    fontSize: platformIOS.isPad ? Size.NormalL : Size.Xlarge,
     fontWeight: "bold",
     paddingTop: 15,
     paddingBottom: 5,
   },
   contents: {
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Normal,
     marginTop: 5,
     marginBottom: 5,
-    lineHeight: 15,
+    lineHeight: platformIOS.isPad ? hp("2.2%") : 15,
     letterSpacing: 0.5,
   },
   details: {
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Normal,
     marginLeft: 10,
     marginBottom: 5,
-    lineHeight: 15,
+    lineHeight: platformIOS.isPad ? hp("2.2%") : 15,
     letterSpacing: 0.5,
   },
   mail: {
     color: "#1D89C6",
   },
   fin: {
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Normal,
     textAlign: "right",
     paddingTop: 20,
     paddingBottom: 15,
