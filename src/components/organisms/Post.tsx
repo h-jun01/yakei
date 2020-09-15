@@ -65,7 +65,6 @@ const Post: FC<Props> = ({ ...props }) => {
       : { color: baseColor.text };
 
   const height = deviceWidth * aspectRatio;
-  const containerAspectRatio = containerAspect.width / containerAspect.height;
 
   const isImageHeightSmall = height < containerAspect.height;
   const imageAspect = isImageHeightSmall
@@ -74,7 +73,7 @@ const Post: FC<Props> = ({ ...props }) => {
         height: height,
       }
     : {
-        width: deviceWidth * containerAspectRatio,
+        width: containerAspect.height / aspectRatio,
         height: containerAspect.height,
       };
 
