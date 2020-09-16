@@ -95,7 +95,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
+      quality: 0.3,
     });
 
     //リサイズ処理
@@ -106,7 +106,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
         result.uri,
         actions,
         {
-          compress: 1,
+          compress: 0.8,
         }
       );
       //リサイズしたデータを保存
@@ -132,9 +132,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      // Androidはここ指定でトリミングできるはず↓
-      // aspect: [4, 1],
-      quality: 1,
+      quality: 0.3,
     });
 
     //リサイズ処理
@@ -147,7 +145,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
         result.uri,
         actions,
         {
-          compress: 1,
+          compress: 0.8,
         }
       );
 

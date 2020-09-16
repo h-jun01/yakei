@@ -14,6 +14,7 @@ import { setUserData } from "./actions/user";
 import { setPhotoListData } from "./actions/photo";
 import { setAllPhotoListData } from "./actions/allPhoto";
 import { setNewsDataList } from "./actions/news ";
+import { setNotificationDataList } from "./actions/notification";
 import { Notifications } from "expo";
 import { baseColor } from "./styles/thema/colors";
 import * as Permissions from "expo-permissions";
@@ -31,6 +32,7 @@ import PickUpScreen from "./screens/PickUpScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
 import PostScreen from "./screens/PostScreen";
+import { authReducer } from "./reducers/authReducer";
 
 const ScreenSwitcher: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;
@@ -68,15 +70,12 @@ const ScreenSwitcher: FC = () => {
         return;
       }
       // トークン生成
-      await Notifications.getExpoPushTokenAsync()
-        .then((token) => {
-          accountFireStore.saveDeviceToken(uid, token).catch(() => {
-            return;
-          });
-        })
-        .catch(() => {
-          return;
-        });
+      const token = await Notifications.getExpoPushTokenAsync();
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          accountFireStore.saveDeviceToken(user.uid, token);
+        }
+      });
     }
     // androidの設定
     if (Platform.OS === "android") {
@@ -110,6 +109,7 @@ const ScreenSwitcher: FC = () => {
       } else {
         dispatch(loginStatusChange(false));
         dispatch(loadingStatusChange(true));
+        dispatch(setNotificationDataList([]));
       }
     });
   }, []);
