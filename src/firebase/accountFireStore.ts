@@ -25,7 +25,11 @@ type AccountFireStore = {
     idToken: string,
     accessToken: string
   ) => Promise<void | firebase.auth.UserCredential>;
-  addGoogleLoginUser;
+  addGoogleUserData: (
+    uid: string,
+    displayName: string,
+    photoURL: string
+  ) => Promise<void>;
   signOutUser: () => void;
   updateName: (name: string) => Promise<void>;
   upDateSelfIntroduction: (self_introduction: string) => Promise<void>;
@@ -95,7 +99,11 @@ export const accountFireStore: AccountFireStore = {
     );
     return await auth.signInWithCredential(credential);
   },
-  addGoogleLoginUser: async (uid, displayName, photoURL) => {
+  addGoogleUserData: async (
+    uid: string,
+    displayName: string,
+    photoURL: string
+  ) => {
     await user.doc(uid).set({
       uid,
       name: displayName,
