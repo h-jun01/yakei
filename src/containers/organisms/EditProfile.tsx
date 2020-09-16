@@ -106,7 +106,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
         result.uri,
         actions,
         {
-          compress: 1,
+          compress: 0.8,
         }
       );
       //リサイズしたデータを保存
@@ -147,7 +147,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
         result.uri,
         actions,
         {
-          compress: 1,
+          compress: 0.8,
         }
       );
 
