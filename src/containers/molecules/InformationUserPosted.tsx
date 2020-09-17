@@ -15,10 +15,11 @@ type Props = {
   uid: string;
   photo_id: string;
   photogenic_subject: string;
+  img_index: string;
 };
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
-  const { uid, photo_id, photogenic_subject, navigation } = props;
+  const { uid, photo_id, photogenic_subject, navigation, img_index } = props;
 
   const selectMyuid = (state: RootState) => state.userReducer.uid;
   const selectAllPhotoDataList = (state: RootState) =>
@@ -92,7 +93,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
         navigation.goBack();
       })
       .catch((e) => {
-        console.log(e + "aa");
+        console.log(e);
       });
   };
 

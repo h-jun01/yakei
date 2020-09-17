@@ -17,6 +17,7 @@ type PhotoDataList = {
   latitude: number;
   longitude: number;
   photogenic_subject: string;
+  img_index: string;
 };
 
 type Props = {
@@ -40,6 +41,7 @@ const ImageList: FC<Props> = ({ ...props }) => {
                 uid={item.uid}
                 photo_id={item.photo_id}
                 photogenic_subject={item.photogenic_subject}
+                img_index={item.img_index}
               />
               <TouchableOpacity
                 activeOpacity={0.8}
@@ -53,6 +55,7 @@ const ImageList: FC<Props> = ({ ...props }) => {
                       latitude: item.latitude,
                       longitude: item.longitude,
                       photogenic_subject: item.photogenic_subject,
+                      img_index: item.img_index,
                     },
                   })
                 }

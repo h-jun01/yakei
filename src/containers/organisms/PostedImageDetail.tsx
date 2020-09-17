@@ -56,6 +56,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     latitude,
     longitude,
     photogenic_subject,
+    img_index,
   } = route.params.imageData;
   const shouldHeaderLeftBeCross = route.params.shouldHeaderLeftBeCross;
 
@@ -130,6 +131,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
       textInputRef={textInputRef}
       focusOnInput={focusOnInput}
       bottomHeight={bottomHeight}
+      img_index={img_index}
     />
   );
 };

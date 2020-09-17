@@ -27,6 +27,7 @@ type Props = {
   textInputRef: MutableRefObject<TextInput | null>;
   focusOnInput: () => void;
   bottomHeight: number;
+  img_index: string;
 };
 
 const PostedImageDetail: FC<Props> = ({ ...props }) => {
@@ -44,6 +45,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     textInputRef,
     focusOnInput,
     bottomHeight,
+    img_index,
   } = props;
 
   return (
@@ -56,6 +58,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
               uid={uid}
               photo_id={photo_id}
               photogenic_subject={photogenic_subject}
+              img_index={img_index}
             />
             <Image
               style={{

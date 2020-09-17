@@ -46,6 +46,7 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                       latitude: item.latitude,
                       longitude: item.longitude,
                       photogenic_subject: item.photogenic_subject,
+                      img_index: item.img_index,
                     },
                   })
                 }

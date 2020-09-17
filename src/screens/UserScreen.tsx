@@ -33,6 +33,7 @@ export type UserScreenStackParamList = {
       latitude: number;
       longitude: number;
       photogenic_subject: string;
+      img_index: string;
     };
     shouldHeaderLeftBeCross?: boolean;
   };
