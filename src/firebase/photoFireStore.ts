@@ -1,6 +1,6 @@
 import firebase from "firebase";
 import geohash from "ngeohash";
-import { db } from "./firebase";
+import { db, storage } from "./firebase";
 
 type PhotoFireStore = {
   getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
@@ -15,6 +15,7 @@ type PhotoFireStore = {
     favoriteNumber: number
   ) => Promise<void>;
   deletingPostedPhoto: (photo_id: string) => Promise<void>;
+  removePostPhotoWithStorage: (img_index: string, uid: string) => Promise<void>;
 };
 
 const photo = db.collection("photos");
@@ -62,7 +63,7 @@ export const photoFireStore: PhotoFireStore = {
       favoriteNumber: favoriteNumber -= 1,
     });
   },
-  // 投稿した写真を削除
+  // 投稿した写真をコレクションから削除
   deletingPostedPhoto: async (photo_id: string) => {
     await photo
       .doc(photo_id)
@@ -70,5 +71,8 @@ export const photoFireStore: PhotoFireStore = {
       .catch((e) => {
         alert(e);
       });
+  },
+  removePostPhotoWithStorage: async (img_index: string, uid: string) => {
+    await storage.ref(`photo/${uid}`).child(img_index).delete();
   },
 };

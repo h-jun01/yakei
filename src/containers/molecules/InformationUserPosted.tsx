@@ -87,6 +87,11 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
 
   const deletingPosts = async () => {
     await photoFireStore
+      .removePostPhotoWithStorage(img_index, myUid)
+      .catch((e) => {
+        console.log(e);
+      });
+    await photoFireStore
       .deletingPostedPhoto(photo_id)
       .then(async () => {
         dispatchPhotoData();
