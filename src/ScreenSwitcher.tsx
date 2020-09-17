@@ -32,7 +32,6 @@ import PickUpScreen from "./screens/PickUpScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import UserScreen from "./screens/UserScreen";
 import PostScreen from "./screens/PostScreen";
-import { authReducer } from "./reducers/authReducer";
 
 const ScreenSwitcher: FC = () => {
   const selectIsLoading = (state: RootState) => state.authReducer.isLoading;

@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef } from "react";
+import React, { FC, Fragment, useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ActionSheet } from "native-base";
 import { RootState } from "../../reducers/index";
@@ -7,6 +7,7 @@ import { photoFireStore } from "../../firebase/photoFireStore";
 import { callingDeleteAlert } from "../../utilities/alert";
 import { setPhotoListData } from "../../actions/photo";
 import { setAllPhotoListData } from "../../actions/allPhoto";
+import Spinner from "react-native-loading-spinner-overlay";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 import RBSheet from "react-native-raw-bottom-sheet";
 
@@ -31,6 +32,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   const allPhotoDataList = useSelector(selectAllPhotoDataList);
   const myPhotoDataList = useSelector(selectMyPhotoDataList);
 
+  const [isloading, setIsLoading] = useState<boolean>(false);
   const [postUserName, setPostUserName] = useState<string>("");
   const [postUserImage, setPostUserImage] = useState<string>(
     "https://example.com"
@@ -77,15 +79,11 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
     const filterAllPhoto = newAllPhotos.filter(
       (value) => value.photo_id !== photo_id
     );
-    const newMyPhotos = myPhotoDataList.slice();
-    const filterMyPhoto = newMyPhotos.filter(
-      (value) => value.photo_id !== photo_id
-    );
     dispatch(setAllPhotoListData(filterAllPhoto));
-    dispatch(setPhotoListData(filterMyPhoto));
   };
 
   const deletingPosts = async () => {
+    setIsLoading(true);
     await photoFireStore
       .removePostPhotoWithStorage(img_index, myUid)
       .catch((e) => {
@@ -100,6 +98,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       .catch((e) => {
         console.log(e);
       });
+    setIsLoading(false);
   };
 
   const _handleOnPress = (): void => {
@@ -128,15 +127,23 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   };
 
   return (
-    <InformationUserPosted
-      photo_id={photo_id}
-      postUserName={postUserName}
-      postUserImage={postUserImage}
-      photogenic_subject={photogenic_subject}
-      refRBSheet={refRBSheet}
-      transitionToAnotherUser={transitionToAnotherUser}
-      _onOpenActionSheet={_onOpenActionSheet}
-    />
+    <Fragment>
+      <InformationUserPosted
+        photo_id={photo_id}
+        postUserName={postUserName}
+        postUserImage={postUserImage}
+        photogenic_subject={photogenic_subject}
+        refRBSheet={refRBSheet}
+        transitionToAnotherUser={transitionToAnotherUser}
+        _onOpenActionSheet={_onOpenActionSheet}
+      />
+      <Spinner
+        visible={isloading}
+        textContent="削除中..."
+        textStyle={{ color: "#fff", fontSize: 13 }}
+        overlayColor="rgba(0,0,0,0.5)"
+      />
+    </Fragment>
   );
 };
 
