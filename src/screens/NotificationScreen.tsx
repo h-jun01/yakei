@@ -18,6 +18,7 @@ export type NotificationScreenStackParamList = {
       longitude: number;
       favoriteNumber: number;
       photogenic_subject: string;
+      img_index: string;
     };
     shouldHeaderLeftBeCross?: boolean;
   };
