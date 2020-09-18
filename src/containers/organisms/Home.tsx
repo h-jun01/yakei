@@ -1,15 +1,22 @@
 import React, { FC, useEffect, useState } from "react";
-import Home from "../../components/organisms/Home";
-import * as Permissions from "expo-permissions";
-import * as Location from "expo-location";
-import { photoFireStore } from "../../firebase/photoFireStore";
 import { useSelector, useDispatch } from "react-redux";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { photoFireStore } from "../../firebase/photoFireStore";
 import { setAllPhotoListData } from "../../actions/allPhoto";
 import { RootState } from "../../reducers/index";
 import { Region } from "../../entities/map";
+import * as Permissions from "expo-permissions";
+import * as Location from "expo-location";
+import Home from "../../components/organisms/Home";
+
+type HomeScreenNavigationProp = StackNavigationProp<
+  HomeScreenStackParamList,
+  "detail"
+>;
 
 type Props = {
-  navigation: any;
+  navigation: HomeScreenNavigationProp;
 };
 
 const ContainerHome: FC<Props> = ({ ...props }) => {

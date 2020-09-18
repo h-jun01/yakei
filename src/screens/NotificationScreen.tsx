@@ -16,6 +16,7 @@ export type NotificationScreenStackParamList = {
       url: string;
       latitude: number;
       longitude: number;
+      favoriteNumber: number;
       photogenic_subject: string;
     };
     shouldHeaderLeftBeCross?: boolean;

@@ -32,12 +32,25 @@ export type UserScreenStackParamList = {
       url: string;
       latitude: number;
       longitude: number;
+      favoriteNumber: number;
       photogenic_subject: string;
       img_index: string;
     };
     shouldHeaderLeftBeCross?: boolean;
   };
   otherUser: { name: string; uid: string };
+  detail: { photoDataList: PhotoDataList[] };
+};
+
+type PhotoDataList = {
+  photo_id: string;
+  uid: string;
+  create_time: Timestamp;
+  url: string;
+  latitude: number;
+  longitude: number;
+  photogenic_subject: string;
+  img_index: string;
 };
 
 const UserScreen: FC = () => {

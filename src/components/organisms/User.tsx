@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import { Platform, PlatformIOSStatic, StyleSheet } from "react-native";
 import { View, ScrollView, Text, ActivityIndicator } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
@@ -12,8 +14,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import UserImage from "../atoms/UserImage";
 import TabMenu from "../../containers/molecules/TabMenu";
 
+type UserScreenNavigationProp = StackNavigationProp<UserScreenStackParamList>;
+
 type Props = {
-  navigation: any;
+  navigation: UserScreenNavigationProp;
   name: string;
   image: string;
   headerImage: string;

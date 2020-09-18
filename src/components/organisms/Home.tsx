@@ -1,31 +1,30 @@
-import React, { FC, useState, useRef } from "react";
-import {
-  StyleSheet,
-  Text,
-  Animated,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-  Platform,
-  View,
-} from "react-native";
-import Spinner from "react-native-loading-spinner-overlay";
+import React, { FC, useState, useEffect, useRef } from "react";
+import { StyleSheet, Animated, Dimensions, Platform } from "react-native";
+import { Text, Image, TouchableOpacity, View } from "react-native";
+import MapViewType, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { Container } from "native-base";
 import { Timestamp } from "@google-cloud/firestore";
-import MapViewType, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import { useEffect } from "react";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
 import { useTheme } from "@react-navigation/native";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { baseColor } from "../../styles/thema/colors";
+import { Region } from "../../entities/map";
+import { mapStyle } from "../../styles/map";
 import * as Location from "expo-location";
 import MapView from "react-native-map-clustering";
 import UserSwitchButtonView from "./UserSwitchButton";
 import LocationButtonView from "./PresentLocationButton";
 import OriginMarker from "../atoms/OriginMarker";
-import { Region } from "../../entities/map";
 import geohash from "ngeohash";
-import { mapStyle } from "../../styles/map";
+import Spinner from "react-native-loading-spinner-overlay";
 import Card from "../../containers/molecules/Card";
+
+type HomeScreenNavigationProp = StackNavigationProp<
+  HomeScreenStackParamList,
+  "detail"
+>;
 
 type PhotoDataList = {
   photo_id: string;
@@ -35,10 +34,11 @@ type PhotoDataList = {
   latitude: number;
   longitude: number;
   photogenic_subject: string;
+  img_index: string;
 };
 
 type Props = {
-  navigation: any;
+  navigation: HomeScreenNavigationProp;
   allPhotoList: firebase.firestore.DocumentData[];
   myPhotoList: firebase.firestore.DocumentData[];
   bottomHeight: number;

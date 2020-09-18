@@ -1,12 +1,18 @@
 import React, { FC } from "react";
-import { View, ScrollView } from "react-native";
-import { StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { NotificationScreenStackParamList } from "../../screens/NotificationScreen";
 import { baseColor } from "../../styles/thema/colors";
 import NotificationItem from "../../containers/molecules/NotificationItem";
 import NoNotificationTex from "../atoms/NoNotificationText";
 
+type NotificationScreenNavigationProp = StackNavigationProp<
+  NotificationScreenStackParamList,
+  "post"
+>;
+
 type Props = {
-  navigation: any;
+  navigation: NotificationScreenNavigationProp;
   notificationDataList: firebase.firestore.DocumentData[];
   bottomHeight: number;
 };

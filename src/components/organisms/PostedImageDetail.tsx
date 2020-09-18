@@ -3,9 +3,13 @@ import { ScrollView, View, TextInput } from "react-native";
 import { ActivityIndicator, StyleSheet } from "react-native";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { baseColor } from "../../styles/thema/colors";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
+import { baseColor } from "../../styles/thema/colors";
 import { deviceWidth } from "../../utilities/dimensions";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import DetailPostedPageItems from "../../containers/molecules/DetailPostedPageItems";
@@ -13,8 +17,15 @@ import KeyboardInputView from "../../containers/molecules/KeyboardInputView";
 import CommentInputField from "../../containers/molecules/CommentInputField";
 import CommentField from "../../containers/molecules/CommentField";
 
+type PostScreenNavigationProp = StackNavigationProp<
+  | HomeScreenStackParamList
+  | PickUpScreenStackParamList
+  | UserScreenStackParamList,
+  "otherUser"
+>;
+
 type Props = {
-  navigation: StackNavigationProp<Record<string, object>>;
+  navigation: PostScreenNavigationProp;
   photo_id: string;
   uid: string;
   create_time: Timestamp;
@@ -25,9 +36,9 @@ type Props = {
   photogenic_subject: string;
   commentDataList: firebase.firestore.DocumentData[];
   textInputRef: MutableRefObject<TextInput | null>;
-  focusOnInput: () => void;
   bottomHeight: number;
   img_index: string;
+  focusOnInput: () => void;
 };
 
 const PostedImageDetail: FC<Props> = ({ ...props }) => {

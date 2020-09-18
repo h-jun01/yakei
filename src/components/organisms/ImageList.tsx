@@ -3,11 +3,22 @@ import { ScrollView, View, TouchableOpacity } from "react-native";
 import { StyleSheet, ActivityIndicator } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { baseColor } from "../../styles/thema/colors";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
+import { baseColor } from "../../styles/thema/colors";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import PostedPageItems from "../../containers/molecules/PostedPageItems";
+
+type ImageListScreenNavigationProp = StackNavigationProp<
+  | HomeScreenStackParamList
+  | PickUpScreenStackParamList
+  | UserScreenStackParamList,
+  "detail"
+>;
 
 type PhotoDataList = {
   photo_id: string;
@@ -22,7 +33,7 @@ type PhotoDataList = {
 
 type Props = {
   photoDataList: PhotoDataList[];
-  navigation: any;
+  navigation: ImageListScreenNavigationProp;
   bottomHeight: number;
 };
 

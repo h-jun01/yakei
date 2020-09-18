@@ -33,13 +33,13 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
     const plusBtnBottom = deviceWidth * plusBtnBottomRatio;
     return btmNvBgPlusSafeAreaHeight + plusBtnBottom;
   };
-  const onLayoutBtmNvBg = (height) => {
+  const onLayoutBtmNvBg = (height: number) => {
     setBtmNvBgHeight(height);
     const btmNvBgPlusSAHeight = height + safeAreaHeihgt;
     const btmNvHeight = getBtmNvHeight(btmNvBgPlusSAHeight);
     dispatch(setBottomNavHeight(btmNvHeight));
   };
-  const onLayoutSafeAreaHeight = (height) => {
+  const onLayoutSafeAreaHeight = (height: number) => {
     const heightOnDisplay = height === 0 ? 0 : height - 21;
     setSafeAreaHeihgt(heightOnDisplay);
     const btmNvBgPlusSafeAreaHeight = btmNvBgHeight - heightOnDisplay;

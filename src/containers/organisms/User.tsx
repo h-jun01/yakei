@@ -1,11 +1,15 @@
 import React, { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { RootState } from "../../reducers/index";
 import { useState } from "react";
 import User from "../../components/organisms/User";
 
+type UserScreenNavigationProp = StackNavigationProp<UserScreenStackParamList>;
+
 type Props = {
-  navigation: any;
+  navigation: UserScreenNavigationProp;
 };
 
 const ContainerUser: FC<Props> = ({ navigation }) => {

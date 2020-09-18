@@ -1,9 +1,21 @@
 import firebase from "firebase";
 import geohash from "ngeohash";
 import { db, storage } from "./firebase";
+import { Timestamp } from "@google-cloud/firestore";
+
+type PickUpDataList = {
+  photo_id: string;
+  uid: string;
+  create_time: Timestamp;
+  url: string;
+  latitude: number;
+  longitude: number;
+  photogenic_subject: string;
+  img_index: string;
+};
 
 type PhotoFireStore = {
-  getPhotoList: (uid: string) => Promise<firebase.firestore.DocumentData[]>;
+  getPhotoList: (uid: string) => Promise<PickUpDataList[]>;
   getAllPhotoList: () => Promise<firebase.firestore.DocumentData[]>;
   getFavoriteNumber: (photo_id: string) => Promise<number>;
   incrementFavoriteNumber: (
@@ -23,13 +35,13 @@ const photo = db.collection("photos");
 export const photoFireStore: PhotoFireStore = {
   //自分の投稿した写真を取得
   getPhotoList: async (uid: string) => {
-    const photoDataList: firebase.firestore.DocumentData[] = [];
+    const photoDataList: PickUpDataList[] = [];
     const querySnapshot = await photo
       .where("uid", "==", uid)
       .orderBy("create_time", "asc")
       .get();
     querySnapshot.forEach((doc) => {
-      photoDataList.push(doc.data());
+      photoDataList.push(doc.data() as PickUpDataList);
     });
     return photoDataList;
   },
