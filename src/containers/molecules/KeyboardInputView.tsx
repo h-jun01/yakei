@@ -38,7 +38,7 @@ const KeyboardInputViewContainer: FC<Props> = ({ ...props }) => {
 
   //コメントを送信
   const addComment = async (): Promise<void> => {
-    if (!inputValue) {
+    if (!inputValue || inputValue.match(/\n/)) {
       return;
     } else {
       await commentFireStore
