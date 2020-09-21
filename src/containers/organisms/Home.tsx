@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { photoFireStore } from "../../firebase/photoFireStore";
@@ -22,7 +22,6 @@ type Props = {
 const ContainerHome: FC<Props> = ({ ...props }) => {
   const { navigation } = props;
 
-  const dispatch = useDispatch();
   const selectAllPhotoDataList = (state: RootState) =>
     state.allPhotoReducer.allPhotoDataList;
   const selectPhotoDataList = (state: RootState) =>
