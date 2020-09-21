@@ -1,24 +1,31 @@
 import React, { FC, useState, useEffect, useRef } from "react";
 import { TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
-import { RootState } from "../../reducers/index";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { useSelector, useDispatch } from "react-redux";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { StackActions } from "@react-navigation/native";
 import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
+import { RootState } from "../../reducers/index";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
+import { baseColor } from "../../styles/thema/colors";
 import {
   setTabState,
   setShouldDisplayBottomNav,
   setShouldNavigate,
 } from "../../actions/bottomNav";
-import { HomeScreenStackParamList } from "../../screens/HomeScreen";
-import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
-import { UserScreenStackParamList } from "../../screens/UserScreen";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { baseColor } from "../../styles/thema/colors";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+
+type PostScreenNavigationProp = StackNavigationProp<
+  | HomeScreenStackParamList
+  | PickUpScreenStackParamList
+  | UserScreenStackParamList,
+  "otherUser"
+>;
 
 type PostScreenRouteProp = RouteProp<
   | HomeScreenStackParamList
@@ -29,7 +36,7 @@ type PostScreenRouteProp = RouteProp<
 
 type Props = {
   route: PostScreenRouteProp;
-  navigation: StackNavigationProp<Record<string, object>>;
+  navigation: PostScreenNavigationProp;
 };
 
 const assignImageAspectRatio = (
@@ -56,6 +63,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     latitude,
     longitude,
     photogenic_subject,
+    img_index,
   } = route.params.imageData;
   const shouldHeaderLeftBeCross = route.params.shouldHeaderLeftBeCross;
 
@@ -130,6 +138,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
       textInputRef={textInputRef}
       focusOnInput={focusOnInput}
       bottomHeight={bottomHeight}
+      img_index={img_index}
     />
   );
 };

@@ -1,18 +1,8 @@
 import React, { FC } from "react";
-import {
-  ScrollView,
-  View,
-  Image,
-  TextInput,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Platform,
-} from "react-native";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { ScrollView, View, Image, TextInput, Text } from "react-native";
+import { TouchableOpacity, StyleSheet, Platform } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
 import { deviceHeight, deviceWidth } from "../../utilities/dimensions";

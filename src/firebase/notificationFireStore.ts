@@ -13,13 +13,15 @@ type NotificationItems = {
 };
 
 type NotificationFireStore = {
-  getUserNotification: (
-    uid: string
-  ) => Promise<firebase.firestore.DocumentData[]>;
+  getUserNotification: (uid: string) => Promise<NotificationItems[]>;
   notificationOpponentFavorite: (
     notificationItems: NotificationItems
   ) => Promise<void>;
-  //   getNotificationPhotoURL;
+  notificationAlreadyExistsDecision: (
+    uid: string,
+    url: string,
+    name: string
+  ) => Promise<boolean>;
 };
 
 const user = db.collection("users");
@@ -27,7 +29,7 @@ const user = db.collection("users");
 export const notificationFireStore: NotificationFireStore = {
   // 自分の通知を取得
   getUserNotification: async (uid: string) => {
-    const notificationDataList: firebase.firestore.DocumentData[] = [];
+    const notificationDataList: NotificationItems[] = [];
     const querySnapshot = await user
       .doc(uid)
       .collection("notification")
@@ -35,7 +37,7 @@ export const notificationFireStore: NotificationFireStore = {
       .limit(20)
       .get();
     querySnapshot.forEach((doc) => {
-      notificationDataList.push(doc.data());
+      notificationDataList.push(doc.data() as NotificationItems);
     });
 
     return notificationDataList;
@@ -47,14 +49,20 @@ export const notificationFireStore: NotificationFireStore = {
       .collection("notification")
       .add({ ...notificationItems });
   },
-  //   getNotificationPhotoURL: async (uid, url) => {
-  //     return await user
-  //       .doc(uid)
-  //       .collection("notification")
-  //       .where("photo_url", "==", url)
-  //       .get()
-  //       .then(async (res) => {
-  //         return (await res.docs[0].data().photo_url) === url ? true : false;
-  //       });
-  //   },
+  // 通知済みか存在判定
+  notificationAlreadyExistsDecision: async (
+    uid: string,
+    url: string,
+    name: string
+  ) => {
+    const notificationDataList: NotificationItems[] = [];
+    const querySnapshot = await user.doc(uid).collection("notification").get();
+    querySnapshot.forEach((doc) => {
+      notificationDataList.push(doc.data() as NotificationItems);
+    });
+
+    return notificationDataList.some(
+      (res) => res.photo_url === url && res.opponent_name === name
+    );
+  },
 };

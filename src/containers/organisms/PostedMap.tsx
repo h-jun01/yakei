@@ -1,9 +1,13 @@
 import React, { FC, useEffect, useState, useRef } from "react";
-import PostMap from "../../components/organisms/PostedMap";
+import { useDispatch } from "react-redux";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { setPostPhoto } from "../../actions/postPhoto";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
-import { useDispatch } from "react-redux";
-import { setPostPhoto } from "../../actions/postPhoto";
+import PostMap from "../../components/organisms/PostedMap";
+
+type UserScreenNavigationProp = StackNavigationProp<HomeScreenStackParamList>;
 
 type Region = {
   latitude: number;
@@ -13,7 +17,7 @@ type Region = {
 };
 
 type Props = {
-  navigation: any;
+  navigation: UserScreenNavigationProp;
 };
 
 const PostedMap: FC<Props> = ({ ...props }) => {

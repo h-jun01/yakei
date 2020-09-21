@@ -2,13 +2,15 @@ import React, { FC, Fragment, useState, useEffect } from "react";
 import { Platform, PlatformIOSStatic } from "react-native";
 import { TouchableOpacity, Text, Alert, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { callingAlert } from "../../utilities/alert";
 import { RootState } from "../../reducers/index";
 import { deviceWidth } from "../../utilities/dimensions";
 import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import {
   upDateUserName,
   upDateUserProfileImage,
@@ -23,13 +25,18 @@ import * as ImageManipulator from "expo-image-manipulator";
 import EditProfile from "../../components/organisms/EditProfile";
 import Spinner from "react-native-loading-spinner-overlay";
 
+type UserScreenNavigationProp = StackNavigationProp<
+  UserScreenStackParamList,
+  "user"
+>;
+
 type StorageImageData = {
   imgUrl: string;
   postIndex: string;
 };
 
 type Props = {
-  navigation: any;
+  navigation: UserScreenNavigationProp;
 };
 
 const ContainerEditProfile: FC<Props> = ({ ...props }) => {
@@ -176,7 +183,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
 
     //前回のプロフィールアイコン画像を削除
     if (imgIndex) {
-      await accountFireStore.deleteStorageImage(imgIndex);
+      accountFireStore.deleteStorageImage(imgIndex);
     }
 
     //storageのダウンロードURLを保存

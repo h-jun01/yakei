@@ -1,35 +1,44 @@
-import React, { FC, useState, useEffect, useRef } from "react";
+import React, { FC, Fragment, useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ActionSheet } from "native-base";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { RootState } from "../../reducers/index";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { callingDeleteAlert } from "../../utilities/alert";
-import { setPhotoListData } from "../../actions/photo";
 import { setAllPhotoListData } from "../../actions/allPhoto";
+import Spinner from "react-native-loading-spinner-overlay";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 import RBSheet from "react-native-raw-bottom-sheet";
 
+type PostScreenNavigationProp = StackNavigationProp<
+  | HomeScreenStackParamList
+  | PickUpScreenStackParamList
+  | UserScreenStackParamList
+>;
+
 type Props = {
-  navigation: any;
+  navigation: PostScreenNavigationProp;
   uid: string;
   photo_id: string;
   photogenic_subject: string;
+  img_index: string;
 };
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
-  const { uid, photo_id, photogenic_subject, navigation } = props;
+  const { uid, photo_id, photogenic_subject, navigation, img_index } = props;
 
   const selectMyuid = (state: RootState) => state.userReducer.uid;
   const selectAllPhotoDataList = (state: RootState) =>
     state.allPhotoReducer.allPhotoDataList;
-  const selectMyPhotoDataList = (state: RootState) =>
-    state.myPhotoReducer.photoDataList;
 
   const myUid = useSelector(selectMyuid);
   const allPhotoDataList = useSelector(selectAllPhotoDataList);
-  const myPhotoDataList = useSelector(selectMyPhotoDataList);
 
+  const [isloading, setIsLoading] = useState<boolean>(false);
   const [postUserName, setPostUserName] = useState<string>("");
   const [postUserImage, setPostUserImage] = useState<string>(
     "https://example.com"
@@ -46,7 +55,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
         res && setPostUserName(res);
       })
       .catch(() => {
-        setPostUserName("Anonymous");
+        setPostUserName("");
       });
   }, []);
 
@@ -76,15 +85,16 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
     const filterAllPhoto = newAllPhotos.filter(
       (value) => value.photo_id !== photo_id
     );
-    const newMyPhotos = myPhotoDataList.slice();
-    const filterMyPhoto = newMyPhotos.filter(
-      (value) => value.photo_id !== photo_id
-    );
     dispatch(setAllPhotoListData(filterAllPhoto));
-    dispatch(setPhotoListData(filterMyPhoto));
   };
 
   const deletingPosts = async () => {
+    setIsLoading(true);
+    await photoFireStore
+      .removePostPhotoWithStorage(img_index, myUid)
+      .catch((e) => {
+        console.log(e);
+      });
     await photoFireStore
       .deletingPostedPhoto(photo_id)
       .then(async () => {
@@ -92,8 +102,9 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
         navigation.goBack();
       })
       .catch((e) => {
-        console.log(e + "aa");
+        console.log(e);
       });
+    setIsLoading(false);
   };
 
   const _handleOnPress = (): void => {
@@ -122,15 +133,23 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   };
 
   return (
-    <InformationUserPosted
-      photo_id={photo_id}
-      postUserName={postUserName}
-      postUserImage={postUserImage}
-      photogenic_subject={photogenic_subject}
-      refRBSheet={refRBSheet}
-      transitionToAnotherUser={transitionToAnotherUser}
-      _onOpenActionSheet={_onOpenActionSheet}
-    />
+    <Fragment>
+      <InformationUserPosted
+        photo_id={photo_id}
+        postUserName={postUserName}
+        postUserImage={postUserImage}
+        photogenic_subject={photogenic_subject}
+        refRBSheet={refRBSheet}
+        transitionToAnotherUser={transitionToAnotherUser}
+        _onOpenActionSheet={_onOpenActionSheet}
+      />
+      <Spinner
+        visible={isloading}
+        textContent="削除中..."
+        textStyle={{ color: "#fff", fontSize: 13 }}
+        overlayColor="rgba(0,0,0,0.5)"
+      />
+    </Fragment>
   );
 };
 

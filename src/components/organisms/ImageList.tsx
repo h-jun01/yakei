@@ -3,11 +3,22 @@ import { ScrollView, View, TouchableOpacity } from "react-native";
 import { StyleSheet, ActivityIndicator } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { baseColor } from "../../styles/thema/colors";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
+import { baseColor } from "../../styles/thema/colors";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import PostedPageItems from "../../containers/molecules/PostedPageItems";
+
+type ImageListScreenNavigationProp = StackNavigationProp<
+  | HomeScreenStackParamList
+  | PickUpScreenStackParamList
+  | UserScreenStackParamList,
+  "detail"
+>;
 
 type PhotoDataList = {
   photo_id: string;
@@ -17,11 +28,12 @@ type PhotoDataList = {
   latitude: number;
   longitude: number;
   photogenic_subject: string;
+  img_index: string;
 };
 
 type Props = {
   photoDataList: PhotoDataList[];
-  navigation: any;
+  navigation: ImageListScreenNavigationProp;
   bottomHeight: number;
 };
 
@@ -40,6 +52,7 @@ const ImageList: FC<Props> = ({ ...props }) => {
                 uid={item.uid}
                 photo_id={item.photo_id}
                 photogenic_subject={item.photogenic_subject}
+                img_index={item.img_index}
               />
               <TouchableOpacity
                 activeOpacity={0.8}
@@ -53,6 +66,7 @@ const ImageList: FC<Props> = ({ ...props }) => {
                       latitude: item.latitude,
                       longitude: item.longitude,
                       photogenic_subject: item.photogenic_subject,
+                      img_index: item.img_index,
                     },
                   })
                 }

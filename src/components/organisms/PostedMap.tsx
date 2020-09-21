@@ -1,11 +1,15 @@
 import React, { FC } from "react";
 import { StyleSheet, Text, TouchableOpacity, Animated } from "react-native";
-import Spinner from "react-native-loading-spinner-overlay";
 import { Container } from "native-base";
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import MapView from "react-native-map-clustering";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { baseColor } from "../../styles/thema/colors";
 import { mapStyle } from "../../styles/map";
+import Spinner from "react-native-loading-spinner-overlay";
+import MapView from "react-native-map-clustering";
+
+type UserScreenNavigationProp = StackNavigationProp<HomeScreenStackParamList>;
 
 type Region = {
   latitude: number;
@@ -15,7 +19,7 @@ type Region = {
 };
 
 type Props = {
-  navigation: any;
+  navigation: UserScreenNavigationProp;
   region: Region;
   initialRegion: Region | "loading" | undefined;
   onLongPress: (latitude: number, longitude: number) => void;

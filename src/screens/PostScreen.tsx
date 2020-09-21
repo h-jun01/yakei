@@ -17,6 +17,7 @@ export type PostScreenStackParamList = {
       latitude: number;
       longitude: number;
       photogenic_subject: string;
+      img_index: string;
     };
     shouldHeaderLeftBeCross?: boolean;
   };

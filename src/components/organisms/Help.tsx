@@ -1,13 +1,20 @@
 import React, { FC } from "react";
 import { Platform, PlatformIOSStatic } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { deviceWidth } from "../../utilities/dimensions";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { Size } from "../../styles/thema/fonts";
 import HelpHeading from "../atoms/HelpHeading";
 
+type UserScreenNavigationProp = StackNavigationProp<
+  UserScreenStackParamList,
+  "faq"
+>;
+
 type Props = {
-  navigation: any;
+  navigation: UserScreenNavigationProp;
   bottomHeight: number;
 };
 

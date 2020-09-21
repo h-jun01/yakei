@@ -1,10 +1,16 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../reducers/index";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
+import { RootState } from "../../reducers/index";
 import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
 import ImageList from "../../components/organisms/ImageList";
+
+type ImageListScreenNavigationProp = StackNavigationProp<
+  HomeScreenStackParamList | PickUpScreenStackParamList,
+  "detail"
+>;
 
 type ImageListScreenRouteProp = RouteProp<
   HomeScreenStackParamList | PickUpScreenStackParamList,
@@ -13,7 +19,7 @@ type ImageListScreenRouteProp = RouteProp<
 
 type Props = {
   route: ImageListScreenRouteProp;
-  navigation: any;
+  navigation: ImageListScreenNavigationProp;
 };
 
 const ImageListContainer: FC<Props> = ({ route, navigation }) => {

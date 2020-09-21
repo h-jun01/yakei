@@ -97,7 +97,13 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
         create_time: FieldValue.serverTimestamp() as Timestamp,
       };
 
-      if (uid !== opponentUid) {
+      const notificationAlreadyExistsDecision = await notificationFireStore.notificationAlreadyExistsDecision(
+        uid,
+        url,
+        opponentName
+      );
+
+      if (uid !== opponentUid && !notificationAlreadyExistsDecision) {
         await notificationFireStore.notificationOpponentFavorite(
           notificationItems
         );
