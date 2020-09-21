@@ -247,6 +247,7 @@ const Home: FC<Props> = ({ ...props }) => {
                       latitude: data.latitude,
                       longitude: data.longitude,
                       photogenic_subject: data.photogenic_subject,
+                      img_index: data.img_index,
                     }}
                     coordinate={{
                       latitude: data.latitude,
@@ -279,6 +280,7 @@ const Home: FC<Props> = ({ ...props }) => {
                       latitude: data.latitude,
                       longitude: data.longitude,
                       photogenic_subject: data.photogenic_subject,
+                      img_index: data.img_index,
                     }}
                     image={require("../../../assets/pin02.png")}
                     onPress={() => {
