@@ -1,7 +1,7 @@
 import { ActionTypes } from "./index";
 
 //写真一覧の情報をセット
-export const setPhotoListData = (
+export const setPhotoDataList = (
   photoDataList: firebase.firestore.DocumentData[]
 ) =>
   ({

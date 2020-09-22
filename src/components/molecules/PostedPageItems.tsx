@@ -24,6 +24,7 @@ type Props = {
   commentCount: number;
   isFavoriteStatus: boolean;
   pressedFavorite: () => Promise<void>;
+  aspectRatio: number;
 };
 
 const PostedPageItems: FC<Props> = ({ ...props }) => {
@@ -40,6 +41,7 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
     commentCount,
     isFavoriteStatus,
     pressedFavorite,
+    aspectRatio,
   } = props;
 
   return (
@@ -72,6 +74,7 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
                 favoriteNumber,
                 latitude,
                 longitude,
+                aspectRatio,
               },
             })
           }

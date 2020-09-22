@@ -7,6 +7,8 @@ import type { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typesc
 import type { NavigationState } from "@react-navigation/routers/lib/typescript/src/types";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
+import * as ImageManipulator from "expo-image-manipulator";
+import type { ImageResult } from "expo-image-manipulator/build/ImageManipulator.types";
 import { setPostData } from "../../actions/post";
 import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
 import { deviceWidth, iPhone11Width } from "../../utilities/dimensions";
@@ -88,6 +90,21 @@ const useAnimation = () => {
   }
 };
 
+const compressImageAsync = (uri: string): Promise<ImageResult> => {
+  return new Promise(async (resolve) => {
+    const actions = [{ resize: { width: 600 } }];
+    const manipulatorResult = await ImageManipulator.manipulateAsync(
+      uri,
+      actions,
+      {
+        compress: 1,
+      }
+    );
+    console.log("manipulate");
+    resolve(manipulatorResult);
+  });
+};
+
 const navigateToPostScreen = (props: Props) => {
   const { state, routes, navigation } = props;
   const isFocused = state.index === 5;
@@ -124,7 +141,8 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
     });
 
     if (!result.cancelled) {
-      dispatch(setPostData(result.uri, "camera"));
+      const manipulatorResult = await compressImageAsync(result.uri);
+      dispatch(setPostData(manipulatorResult.uri, "camera"));
       navigateToPostScreen({ state, routes, navigation });
       dispatch(setShouldAppearPostBtns(false));
     }
@@ -147,7 +165,8 @@ const CameraAlbumWrapContainer: FC<Props> = ({ ...props }) => {
     });
 
     if (!result.cancelled) {
-      dispatch(setPostData(result.uri, "album"));
+      const manipulatorResult = await compressImageAsync(result.uri);
+      dispatch(setPostData(manipulatorResult.uri, "album"));
       navigateToPostScreen({ state, routes, navigation });
       dispatch(setShouldAppearPostBtns(false));
     }
