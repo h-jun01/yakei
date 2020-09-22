@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Platform, PlatformIOSStatic, StyleSheet } from "react-native";
 import { View, TouchableOpacity, KeyboardAvoidingView } from "react-native";
+import { AdMobBanner } from "expo-ads-admob";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
@@ -19,6 +20,10 @@ type Props = {
   setUserSelfIntroduction: React.Dispatch<React.SetStateAction<string>>;
   onAddImagePressed: () => Promise<void>;
   onAddHeaderImagePressed: () => Promise<void>;
+};
+
+const bannerError = () => {
+  console.log("Ad Fail error");
 };
 
 const EditProfile: FC<Props> = ({ ...props }) => {
@@ -90,6 +95,21 @@ const EditProfile: FC<Props> = ({ ...props }) => {
               setValue={setUserSelfIntroduction}
             />
           </View>
+          <View style={styles.banner}>
+            <AdMobBanner
+              adUnitID={
+                __DEV__
+                  ? "ca-app-pub-3940256099942544/6300978111" // テスト広告
+                  : Platform.select({
+                      ios: "広告ユニットID", // iOS
+                      android: "広告ユニットID", // android
+                    })
+              }
+              onDidFailToReceiveAdWithError={bannerError}
+              servePersonalizedAds={true}
+              bannerSize="largeBanner"
+            />
+          </View>
         </View>
       </KeyboardAvoidingView>
     </View>
@@ -140,6 +160,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: hp("2%"),
     right: wp("2%"),
+  },
+  banner: {
+    marginTop: 50,
+    alignItems: "center",
   },
 });
 
