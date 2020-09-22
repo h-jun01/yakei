@@ -50,6 +50,8 @@ const styles = StyleSheet.create({
     color: baseColor.text,
     fontSize: platformIOS.isPad ? Size.Xsmall : Size.Small,
     padding: wp("3.5%"),
+    marginBottom: 20,
+    textDecorationLine: "underline",
   },
 });
 
