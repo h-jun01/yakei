@@ -1,9 +1,11 @@
 import React, { FC, useState, useEffect, useRef } from "react";
 import { TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { Platform } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { useSelector, useDispatch } from "react-redux";
 import { StackActions } from "@react-navigation/native";
 import { RouteProp } from "@react-navigation/native";
+import { AdMobInterstitial } from "expo-ads-admob";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
@@ -40,6 +42,19 @@ type Props = {
   navigation: PostScreenNavigationProp;
 };
 
+const showInterstitial = async () => {
+  AdMobInterstitial.setAdUnitID(
+    __DEV__
+      ? "ca-app-pub-3940256099942544/1033173712" // テスト広告
+      : (Platform.select({
+          ios: "広告ユニットID", // iOS
+          android: "広告ユニットID", // android
+        }) as string)
+  ); // Test ID, Replace with your-admob-unit-id
+  await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
+  await AdMobInterstitial.showAdAsync();
+};
+
 const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   const {
     photo_id,
@@ -58,15 +73,20 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     state.postedDataReducer.commentDataList;
   const selectBottomHeight = (state: RootState) =>
     state.bottomNavReducer.height;
+  const selectMyPhotoDataList = (state: RootState) =>
+    state.myPhotoReducer.photoDataList;
 
   const commentDataList = useSelector(selectCommentDataList);
   const bottomHeight = useSelector(selectBottomHeight);
+  const myPhotoDataList = useSelector(selectMyPhotoDataList);
+
   const textInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
 
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える
   useEffect(() => {
     if (shouldHeaderLeftBeCross === undefined) return;
+    myPhotoDataList.length % 3 === 0 && showInterstitial();
     const onPress = () => {
       // スポット画面に遷移
       dispatch(setTabState("スポット"));
