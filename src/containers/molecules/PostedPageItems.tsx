@@ -8,6 +8,7 @@ import { commentFireStore } from "../../firebase/commentFireStore";
 import { photoFireStore } from "../../firebase/photoFireStore";
 import { notificationFireStore } from "../../firebase/notificationFireStore";
 import { useDisplayTime } from "../../utilities/hooks/date";
+import { setAspectRatioIntoState } from "../../utilities/imageAspect";
 import { upDateFavoriteList } from "../../actions/user";
 import { sendPushFavoriteNotification } from "../../utilities/sendPushNotification";
 import PostedPageItems from "../../components/molecules/PostedPageItems";
@@ -47,6 +48,7 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
   const [commentCount, setCommentCount] = useState<number>(0);
   const [favoriteNumber, setFavoriteNumber] = useState<number>(0);
   const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(false);
+  const [aspectRatio, setAspectRatio] = useState<number>(0);
 
   const dispach = useDispatch();
   const date = useDisplayTime(create_time.toMillis());
@@ -58,11 +60,12 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
     });
   }, [favoriteList]);
 
-  // コメント数取得
+  // コメント数取得、画像サイズ取得
   useEffect(() => {
     commentFireStore.getCommentDataList(photo_id).then((res) => {
       setCommentCount(res.length);
     });
+    setAspectRatioIntoState(url, setAspectRatio);
   }, []);
 
   // お気に入りチェック
@@ -140,6 +143,7 @@ const PostedPageItemsContainer: FC<Props> = ({ ...props }) => {
       date={date}
       isFavoriteStatus={isFavoriteStatus}
       pressedFavorite={pressedFavorite}
+      aspectRatio={aspectRatio}
     />
   );
 };

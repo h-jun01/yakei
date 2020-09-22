@@ -41,6 +41,7 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     (() => {
+      setIsMounted(true);
       if (!isMounted) return;
       setMyPhotoDataListCount(myPhotoDataList.length);
     })();
@@ -49,6 +50,7 @@ const ContainerUser: FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     (() => {
+      setIsMounted(true);
       if (!isMounted) return;
       setFavoriteListCount(favoriteList.length);
     })();

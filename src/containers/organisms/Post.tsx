@@ -5,19 +5,18 @@ import { StyleSheet, BackHandler } from "react-native";
 import type { Dispatch } from "redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import { useDispatch, useSelector } from "react-redux";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { RootState } from "../../reducers/index";
 import {
   setShouldDisplayBottomNav,
   setShouldNavigate,
 } from "../../actions/bottomNav";
-import { setPhotoListData } from "../../actions/photo";
 import { setAllPhotoListData } from "../../actions/allPhoto";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { baseColor } from "../../styles/thema/colors";
 import { postFirebaseStorage } from "../../firebase/postFirebaseStorage";
 import { postFireStore } from "../../firebase/postFireStore";
 import { callingAlert } from "../../utilities/alert";
+import { setAspectRatioIntoState } from "../../utilities/imageAspect";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import firebase from "firebase";
@@ -235,6 +234,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     setIsDisable(false);
     setPhotogenicSubject("");
     setLocation({ address: "撮影場所を選択" });
+    setAspectRatioIntoState(uri, setAspectRatio);
     if (type === "camera") {
       (async () => {
         const location = await getNowLocation();
@@ -281,7 +281,10 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       dispatchPhotoData(dispatch, selectedPhotoData, photoData);
       console.log(photoData.photo_id); // 本番では削除
       navigation.navigate("postedImageDetail", {
-        imageData: photoData,
+        imageData: {
+          ...photoData,
+          aspectRatio,
+        },
         shouldHeaderLeftBeCross: true,
       });
       setIsLoading(false);
