@@ -100,7 +100,6 @@ const compressImageAsync = (uri: string): Promise<ImageResult> => {
         compress: 1,
       }
     );
-    console.log("manipulate");
     resolve(manipulatorResult);
   });
 };
