@@ -10,6 +10,7 @@ import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
 import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { baseColor } from "../../styles/thema/colors";
+import { deviceWidth } from "../../utilities/dimensions";
 import InformationUserPosted from "../../containers/molecules/InformationUserPosted";
 import PostedPageItems from "../../containers/molecules/PostedPageItems";
 
@@ -53,6 +54,7 @@ const ImageList: FC<Props> = ({ ...props }) => {
                 photo_id={item.photo_id}
                 photogenic_subject={item.photogenic_subject}
                 img_index={item.img_index}
+                url={item.url}
               />
               <TouchableOpacity
                 activeOpacity={0.8}
@@ -107,8 +109,8 @@ const styles = StyleSheet.create({
     marginBottom: hp("1.5%"),
   },
   imageSize: {
-    width: wp("100%"),
-    height: hp("25%"),
+    width: deviceWidth,
+    height: deviceWidth,
   },
 });
 

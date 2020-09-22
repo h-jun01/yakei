@@ -39,21 +39,6 @@ type Props = {
   navigation: NavigationProp<Record<string, object>>;
 };
 
-const assignImageAspectRatio = (
-  uri: string,
-  set: React.Dispatch<React.SetStateAction<number>>
-) => {
-  Image.getSize(
-    uri,
-    (width, height) => {
-      set(height / width);
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
-};
-
 const moveToPreviousTab = async (dispatch: Dispatch) => {
   // 投稿前に滞在していた画面に遷移
   dispatch(setShouldDisplayBottomNav(true));
@@ -335,8 +320,6 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       y: height - spaceHeight,
     });
   };
-
-  assignImageAspectRatio(uri, setAspectRatio);
 
   const onPressAndroidBack = () => {
     moveToPreviousTab(dispatch);

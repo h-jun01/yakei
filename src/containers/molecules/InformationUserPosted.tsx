@@ -13,6 +13,7 @@ import { setAllPhotoListData } from "../../actions/allPhoto";
 import Spinner from "react-native-loading-spinner-overlay";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 import RBSheet from "react-native-raw-bottom-sheet";
+import { notificationFireStore } from "../../firebase/notificationFireStore";
 
 type PostScreenNavigationProp = StackNavigationProp<
   | HomeScreenStackParamList
@@ -26,10 +27,18 @@ type Props = {
   photo_id: string;
   photogenic_subject: string;
   img_index: string;
+  url: string;
 };
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
-  const { uid, photo_id, photogenic_subject, navigation, img_index } = props;
+  const {
+    uid,
+    photo_id,
+    photogenic_subject,
+    navigation,
+    img_index,
+    url,
+  } = props;
 
   const selectMyuid = (state: RootState) => state.userReducer.uid;
   const selectAllPhotoDataList = (state: RootState) =>
@@ -80,6 +89,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       });
   };
 
+  // 削除データを除いて再レンダリング
   const dispatchPhotoData = (): void => {
     const newAllPhotos = allPhotoDataList.slice();
     const filterAllPhoto = newAllPhotos.filter(
@@ -88,31 +98,44 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
     dispatch(setAllPhotoListData(filterAllPhoto));
   };
 
+  // 削除押下時
   const deletingPosts = async () => {
-    setIsLoading(true);
-    await photoFireStore
-      .removePostPhotoWithStorage(img_index, myUid)
-      .catch((e) => {
+    try {
+      setIsLoading(true);
+      // 通知をDBから削除
+      await notificationFireStore.notificationDelete(uid, url).catch((e) => {
         console.log(e);
       });
-    await photoFireStore
-      .deletingPostedPhoto(photo_id)
-      .then(async () => {
-        dispatchPhotoData();
-        navigation.goBack();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    setIsLoading(false);
+      // 投稿した写真をストレージから削除
+      await photoFireStore
+        .removePostPhotoWithStorage(img_index, myUid)
+        .catch((e) => {
+          console.log(e);
+        });
+      // 投稿した写真をコレクションから削除
+      await photoFireStore
+        .deletingPostedPhoto(photo_id)
+        .then(() => {
+          dispatchPhotoData();
+          navigation.goBack();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      setIsLoading(false);
+    } catch (e) {
+      alert(e);
+    }
   };
 
+  // 自分の投稿であれば削除、他人の投稿であれば報告を実行
   const _handleOnPress = (): void => {
     uid === myUid
       ? callingDeleteAlert(deletingPosts)
       : refRBSheet.current!.open();
   };
 
+  // アクションシート
   const _onOpenActionSheet = (): void => {
     const BUTTONS = [uid === myUid ? "削除" : "報告する", "キャンセル"];
     const DESTRUCTIVE_INDEX = 0;

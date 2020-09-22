@@ -9,6 +9,7 @@ import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
 import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { RootState } from "../../reducers/index";
+import { callingAlert } from "../../utilities/alert";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
 import { baseColor } from "../../styles/thema/colors";
@@ -39,21 +40,6 @@ type Props = {
   navigation: PostScreenNavigationProp;
 };
 
-const assignImageAspectRatio = (
-  uri: string,
-  set: React.Dispatch<React.SetStateAction<number>>
-) => {
-  Image.getSize(
-    uri,
-    (width, height) => {
-      set(height / width);
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
-};
-
 const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   const {
     photo_id,
@@ -75,7 +61,6 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   const commentDataList = useSelector(selectCommentDataList);
   const bottomHeight = useSelector(selectBottomHeight);
   const textInputRef = useRef<TextInput>(null);
-  const [aspectRatio, setAspectRatio] = useState<number>(1);
   const dispatch = useDispatch();
 
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える
@@ -113,15 +98,22 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     return () => emptyCommentDataList();
   }, [photo_id, setCommentDataList]);
 
+  useEffect(() => {
+    Image.getSize(
+      url,
+      () => {},
+      (error) => {
+        callingAlert("この投稿は既に削除されている可能性があります。");
+      }
+    );
+  }, []);
+
   // コメント入力時にフォーカスさせる
   const focusOnInput = () => {
     textInputRef.current?.focus();
     dispatch(setShouldDisplayBottomNav(false));
     dispatch(setIsInputForm(true));
   };
-
-  // 画像のwidthとheightを取得
-  assignImageAspectRatio(url, setAspectRatio);
 
   return (
     <PostedImageDetail
@@ -130,7 +122,6 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
       uid={uid}
       create_time={create_time}
       url={url}
-      aspectRatio={aspectRatio}
       latitude={latitude}
       longitude={longitude}
       photogenic_subject={photogenic_subject}

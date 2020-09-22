@@ -40,7 +40,7 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                 key={index}
                 activeOpacity={0.8}
                 onPress={() =>
-                  navigation.navigate("post", {
+                  navigation.push("post", {
                     imageData: {
                       photo_id: item.photo_id,
                       uid: item.uid,
@@ -80,7 +80,7 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                 key={index}
                 activeOpacity={0.8}
                 onPress={() =>
-                  navigation.navigate("post", {
+                  navigation.push("post", {
                     imageData: {
                       photo_id: item.photo_id,
                       uid: item.uid,
