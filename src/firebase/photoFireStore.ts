@@ -84,6 +84,7 @@ export const photoFireStore: PhotoFireStore = {
         alert(e);
       });
   },
+  // 投稿した写真をストレージから削除
   removePostPhotoWithStorage: async (img_index: string, uid: string) => {
     await storage.ref(`photo/${uid}`).child(img_index).delete();
   },

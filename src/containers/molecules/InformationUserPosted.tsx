@@ -80,6 +80,7 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
       });
   };
 
+  // 削除データを除いて再レンダリング
   const dispatchPhotoData = (): void => {
     const newAllPhotos = allPhotoDataList.slice();
     const filterAllPhoto = newAllPhotos.filter(
@@ -88,31 +89,38 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
     dispatch(setAllPhotoListData(filterAllPhoto));
   };
 
+  // 削除押下時
   const deletingPosts = async () => {
-    setIsLoading(true);
-    await photoFireStore
-      .removePostPhotoWithStorage(img_index, myUid)
-      .catch((e) => {
-        console.log(e);
-      });
-    await photoFireStore
-      .deletingPostedPhoto(photo_id)
-      .then(async () => {
-        dispatchPhotoData();
-        navigation.goBack();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      await photoFireStore
+        .removePostPhotoWithStorage(img_index, myUid)
+        .catch((e) => {
+          console.log(e);
+        });
+      await photoFireStore
+        .deletingPostedPhoto(photo_id)
+        .then(async () => {
+          dispatchPhotoData();
+          navigation.goBack();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      setIsLoading(false);
+    } catch (e) {
+      alert(e);
+    }
   };
 
+  // 自分の投稿であれば削除、他人の投稿であれば報告を実行
   const _handleOnPress = (): void => {
     uid === myUid
       ? callingDeleteAlert(deletingPosts)
       : refRBSheet.current!.open();
   };
 
+  // アクションシート
   const _onOpenActionSheet = (): void => {
     const BUTTONS = [uid === myUid ? "削除" : "報告する", "キャンセル"];
     const DESTRUCTIVE_INDEX = 0;

@@ -30,7 +30,6 @@ type Props = {
   uid: string;
   create_time: Timestamp;
   url: string;
-  aspectRatio: number;
   latitude: number;
   longitude: number;
   photogenic_subject: string;
@@ -48,7 +47,6 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     uid,
     create_time,
     url,
-    aspectRatio,
     latitude,
     longitude,
     photogenic_subject,
@@ -74,7 +72,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             <Image
               style={{
                 width: deviceWidth,
-                height: deviceWidth * aspectRatio,
+                height: deviceWidth,
               }}
               source={{
                 uri: url,
