@@ -16,7 +16,7 @@ import { baseColor } from "../../styles/thema/colors";
 import { postFirebaseStorage } from "../../firebase/postFirebaseStorage";
 import { postFireStore } from "../../firebase/postFireStore";
 import { callingAlert } from "../../utilities/alert";
-import { setAspectRatioIntoState } from "../../utilities/imageAspect";
+import { setImageLengthIntoState } from "../../utilities/imageAspect";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import firebase from "firebase";
@@ -183,7 +183,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   const [isDisabled, setIsDisable] = useState<boolean>(false);
   const [isPressing, setIsPressing] = useState<boolean>(false);
   const [spaceHeight, setSpaceHeight] = useState(0);
-  const [aspectRatio, setAspectRatio] = useState<number>(0);
+  const [imageLength, setImageLength] = useState({ width: 0, height: 0 });
   const [shouldShowPreview, setShouldShowPreview] = useState<boolean>(false);
   const [containerAspect, setContainerAspect] = useState({
     width: 1,
@@ -234,7 +234,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     setIsDisable(false);
     setPhotogenicSubject("");
     setLocation({ address: "撮影場所を選択" });
-    setAspectRatioIntoState(uri, setAspectRatio);
+    setImageLengthIntoState(uri, setImageLength);
     if (type === "camera") {
       (async () => {
         const location = await getNowLocation();
@@ -283,7 +283,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       navigation.navigate("postedImageDetail", {
         imageData: {
           ...photoData,
-          aspectRatio,
+          aspectRatio: imageLength.height / imageLength.width,
         },
         shouldHeaderLeftBeCross: true,
       });
@@ -335,7 +335,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       <Post
         uri={uri}
         address={location.address}
-        aspectRatio={aspectRatio}
+        imageLength={imageLength}
         scrollViewRef={scrollViewRef}
         setSpaceHeight={setSpaceHeight}
         handleContentSizeChange={handleContentSizeChange}

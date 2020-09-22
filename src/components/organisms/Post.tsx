@@ -19,7 +19,7 @@ type Aspect = {
 type Props = {
   uri: string;
   address: string;
-  aspectRatio: number;
+  imageLength: Aspect;
   scrollViewRef: React.MutableRefObject<ScrollView | null>;
   setSpaceHeight: React.Dispatch<React.SetStateAction<number>>;
   handleContentSizeChange: (width: number, height: number) => void;
@@ -32,11 +32,53 @@ type Props = {
   setContainerAspect: React.Dispatch<React.SetStateAction<Aspect>>;
 };
 
+const getPreviewStyle = (
+  fullDisplayHeight: number,
+  containerAspect: Aspect,
+  aspectRatio: number
+): { previewImgAspect: Aspect; previewStyle: { wrap: Object } } => {
+  if (fullDisplayHeight < containerAspect.height) {
+    const previewImgAspect = {
+      width: deviceWidth,
+      height: fullDisplayHeight,
+    };
+
+    const previewStyle = StyleSheet.create({
+      wrap: {
+        zIndex: 1,
+        position: "absolute",
+        top: (containerAspect.height - fullDisplayHeight) / 2,
+        left: 0,
+        backgroundColor: baseColor.base,
+      },
+    });
+
+    return { previewImgAspect, previewStyle };
+  } else {
+    const previewImgAspect = {
+      width: containerAspect.height / aspectRatio,
+      height: containerAspect.height,
+    };
+
+    const previewStyle = StyleSheet.create({
+      wrap: {
+        zIndex: 1,
+        position: "absolute",
+        top: 0,
+        left: (containerAspect.width - previewImgAspect.width) / 2,
+        backgroundColor: baseColor.base,
+      },
+    });
+
+    return { previewImgAspect, previewStyle };
+  }
+};
+
 const Post: FC<Props> = ({ ...props }) => {
   const {
     uri,
     address,
-    aspectRatio,
+    imageLength,
     scrollViewRef,
     setSpaceHeight,
     handleContentSizeChange,
@@ -54,30 +96,15 @@ const Post: FC<Props> = ({ ...props }) => {
       ? { color: utilityColor.placeholderText }
       : { color: baseColor.text };
 
-  const height = deviceWidth * aspectRatio;
-
-  const isImageHeightSmall = height < containerAspect.height;
-  const imageAspect = isImageHeightSmall
-    ? {
-        width: deviceWidth,
-        height: height,
-      }
-    : {
-        width: containerAspect.height / aspectRatio,
-        height: containerAspect.height,
-      };
-
-  const previewStyle = StyleSheet.create({
-    wrap: {
-      zIndex: 1,
-      position: "absolute",
-      top: isImageHeightSmall ? (containerAspect.height - height) / 2 : 0,
-      left: isImageHeightSmall
-        ? 0
-        : (containerAspect.width - imageAspect.width) / 2,
-      backgroundColor: baseColor.base,
-    },
-  });
+  const aspectRatio = imageLength.height / imageLength.width;
+  const fullDisplayHeight = deviceWidth * aspectRatio;
+  const { previewImgAspect, previewStyle } = getPreviewStyle(
+    fullDisplayHeight,
+    containerAspect,
+    aspectRatio
+  );
+  const heightToDisplay =
+    fullDisplayHeight < deviceWidth ? fullDisplayHeight : deviceWidth;
 
   return (
     <>
@@ -94,8 +121,8 @@ const Post: FC<Props> = ({ ...props }) => {
           >
             <Image
               style={{
-                width: imageAspect.width,
-                height: imageAspect.height,
+                width: previewImgAspect.width,
+                height: previewImgAspect.height,
               }}
               source={{ uri }}
             />
@@ -122,7 +149,7 @@ const Post: FC<Props> = ({ ...props }) => {
             <TouchableOpacity onPress={() => setShouldShowPreview(true)}>
               <Image
                 style={[
-                  { width: deviceWidth, height: deviceWidth },
+                  { width: deviceWidth, height: heightToDisplay },
                   styles.image,
                 ]}
                 source={{ uri }}
