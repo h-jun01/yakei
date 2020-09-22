@@ -9,7 +9,7 @@ type NotificationItems = {
   photo_url: string;
   uid: string;
   content: string;
-  index: string;
+  index?: string;
   create_time: Timestamp;
 };
 
