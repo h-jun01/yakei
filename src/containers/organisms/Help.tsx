@@ -1,10 +1,17 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { RootState } from "../../reducers/index";
 import Help from "../../components/organisms/Help";
 
+type UserScreenNavigationProp = StackNavigationProp<
+  UserScreenStackParamList,
+  "faq"
+>;
+
 type Props = {
-  navigation: any;
+  navigation: UserScreenNavigationProp;
 };
 
 const HelpContainer: FC<Props> = ({ navigation }) => {
@@ -14,3 +21,5 @@ const HelpContainer: FC<Props> = ({ navigation }) => {
 
   return <Help navigation={navigation} bottomHeight={bottomHeight} />;
 };
+
+export default HelpContainer;

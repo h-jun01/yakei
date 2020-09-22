@@ -1,11 +1,15 @@
 import React, { FC, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { RootState } from "../../reducers/index";
 import { setFavoriteItems } from "../../actions/favorite";
 import TabMenu from "../../components/molecules/TabMenu";
 
+type UserScreenNavigationProp = StackNavigationProp<UserScreenStackParamList>;
+
 type Props = {
-  navigation: any;
+  navigation: UserScreenNavigationProp;
 };
 
 const TabMenuContainer: FC<Props> = ({ navigation }) => {

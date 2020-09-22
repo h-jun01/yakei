@@ -123,7 +123,7 @@ const ContainerSignUp: FC<Props> = ({ navigation }) => {
             result.accessToken as string
           )
           .then(async (res: any) => {
-            await accountFireStore.addGoogleLoginUser(
+            await accountFireStore.addGoogleUserData(
               res.user.uid,
               res.user.displayName,
               res.user.photoURL

@@ -1,23 +1,41 @@
 import React, { FC } from "react";
-import { Platform, PlatformIOSStatic } from "react-native";
+import { Platform, PlatformIOSStatic, StyleSheet } from "react-native";
 import { ScrollView, TouchableOpacity, Text, View } from "react-native";
 import { ActivityIndicator, ImageSourcePropType } from "react-native";
-import { StyleSheet } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Timestamp } from "@google-cloud/firestore";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { Image } from "react-native-elements";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
 
+type PickUpScreenNavigationProp = StackNavigationProp<
+  PickUpScreenStackParamList,
+  "detail"
+>;
+
+type PickUpDataList = {
+  photo_id: string;
+  uid: string;
+  create_time: Timestamp;
+  url: string;
+  latitude: number;
+  longitude: number;
+  photogenic_subject: string;
+  img_index: string;
+};
+
 type PickUpItemList = {
   title: string;
   time: string;
   url: ImageSourcePropType;
-  pickUpDataList: firebase.firestore.DocumentData[];
+  pickUpDataList: PickUpDataList[];
 };
 
 type Props = {
-  navigation: any;
+  navigation: PickUpScreenNavigationProp;
   pickUpItemList: PickUpItemList[];
   bottomHeight: number;
 };

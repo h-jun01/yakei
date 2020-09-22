@@ -19,6 +19,8 @@ export type PickUpScreenStackParamList = {
       latitude: number;
       longitude: number;
       photogenic_subject: string;
+      img_index: string;
+      aspectRatio: number;
     };
     shouldHeaderLeftBeCross?: boolean;
   };
@@ -33,6 +35,7 @@ type PhotoDataList = {
   latitude: number;
   longitude: number;
   photogenic_subject: string;
+  img_index: string;
 };
 
 const PickUpScreen: FC = () => {

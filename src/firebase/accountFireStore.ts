@@ -16,7 +16,7 @@ type AccountFireStore = {
   getUserName: (uid: string) => Promise<React.SetStateAction<string>>;
   getUserImage: (uid: string) => Promise<React.SetStateAction<string>>;
   getDeviceToken: (uid: string) => Promise<string>;
-  saveDeviceToken: (uid: string, token: string) => Promise<void>;
+  saveDeviceToken: (uid: string, token: string) => void;
   loginUser: (
     email: string,
     password: string
@@ -25,7 +25,11 @@ type AccountFireStore = {
     idToken: string,
     accessToken: string
   ) => Promise<void | firebase.auth.UserCredential>;
-  addGoogleLoginUser;
+  addGoogleUserData: (
+    uid: string,
+    displayName: string,
+    photoURL: string
+  ) => Promise<void>;
   signOutUser: () => void;
   updateName: (name: string) => Promise<void>;
   upDateSelfIntroduction: (self_introduction: string) => Promise<void>;
@@ -37,7 +41,7 @@ type AccountFireStore = {
   updateHeaderImgIndex: (header_img_index: string) => Promise<void>;
   updateFavoriteList: (photo_id: string) => Promise<void>;
   deleteFavoriteItem: (photo_id: string) => Promise<void>;
-  deleteStorageImage: (imgIndex: string) => Promise<void> | undefined;
+  deleteStorageImage: (imgIndex: string) => void;
   deleteStorageHeaderImage: (
     headerImgIndex: string
   ) => Promise<any> | undefined;
@@ -74,9 +78,10 @@ export const accountFireStore: AccountFireStore = {
     });
   },
   // デバイスのトークンを保存
-  saveDeviceToken: async (uid: string, token: string) => {
-    await user.doc(uid).update({
+  saveDeviceToken: (uid: string, token: string) => {
+    user.doc(uid).update({
       token,
+      update_time: FieldValue.serverTimestamp(),
     });
   },
   //ログイン処理
@@ -94,7 +99,11 @@ export const accountFireStore: AccountFireStore = {
     );
     return await auth.signInWithCredential(credential);
   },
-  addGoogleLoginUser: async (uid, displayName, photoURL) => {
+  addGoogleUserData: async (
+    uid: string,
+    displayName: string,
+    photoURL: string
+  ) => {
     await user.doc(uid).set({
       uid,
       name: displayName,
@@ -219,7 +228,7 @@ export const accountFireStore: AccountFireStore = {
   deleteStorageImage: (imgIndex: string) => {
     const userData = auth.currentUser;
     if (userData) {
-      return storage.ref(`users/${userData.uid}`).child(imgIndex).delete();
+      storage.ref(`users/${userData.uid}`).child(imgIndex).delete();
     }
   },
   //storageからヘッダー画像を削除

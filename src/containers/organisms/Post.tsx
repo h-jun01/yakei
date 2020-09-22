@@ -1,13 +1,7 @@
 import React, { FC, useEffect, useState, useRef } from "react";
-import {
-  View,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Image,
-  ScrollView,
-  StyleSheet,
-  BackHandler,
-} from "react-native";
+import { View, Image, ScrollView } from "react-native";
+import { TouchableOpacity, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, BackHandler } from "react-native";
 import type { Dispatch } from "redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,13 +10,13 @@ import {
   setShouldDisplayBottomNav,
   setShouldNavigate,
 } from "../../actions/bottomNav";
-import { setPhotoListData } from "../../actions/photo";
 import { setAllPhotoListData } from "../../actions/allPhoto";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { baseColor } from "../../styles/thema/colors";
 import { postFirebaseStorage } from "../../firebase/postFirebaseStorage";
 import { postFireStore } from "../../firebase/postFireStore";
 import { callingAlert } from "../../utilities/alert";
+import { setAspectRatioIntoState } from "../../utilities/imageAspect";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import firebase from "firebase";
@@ -32,29 +26,16 @@ import Post from "../../components/organisms/Post";
 import PaperAirplaneSvg from "../../components/atoms/svg/PaperAirplaneSvg";
 import Spinner from "react-native-loading-spinner-overlay";
 
-type Props = {
-  navigation: NavigationProp<Record<string, object>>;
-};
 type Location = {
   latitude?: number;
   longitude?: number;
   address: string;
 };
+
 type DocumentData = firebase.firestore.DocumentData;
 
-const assignImageAspectRatio = (
-  uri: string,
-  set: React.Dispatch<React.SetStateAction<number>>
-) => {
-  Image.getSize(
-    uri,
-    (width, height) => {
-      set(height / width);
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
+type Props = {
+  navigation: NavigationProp<Record<string, object>>;
 };
 
 const moveToPreviousTab = async (dispatch: Dispatch) => {
@@ -253,6 +234,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
     setIsDisable(false);
     setPhotogenicSubject("");
     setLocation({ address: "撮影場所を選択" });
+    setAspectRatioIntoState(uri, setAspectRatio);
     if (type === "camera") {
       (async () => {
         const location = await getNowLocation();
@@ -299,7 +281,10 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       dispatchPhotoData(dispatch, selectedPhotoData, photoData);
       console.log(photoData.photo_id); // 本番では削除
       navigation.navigate("postedImageDetail", {
-        imageData: photoData,
+        imageData: {
+          ...photoData,
+          aspectRatio,
+        },
         shouldHeaderLeftBeCross: true,
       });
       setIsLoading(false);
@@ -338,8 +323,6 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       y: height - spaceHeight,
     });
   };
-
-  assignImageAspectRatio(uri, setAspectRatio);
 
   const onPressAndroidBack = () => {
     moveToPreviousTab(dispatch);

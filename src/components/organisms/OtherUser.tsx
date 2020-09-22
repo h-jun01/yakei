@@ -3,6 +3,8 @@ import { Platform, PlatformIOSStatic, StyleSheet } from "react-native";
 import { View, Text, ActivityIndicator, ScrollView } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
 import { Image } from "react-native-elements";
@@ -10,8 +12,13 @@ import { deviceWidth } from "../../utilities/dimensions";
 import UserImage from "../atoms/UserImage";
 import TabMenu from "../../components/molecules/TabMenu";
 
+type UserScreenNavigationProp = StackNavigationProp<
+  UserScreenStackParamList,
+  "post"
+>;
+
 type Props = {
-  navigation: any;
+  navigation: UserScreenNavigationProp;
   userData: firebase.firestore.DocumentData | undefined;
   postDataList: firebase.firestore.DocumentData[];
   favoriteDataList: firebase.firestore.DocumentData[];
@@ -40,9 +47,7 @@ const OtherUser: FC<Props> = ({ ...props }) => {
                 size={platformIOS.isPad ? deviceWidth / 6.5 : deviceWidth / 5}
               />
             </View>
-            <Text style={styles.userName}>
-              {userData ? userData.name : "anonymous"}
-            </Text>
+            <Text style={styles.userName}>{userData && userData.name}</Text>
             <Text style={styles.userIntro}>
               {userData && userData.self_introduction}
             </Text>

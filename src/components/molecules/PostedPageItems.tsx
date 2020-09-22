@@ -1,6 +1,7 @@
 import React, { FC, Fragment } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Timestamp } from "@google-cloud/firestore";
+import { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import { iconSize } from "../../styles/thema/fonts";
 import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
@@ -23,6 +24,7 @@ type Props = {
   commentCount: number;
   isFavoriteStatus: boolean;
   pressedFavorite: () => Promise<void>;
+  aspectRatio: number;
 };
 
 const PostedPageItems: FC<Props> = ({ ...props }) => {
@@ -39,6 +41,7 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
     commentCount,
     isFavoriteStatus,
     pressedFavorite,
+    aspectRatio,
   } = props;
 
   return (
@@ -71,6 +74,7 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
                 favoriteNumber,
                 latitude,
                 longitude,
+                aspectRatio,
               },
             })
           }

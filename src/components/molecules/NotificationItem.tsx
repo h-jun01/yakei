@@ -1,15 +1,22 @@
 import React, { FC } from "react";
 import { Platform, PlatformIOSStatic } from "react-native";
 import { View, TouchableOpacity, ActivityIndicator } from "react-native";
-import { Image } from "react-native-elements";
 import { StyleSheet } from "react-native";
+import { Image } from "react-native-elements";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { NotificationScreenStackParamList } from "../../screens/NotificationScreen";
 import { deviceWidth } from "../../utilities/dimensions";
 import { callingAlert } from "../../utilities/alert";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import NotificationText from "../atoms/NotificationText";
 
+type NotificationScreenNavigationProp = StackNavigationProp<
+  NotificationScreenStackParamList,
+  "post"
+>;
+
 type Props = {
-  navigation: any;
+  navigation: NotificationScreenNavigationProp;
   item: firebase.firestore.DocumentData;
   data: firebase.firestore.DocumentData | undefined;
 };

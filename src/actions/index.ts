@@ -1,5 +1,5 @@
 import { loadingStatusChange, loginStatusChange } from "./auth";
-import { setPhotoListData } from "./photo";
+import { setPhotoDataList } from "./photo";
 import { setNewsDataList } from "./news ";
 import { setAllPhotoListData } from "./allPhoto";
 import {
@@ -56,7 +56,7 @@ export type UnionedAction =
   | ReturnType<typeof loadingStatusChange>
   | ReturnType<typeof loginStatusChange>
   | ReturnType<typeof setUserData>
-  | ReturnType<typeof setPhotoListData>
+  | ReturnType<typeof setPhotoDataList>
   | ReturnType<typeof setAllPhotoListData>
   | ReturnType<typeof setCommentDataList>
   | ReturnType<typeof setIsInputForm>

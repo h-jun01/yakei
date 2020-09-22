@@ -6,11 +6,7 @@ const scale = deviceWidth / 414;
 
 //fontSizeを可変
 const normalize = (size: number): number => {
-  // const platformIOS = Platform as PlatformIOSStatic;
   const newSize = size * scale;
-  // if (platformIOS.isPad) {
-  //   return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
-  // }
 
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };

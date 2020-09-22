@@ -1,24 +1,32 @@
 import React, { FC, useState, useEffect, useRef } from "react";
 import { TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
-import { RootState } from "../../reducers/index";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { useSelector, useDispatch } from "react-redux";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { StackActions } from "@react-navigation/native";
 import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { HomeScreenStackParamList } from "../../screens/HomeScreen";
+import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
+import { RootState } from "../../reducers/index";
+import { callingAlert } from "../../utilities/alert";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
+import { baseColor } from "../../styles/thema/colors";
 import {
   setTabState,
   setShouldDisplayBottomNav,
   setShouldNavigate,
 } from "../../actions/bottomNav";
-import { HomeScreenStackParamList } from "../../screens/HomeScreen";
-import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
-import { UserScreenStackParamList } from "../../screens/UserScreen";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { baseColor } from "../../styles/thema/colors";
 import PostedImageDetail from "../../components/organisms/PostedImageDetail";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+
+type PostScreenNavigationProp = StackNavigationProp<
+  | HomeScreenStackParamList
+  | PickUpScreenStackParamList
+  | UserScreenStackParamList,
+  "otherUser"
+>;
 
 type PostScreenRouteProp = RouteProp<
   | HomeScreenStackParamList
@@ -29,22 +37,7 @@ type PostScreenRouteProp = RouteProp<
 
 type Props = {
   route: PostScreenRouteProp;
-  navigation: StackNavigationProp<Record<string, object>>;
-};
-
-const assignImageAspectRatio = (
-  uri: string,
-  set: React.Dispatch<React.SetStateAction<number>>
-) => {
-  Image.getSize(
-    uri,
-    (width, height) => {
-      set(height / width);
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
+  navigation: PostScreenNavigationProp;
 };
 
 const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
@@ -56,6 +49,8 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     latitude,
     longitude,
     photogenic_subject,
+    img_index,
+    aspectRatio,
   } = route.params.imageData;
   const shouldHeaderLeftBeCross = route.params.shouldHeaderLeftBeCross;
 
@@ -67,7 +62,6 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   const commentDataList = useSelector(selectCommentDataList);
   const bottomHeight = useSelector(selectBottomHeight);
   const textInputRef = useRef<TextInput>(null);
-  const [aspectRatio, setAspectRatio] = useState<number>(1);
   const dispatch = useDispatch();
 
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える
@@ -105,15 +99,22 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
     return () => emptyCommentDataList();
   }, [photo_id, setCommentDataList]);
 
+  useEffect(() => {
+    Image.getSize(
+      url,
+      () => {},
+      (error) => {
+        callingAlert("この投稿は既に削除されている可能性があります。");
+      }
+    );
+  }, []);
+
   // コメント入力時にフォーカスさせる
   const focusOnInput = () => {
     textInputRef.current?.focus();
     dispatch(setShouldDisplayBottomNav(false));
     dispatch(setIsInputForm(true));
   };
-
-  // 画像のwidthとheightを取得
-  assignImageAspectRatio(url, setAspectRatio);
 
   return (
     <PostedImageDetail
@@ -122,7 +123,6 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
       uid={uid}
       create_time={create_time}
       url={url}
-      aspectRatio={aspectRatio}
       latitude={latitude}
       longitude={longitude}
       photogenic_subject={photogenic_subject}
@@ -130,6 +130,8 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
       textInputRef={textInputRef}
       focusOnInput={focusOnInput}
       bottomHeight={bottomHeight}
+      img_index={img_index}
+      aspectRatio={aspectRatio}
     />
   );
 };
