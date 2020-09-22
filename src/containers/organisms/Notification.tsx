@@ -1,13 +1,30 @@
 import React, { FC, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Timestamp } from "@google-cloud/firestore";
+import { NotificationScreenStackParamList } from "../../screens/NotificationScreen";
 import { RootState } from "../../reducers/index";
 import { setNotificationDataList } from "../../actions/notification";
 import { db } from "../../firebase/firebase";
-import { notificationFireStore } from "../../firebase/notificationFireStore";
 import Notification from "../../components/organisms/Notification";
 
+type NotificationScreenNavigationProp = StackNavigationProp<
+  NotificationScreenStackParamList,
+  "post"
+>;
+
+type NotificationItems = {
+  opponent_uid: string;
+  opponent_url: string;
+  opponent_name: string;
+  photo_url: string;
+  uid: string;
+  content: string;
+  create_time: Timestamp;
+};
+
 type Props = {
-  navigation: any;
+  navigation: NotificationScreenNavigationProp;
 };
 
 const ContainerNotification: FC<Props> = ({ navigation }) => {
@@ -39,16 +56,11 @@ const ContainerNotification: FC<Props> = ({ navigation }) => {
 
           switch (changeType) {
             case "added":
-              temporaryArray.unshift(product);
+              temporaryArray.unshift(product as NotificationItems);
               break;
             case "modified":
               break;
             case "removed":
-              // notificationFireStore.getUserNotification(uid).then((res) => {
-              //   console.log("ok");
-              //   dispatch(setNotificationDataList(res));
-              //   setTemporaryArray(res);
-              // });
               break;
             default:
               break;

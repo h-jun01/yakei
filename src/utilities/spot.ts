@@ -1,6 +1,20 @@
+import { Timestamp } from "@google-cloud/firestore";
+
+type PickUpDataList = {
+  photo_id: string;
+  uid: string;
+  create_time: Timestamp;
+  url: string;
+  latitude: number;
+  longitude: number;
+  photogenic_subject: string;
+  img_index: string;
+  spot?: string;
+};
+
 export const squeezeSpot = (
-  pickUpDataList: firebase.firestore.DocumentData[],
+  pickUpDataList: PickUpDataList[],
   spot: string
-): firebase.firestore.DocumentData[] => {
+): PickUpDataList[] => {
   return pickUpDataList.filter((res) => res.spot === spot);
 };

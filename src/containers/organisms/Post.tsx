@@ -1,16 +1,11 @@
 import React, { FC, useEffect, useState, useRef } from "react";
-import {
-  View,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Image,
-  ScrollView,
-  StyleSheet,
-  BackHandler,
-} from "react-native";
+import { View, Image, ScrollView } from "react-native";
+import { TouchableOpacity, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, BackHandler } from "react-native";
 import type { Dispatch } from "redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import { useDispatch, useSelector } from "react-redux";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { RootState } from "../../reducers/index";
 import {
   setShouldDisplayBottomNav,
@@ -32,29 +27,16 @@ import Post from "../../components/organisms/Post";
 import PaperAirplaneSvg from "../../components/atoms/svg/PaperAirplaneSvg";
 import Spinner from "react-native-loading-spinner-overlay";
 
-type Props = {
-  navigation: NavigationProp<Record<string, object>>;
-};
 type Location = {
   latitude?: number;
   longitude?: number;
   address: string;
 };
+
 type DocumentData = firebase.firestore.DocumentData;
 
-const assignImageAspectRatio = (
-  uri: string,
-  set: React.Dispatch<React.SetStateAction<number>>
-) => {
-  Image.getSize(
-    uri,
-    (width, height) => {
-      set(height / width);
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
+type Props = {
+  navigation: NavigationProp<Record<string, object>>;
 };
 
 const moveToPreviousTab = async (dispatch: Dispatch) => {
@@ -338,8 +320,6 @@ const PostContainer: FC<Props> = ({ ...props }) => {
       y: height - spaceHeight,
     });
   };
-
-  assignImageAspectRatio(uri, setAspectRatio);
 
   const onPressAndroidBack = () => {
     moveToPreviousTab(dispatch);

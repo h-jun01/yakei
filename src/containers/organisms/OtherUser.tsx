@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import { RouteProp } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { RootState } from "../../reducers/index";
 import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
@@ -8,6 +9,11 @@ import { NotificationScreenStackParamList } from "../../screens/NotificationScre
 import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import OtherUser from "../../components/organisms/OtherUser";
+
+type UserScreenNavigationProp = StackNavigationProp<
+  UserScreenStackParamList,
+  "post"
+>;
 
 type OtherScreenRouteProp = RouteProp<
   | HomeScreenStackParamList
@@ -19,7 +25,7 @@ type OtherScreenRouteProp = RouteProp<
 
 type Props = {
   route: OtherScreenRouteProp;
-  navigation: any;
+  navigation: UserScreenNavigationProp;
 };
 
 const OtherUserContainer: FC<Props> = ({ route, navigation }) => {

@@ -1,9 +1,21 @@
 import React, { FC } from "react";
 import { Platform, PlatformIOSStatic } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { Size } from "../../styles/thema/fonts";
 import SettingItem from "../../components/molecules/SettingItem";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
+type UserScreenNavigationProp = StackNavigationProp<
+  UserScreenStackParamList,
+  | "editProfile"
+  | "passwordReset"
+  | "notice"
+  | "help"
+  | "termsOfService"
+  | "privacyPolicy"
+>;
 
 type ItemList = {
   leftIcon: JSX.Element;
@@ -13,7 +25,7 @@ type ItemList = {
 };
 
 type Props = {
-  navigation: any;
+  navigation: UserScreenNavigationProp;
 };
 
 const platformIOS = Platform as PlatformIOSStatic;

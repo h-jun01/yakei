@@ -4,12 +4,16 @@ import { StyleSheet } from "react-native";
 import { Tab, Tabs, TabHeading } from "native-base";
 import { Image } from "react-native-elements";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { baseColor } from "../../styles/thema/colors";
 import { deviceWidth } from "../../utilities/dimensions";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+type UserScreenNavigationProp = StackNavigationProp<UserScreenStackParamList>;
+
 type Props = {
-  navigation: any;
+  navigation: UserScreenNavigationProp;
   photoDataList: firebase.firestore.DocumentData[];
   favoriteItems: firebase.firestore.DocumentData[];
 };
@@ -36,7 +40,7 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                 key={index}
                 activeOpacity={0.8}
                 onPress={() =>
-                  navigation.navigate("post", {
+                  navigation.push("post", {
                     imageData: {
                       photo_id: item.photo_id,
                       uid: item.uid,
@@ -46,6 +50,7 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                       latitude: item.latitude,
                       longitude: item.longitude,
                       photogenic_subject: item.photogenic_subject,
+                      img_index: item.img_index,
                     },
                   })
                 }
@@ -75,7 +80,7 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                 key={index}
                 activeOpacity={0.8}
                 onPress={() =>
-                  navigation.navigate("post", {
+                  navigation.push("post", {
                     imageData: {
                       photo_id: item.photo_id,
                       uid: item.uid,
@@ -85,6 +90,7 @@ const TabMenu: FC<Props> = ({ navigation, photoDataList, favoriteItems }) => {
                       latitude: item.latitude,
                       longitude: item.longitude,
                       photogenic_subject: item.photogenic_subject,
+                      img_index: item.img_index,
                     },
                   })
                 }
