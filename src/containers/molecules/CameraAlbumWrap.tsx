@@ -92,12 +92,12 @@ const useAnimation = () => {
 
 const compressImageAsync = (uri: string): Promise<ImageResult> => {
   return new Promise(async (resolve) => {
-    const actions = [];
+    const actions = [{ resize: { width: 600 } }];
     const manipulatorResult = await ImageManipulator.manipulateAsync(
       uri,
       actions,
       {
-        compress: 0.1,
+        compress: 1,
       }
     );
     console.log("manipulate");
