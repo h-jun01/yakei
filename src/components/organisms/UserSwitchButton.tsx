@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Platform, PlatformIOSStatic, StyleSheet } from "react-native";
 import { Text, View, Button, Icon } from "native-base";
 import { BoxShadow } from "react-native-shadow";
 import BottomNav from "./BottomNav";
@@ -33,9 +33,9 @@ const UserSwitchButtonView: React.FC<{
       <BoxShadow setting={shadowOpt}>
         <Button style={styles.buttonBox} onPress={props.onPressIcon}>
           {props.photoDisplayFlag ? (
-            <Icon style={styles.userIcon} type="FontAwesome5" name="user" />
-          ) : (
             <Icon style={styles.usersIcon} type="FontAwesome5" name="users" />
+          ) : (
+            <Icon style={styles.userIcon} type="FontAwesome5" name="user" />
           )}
         </Button>
       </BoxShadow>
@@ -43,16 +43,18 @@ const UserSwitchButtonView: React.FC<{
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   boxShadowDefault: {
     position: "absolute",
     right: 20,
-    bottom: 170,
+    bottom: platformIOS.isPad ? 270 : 170,
   },
   boxShadowHaveSnap: {
     position: "absolute",
     right: 20,
-    bottom: 370,
+    bottom: platformIOS.isPad ? 500 : 370,
   },
   buttonBox: {
     position: "absolute",

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Platform, PlatformIOSStatic, StyleSheet } from "react-native";
 import { Text, View, Button, Icon } from "native-base";
 import { BoxShadow } from "react-native-shadow";
 import BottomNav from "./BottomNav";
@@ -38,16 +38,18 @@ const LocationButtonView: React.FC<{
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   boxShadowDefault: {
     position: "absolute",
     right: 20,
-    bottom: 100,
+    bottom: platformIOS.isPad ? 200 : 100,
   },
   boxShadowHaveSnap: {
     position: "absolute",
     right: 20,
-    bottom: 300,
+    bottom: platformIOS.isPad ? 430 : 300,
   },
   buttonBox: {
     position: "absolute",
