@@ -34,9 +34,6 @@ const DetailPostedPageItems: FC<Props> = ({ ...props }) => {
           </Text>
           <Text style={styles.favoriteNumber}>{favoriteNumber}</Text>
         </TouchableOpacity>
-        <Text style={styles.location}>
-          <EvilIcons name="location" size={21} />
-        </Text>
       </View>
       <Text style={styles.timeStamp}>{date}</Text>
     </Fragment>
