@@ -24,6 +24,10 @@ if (Platform.OS === "ios") {
   YellowBox.ignoreWarnings(["Setting a timer"]);
 }
 
+YellowBox.ignoreWarnings([
+  "Non-serializable values were found in the navigation state",
+]);
+
 const store = createStore(rootReducer);
 
 const App: FC = () => {
