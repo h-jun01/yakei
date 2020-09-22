@@ -108,7 +108,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     //リサイズ処理
     if (!result.cancelled) {
       const actions: any = [];
-      actions.push({ resize: { width: 350 } });
+      actions.push({ resize: { width: 600 } });
       const manipulatorResult = await ImageManipulator.manipulateAsync(
         result.uri,
         actions,
@@ -145,9 +145,7 @@ const ContainerEditProfile: FC<Props> = ({ ...props }) => {
     //リサイズ処理
     if (!result.cancelled) {
       const actions: any = [];
-      actions.push({
-        resize: { width: deviceWidth },
-      });
+      actions.push({ resize: { width: 600 } });
       const manipulatorResult = await ImageManipulator.manipulateAsync(
         result.uri,
         actions,
