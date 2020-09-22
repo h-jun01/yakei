@@ -102,23 +102,26 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
   const deletingPosts = async () => {
     try {
       setIsLoading(true);
+      // 通知をDBから削除
+      await notificationFireStore.notificationDelete(uid, url).catch((e) => {
+        console.log(e);
+      });
+      // 投稿した写真をストレージから削除
       await photoFireStore
         .removePostPhotoWithStorage(img_index, myUid)
         .catch((e) => {
           console.log(e);
         });
+      // 投稿した写真をコレクションから削除
       await photoFireStore
         .deletingPostedPhoto(photo_id)
-        .then(async () => {
+        .then(() => {
           dispatchPhotoData();
           navigation.goBack();
         })
         .catch((e) => {
           console.log(e);
         });
-      await notificationFireStore.notificationDelete(uid, url).catch((e) => {
-        console.log(e);
-      });
       setIsLoading(false);
     } catch (e) {
       alert(e);

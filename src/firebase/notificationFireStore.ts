@@ -42,9 +42,8 @@ export const notificationFireStore: NotificationFireStore = {
   // 通知を削除
   notificationDelete: async (uid: string, url: string) => {
     await notificationFireStore.getUserNotification(uid).then((res) => {
-      const a = res.filter((value) => value.photo_url === url);
-
-      a.forEach((value) => {
+      const filter = res.filter((value) => value.photo_url === url);
+      filter.forEach((value) => {
         user.doc(uid).collection("notification").doc(value.index).delete();
       });
     });

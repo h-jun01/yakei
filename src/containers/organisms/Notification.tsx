@@ -6,7 +6,6 @@ import { NotificationScreenStackParamList } from "../../screens/NotificationScre
 import { RootState } from "../../reducers/index";
 import { setNotificationDataList } from "../../actions/notification";
 import { db } from "../../firebase/firebase";
-import { notificationFireStore } from "../../firebase/notificationFireStore";
 import Notification from "../../components/organisms/Notification";
 
 type NotificationScreenNavigationProp = StackNavigationProp<
@@ -62,13 +61,6 @@ const ContainerNotification: FC<Props> = ({ navigation }) => {
             case "modified":
               break;
             case "removed":
-              // notificationFireStore.getUserNotification(uid).then((res) => {
-              //   console.log("ok");
-              //   dispatch(setNotificationDataList(res));
-              //   setTemporaryArray(res);
-              // });
-              console.log(product);
-
               break;
             default:
               break;
