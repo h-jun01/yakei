@@ -54,6 +54,7 @@ const ImageList: FC<Props> = ({ ...props }) => {
                 photo_id={item.photo_id}
                 photogenic_subject={item.photogenic_subject}
                 img_index={item.img_index}
+                url={item.url}
               />
               <TouchableOpacity
                 activeOpacity={0.8}

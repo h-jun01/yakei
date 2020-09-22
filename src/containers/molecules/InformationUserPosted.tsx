@@ -13,6 +13,7 @@ import { setAllPhotoListData } from "../../actions/allPhoto";
 import Spinner from "react-native-loading-spinner-overlay";
 import InformationUserPosted from "../../components/molecules/InformationUserPosted";
 import RBSheet from "react-native-raw-bottom-sheet";
+import { notificationFireStore } from "../../firebase/notificationFireStore";
 
 type PostScreenNavigationProp = StackNavigationProp<
   | HomeScreenStackParamList
@@ -26,10 +27,18 @@ type Props = {
   photo_id: string;
   photogenic_subject: string;
   img_index: string;
+  url: string;
 };
 
 const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
-  const { uid, photo_id, photogenic_subject, navigation, img_index } = props;
+  const {
+    uid,
+    photo_id,
+    photogenic_subject,
+    navigation,
+    img_index,
+    url,
+  } = props;
 
   const selectMyuid = (state: RootState) => state.userReducer.uid;
   const selectAllPhotoDataList = (state: RootState) =>
@@ -107,6 +116,9 @@ const InformationUserPostedContainer: FC<Props> = ({ ...props }) => {
         .catch((e) => {
           console.log(e);
         });
+      await notificationFireStore.notificationDelete(uid, url).catch((e) => {
+        console.log(e);
+      });
       setIsLoading(false);
     } catch (e) {
       alert(e);

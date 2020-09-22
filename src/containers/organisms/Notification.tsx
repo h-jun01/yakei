@@ -67,6 +67,8 @@ const ContainerNotification: FC<Props> = ({ navigation }) => {
               //   dispatch(setNotificationDataList(res));
               //   setTemporaryArray(res);
               // });
+              console.log(product);
+
               break;
             default:
               break;

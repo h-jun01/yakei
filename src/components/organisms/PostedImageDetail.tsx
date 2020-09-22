@@ -68,6 +68,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
               photo_id={photo_id}
               photogenic_subject={photogenic_subject}
               img_index={img_index}
+              url={url}
             />
             <Image
               style={{
