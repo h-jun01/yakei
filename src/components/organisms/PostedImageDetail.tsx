@@ -59,6 +59,11 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     aspectRatio,
   } = props;
 
+  const imageHeight =
+    deviceWidth * aspectRatio > deviceWidth * 1.25
+      ? deviceWidth * 1.25
+      : deviceWidth * aspectRatio;
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.allWrap}>
@@ -75,7 +80,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             <Image
               style={{
                 width: deviceWidth,
-                height: deviceWidth * aspectRatio,
+                height: imageHeight,
               }}
               source={{
                 uri: url,

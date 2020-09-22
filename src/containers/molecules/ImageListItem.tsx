@@ -6,6 +6,7 @@ import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
 import { UserScreenStackParamList } from "../../screens/UserScreen";
 import ImageListItem from "../../components/molecules/ImageListItem";
+import Spinner from "react-native-loading-spinner-overlay";
 
 type ImageListScreenNavigationProp = StackNavigationProp<
   | HomeScreenStackParamList
@@ -40,12 +41,23 @@ const ImageListItemContainer: FC<Props> = ({ ...props }) => {
   }, []);
 
   return (
-    <ImageListItem
-      item={item}
-      navigation={navigation}
-      isLast={isLast}
-      aspectRatio={aspectRatio}
-    />
+    <>
+      {!aspectRatio ? (
+        <Spinner
+          visible
+          textContent="読み込み中…"
+          textStyle={{ color: "#fff", fontSize: 13 }}
+          overlayColor="rgba(0,0,0,0.5)"
+        />
+      ) : (
+        <ImageListItem
+          item={item}
+          navigation={navigation}
+          isLast={isLast}
+          aspectRatio={aspectRatio}
+        />
+      )}
+    </>
   );
 };
 
