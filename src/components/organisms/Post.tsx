@@ -19,7 +19,7 @@ type Aspect = {
 type Props = {
   uri: string;
   address: string;
-  aspectRatio: number;
+  imageLength: Aspect;
   scrollViewRef: React.MutableRefObject<ScrollView | null>;
   setSpaceHeight: React.Dispatch<React.SetStateAction<number>>;
   handleContentSizeChange: (width: number, height: number) => void;
@@ -36,7 +36,7 @@ const Post: FC<Props> = ({ ...props }) => {
   const {
     uri,
     address,
-    aspectRatio,
+    imageLength,
     scrollViewRef,
     setSpaceHeight,
     handleContentSizeChange,
@@ -54,13 +54,14 @@ const Post: FC<Props> = ({ ...props }) => {
       ? { color: utilityColor.placeholderText }
       : { color: baseColor.text };
 
-  const height = deviceWidth * aspectRatio;
+  const aspectRatio = imageLength.height / imageLength.width;
 
-  const isImageHeightSmall = height < containerAspect.height;
-  const imageAspect = isImageHeightSmall
+  const fullDisplayHeight = deviceWidth * aspectRatio;
+  const isImageHeightSmall = fullDisplayHeight < containerAspect.height;
+  const previewImgAspect = isImageHeightSmall
     ? {
         width: deviceWidth,
-        height: height,
+        height: fullDisplayHeight,
       }
     : {
         width: containerAspect.height / aspectRatio,
@@ -71,13 +72,18 @@ const Post: FC<Props> = ({ ...props }) => {
     wrap: {
       zIndex: 1,
       position: "absolute",
-      top: isImageHeightSmall ? (containerAspect.height - height) / 2 : 0,
+      top: isImageHeightSmall
+        ? (containerAspect.height - fullDisplayHeight) / 2
+        : 0,
       left: isImageHeightSmall
         ? 0
-        : (containerAspect.width - imageAspect.width) / 2,
+        : (containerAspect.width - previewImgAspect.width) / 2,
       backgroundColor: baseColor.base,
     },
   });
+
+  const heightToDisplay =
+    fullDisplayHeight < deviceWidth ? fullDisplayHeight : deviceWidth;
 
   return (
     <>
@@ -94,8 +100,8 @@ const Post: FC<Props> = ({ ...props }) => {
           >
             <Image
               style={{
-                width: imageAspect.width,
-                height: imageAspect.height,
+                width: previewImgAspect.width,
+                height: previewImgAspect.height,
               }}
               source={{ uri }}
             />
@@ -122,7 +128,7 @@ const Post: FC<Props> = ({ ...props }) => {
             <TouchableOpacity onPress={() => setShouldShowPreview(true)}>
               <Image
                 style={[
-                  { width: deviceWidth, height: deviceWidth },
+                  { width: deviceWidth, height: heightToDisplay },
                   styles.image,
                 ]}
                 source={{ uri }}
