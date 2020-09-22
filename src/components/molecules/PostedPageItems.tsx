@@ -84,9 +84,6 @@ const PostedPageItems: FC<Props> = ({ ...props }) => {
           </Text>
           <Text style={styles.stateNum}>{commentCount}</Text>
         </TouchableOpacity>
-        <Text style={styles.PostIcon}>
-          <EvilIcons name="location" size={iconSize.NormalS} />
-        </Text>
       </View>
       <Text style={styles.timeStamp}>{date}</Text>
     </Fragment>
