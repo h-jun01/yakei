@@ -40,6 +40,11 @@ type Props = {
 const ImageListItem: FC<Props> = ({ ...props }) => {
   const { item, navigation, isLast, aspectRatio } = props;
 
+  const imageHeight =
+    deviceWidth * aspectRatio > deviceWidth * 1.25
+      ? deviceWidth * 1.25
+      : deviceWidth * aspectRatio;
+
   return (
     <View style={isLast ? {} : styles.itemWrap}>
       <InformationUserPosted
@@ -69,7 +74,10 @@ const ImageListItem: FC<Props> = ({ ...props }) => {
         }
       >
         <Image
-          style={styles.imageSize}
+          style={{
+            width: deviceWidth,
+            height: imageHeight,
+          }}
           source={{ uri: item.url }}
           PlaceholderContent={<ActivityIndicator />}
         />
@@ -90,10 +98,6 @@ const ImageListItem: FC<Props> = ({ ...props }) => {
 const styles = StyleSheet.create({
   itemWrap: {
     marginBottom: hp("1.5%"),
-  },
-  imageSize: {
-    width: deviceWidth,
-    height: deviceWidth,
   },
 });
 
