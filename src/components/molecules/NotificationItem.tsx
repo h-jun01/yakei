@@ -19,9 +19,15 @@ type Props = {
   navigation: NotificationScreenNavigationProp;
   item: firebase.firestore.DocumentData;
   data: firebase.firestore.DocumentData | undefined;
+  aspectRatio: number;
 };
 
-const NotificationItem: FC<Props> = ({ navigation, item, data }) => {
+const NotificationItem: FC<Props> = ({
+  navigation,
+  item,
+  data,
+  aspectRatio,
+}) => {
   return (
     <>
       <TouchableOpacity
@@ -38,6 +44,8 @@ const NotificationItem: FC<Props> = ({ navigation, item, data }) => {
                   latitude: data.latitude,
                   longitude: data.longitude,
                   photogenic_subject: data.photogenic_subject,
+                  img_index: data.img_index,
+                  aspectRatio: aspectRatio,
                 },
               })
             : callingAlert("投稿が見つかりませんでした。")

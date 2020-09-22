@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { RootState } from "../../reducers/index";
 import { setNotificationDataList } from "../../actions/notification";
 import { db } from "../../firebase/firebase";
+import { setAspectRatioIntoState } from "../../utilities/imageAspect";
 import NotificationItem from "../../components/molecules/NotificationItem";
 
 type Props = {
@@ -10,6 +11,8 @@ type Props = {
 };
 const NotificationItemContainer: FC<Props> = ({ navigation, item }) => {
   const [data, setData] = useState<firebase.firestore.DocumentData>();
+  const [aspectRatio, setAspectRatio] = useState<number>(0);
+
   useEffect(() => {
     db.collection("photos")
       .where("url", "==", item.photo_url)
@@ -27,7 +30,19 @@ const NotificationItemContainer: FC<Props> = ({ navigation, item }) => {
       });
   }, []);
 
-  return <NotificationItem navigation={navigation} item={item} data={data} />;
+  useEffect(() => {
+    if (!data) return;
+    setAspectRatioIntoState(data.url, setAspectRatio);
+  }, [data]);
+
+  return (
+    <NotificationItem
+      navigation={navigation}
+      item={item}
+      data={data}
+      aspectRatio={aspectRatio}
+    />
+  );
 };
 
 export default NotificationItemContainer;
