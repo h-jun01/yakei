@@ -20,6 +20,7 @@ export type HomeScreenStackParamList = {
       longitude: number;
       photogenic_subject: string;
       img_index: string;
+      aspectRatio: number;
     };
     shouldHeaderLeftBeCross?: boolean;
   };

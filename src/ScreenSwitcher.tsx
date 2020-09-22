@@ -11,7 +11,7 @@ import { newsFireStore } from "./firebase/newsFireStore";
 import { RootState } from "./reducers/index";
 import { loadingStatusChange, loginStatusChange } from "./actions/auth";
 import { setUserData } from "./actions/user";
-import { setPhotoListData } from "./actions/photo";
+import { setPhotoDataList } from "./actions/photo";
 import { setAllPhotoListData } from "./actions/allPhoto";
 import { setNewsDataList } from "./actions/news ";
 import { setNotificationDataList } from "./actions/notification";
@@ -115,7 +115,7 @@ const ScreenSwitcher: FC = () => {
 
   useEffect(() => {
     const filter = allPhotoDataList.filter((value) => value.uid === uid);
-    dispatch(setPhotoListData(filter));
+    dispatch(setPhotoDataList(filter));
   }, [allPhotoDataList]);
 
   useEffect(() => {

@@ -18,13 +18,14 @@ type Props = {
   navigation: any;
   data: PhotoDataList;
   postUserName: string;
+  aspectRatio: number;
 };
 
 const CARD_HEIGHT = 220;
 const CARD_WIDTH = deviceWidth * 0.8;
 
 const Card: FC<Props> = ({ ...props }) => {
-  const { navigation, data, postUserName } = props;
+  const { navigation, data, postUserName, aspectRatio } = props;
   return (
     <TouchableOpacity
       activeOpacity={0.85}
@@ -40,6 +41,7 @@ const Card: FC<Props> = ({ ...props }) => {
             latitude: data.latitude,
             longitude: data.longitude,
             photogenic_subject: data.photogenic_subject,
+            aspectRatio,
           },
         });
       }}

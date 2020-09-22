@@ -37,6 +37,7 @@ type Props = {
   textInputRef: MutableRefObject<TextInput | null>;
   bottomHeight: number;
   img_index: string;
+  aspectRatio: number;
   focusOnInput: () => void;
 };
 
@@ -55,6 +56,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     focusOnInput,
     bottomHeight,
     img_index,
+    aspectRatio,
   } = props;
 
   return (
@@ -73,7 +75,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
             <Image
               style={{
                 width: deviceWidth,
-                height: deviceWidth,
+                height: deviceWidth * aspectRatio,
               }}
               source={{
                 uri: url,
