@@ -1,4 +1,4 @@
-import React, { FC, MutableRefObject } from "react";
+import React, { FC, MutableRefObject, Fragment } from "react";
 import { ScrollView, View, TextInput } from "react-native";
 import { ActivityIndicator, StyleSheet } from "react-native";
 import { Image } from "react-native-elements";
@@ -37,6 +37,9 @@ type Props = {
   bottomHeight: number;
   img_index: string;
   aspectRatio: number;
+  setCommentDataList: React.Dispatch<
+    React.SetStateAction<firebase.firestore.DocumentData[]>
+  >;
   focusOnInput: () => void;
 };
 
@@ -56,6 +59,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
     bottomHeight,
     img_index,
     aspectRatio,
+    setCommentDataList,
   } = props;
 
   const imageHeight =
@@ -98,14 +102,16 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
           <CommentInputField focusOnInput={focusOnInput} />
           {commentDataList !== undefined &&
             commentDataList.map((item, index) => (
-              <View key={index}>
+              <Fragment key={index}>
                 <CommentField
                   uid={item.uid}
+                  name={item.name}
+                  imageUrl={item.imageUrl}
                   message={item.message}
                   create_time={item.create_time}
                   navigation={navigation}
                 />
-              </View>
+              </Fragment>
             ))}
         </View>
       </ScrollView>
@@ -114,6 +120,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
         photo_id={photo_id}
         uid={uid}
         url={url}
+        setCommentDataList={setCommentDataList}
       />
     </View>
   );

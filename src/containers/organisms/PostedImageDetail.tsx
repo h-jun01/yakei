@@ -13,7 +13,7 @@ import { UserScreenStackParamList } from "../../screens/UserScreen";
 import { RootState } from "../../reducers/index";
 import { callingAlert } from "../../utilities/alert";
 import { commentFireStore } from "../../firebase/commentFireStore";
-import { setCommentDataList, setIsInputForm } from "../../actions/postedData";
+import { setIsInputForm } from "../../actions/postedData";
 import { baseColor } from "../../styles/thema/colors";
 import {
   setTabState,
@@ -69,19 +69,20 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   } = route.params.imageData;
   const shouldHeaderLeftBeCross = route.params.shouldHeaderLeftBeCross;
 
-  const selectCommentDataList = (state: RootState) =>
-    state.postedDataReducer.commentDataList;
   const selectBottomHeight = (state: RootState) =>
     state.bottomNavReducer.height;
   const selectMyPhotoDataList = (state: RootState) =>
     state.myPhotoReducer.photoDataList;
 
-  const commentDataList = useSelector(selectCommentDataList);
   const bottomHeight = useSelector(selectBottomHeight);
   const myPhotoDataList = useSelector(selectMyPhotoDataList);
 
   const textInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
+
+  const [commentDataList, setCommentDataList] = useState<
+    firebase.firestore.DocumentData[]
+  >([]);
 
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える
   useEffect(() => {
@@ -110,14 +111,14 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   // コメント取得
   useEffect(() => {
     const emptyCommentDataList = () => {
-      dispatch(setCommentDataList([]));
+      setCommentDataList([]);
     };
     commentFireStore.getCommentDataList(photo_id).then((res) => {
-      dispatch(setCommentDataList(res));
+      res && setCommentDataList(res);
     });
 
     return () => emptyCommentDataList();
-  }, [photo_id, setCommentDataList]);
+  }, []);
 
   useEffect(() => {
     Image.getSize(
@@ -152,6 +153,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
       bottomHeight={bottomHeight}
       img_index={img_index}
       aspectRatio={aspectRatio}
+      setCommentDataList={setCommentDataList}
     />
   );
 };
