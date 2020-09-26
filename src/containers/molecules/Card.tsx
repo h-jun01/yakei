@@ -27,9 +27,6 @@ const CardContainer: FC<Props> = ({ ...props }) => {
 
   // ユーザー名の取得
   const getUserName = (uid: string) => {
-    // isMounted === trueの時はuseState関連の処理を行わないようにする
-    // "Can only update a mounted or mounting component"Warningエラーを起こさないために必要
-    if (!isMounted) return;
     accountFireStore
       .getUserName(uid)
       .then((res: React.SetStateAction<string>) => {
@@ -42,8 +39,13 @@ const CardContainer: FC<Props> = ({ ...props }) => {
 
   useEffect(() => {
     setIsMounted(true);
-    getUserName(data.uid);
-    setAspectRatioIntoState(data.url, setAspectRatio);
+    (() => {
+      // isMounted === trueの時はuseState関連の処理を行わないようにする
+      // "Can only update a mounted or mounting component"Warningエラーを起こさないために必要
+      if (!isMounted) return;
+      getUserName(data.uid);
+      setAspectRatioIntoState(data.url, setAspectRatio);
+    })();
     return () => setIsMounted(false);
   }, [data, isMounted]);
 

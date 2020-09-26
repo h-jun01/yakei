@@ -16,3 +16,18 @@ export const setAspectRatioIntoState = (
     }
   );
 };
+
+export const setImageLengthIntoState = (
+  uri: string,
+  set: React.Dispatch<React.SetStateAction<{ width: number; height: number }>>
+) => {
+  Image.getSize(
+    uri,
+    (width, height) => {
+      set({ width, height });
+    },
+    (error) => {
+      set({ width: 0, height: 0 });
+    }
+  );
+};
