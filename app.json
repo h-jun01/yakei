@@ -22,6 +22,7 @@
       }
     },
     "android": {
+      "useNextNotificationsApi": true,
       "config": {
         "googleMaps": {
           "apiKey": ""

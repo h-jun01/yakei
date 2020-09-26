@@ -15,8 +15,9 @@ import { setPhotoDataList } from "./actions/photo";
 import { setAllPhotoListData } from "./actions/allPhoto";
 import { setNewsDataList } from "./actions/news ";
 import { setNotificationDataList } from "./actions/notification";
-import { Notifications } from "expo";
 import { baseColor } from "./styles/thema/colors";
+import { Notifications } from "expo";
+import { Linking } from "react-native";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import Intro from "./containers/organisms/Intro";
@@ -88,7 +89,7 @@ const ScreenSwitcher: FC = () => {
   };
 
   const _handleNotification = () => {
-    Vibration.vibrate(400);
+    // Vibration.vibrate(400);
   };
 
   useEffect(() => {
