@@ -4,7 +4,6 @@ import { ActivityIndicator, StyleSheet } from "react-native";
 import { Image } from "react-native-elements";
 import { Timestamp } from "@google-cloud/firestore";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { HomeScreenStackParamList } from "../../screens/HomeScreen";
 import { PickUpScreenStackParamList } from "../../screens/PickUpScreen";
@@ -104,6 +103,7 @@ const PostedImageDetail: FC<Props> = ({ ...props }) => {
                   uid={item.uid}
                   message={item.message}
                   create_time={item.create_time}
+                  navigation={navigation}
                 />
               </View>
             ))}

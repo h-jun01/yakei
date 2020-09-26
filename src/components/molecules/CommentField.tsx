@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Image } from "react-native-elements";
 import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
@@ -11,26 +12,38 @@ type Props = {
   postUserImage: string;
   message: string;
   date: string;
+  transitionToAnotherUser: () => void;
 };
 
 const CommentField: FC<Props> = ({ ...props }) => {
-  const { postUserName, postUserImage, message, date } = props;
+  const {
+    postUserName,
+    postUserImage,
+    message,
+    date,
+    transitionToAnotherUser,
+  } = props;
 
   return (
-    <View style={styles.commentBox}>
-      <Image
-        style={styles.userIcon}
-        source={{
-          uri: postUserImage,
-        }}
-        PlaceholderContent={<ActivityIndicator />}
-      />
-      <View style={styles.commentData}>
-        <Text style={styles.userName}>{postUserName}</Text>
-        <Text style={styles.message}>{message}</Text>
-        <Text style={styles.time}>{date}</Text>
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={() => transitionToAnotherUser()}
+    >
+      <View style={styles.commentBox}>
+        <Image
+          style={styles.userIcon}
+          source={{
+            uri: postUserImage,
+          }}
+          PlaceholderContent={<ActivityIndicator />}
+        />
+        <View style={styles.commentData}>
+          <Text style={styles.userName}>{postUserName}</Text>
+          <Text style={styles.message}>{message}</Text>
+          <Text style={styles.time}>{date}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
