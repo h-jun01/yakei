@@ -19,6 +19,7 @@ const UserInputContainer: FC<Props> = ({ ...props }) => {
   const textInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
   const onPress = () => {
+    if (!shouldCoverBtn) return;
     textInputRef.current?.focus();
     dispatch(setShouldDisplayBottomNav(false));
     setShouldCoverBtn(false);
