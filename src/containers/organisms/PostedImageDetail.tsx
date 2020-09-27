@@ -87,7 +87,7 @@ const PostedImageDetailContainer: FC<Props> = ({ route, navigation }) => {
   // 投稿画面から遷移した場合、ヘッダーのボタンを書き換える
   useEffect(() => {
     if (shouldHeaderLeftBeCross === undefined) return;
-    myPhotoDataList.length % 3 === 0 && showInterstitial();
+    myPhotoDataList.length % 2 === 0 && showInterstitial();
     const onPress = () => {
       // スポット画面に遷移
       dispatch(setTabState("スポット"));

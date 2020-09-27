@@ -24,7 +24,7 @@ if (Platform.OS === "ios") {
   YellowBox.ignoreWarnings(["Setting a timer"]);
 }
 
-// console.disableYellowBox = true;
+console.disableYellowBox = true;
 
 const store = createStore(rootReducer);
 

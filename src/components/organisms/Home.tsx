@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useRef } from "react";
 import { StyleSheet, Animated, Dimensions, Platform } from "react-native";
-import { Text, Image, TouchableOpacity, View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import MapViewType, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { Container } from "native-base";
 import { Timestamp } from "@google-cloud/firestore";
