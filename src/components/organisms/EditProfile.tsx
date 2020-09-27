@@ -7,7 +7,7 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { deviceHeight } from "../../utilities/dimensions";
 import UserImage from "../atoms/UserImage";
-import UserInput from "../atoms/UserInput";
+import UserInput from "../../containers/molecules/UserInput";
 import HeaderImage from "../atoms/HeaderImage";
 import Icon from "react-native-vector-icons/FontAwesome";
 

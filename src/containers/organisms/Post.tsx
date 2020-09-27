@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState, useRef } from "react";
 import { View, Image, ScrollView } from "react-native";
 import { TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import { StyleSheet, BackHandler } from "react-native";
+import { Platform, PlatformIOSStatic } from "react-native";
 import type { Dispatch } from "redux";
 import type { NavigationProp } from "@react-navigation/core/lib/typescript/src/types";
 import { useDispatch, useSelector } from "react-redux";
@@ -357,6 +358,7 @@ const PostContainer: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
 const postBtnViewBoxRatio = 1;
 
 const styles = StyleSheet.create({
@@ -370,12 +372,12 @@ const styles = StyleSheet.create({
   // 閉じるボタン内のアイコン
   crossBtnIcon: {
     color: baseColor.text,
-    fontSize: wp("5.6%"),
+    fontSize: platformIOS.isPad ? wp("3%") : wp("5.6%"),
     fontWeight: "bold",
   },
   // 投稿ボタン内のアイコン
   postBtnIcon: {
-    width: wp("5.5%"),
+    width: platformIOS.isPad ? wp("2.9%") : wp("5.5%"),
     aspectRatio: postBtnViewBoxRatio,
   },
 });

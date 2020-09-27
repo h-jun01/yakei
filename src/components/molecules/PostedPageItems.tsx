@@ -97,7 +97,9 @@ const styles = StyleSheet.create({
   postItem: {
     flexDirection: "row",
     alignItems: "center",
-    padding: hp("1%"),
+    paddingTop: hp("1%"),
+    paddingLeft: hp("1%"),
+    paddingBottom: hp(".5%"),
     marginRight: "auto",
   },
   PostIcon: {
@@ -105,18 +107,19 @@ const styles = StyleSheet.create({
     fontSize: Size.Small,
     fontWeight: "500",
     marginRight: wp(".5%"),
-    marginLeft: wp(".5%"),
+    marginLeft: wp("1%"),
   },
   stateNum: {
     color: baseColor.text,
     fontSize: Size.Small,
     fontWeight: "400",
     marginRight: wp("3%"),
+    paddingLeft: wp(".3%"),
   },
   timeStamp: {
     paddingLeft: hp("1.4%"),
     color: baseColor.grayText,
-    fontSize: Size.Small,
+    fontSize: Size.Xsmall,
     fontWeight: "400",
   },
   touchableOpacity: {

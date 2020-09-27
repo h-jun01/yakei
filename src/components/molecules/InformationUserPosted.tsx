@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
-import { Size } from "../../styles/thema/fonts";
+import { Size,iconSize } from "../../styles/thema/fonts";
 import { Image } from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -57,7 +57,7 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
           <Text style={styles.photogenicSubjec}>{photogenic_subject}</Text>
         </View>
         <Text style={styles.dotsVertical} onPress={() => _onOpenActionSheet()}>
-          <MaterialCommunityIcons name="dots-vertical" size={20} />
+          <MaterialCommunityIcons name="dots-vertical" size={iconSize.NormalS} />
         </Text>
       </View>
       <RBSheet
@@ -87,10 +87,10 @@ const InformationUserPosted: FC<Props> = ({ ...props }) => {
 
 const styles = StyleSheet.create({
   userIcon: {
-    width: wp("10%"),
-    height: wp("10%"),
+    width: wp("8%"),
+    height: wp("8%"),
     borderRadius: 180,
-    marginRight: wp("3%"),
+    marginRight: wp("1.5%"),
   },
   userData: {
     flexDirection: "row",
@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
   },
   userName: {
     color: baseColor.text,
-    fontSize: Size.Normal,
-    fontWeight: "600",
+    fontSize: Size.NormalS,
+    fontWeight: "500",
     marginBottom: hp(".3%"),
   },
   photogenicSubjec: {
