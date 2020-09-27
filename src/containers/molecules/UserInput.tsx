@@ -15,19 +15,19 @@ type Props = {
 const UserInputContainer: FC<Props> = ({ ...props }) => {
   const { label, placeholder, value, maxLength, setValue } = props;
   const [aspect, setAspect] = useState({ width: 0, height: 0 });
-  const [shouldCoverBtn, setShouldCoverBtn] = useState(true);
+  const [isCoveredBtn, setIsCoveredBtn] = useState(true);
   const textInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
   const onPress = () => {
-    if (!shouldCoverBtn) return;
-    textInputRef.current?.focus();
     dispatch(setShouldDisplayBottomNav(false));
-    setShouldCoverBtn(false);
+    setIsCoveredBtn(false);
+    textInputRef.current?.focus();
   };
   const onBlur = () => {
     dispatch(setShouldDisplayBottomNav(true));
-    setShouldCoverBtn(true);
+    setIsCoveredBtn(true);
   };
+  const onFocus = () => dispatch(setShouldDisplayBottomNav(false));
   return (
     <UserInput
       label={label}
@@ -39,8 +39,9 @@ const UserInputContainer: FC<Props> = ({ ...props }) => {
       setAspect={setAspect}
       onPress={onPress}
       onBlur={onBlur}
+      onFocus={onFocus}
       textInputRef={textInputRef}
-      shouldCoverBtn={shouldCoverBtn}
+      isCoveredBtn={isCoveredBtn}
     />
   );
 };

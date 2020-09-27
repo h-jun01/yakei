@@ -20,8 +20,9 @@ type Props = {
   setAspect: React.Dispatch<React.SetStateAction<Aspect>>;
   onPress: () => void;
   onBlur: () => void;
+  onFocus: () => void;
   textInputRef: React.RefObject<TextInput>;
-  shouldCoverBtn: boolean;
+  isCoveredBtn: boolean;
 };
 
 const UserInput: FC<Props> = ({ ...props }) => {
@@ -35,16 +36,17 @@ const UserInput: FC<Props> = ({ ...props }) => {
     setAspect,
     onPress,
     onBlur,
+    onFocus,
     textInputRef,
-    shouldCoverBtn,
+    isCoveredBtn,
   } = props;
   return (
     <Fragment>
       {/* インプットの説明 */}
       <Text style={styles.labelItem}>{label}</Text>
-      {shouldCoverBtn ? (
+      {isCoveredBtn ? (
         <TouchableOpacity
-          activeOpacity={1.0}
+          activeOpacity={0.2}
           onPress={() => onPress()}
           style={[
             {
@@ -75,14 +77,11 @@ const UserInput: FC<Props> = ({ ...props }) => {
           });
         }}
         onChangeText={(name) => setValue(name)}
+        onFocus={() => onFocus()}
         onBlur={() => onBlur()}
         style={[
           styles.editInput,
-          shouldCoverBtn
-            ? {
-                marginTop: -aspect.height,
-              }
-            : {},
+          isCoveredBtn ? { marginTop: -aspect.height } : {},
         ]}
       />
     </Fragment>
