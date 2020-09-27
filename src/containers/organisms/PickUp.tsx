@@ -52,25 +52,25 @@ const PickUpContainer: FC<Props> = ({ navigation }) => {
   const pickUpItemList: PickUpItemList[] = [
     {
       title: "渋谷周辺の夜景 9選",
-      time: "2020/09/01",
+      time: "2020/09/27",
       url: require("../../../assets/images/shibuya.jpg"),
       pickUpDataList: squeezeSpot(pickUpDataList, "shibuya"),
     },
     {
-      title: "レインボーブリッジ周辺の夜景 7選",
-      time: "2020/09/01",
+      title: "レインボーブリッジ周辺の夜景 5選",
+      time: "2020/09/27",
       url: require("../../../assets/images/rainbowBridg.jpg"),
       pickUpDataList: squeezeSpot(pickUpDataList, "rainbowBridge"),
     },
     {
-      title: "日本全国の夜景 7選",
-      time: "2020/09/01",
+      title: "日本全国の夜景 6選",
+      time: "2020/09/27",
       url: require("../../../assets/images/japan.jpg"),
       pickUpDataList: squeezeSpot(pickUpDataList, "japan"),
     },
     {
       title: "スカイツリー周辺の夜景 7選",
-      time: "2020/09/01",
+      time: "2020/09/27",
       url: require("../../../assets/images/skytree.jpg"),
       pickUpDataList: squeezeSpot(pickUpDataList, "skytree"),
     },

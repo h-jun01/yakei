@@ -3,13 +3,19 @@ import { Animated } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
 import { RootState } from "../../reducers/index";
-import { deviceWidth, iPhone11Width } from "../../utilities/dimensions";
+import {
+  deviceWidth,
+  iPhone11Width,
+  iPadPro11Width,
+} from "../../utilities/dimensions";
+import { platformIOS } from "../../utilities/judgeIPad";
 import BottomNavItem from "../../components/molecules/BottomNavItem";
 
 const generateAnimatedStyle = (anim) => {
-  const bottomMoveRatio = 1 / iPhone11Width;
+  const standardWidth = platformIOS.isPad ? iPadPro11Width : iPhone11Width;
+  const bottomMoveRatio = 1 / standardWidth;
   const bottomOutputRange = deviceWidth * bottomMoveRatio;
-  const leftMoveRatio = 0.15 / iPhone11Width;
+  const leftMoveRatio = 0.15 / standardWidth;
   const leftOutputRange = deviceWidth * leftMoveRatio;
 
   // フレーム値0から1、1から2にかけて0degから45deg、45degから90degに変化

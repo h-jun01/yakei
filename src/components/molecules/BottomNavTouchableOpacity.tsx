@@ -2,7 +2,12 @@ import React, { FC } from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import type { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import BottomNavItem from "../../containers/molecules/BottomNavItem";
-import { deviceWidth, iPhone11Width } from "../../utilities/dimensions";
+import {
+  deviceWidth,
+  iPhone11Width,
+  iPadPro11Width,
+} from "../../utilities/dimensions";
+import { platformIOS } from "../../utilities/judgeIPad";
 
 type Props = {
   index: number;
@@ -31,9 +36,19 @@ const BottomNavTouchableOpacity: FC<Props> = ({ ...props }) => {
   );
 };
 
-const itemsFloatingRatio = 15 / iPhone11Width;
-const plusBtnBttomRatio = 17 / iPhone11Width;
-const viewboxRatio = 4.4588; // viewbox.width / viewbox.height
+const { itemsFloatingRatio, plusBtnBttomRatio, viewboxRatio } = (() => {
+  if (platformIOS.isPad) {
+    const itemsFloatingRatio = 6 / iPhone11Width;
+    const plusBtnBttomRatio = 8 / iPhone11Width;
+    const viewboxRatio = 10.2966; // width / height
+    return { itemsFloatingRatio, plusBtnBttomRatio, viewboxRatio };
+  } else {
+    const itemsFloatingRatio = 15 / iPhone11Width;
+    const plusBtnBttomRatio = 17 / iPhone11Width;
+    const viewboxRatio = 4.4588; // width / height
+    return { itemsFloatingRatio, plusBtnBttomRatio, viewboxRatio };
+  }
+})();
 
 const styles = StyleSheet.create({
   footerItem: {

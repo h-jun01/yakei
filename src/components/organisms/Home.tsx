@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useRef } from "react";
 import { StyleSheet, Animated, Dimensions, Platform } from "react-native";
-import { Text, Image, TouchableOpacity, View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import MapViewType, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { Container } from "native-base";
 import { Timestamp } from "@google-cloud/firestore";
@@ -20,7 +20,6 @@ import OriginMarker from "../atoms/OriginMarker";
 import geohash from "ngeohash";
 import Spinner from "react-native-loading-spinner-overlay";
 import Card from "../../containers/molecules/Card";
-import { AdMobBanner } from "expo-ads-admob";
 
 type HomeScreenNavigationProp = StackNavigationProp<
   HomeScreenStackParamList,
@@ -345,6 +344,7 @@ const Home: FC<Props> = ({ ...props }) => {
             }}
             photoDisplayFlag={photoDisplayFlag}
             photoSnapFlag={photoSnapFlag}
+            bottomHeight={bottomHeight}
           />
           <LocationButtonView
             onPressIcon={() => {
@@ -352,26 +352,10 @@ const Home: FC<Props> = ({ ...props }) => {
               _map.current.animateToRegion(region);
             }}
             photoSnapFlag={photoSnapFlag}
+            bottomHeight={bottomHeight}
           />
         </>
       )}
-
-      <View style={styles.admod}>
-        <AdMobBanner
-          adUnitID={
-            __DEV__
-              ? "ca-app-pub-3940256099942544/6300978111" // テスト広告
-              : Platform.select({
-                  ios: "広告ユニットID", // iOS
-                  android: "広告ユニットID", // android
-                })
-          }
-          onDidFailToReceiveAdWithError={bannerError}
-          servePersonalizedAds
-          bannerSize="smartBannerPortrait"
-          // 'banner' | 'largeBanner' | 'mediumRectangle' | 'fullBanner' | 'leaderboard' | 'smartBannerPortrait' | 'smartBannerLandscape';
-        />
-      </View>
     </Container>
   );
 };
