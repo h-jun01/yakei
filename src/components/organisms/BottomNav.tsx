@@ -6,7 +6,9 @@ import {
   deviceWidth,
   deviceHeight,
   iPhone11Width,
+  iPadPro11Width,
 } from "../../utilities/dimensions";
+import { platformIOS } from "../../utilities/judgeIPad";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import BottomNavTouchableOpacity from "../../containers/molecules/BottomNavTouchableOpacity";
 import WhiteWrap from "../../containers/atoms/WhiteWrap";
@@ -40,6 +42,9 @@ const BottomNav: FC<Props> = ({ ...props }) => {
     onPressOut,
   } = props;
   const postScreenIndex = 4;
+  const btmNavBgSrc = platformIOS.isPad
+    ? require("../../../assets/tabletBottomNavBackground.png")
+    : require("../../../assets/bottomNavBackground.png");
 
   return (
     <>
@@ -61,7 +66,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
         >
           <Image
             style={{ width: "100%", height: "100%" }}
-            source={require("../../../assets/bottomNavBackground.png")}
+            source={btmNavBgSrc}
           />
         </View>
         <View style={styles.cameraAndAlbumWrap}>
@@ -99,10 +104,21 @@ const BottomNav: FC<Props> = ({ ...props }) => {
   );
 };
 
-const itemsFloatingRatio = 4 / iPhone11Width;
-const viewboxRatio = 4.4588; // width / height
-const footerBgBtmRatio = -19.5 / iPhone11Width;
-const footerBgBtm = deviceWidth * footerBgBtmRatio;
+const { itemsFloatingRatio, viewboxRatio, footerBgBtm } = (() => {
+  if (platformIOS.isPad) {
+    const itemsFloatingRatio = 4 / iPadPro11Width;
+    const viewboxRatio = 10.2966; // width / height
+    const footerBgBtmRatio = -14 / iPadPro11Width;
+    const footerBgBtm = deviceWidth * footerBgBtmRatio;
+    return { itemsFloatingRatio, viewboxRatio, footerBgBtmRatio, footerBgBtm };
+  } else {
+    const itemsFloatingRatio = 4 / iPhone11Width;
+    const viewboxRatio = 4.4588; // width / height
+    const footerBgBtmRatio = -19.5 / iPhone11Width;
+    const footerBgBtm = deviceWidth * footerBgBtmRatio;
+    return { itemsFloatingRatio, viewboxRatio, footerBgBtmRatio, footerBgBtm };
+  }
+})();
 
 const styles = StyleSheet.create({
   container: {
