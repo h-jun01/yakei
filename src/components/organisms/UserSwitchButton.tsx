@@ -9,11 +9,8 @@ const UserSwitchButtonView: React.FC<{
   onPressIcon: () => void;
   photoDisplayFlag: boolean;
   photoSnapFlag: boolean;
-}> = (props: {
-  onPressIcon: () => void;
-  photoDisplayFlag: boolean;
-  photoSnapFlag: boolean;
-}) => {
+  bottomHeight: number;
+}> = ({ ...props }) => {
   const shadowOpt = {
     width: 50,
     height: 50,
@@ -27,9 +24,10 @@ const UserSwitchButtonView: React.FC<{
       ? styles.boxShadowHaveSnap
       : styles.boxShadowDefault,
   };
+  const { bottomHeight } = props;
 
   return (
-    <View style={{ position: "absolute", right: "0%", bottom: "0%" }}>
+    <View style={{ position: "absolute", right: "0%", bottom: bottomHeight }}>
       <BoxShadow setting={shadowOpt}>
         <Button style={styles.buttonBox} onPress={props.onPressIcon}>
           {props.photoDisplayFlag ? (
@@ -49,12 +47,12 @@ const styles = StyleSheet.create({
   boxShadowDefault: {
     position: "absolute",
     right: 20,
-    bottom: platformIOS.isPad ? 270 : 170,
+    bottom: platformIOS.isPad ? 60 : 80,
   },
   boxShadowHaveSnap: {
     position: "absolute",
     right: 20,
-    bottom: platformIOS.isPad ? 500 : 370,
+    bottom: platformIOS.isPad ? 410 : 290,
   },
   buttonBox: {
     position: "absolute",

@@ -344,6 +344,7 @@ const Home: FC<Props> = ({ ...props }) => {
             }}
             photoDisplayFlag={photoDisplayFlag}
             photoSnapFlag={photoSnapFlag}
+            bottomHeight={bottomHeight}
           />
           <LocationButtonView
             onPressIcon={() => {
@@ -351,6 +352,7 @@ const Home: FC<Props> = ({ ...props }) => {
               _map.current.animateToRegion(region);
             }}
             photoSnapFlag={photoSnapFlag}
+            bottomHeight={bottomHeight}
           />
         </>
       )}
