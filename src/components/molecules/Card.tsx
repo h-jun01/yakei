@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { Timestamp } from "@google-cloud/firestore";
 import { deviceWidth } from "../../utilities/dimensions";
 import { baseColor } from "../../styles/thema/colors";
@@ -20,9 +21,6 @@ type Props = {
   postUserName: string;
   aspectRatio: number;
 };
-
-const CARD_HEIGHT = 220;
-const CARD_WIDTH = deviceWidth * 0.8;
 
 const Card: FC<Props> = ({ ...props }) => {
   const { navigation, data, postUserName, aspectRatio } = props;
@@ -64,6 +62,10 @@ const Card: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+const CARD_HEIGHT = platformIOS.isPad ? 350 : 220;
+const CARD_WIDTH = deviceWidth * 0.8;
+
 const styles = StyleSheet.create({
   card: {
     elevation: 2,
@@ -89,10 +91,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   cardText: {
-    fontSize: 17,
+    fontSize: platformIOS.isPad ? 23 : 17,
     color: baseColor.text,
     fontWeight: "bold",
-    padding: 15,
+    padding: platformIOS.isPad ? 25 : 15,
   },
   cardTextSub: {
     fontWeight: "normal",
