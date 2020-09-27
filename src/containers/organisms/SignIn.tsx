@@ -78,6 +78,11 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
 
       setIsLoading(true);
 
+      if (result.type === "cancel") {
+        setIsLoading(false);
+        return;
+      }
+
       if (result.type === "success") {
         await accountFireStore
           .loginGoogleUser(
