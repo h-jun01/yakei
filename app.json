@@ -14,6 +14,9 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
+    "notification": {
+      "icon": "./assets/icon2.png"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.codingmechanic.mapcuny",
