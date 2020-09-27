@@ -7,7 +7,7 @@ import { FieldValue } from "../../firebase/firebase";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { commentFireStore } from "../../firebase/commentFireStore";
 import { notificationFireStore } from "../../firebase/notificationFireStore";
-import { setIsInputForm, setCommentDataList } from "../../actions/postedData";
+import { setIsInputForm } from "../../actions/postedData";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { sendPushCommentNotification } from "../../utilities/sendPushNotification";
 import KeyboardInputView from "../../components/molecules/KeyboardInputView";
@@ -17,10 +17,13 @@ type Props = {
   photo_id: string;
   uid: string;
   url: string;
+  setCommentDataList: React.Dispatch<
+    React.SetStateAction<firebase.firestore.DocumentData[]>
+  >;
 };
 
 const KeyboardInputViewContainer: FC<Props> = ({ ...props }) => {
-  const { textInputRef, photo_id, uid, url } = props;
+  const { textInputRef, photo_id, uid, url, setCommentDataList } = props;
 
   const selectopponentUid = (state: RootState) => state.userReducer.uid;
   const selectOpponentUrl = (state: RootState) => state.userReducer.userImg;
@@ -42,10 +45,16 @@ const KeyboardInputViewContainer: FC<Props> = ({ ...props }) => {
       return;
     } else {
       await commentFireStore
-        .postedComment(photo_id, opponentUid, inputValue)
-        .then(() => {
-          commentFireStore.getCommentDataList(photo_id).then((res) => {
-            dispatch(setCommentDataList(res));
+        .postedComment(
+          photo_id,
+          opponentUid,
+          inputValue,
+          opponentName,
+          opponentUrl
+        )
+        .then(async () => {
+          await commentFireStore.getCommentDataList(photo_id).then((res) => {
+            setCommentDataList(res);
           });
         });
 

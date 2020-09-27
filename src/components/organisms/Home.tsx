@@ -20,6 +20,7 @@ import OriginMarker from "../atoms/OriginMarker";
 import geohash from "ngeohash";
 import Spinner from "react-native-loading-spinner-overlay";
 import Card from "../../containers/molecules/Card";
+import { AdMobBanner } from "expo-ads-admob";
 
 type HomeScreenNavigationProp = StackNavigationProp<
   HomeScreenStackParamList,
@@ -50,6 +51,10 @@ const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
+
+const bannerError = () => {
+  console.log("Ad Fail error");
+};
 
 let mapIndex = 0;
 let regionTimeout;
@@ -350,6 +355,23 @@ const Home: FC<Props> = ({ ...props }) => {
           />
         </>
       )}
+
+      <View style={styles.admod}>
+        <AdMobBanner
+          adUnitID={
+            __DEV__
+              ? "ca-app-pub-3940256099942544/6300978111" // テスト広告
+              : Platform.select({
+                  ios: "広告ユニットID", // iOS
+                  android: "広告ユニットID", // android
+                })
+          }
+          onDidFailToReceiveAdWithError={bannerError}
+          servePersonalizedAds
+          bannerSize="smartBannerPortrait"
+          // 'banner' | 'largeBanner' | 'mediumRectangle' | 'fullBanner' | 'leaderboard' | 'smartBannerPortrait' | 'smartBannerLandscape';
+        />
+      </View>
     </Container>
   );
 };
@@ -360,6 +382,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     paddingVertical: 10,
+  },
+  admod: {
+    alignItems: "center",
+    width: "100%",
   },
 });
 export default Home;

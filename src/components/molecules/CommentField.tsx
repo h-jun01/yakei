@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { Platform, PlatformIOSStatic } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Image } from "react-native-elements";
 import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
@@ -11,28 +13,42 @@ type Props = {
   postUserImage: string;
   message: string;
   date: string;
+  transitionToAnotherUser: () => void;
 };
 
 const CommentField: FC<Props> = ({ ...props }) => {
-  const { postUserName, postUserImage, message, date } = props;
+  const {
+    postUserName,
+    postUserImage,
+    message,
+    date,
+    transitionToAnotherUser,
+  } = props;
 
   return (
-    <View style={styles.commentBox}>
-      <Image
-        style={styles.userIcon}
-        source={{
-          uri: postUserImage,
-        }}
-        PlaceholderContent={<ActivityIndicator />}
-      />
-      <View style={styles.commentData}>
-        <Text style={styles.userName}>{postUserName}</Text>
-        <Text style={styles.message}>{message}</Text>
-        <Text style={styles.time}>{date}</Text>
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={() => transitionToAnotherUser()}
+    >
+      <View style={styles.commentBox}>
+        <Image
+          style={styles.userIcon}
+          source={{
+            uri: postUserImage,
+          }}
+          PlaceholderContent={<ActivityIndicator />}
+        />
+        <View style={styles.commentData}>
+          <Text style={styles.userName}>{postUserName}</Text>
+          <Text style={styles.message}>{message}</Text>
+          <Text style={styles.time}>{date}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
+
+const platformIOS = Platform as PlatformIOSStatic;
 
 const styles = StyleSheet.create({
   commentBox: {
@@ -55,14 +71,16 @@ const styles = StyleSheet.create({
     color: baseColor.text,
     fontWeight: "600",
     marginBottom: hp("1%"),
+    fontSize: platformIOS.isPad ? Size.Small : Size.Normal,
   },
   message: {
     color: "#e0e0e0",
     marginBottom: hp(".8%"),
     width: wp("80%"),
+    fontSize: platformIOS.isPad ? Size.Small : Size.Normal,
   },
   time: {
-    fontSize: Size.Small,
+    fontSize: platformIOS.isPad ? Size.Xxsmall : Size.Small,
     color: "#C0C0C0",
   },
 });
