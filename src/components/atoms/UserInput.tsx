@@ -1,9 +1,14 @@
 import React, { FC, Fragment } from "react";
 import { Platform, PlatformIOSStatic } from "react-native";
-import { Text, TextInput, StyleSheet } from "react-native";
+import { Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+
+type Aspect = {
+  width: number;
+  height: number;
+};
 
 type Props = {
   label: string;
@@ -11,15 +16,49 @@ type Props = {
   value: string;
   maxLength: number;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  aspect: Aspect;
+  setAspect: React.Dispatch<React.SetStateAction<Aspect>>;
+  onPress: () => void;
+  onBlur: () => void;
+  textInputRef: React.RefObject<TextInput>;
+  shouldCoverBtn: boolean;
 };
 
 const UserInput: FC<Props> = ({ ...props }) => {
-  const { label, placeholder, value, setValue, maxLength } = props;
+  const {
+    label,
+    placeholder,
+    value,
+    maxLength,
+    setValue,
+    aspect,
+    setAspect,
+    onPress,
+    onBlur,
+    textInputRef,
+    shouldCoverBtn,
+  } = props;
   return (
     <Fragment>
       {/* インプットの説明 */}
       <Text style={styles.labelItem}>{label}</Text>
+      {shouldCoverBtn ? (
+        <TouchableOpacity
+          activeOpacity={1.0}
+          onPress={() => onPress()}
+          style={[
+            {
+              zIndex: 1,
+              width: aspect.width,
+              height: aspect.height,
+            },
+          ]}
+        />
+      ) : (
+        <></>
+      )}
       <TextInput
+        ref={textInputRef}
         value={value}
         placeholder={placeholder}
         keyboardType="default"
@@ -29,8 +68,22 @@ const UserInput: FC<Props> = ({ ...props }) => {
         editable={true}
         maxLength={maxLength}
         placeholderTextColor={utilityColor.placeholderText}
+        onLayout={(e) => {
+          setAspect({
+            width: e.nativeEvent.layout.width,
+            height: e.nativeEvent.layout.height,
+          });
+        }}
         onChangeText={(name) => setValue(name)}
-        style={styles.editInput}
+        onBlur={() => onBlur()}
+        style={[
+          styles.editInput,
+          shouldCoverBtn
+            ? {
+                marginTop: -aspect.height,
+              }
+            : {},
+        ]}
       />
     </Fragment>
   );
