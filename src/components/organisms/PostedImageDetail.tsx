@@ -133,7 +133,6 @@ const styles = StyleSheet.create({
   },
   allWrap: {
     width: wp("100%"),
-    paddingBottom: 101,
   },
 });
 
