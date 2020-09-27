@@ -45,6 +45,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
   const btmNavBgSrc = platformIOS.isPad
     ? require("../../../assets/tabletBottomNavBackground.png")
     : require("../../../assets/bottomNavBackground.png");
+  const safeAreaMarginBtm = platformIOS.isPad ? -7 : -21;
 
   return (
     <>
@@ -96,7 +97,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
         style={[
           { backgroundColor: baseColor.darkNavy },
           shouldDisplay ? {} : { display: "none" },
-          safeAreaHeihgt === 0 ? {} : { marginBottom: -21 },
+          safeAreaHeihgt === 0 ? {} : { marginBottom: safeAreaMarginBtm },
         ]}
         onLayout={(e) => onLayoutSafeAreaHeight(e.nativeEvent.layout.height)}
       />
