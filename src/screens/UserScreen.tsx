@@ -5,7 +5,7 @@ import { baseColor } from "../styles/thema/colors";
 import User from "../containers/organisms/User";
 import Setting from "../containers/organisms/Setting";
 import EditProfile from "../containers/organisms/EditProfile";
-import PasswordReset from "../components/organisms/PasswordReset";
+import PasswordReset from "../containers/organisms/PasswordReset";
 import News from "../containers/organisms/News";
 import Help from "../components/organisms/Help";
 import Faq from "../containers/organisms/Faq";

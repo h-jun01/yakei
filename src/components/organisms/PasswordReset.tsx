@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from "react";
 import { Platform, PlatformIOSStatic } from "react-native";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { AdMobBanner } from "expo-ads-admob";
 import { accountFireStore } from "../../firebase/accountFireStore";
 import { useInput } from "../../utilities/hooks/input";
@@ -10,17 +10,57 @@ import { baseColor, utilityColor } from "../../styles/thema/colors";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
+type Aspect = {
+  width: number;
+  height: number;
+};
+
+type Props = {
+  onPress: () => void;
+  onBlur: () => void;
+  onFocus: () => void;
+  aspect: Aspect;
+  setAspect: React.Dispatch<React.SetStateAction<Aspect>>;
+  textInputRef: React.RefObject<Hoshi>;
+  isCoveredBtn: boolean;
+};
+
 const bannerError = () => {
   console.log("Ad Fail error");
 };
 
-const PasswordReset: FC = () => {
+const PasswordReset: FC<Props> = ({ ...props }) => {
+  const {
+    onPress,
+    onBlur,
+    onFocus,
+    aspect,
+    setAspect,
+    textInputRef,
+    isCoveredBtn,
+  } = props;
   const email = useInput("");
   return (
     <Fragment>
       <View style={styles.container}>
         <View style={styles.passwdChangeWrap}>
+          {isCoveredBtn ? (
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={() => onPress()}
+              style={[
+                {
+                  zIndex: 1,
+                  width: aspect.width,
+                  height: aspect.height,
+                },
+              ]}
+            />
+          ) : (
+            <></>
+          )}
           <Hoshi
+            ref={textInputRef}
             //先頭文字を大文字にしない
             autoCapitalize={"none"}
             //キーボードの設定
@@ -33,6 +73,15 @@ const PasswordReset: FC = () => {
             inputPadding={platformIOS.isPad ? wp("3%") : wp("2.5%")}
             inputStyle={styles.passwdInput}
             labelStyle={styles.passwdLabel}
+            style={isCoveredBtn ? { marginTop: -aspect.height } : {}}
+            onFocus={() => onFocus()}
+            onBlur={() => onBlur()}
+            onLayout={(e) => {
+              setAspect({
+                width: e.nativeEvent.layout.width,
+                height: e.nativeEvent.layout.height,
+              });
+            }}
             {...email}
           />
           <Text
