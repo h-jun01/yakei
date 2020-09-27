@@ -75,7 +75,9 @@ const ContainerAuth: FC<Props> = ({ navigation }) => {
         iosClientId: env.IOS_CLIENT_ID,
         scopes: ["profile", "email"],
       });
+
       setIsLoading(true);
+
       if (result.type === "success") {
         await accountFireStore
           .loginGoogleUser(
