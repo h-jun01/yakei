@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { Image } from "react-native-elements";
 import { baseColor } from "../../styles/thema/colors";
 import { Size } from "../../styles/thema/fonts";
@@ -30,6 +31,8 @@ const CommentInputField: FC<Props> = ({ userImage, focusOnInput }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   commentInputField: {
     flexDirection: "row",
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     width: wp("80%"),
-    minHeight: 30,
+    minHeight: platformIOS.isPad ? 70 : 30,
     borderRadius: 15,
     paddingVertical: hp("1.3%"),
     paddingLeft: wp("3%"),
@@ -52,6 +55,7 @@ const styles = StyleSheet.create({
   tapInputText: {
     width: wp("100%"),
     color: "#505050",
+    fontSize: platformIOS.isPad ? Size.Xsmall : Size.Normal,
   },
   userIcon: {
     width: wp("10%"),
