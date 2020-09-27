@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { Platform, PlatformIOSStatic } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Image } from "react-native-elements";
 import { baseColor } from "../../styles/thema/colors";
@@ -47,6 +48,8 @@ const CommentField: FC<Props> = ({ ...props }) => {
   );
 };
 
+const platformIOS = Platform as PlatformIOSStatic;
+
 const styles = StyleSheet.create({
   commentBox: {
     flexDirection: "row",
@@ -68,14 +71,16 @@ const styles = StyleSheet.create({
     color: baseColor.text,
     fontWeight: "600",
     marginBottom: hp("1%"),
+    fontSize: platformIOS.isPad ? Size.Small : Size.Normal,
   },
   message: {
     color: "#e0e0e0",
     marginBottom: hp(".8%"),
     width: wp("80%"),
+    fontSize: platformIOS.isPad ? Size.Small : Size.Normal,
   },
   time: {
-    fontSize: Size.Small,
+    fontSize: platformIOS.isPad ? Size.Xxsmall : Size.Small,
     color: "#C0C0C0",
   },
 });

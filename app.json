@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash1.png",
       "resizeMode": "cover",
       "backgroundColor": "#181f32"
     },
@@ -14,6 +14,9 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
+    "notification": {
+      "icon": "./assets/icon2.png"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.codingmechanic.mapcuny",
