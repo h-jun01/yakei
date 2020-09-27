@@ -115,7 +115,14 @@ const ContainerSignUp: FC<Props> = ({ navigation }) => {
         iosClientId: env.IOS_CLIENT_ID,
         scopes: ["profile", "email"],
       });
+
       setIsLoading(true);
+
+      if (result.type === "cancel") {
+        setIsLoading(false);
+        return;
+      }
+
       if (result.type === "success") {
         await accountFireStore
           .loginGoogleUser(

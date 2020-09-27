@@ -20,7 +20,6 @@ import OriginMarker from "../atoms/OriginMarker";
 import geohash from "ngeohash";
 import Spinner from "react-native-loading-spinner-overlay";
 import Card from "../../containers/molecules/Card";
-import { AdMobBanner } from "expo-ads-admob";
 
 type HomeScreenNavigationProp = StackNavigationProp<
   HomeScreenStackParamList,
@@ -355,23 +354,6 @@ const Home: FC<Props> = ({ ...props }) => {
           />
         </>
       )}
-
-      <View style={styles.admod}>
-        <AdMobBanner
-          adUnitID={
-            __DEV__
-              ? "ca-app-pub-3940256099942544/6300978111" // テスト広告
-              : Platform.select({
-                  ios: "広告ユニットID", // iOS
-                  android: "広告ユニットID", // android
-                })
-          }
-          onDidFailToReceiveAdWithError={bannerError}
-          servePersonalizedAds
-          bannerSize="smartBannerPortrait"
-          // 'banner' | 'largeBanner' | 'mediumRectangle' | 'fullBanner' | 'leaderboard' | 'smartBannerPortrait' | 'smartBannerLandscape';
-        />
-      </View>
     </Container>
   );
 };
