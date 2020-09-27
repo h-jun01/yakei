@@ -8,7 +8,8 @@ import BottomNav from "./BottomNav";
 const LocationButtonView: React.FC<{
   onPressIcon: () => void;
   photoSnapFlag: boolean;
-}> = (props: { onPressIcon: () => void; photoSnapFlag: boolean }) => {
+  bottomHeight: number;
+}> = ({ ...props }) => {
   const shadowOpt = {
     width: 50,
     height: 50,
@@ -22,9 +23,10 @@ const LocationButtonView: React.FC<{
       ? styles.boxShadowHaveSnap
       : styles.boxShadowDefault,
   };
+  const { bottomHeight } = props;
 
   return (
-    <View style={{ position: "absolute", right: "0%", bottom: "0%" }}>
+    <View style={{ position: "absolute", right: "0%", bottom: bottomHeight }}>
       <BoxShadow setting={shadowOpt}>
         <Button style={styles.buttonBox} onPress={props.onPressIcon}>
           <Icon
@@ -44,12 +46,12 @@ const styles = StyleSheet.create({
   boxShadowDefault: {
     position: "absolute",
     right: 20,
-    bottom: platformIOS.isPad ? 200 : 100,
+    bottom: platformIOS.isPad ? -10 : 10,
   },
   boxShadowHaveSnap: {
     position: "absolute",
     right: 20,
-    bottom: platformIOS.isPad ? 430 : 300,
+    bottom: platformIOS.isPad ? 340 : 220,
   },
   buttonBox: {
     position: "absolute",
