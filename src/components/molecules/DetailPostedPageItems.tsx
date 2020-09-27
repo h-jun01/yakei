@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { baseColor } from "../../styles/thema/colors";
-import { Size } from "../../styles/thema/fonts";
+import { Size,iconSize } from "../../styles/thema/fonts";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
@@ -27,9 +27,9 @@ const DetailPostedPageItems: FC<Props> = ({ ...props }) => {
         >
           <Text style={styles.favorite}>
             {isFavoriteStatus ? (
-              <AntDesign name="heart" size={15} color="#E0245E" />
+              <AntDesign name="heart" size={iconSize.Small} color="#E0245E" />
             ) : (
-              <AntDesign name="hearto" size={15} />
+                <AntDesign name="hearto" size={iconSize.Small} />
             )}
           </Text>
           <Text style={styles.favoriteNumber}>{favoriteNumber}</Text>
@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
     color: baseColor.text,
     fontSize: Size.Small,
     fontWeight: "500",
-    marginRight: wp(".5%"),
-    marginLeft: wp(".5%"),
+    marginRight: wp("1%"),
+    marginLeft: wp(".3%"),
   },
   favoriteNumber: {
     color: baseColor.text,
-    fontSize: Size.Small,
+    fontSize: Size.NormalS,
     fontWeight: "400",
     marginRight: wp("5%"),
   },
