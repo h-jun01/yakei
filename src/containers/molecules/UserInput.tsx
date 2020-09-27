@@ -2,7 +2,7 @@ import React, { FC, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { setShouldDisplayBottomNav } from "../../actions/bottomNav";
 import { TextInput } from "react-native";
-import UserInput from "../../components/atoms/UserInput";
+import UserInput from "../../components/molecules/UserInput";
 
 type Props = {
   label: string;
