@@ -119,6 +119,8 @@ const { itemsFloatingRatio, viewboxRatio, footerBgBtm } = (() => {
     return { itemsFloatingRatio, viewboxRatio, footerBgBtmRatio, footerBgBtm };
   }
 })();
+const btmNavPaddingRatio = 120 / iPadPro11Width;
+const btmNavPadding = deviceWidth * btmNavPaddingRatio;
 
 const styles = StyleSheet.create({
   container: {
@@ -153,6 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     bottom: deviceWidth * itemsFloatingRatio,
     width: deviceWidth,
+    paddingHorizontal: platformIOS.isPad ? btmNavPadding : 0,
   },
 });
 
