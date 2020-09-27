@@ -1,5 +1,5 @@
 import React, { FC, useRef, useState } from "react";
-import { Animated } from "react-native";
+import { Platform, PlatformIOSStatic, Animated } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import type { BottomTabBarProps as Props } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import { RootState } from "../../reducers/index";
@@ -7,6 +7,7 @@ import { setShouldAppearPostBtns } from "../../actions/cameraAndAlbum";
 import { setBottomNavHeight } from "../../actions/bottomNav";
 import { deviceWidth, iPhone11Width } from "../../utilities/dimensions";
 import BottomNav from "../../components/organisms/BottomNav";
+import IPadBottomNav from "../../components/organisms/IPadBottomNav";
 
 const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
   const dispatch = useDispatch();
@@ -49,21 +50,41 @@ const BottomNavContainer: FC<Props> = ({ state, descriptors, navigation }) => {
 
   const onPressOut = () => dispatch(setShouldAppearPostBtns(false));
 
-  return (
-    <BottomNav
-      state={state}
-      descriptors={descriptors}
-      navigation={navigation}
-      shouldDisplay={shouldDisplay}
-      shouldAppearBtns={shouldAppearBtns}
-      whiteWrapAnim={whiteWrapAnim}
-      opacityAnim={opacityAnim}
-      safeAreaHeihgt={safeAreaHeihgt}
-      onLayoutBtmNvBg={onLayoutBtmNvBg}
-      onLayoutSafeAreaHeight={onLayoutSafeAreaHeight}
-      onPressOut={onPressOut}
-    />
-  );
+  const platformIOS =
+    Platform.OS === "ios" ? (Platform as PlatformIOSStatic) : { isPad: false };
+  if (platformIOS.isPad) {
+    return (
+      <IPadBottomNav
+        state={state}
+        descriptors={descriptors}
+        navigation={navigation}
+        shouldDisplay={shouldDisplay}
+        shouldAppearBtns={shouldAppearBtns}
+        whiteWrapAnim={whiteWrapAnim}
+        opacityAnim={opacityAnim}
+        safeAreaHeihgt={safeAreaHeihgt}
+        onLayoutBtmNvBg={onLayoutBtmNvBg}
+        onLayoutSafeAreaHeight={onLayoutSafeAreaHeight}
+        onPressOut={onPressOut}
+      />
+    );
+  } else {
+    return (
+      <BottomNav
+        state={state}
+        descriptors={descriptors}
+        navigation={navigation}
+        shouldDisplay={shouldDisplay}
+        shouldAppearBtns={shouldAppearBtns}
+        whiteWrapAnim={whiteWrapAnim}
+        opacityAnim={opacityAnim}
+        safeAreaHeihgt={safeAreaHeihgt}
+        onLayoutBtmNvBg={onLayoutBtmNvBg}
+        onLayoutSafeAreaHeight={onLayoutSafeAreaHeight}
+        onPressOut={onPressOut}
+      />
+    );
+  }
 };
 
 export default BottomNavContainer;

@@ -5,7 +5,7 @@ import { baseColor } from "../../styles/thema/colors";
 import {
   deviceWidth,
   deviceHeight,
-  iPhone11Width,
+  iPadPro11Width,
 } from "../../utilities/dimensions";
 import CameraAlbumWrap from "../../containers/molecules/CameraAlbumWrap";
 import BottomNavTouchableOpacity from "../../containers/molecules/BottomNavTouchableOpacity";
@@ -61,7 +61,7 @@ const BottomNav: FC<Props> = ({ ...props }) => {
         >
           <Image
             style={{ width: "100%", height: "100%" }}
-            source={require("../../../assets/bottomNavBackground.png")}
+            source={require("../../../assets/tabletBottomNavBackground.png")}
           />
         </View>
         <View style={styles.cameraAndAlbumWrap}>
@@ -99,9 +99,9 @@ const BottomNav: FC<Props> = ({ ...props }) => {
   );
 };
 
-const itemsFloatingRatio = 4 / iPhone11Width;
-const viewboxRatio = 4.4588; // width / height
-const footerBgBtmRatio = -19.5 / iPhone11Width;
+const itemsFloatingRatio = 4 / iPadPro11Width;
+const viewboxRatio = 10.2966; // width / height
+const footerBgBtmRatio = -14 / iPadPro11Width;
 const footerBgBtm = deviceWidth * footerBgBtmRatio;
 
 const styles = StyleSheet.create({
